@@ -3,6 +3,12 @@
 > **Para o assistente:** leia este arquivo e `index.html` antes de qualquer alteração.
 > Ele registra decisões, restrições e pendências que **não estão dedutíveis do código**.
 
+> 📍 **O projeto mudou de lugar e agora tem git.**
+> Pasta de trabalho: **`C:\Users\-User-\Documents\dr_lp2`**
+> Remoto: **https://github.com/samuelpaulogc-png/dr_lp2** (público, por decisão do usuário)
+> A pasta antiga (`D:\Meus Documentos\Downloads\RG - PAGE`) **está num disco com falha física
+> e não deve mais ser usada** — ver "Incidente de disco" nas notas técnicas.
+
 ## Arquivos
 
 | Arquivo | Papel |
@@ -10,9 +16,14 @@
 | `index.html` | **A entrega.** Landing page completa, arquivo único (HTML + CSS em `<style>` + JS inline). |
 | `COPY.md` | Copy original aprovada. Fonte da verdade do texto. (No disco o nome é maiúsculo — em deploy Linux isso importa.) |
 | `design-system.html` | Design system (cores, tipografia, componentes). Fonte da verdade visual. |
-| `_comparacao-mecanismo.html` | **Temporário, já cumpriu a função.** Doze tratamentos da seção "A virada". O usuário escolheu o **E**, que já está no `index.html`. **Pode apagar** — não apaguei por conta própria. |
-| `_variacoes-reforco.html` · `_variacoes-paragrafo.html` · `_variacoes-resumo.html` | **Temporários, já cumpriram a função.** Comparativos de 03/09/2026. **Podem apagar.** |
+| `index-dark.html` | **Só para avaliação.** A página inteira em tons escuros, dentro da paleta da marca. Gerado por `gerar-dark.py` — **não editar à mão**, senão a próxima geração sobrescreve. |
+| `gerar-dark.py` | Regenera o `index-dark.html` a partir do `index.html`. Rodar sempre que o principal mudar. |
+| `assets/Logos/` | 6 arquivos: `rg_hrz` (horizontal), `rg_vrt` (vertical), `rg_ico` (só o símbolo), cada um em `_light` (para fundo escuro) e `_dark` (para fundo claro). |
+| `assets/Fontes/goldoni-webfont.woff2` | A serifada da marca. 24,5 KB. ⚠️ **Só tem caixa alta** — ver a ressalva na seção de tipografia. |
+| `assets/Fundo/` | `Fundo.jpg` é o original de 1,5 MB; `fundo-1920.webp` (13 KB) e `fundo-1280.webp` (4,7 KB) são as versões de uso. **Ainda não estão aplicados em lugar nenhum da página.** |
 | `.claude/launch.json` | Config do servidor local de preview (`landing`, porta 5173). Não faz parte da entrega. |
+
+Os comparativos temporários (`_variacoes-*.html`, `comparacao.html`, `secao7.html`) **ficaram na pasta antiga do `D:`** e estão no `.gitignore`. Dois deles corromperam no disco. Se precisar de algum, é mais rápido regenerar do que recuperar.
 
 ## Onde o projeto está agora
 
@@ -20,34 +31,38 @@
 
 | seção | altura |
 |---|---|
-| hero · barra de prova | 739px |
-| 3 · Você se reconhece? | 1337px |
-| **4 · A virada** (E + fecho reancorado + corte N2) | **1157px** |
+| 1+2 · hero · barra de prova | 867px |
+| 3 · Você se reconhece? | 1361px |
+| **4 · A virada** | 1224px |
 | 5 · Sobre | 712px |
 | 6 · Diferenciais | 893px |
-| 7 · O que inclui | **679px** |
-| 8 · Como funciona | 796px |
+| 7 · O que inclui | 679px |
+| 8 · Como funciona | 820px |
 | 9 · Para quem é | 737px |
-| 10 · Depoimentos | 534px |
+| 10 · Depoimentos | 559px |
 | 11 · Dúvidas | 911px |
-| 12 · CTA final | 939px |
+| 12 · CTA final | 1016px |
 
-**Página inteira: ~10.035px** (remedida a 1180px em 03/09/2026, depois das mudanças abaixo). Sem erro de console, sem estouro horizontal, todos os `.reveal` funcionando. Responsivo conferido a 900px, 560px e 375px.
+**Página inteira: ~10.330px**, medida a 1180px em **04/09/2026, já com a marca aplicada**. Sem erro de console, sem estouro horizontal. ⚠️ **As alturas mexeram com a troca de fonte e ainda não foram reconferidas em 900/560/375px.**
 
-**As três decisões que ainda dependem do usuário:**
-1. **Ritmo de imagem** — as seções 4 e 5 ficaram estruturalmente idênticas depois do tratamento E. É a única regressão conhecida da sessão. Correção sugerida abaixo, **não aplicada**.
-2. **Depoimentos** — três placeholders no ar e, desde 03/09/2026, **sem nenhum aviso na tela**. Não pode publicar assim.
-3. **Apagar `_comparacao-mecanismo.html`** — já cumpriu a função.
+### 🚨 As decisões que dependem do usuário — em ordem de urgência
 
-### Backups desta sessão
+1. **CAIXA ALTA DOS TÍTULOS.** O arquivo da Goldoni não tem caixa baixa, então **todos os títulos da página renderizam em maiúsculas**. Isso contraria uma decisão registrada aqui ("título em caixa alta — testado e descartado"). Três saídas foram oferecidas e nenhuma escolhida. Ver "Tipografia" abaixo.
+2. **Depoimentos** — três placeholders no ar e **sem nenhum aviso na tela**. Bloqueia a publicação.
+3. **As 7 fotos** — continuam vazias. É a maior mudança visual disponível e nenhuma decisão fina de layout se sustenta antes delas.
+4. **Ritmo de imagem** — seções 4 e 5 estruturalmente idênticas (vertical à direita nas duas). Correção sugerida abaixo, não aplicada.
+5. **Seção 7** — duas perguntas abertas para o Dr. Rafael: o plano alimentar volta? Os retornos precisam aparecer?
+6. **CTA final** — sugestão nº1 levantada e **não aplicada**: remover `max-width:44ch` do `.inner`. Ver "Seção 12" abaixo.
 
-Não existe git neste projeto. Antes de cada mudança grande copiei o arquivo para o scratchpad da sessão:
+### ✅ Agora existe git — e ele já salvou o projeto uma vez
 
-`C:/Users/-User-/AppData/Local/Temp/claude/D--Meus-Documentos-Downloads-RG---PAGE/e91f274b-dfa2-4cca-9b4d-5a40cd8d0971/scratchpad/`
+Até 03/09/2026 o histórico eram cópias em disco. Hoje:
 
-`index.ANTES-corte-tireoide.html` · `index.ANTES-aplicar-E.html` · `index.ANTES-remover-aviso-compliance.html` · `index.ANTES-fix-aud-card.html` · `index.ANTES-botao-e-retrato.html` · `COPY.ANTES-corte-tireoide.md` · `_comparacao.ANTES-corte-tireoide.html` · `_comparacao.ANTES-B7.html`
+- Repositório em `C:\Users\-User-\Documents\dr_lp2`, remoto no GitHub, branch `main`.
+- **Commite a cada mudança fechada**, com o motivo escrito na mensagem. Foi assim que as mudanças de 04/09 foram feitas, e a mensagem de commit passou a carregar o "porquê" junto com o "o quê".
+- ⚠️ **Commitar e empurrar são ações do usuário.** Não fazer por conta própria sem ele pedir.
 
-⚠️ **Scratchpad é temporário e some com a sessão.** Se algum desses estados importar, copie para um lugar permanente antes de continuar em outro chat.
+**O git não é teórico aqui:** durante a sessão de 03/09 o `index.html` corrompeu no disco **enquanto trabalhávamos**, e foi restaurado inteiro com `git checkout`. Duas horas antes teria sido perda real.
 
 ## Sessão de 03/09/2026 — resumo para retomar
 
@@ -69,6 +84,65 @@ Tudo abaixo está detalhado nas seções seguintes; isto é só o índice do que
 14. **Aviso de compliance dos depoimentos removido da página**, a pedido do usuário. 🚨 A obrigação continua valendo e agora vive **só neste arquivo** — ver Regras invioláveis §2 e Próximos passos §4.
 15. **Bug corrigido na seção "Para quem é"** — um `<strong>` dentro de um `<li>` flex quebrava a frase em três caixas lado a lado. **O bug era anterior a esta sessão.** Ver Notas técnicas.
 16. **Botão do "Sobre" encurtado** (só removendo palavras) e **retrato horizontal no mobile** (16/10), ambos a pedido do usuário.
+
+### 🎨 Sessão de 04/09/2026 — a marca entrou
+
+A página nasceu numa paleta que não era da marca (marinho + verde-limão). Nesta sessão ela foi trocada pela oficial, em três passos deliberados.
+
+**Passo 1 — tokenizar, sem mudar um pixel.** A paleta estava tokenizada mas não 100%: havia **12 hexadecimais cravados no CSS em 24 ocorrências**, 12 `rgba()` derivados e 5 SVG com cor no atributo. Trocar só o `:root` teria deixado a página meio migrada. Tudo virou token; a prova foi expandir todo `var()` dos dois lados e comparar: **240 regras antes, 240 depois, zero diferenças**. Tokens novos: a escala `--on-dark`…`--on-dark-5` (que existia de fato, espalhada em 12 lugares, sem nome) e os componentes `--navy-rgb`/`--gold-rgb`/`--white-rgb`, necessários porque `rgba()` não aceita `var()` de cor inteira sem *relative color syntax*.
+
+**Passo 2 — a paleta.** Extraída do PDF do manual, amostrada dos próprios swatches:
+
+| nome no manual | hex | papel na página |
+|---|---|---|
+| Azul Profundo | `#1C2747` | fundo escuro, tinta sobre claro |
+| Dourado | `#BD9853` | acento, CTA, destaques |
+| Taupe | `#9D9077` | superfície e fio (**nunca texto**) |
+| Bege | `#EADEC3` | chip do check, acento claro |
+| Creme | `#F3F4F0` | chão da página, texto sobre escuro |
+
+🔑 **O achado que rege tudo: o Azul Profundo é a ÚNICA cor da marca que contrasta com as outras quatro.** Ouro × Creme = 2,44:1, Ouro × Bege = 2,02:1, Taupe × Creme = 2,84:1, Ouro × Taupe = 1,16:1. Ou seja: **toda hierarquia de texto se constrói sobre o Azul Profundo**, e ouro/taupe/bege só servem como superfície e acento. Isso não é preferência, é o que os números permitem.
+
+Tokens renomeados porque o nome virou mentira: `--lime`→`--gold`, `--lime-600`→`--gold-600`, `--lime-200`→`--sand`, `--sh-lime`→`--sh-gold`.
+
+**Passo 3 — fontes, logo e navbar.**
+- **Montserrat** no conteúdo (Google Fonts). **Goldoni** nos títulos, arquivo real da marca — ver a ressalva abaixo.
+- O **logo** substituiu o monograma "RG" em CSS. A 46px o "GALLASSINI" era ilegível; está em **58px**, e a navbar subiu de 66 para 78px.
+- A **navbar** deixou de ser uma barra de acento e virou **azul (`--navy-900`)**, um degrau abaixo da hero, com um fio dourado embaixo. Links, CTA, anel de foco, botão do menu e painel mobile foram ajustados junto — todos assumiam barra clara.
+- A **escala `on-dark` deixou de puxar amarelo.** Ela descia misturando creme com **taupe**, então quanto mais escuro o degrau, mais quente: `R-B` ia de +3 até +28. Sobre o azul isso lia como amarelo, e o usuário apontou. Agora desce para cinza neutro (`R-B` entre 0 e −5).
+
+#### 🚨 A GOLDONI SÓ TEM CAIXA ALTA — decisão pendente
+
+Medido no navegador: `"a"` e `"A"` têm a mesma largura (65px), `"g"` e `"G"` também (56px), `"emagrecer"` e `"EMAGRECER"` idem (519px). **Os slots de minúscula contêm desenho de maiúscula.**
+
+Resultado: **todos os títulos da página estão em caixa alta**, e o H1 da hero passou de 5 para **6 linhas**.
+
+Isso contradiz uma decisão registrada neste arquivo — *"título em caixa alta: testado (variações A–E) e descartado; escolhida a variação B, caixa mista"*. **Mas o contexto mudou:** a marca inteira é caixa alta, o logo é caixa alta, e o que foi rejeitado era caixa alta na tipografia antiga. Pode ser que agora funcione.
+
+Três saídas oferecidas, **nenhuma escolhida**:
+1. Aceitar — é a natureza de uma fonte de titulação e combina com o logo.
+2. Goldoni só nos títulos de seção, Playfair no H1 da hero (que é o mais longo).
+3. Pedir a quem fez a marca o corte de texto da Goldoni, se existir.
+
+`@font-face` está declarado com `font-weight:100 900` de propósito: o arquivo tem um peso só, e o range impede o navegador de fabricar falso-negrito, que borraria uma serifada de alto contraste. Playfair Display fica de reserva na mesma declaração.
+
+#### ✅ Auditoria de contraste — ferramenta nova, vale reusar
+
+Verificar pares "a mão" não bastou: foi assim que os placeholders escaparam na versão escura. Foi escrita uma **auditoria que percorre o DOM**, calcula o fundo efetivo de cada elemento de texto (subindo a árvore até achar fundo opaco) e mede o contraste real.
+
+Ela achou coisas que a lista manual não achou, inclusive **um defeito que estava no ar desde antes da troca de paleta**: o texto legal do rodapé a **2,93:1**, porque usava `--ink-3` — a tinta da paleta *clara* — sobre o rodapé escuro.
+
+**Estado: 164 elementos auditados, 0 reprovados** (clara e escura).
+
+⚠️ **Limitação conhecida:** a auditoria lê `background-color` e **não enxerga gradiente**. O "RG" do retrato aparece reprovado, mas está sobre o degradê azul. Falso positivo.
+
+#### A versão escura (`index-dark.html`)
+
+Pedida pelo usuário só para avaliação. **É gerada, não editada** — `python gerar-dark.py`. Rodar sempre que o `index.html` mudar.
+
+Ela é quase só um `:root` diferente, o que só foi possível por causa do passo 1. Cinco degraus de fundo: `#0B111F` (prova/rodapé) < `#0F1729` (chão) < `#16203A` (faixa secundária) < `#1C2747` (faixa escura) < `#1E2A4B`/`#26314F` (cartões). A alternância clara/escura da página sobrevive, invertida.
+
+⚠️ **Ela expôs dois defeitos de token que existem também no arquivo principal** — ver "Notas técnicas": `--off` sobrecarregado e `color:var(--navy)` assumindo fundo claro.
 
 ### ✅ Sessão de 03/09/2026 (tarde) — seções 4 e 7
 
@@ -124,11 +198,18 @@ Tudo abaixo está detalhado nas seções seguintes; isto é só o índice do que
 
 **Correção sugerida (não aplicada, precisa da sua decisão):** inverter as duas pontas — Slot 1 vai para a **direita** na seção 3 e Slot 2 para a **esquerda** na seção 4. O ritmo vira direita → esquerda → direita, alternando. Mexe na seção 3, que não foi pedida, por isso não fiz.
 
-### ⏳ A próxima coisa a fazer
+### ⏳ Por onde retomar
 
-1. **Decidir sobre o ritmo de imagem** (acima). É a única regressão conhecida do E.
-2. **Apagar `_comparacao-mecanismo.html`** — perguntei e não apaguei por conta própria. Os 12 tratamentos ainda estão lá se quiser rever.
-3. Seguir com as pendências de sempre: as 7 fotos, os dados a preencher, compliance.
+Em ordem. Os três primeiros dependem de decisão do usuário e travam o resto.
+
+1. **Caixa alta dos títulos.** A Goldoni só tem maiúsculas e a página inteira virou caixa alta. Três saídas oferecidas, nenhuma escolhida. **Nada de tipografia fina antes disso**, porque qualquer escolha muda a quebra de linha de todos os títulos.
+2. **Reconferir o responsivo.** As alturas mudaram com a troca de fonte e **só foram medidas a 1180px**. Faltam 900/560/375px.
+3. **Aplicar o fundo.** `assets/Fundo/fundo-1920.webp` (13 KB) está pronto e não está em uso. Onde entra é decisão em aberto — a hero é o candidato óbvio, mas o `PROJETO.md` registra que um degradê de "luz ambiente" na hero já foi rejeitado uma vez (no contexto do limão, que não existe mais).
+4. **CTA final** — a sugestão nº1 está medida e não aplicada: remover `max-width:44ch` do `.inner` derruba o título de 5 para 4 linhas (−49px) e reduz o vão em volta da foto de 40px para ~15px. Custo zero.
+5. **As 7 fotos.** Maior mudança visual disponível. ⚠️ **Reajustar o `object-position:50% 25%` do `.portrait` quando a foto do Slot 3 chegar.**
+6. **Depoimentos e compliance** antes de publicar.
+7. **`design-system.html`** está desatualizado (ainda marinho + limão). Decidir se atualiza ou aposenta.
+8. **Dívida técnica de token**, quando der: separar `--off` em `--bg` e `--on-invert` (18 substituições mecânicas) e resolver os `color:var(--navy)` que assumem fundo claro. Ver Notas técnicas.
 
 ### Refazendo o B — o que as referências ensinaram
 
@@ -265,17 +346,20 @@ Isto não é opcional e vale para qualquer texto ou imagem adicionada:
   - 🚨 **O aviso que existia na própria página foi REMOVIDO** a pedido do usuário em 03/09/2026 (o bloco `.compliance`, com o CSS junto). Ele era a única salvaguarda visível de que aquela seção não estava pronta. **Agora nada na página sinaliza isso** — o alerta vive só aqui. Antes de publicar: ou entram depoimentos reais com autorização de uso de imagem, ou a seção inteira sai do ar. Publicar os placeholders como estão seria divulgar depoimento inventado.
 - Tom informativo, sem superlativos ("melhor médico").
 
-### 3. Design system
-Seguir `design-system.html`. Tokens já replicados no `:root` do `index.html`.
+### 3. Design system — **a paleta da marca, desde 04/09/2026**
 
-- **Marinho** `#283050` (primária) · **Verde-limão** `#D0F800` (destaque/CTA) · Off-white `#F8F8F8`
-- Tipografia: **Rethink Sans** (títulos 700–800, corpo 400) + **Playfair Display Italic** (frases-âncora)
+- **Azul Profundo** `#1C2747` · **Dourado** `#BD9853` · **Taupe** `#9D9077` · **Bege** `#EADEC3` · **Creme** `#F3F4F0`
+- Tipografia: **Goldoni** nos títulos (⚠️ só caixa alta) + **Montserrat** no conteúdo. Playfair Display fica de reserva da Goldoni e ainda serve as frases-âncora em itálico.
 - Espaçamento base 4px (`--s1`…`--s9`), `--maxw: 1080px`
-- ⚠️ O limão é "o ponto que puxa o olhar — use com moderação". Não espalhar.
+- 🔑 **A regra que rege a cor:** o Azul Profundo é a única cor que contrasta com as outras quatro. **Ouro, Taupe e Bege são superfície e acento — nunca texto sobre fundo claro.**
+- ⚠️ **`design-system.html` está DESATUALIZADO** — ainda traz o marinho e o verde-limão. Ou é atualizado, ou deixa de ser a fonte da verdade. Hoje a fonte da verdade é o `:root` do `index.html`.
+- ⚠️ **Antes de fechar qualquer mudança de cor, rodar a auditoria de contraste** (ver Notas técnicas). Verificação manual já deixou defeito passar duas vezes.
 
 ## Estado atual
 
-Landing completa com as 13 seções da copy, responsiva (breakpoints 960px e 768px), acessível (HTML semântico, `aria-*`, foco visível, `prefers-reduced-motion` / `-transparency` / `-contrast`) e sem dependências externas exceto a fonte do Google Fonts.
+Landing completa com as 13 seções da copy, responsiva (breakpoints 960px e 768px), acessível (HTML semântico, `aria-*`, foco visível, `prefers-reduced-motion` / `-transparency` / `-contrast`), **na paleta e nas fontes oficiais da marca**, com o logo na navbar e favicon.
+
+Dependências externas: Google Fonts (Montserrat + Playfair Display) e os arquivos locais em `assets/`. A Goldoni é servida do próprio projeto.
 
 **Sistema de imagem instalado (7 slots vazios).** A página está preparada para receber fotos sem retrabalho: existe um componente único `.figure` e os slots já estão posicionados, dimensionados e com o markup de inserção comentado ao lado de cada um. Enquanto as fotos não chegam, cada slot mostra um placeholder listrado (`.ph`) com o número do slot e o formato esperado.
 
@@ -404,7 +488,7 @@ Direção de arte para as fotos não brigarem entre si: luz natural neutra/fria 
 - Ele **decide melhor vendo do que lendo**. Perguntas conceituais ("qual direção prefere?") receberam "eu não sei, eu quero que fique bonito". Variações renderizadas lado a lado, com o mesmo texto, funcionaram.
 - Ele **manda print da tela com setas** quando algo não agrada, e aponta muito bem em cima da imagem — mesmo sem conseguir nomear o problema em abstrato. Foi assim que saiu "os textos ao redor não estão harmônicos", que era exatamente o diagnóstico certo. **Renderize e mostre; não pergunte no vazio.** (Você também consegue tirar print sozinho — ver notas técnicas.)
 - Ele **repete "melhorou, mas ainda não está do meu agrado"** por várias rodadas sem desistir. Isso não é rejeição do caminho: nas três rodadas da "A virada" cada iteração estava de fato mais perto. Continue iterando e mostrando.
-- Ele **reverte sem cerimônia** ("volte para a versão anterior"). **Não existe git neste projeto** — antes de uma mudança grande, guarde as strings exatas que vai substituir, ou não vai conseguir desfazer.
+- Ele **reverte sem cerimônia** ("volte para a versão anterior"). **Agora existe git** — commite a cada mudança fechada e o desfazer fica trivial. Antes de mudança grande sem commit, guarde as strings exatas que vai substituir.
 - Quando ele pede um dado mais específico, a resposta certa quase sempre está na **página antiga dele** — foi de lá que vieram CRM, 10 anos, 5 congressos e os 30 mil. Peça o print antes de dizer que o dado não existe.
 
 ## Notas técnicas
@@ -424,12 +508,22 @@ Direção de arte para as fotos não brigarem entre si: luz natural neutra/fria 
 - ⚠️ **O preview embutido não executa comportamento de scroll.** Descoberto em 03/09/2026, testando o botão flutuante. Três limitações confirmadas, todas do ambiente e não da página: (1) **`IntersectionObserver` nunca dispara** — um observer criado do zero no console também não é chamado, e as 10 seções `.reveal` ficam paradas; (2) **eventos de `scroll` não são entregues** — nem `scrollTo` programático nem rolagem de mouse disparam o handler, então o `.scrolled` do header e o botão flutuante parecem quebrados quando não estão; (3) **transições CSS não avançam**, então `opacity` fica congelado no valor inicial. **Como testar mesmo assim:** disparar `window.dispatchEvent(new Event('scroll'))` após posicionar com `scrollTo` (valida o JS), e ler o estilo computado com `el.style.transition='none'` (valida a cascata do CSS, sem depender de transição). **O comportamento final tem de ser conferido em navegador real.**
 - **Para conferir layout, use o servidor local, não o snapshot.** Existe um `.claude/launch.json` com a config `landing` (`python -m http.server 5173`). No snapshot estático o `IntersectionObserver` não dispara (seções `.reveal` saem **em branco**) e `innerWidth` chega a medir **0**, o que torna qualquer medição de altura/coluna inútil. Servido em `http://localhost:5173` tudo mede corretamente. Dois detalhes ao medir por JS no preview: `html{scroll-behavior:smooth}` faz `scrollTo` ser **assíncrono** (medir logo depois devolve a posição antiga), e o marquee em loop infinito faz a captura de tela expirar — pausar com `document.getAnimations().forEach(a=>a.pause())` antes do screenshot.
 - 🚨 **INCIDENTE DE DISCO — 03/09/2026. Leia antes de confiar em qualquer arquivo daqui.** O `PROJETO.md` foi encontrado **fisicamente corrompido**: `head` e `tail` liam, mas `grep`, `wc` e `md5sum` devolviam **Input/output error**. Varredura por blocos: **4 blocos de 4KB ilegíveis a partir do offset 8192**, e o conteúdo restante era uma **versão antiga do `index.html`** — clusters cruzados, corrupção de sistema de arquivos. **Não foi erro de edição:** nenhum script consegue gerar um arquivo que falha na leitura sequencial. O arquivo foi **reconstruído** a partir do backup no scratchpad mais a reaplicação dos registros do dia. `index.html`, `COPY.md` e `design-system.html` foram verificados por checksum na mesma hora e estavam íntegros.
-  - **Ação pendente do usuário:** rodar `chkdsk D: /f /r` (fechar o VS Code e o Live Server antes). Se acusar setores defeituosos, tirar o projeto desse disco. **Não existe git aqui** — o único histórico são cópias em disco.
+  - ✅ **Resolvido mudando de disco.** O projeto foi clonado para `C:\Users\-User-\Documents\dr_lp2` e enviado ao GitHub. A pasta do `D:` está abandonada.
+  - **Diagnóstico final (04/09):** o log do Windows registra **11.841 eventos "setor defeituoso"** no `\Device\Harddisk1\DR1` (o `D:`, um HD mecânico WDC WD5000AAKX), desde 30/08. **`chkdsk` não resolve** — já tinha rodado em 31/08 (existe uma pasta `found.000` de lá) e os erros continuaram. É falha física: o disco precisa ser substituído, não reparado.
   - **Lição operacional:** o scratchpad fica no `C:` e foi o que salvou. Copiar antes de mudança grande **e verificar com `md5sum` que a cópia lê inteira** — tamanho e `head` não detectam este defeito.
 - ⚠️ **Cache atrapalha a conferência — no celular e no preview.** Em 03/09/2026 o usuário mandou print do iPhone com o retrato do "Sobre" no formato antigo. O arquivo e o servidor estavam corretos (medido: 327×204, 16/10); o Safari servia um snapshot antigo. O mesmo aconteceu no preview embutido depois de uma edição. **Sempre carregue com um parâmetro na URL (`?v=2`, `?v=3`)** — é outro endereço para o cache, então força a busca do zero.
   - Quem serve para o celular é o **Live Server do VS Code, na porta 5500** (`http://192.168.0.117:5500/...`) — o Safari esconde a porta na barra compacta. Ele manda `Cache-Control: public, max-age=0`, e abas suspensas do iOS reexibem sem perguntar ao servidor.
+- 🔧 **AUDITORIA DE CONTRASTE — usar antes de fechar qualquer mudança de cor.** Verificação de pares "a mão" já deixou defeito passar duas vezes. O script percorre `document.querySelectorAll('body *')`, filtra os que têm texto próprio e são visíveis, sobe a árvore até achar um fundo opaco, calcula o contraste WCAG e reprova abaixo de 4.5:1 (ou 3:1 para texto grande: ≥24px, ou ≥18.66px com peso ≥700). Roda no console do navegador. Foi ela que achou o texto legal do rodapé a 2,93:1, que estava no ar havia dias.
+  - ⚠️ **Limitação:** lê `background-color` e **não enxerga gradiente**. Elementos sobre degradê dão falso positivo — hoje só o `.mono` do retrato.
+- ⚠️ **`color:var(--navy)` assumindo fundo claro — irmão do problema do `--off`.** São 14 usos no CSS. Dez estão corretos porque ficam sobre ouro ou bege (botão primário, navbar, chips numerados, célula de fechamento, tick). Os outros quatro assumem fundo claro e **quebram em qualquer variante escura**: `.turn` (1,22:1), `.faq summary` (1,04:1), `blockquote.quote cite`, `.btn-outline`. Corrigidos na `index-dark.html` pelo bloco de ajustes; **no arquivo principal continuam como estão** (lá o fundo é claro, então funcionam).
 - ⚠️ **`--off` é um token SOBRECARREGADO.** Ele é usado como **cor de texto em 18 lugares** do CSS (H1 da hero, `.sec-dark`, `.btn-secondary`, `.panel .nm`, títulos do rodapé…) e como **fundo em apenas 1** (o `body`). Na paleta clara isso passa despercebido, porque o creme faz os dois papéis. **Qualquer variante que mude o fundo da página tem de separar os dois** — foi o que quebrou na primeira geração da versão escura: o H1 ficou da cor do próprio fundo. Na `index-dark.html` a solução foi manter `--off` como creme e criar `--bg` para o chão.
   - **Melhoria pendente no arquivo principal:** separar `--off` em `--bg` (fundo) e `--on-invert` (texto sobre escuro). São 18 substituições mecânicas, verificáveis pelo mesmo método da tokenização. Não foi feito para não misturar com a troca de paleta.
+- ⚠️ **O servidor de preview e o cache atrapalharam a conferência várias vezes.** Depois de editar, o preview serviu o arquivo antigo em três tentativas seguidas, e chegou a servir a **pasta errada** depois da mudança de diretório. **Sempre carregar com parâmetro na URL (`?v=2`, `?v=3`)** e, se a medição vier estranha, conferir por HTTP o que o servidor está entregando antes de concluir qualquer coisa sobre a página:
+  ```python
+  import urllib.request
+  h = urllib.request.urlopen('http://localhost:5173/index.html').read().decode()
+  print('--navy' in h, 'Goldoni' in h)
+  ```
 - Cuidado com **especificidade CSS** em botões dentro da nav: `.nav-links a` (0,1,1) vence `.btn-secondary` (0,1,0) e sobrescreve a cor do texto. Já existe `.nav-links a.btn-secondary` para corrigir.
 - **Corrigido:** três `<section>` tinham o atributo `class` **duplicado** (`class="sec-dark" ... class="reveal"`) em "Como funciona", "Dúvidas" e o CTA final. O HTML descarta o segundo, então essas três seções nunca recebiam `.reveal` e nunca animavam. Ao editar tags de seção, conferir que existe **um único** `class`.
 - A ordem das regras de `.figure` importa: `.sec-dark .figure` (fundo/borda) precisa vir **antes** de `.figure.bleed` (que zera raio e bordas laterais). Mesma especificidade — quem vem depois vence.
