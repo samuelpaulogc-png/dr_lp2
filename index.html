@@ -7,40 +7,47 @@
 <meta name="description" content="Já tentou de tudo para emagrecer e o peso sempre volta? Acompanhamento médico individualizado, com investigação do seu metabolismo e um plano feito para o seu corpo. Presencial em Florianópolis e online. Agende sua avaliação.">
 <!-- ATENCAO: atributo HTML nao aceita var(). Ao trocar a paleta,
      atualizar este valor a mao para o novo fundo escuro. -->
-<meta name="theme-color" content="#283050">
+<meta name="theme-color" content="#1C2747">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<!-- Marca: titulos em Goldoni, conteudo em Montserrat.
+     Goldoni e fonte comercial e nao esta no Google Fonts — enquanto os
+     arquivos .woff2 licenciados nao chegam, Playfair Display entra como
+     substituta provisoria (mesma familia visual, ja usada nas frases-ancora). -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  /* Cores da marca (design system AB / manual Roscy) */
-  --navy:#283050; --navy-900:#1B2138; --navy-700:#303858; --navy-500:#485068;
-  --lime:#D0F800; --lime-600:#B8DE00; --lime-200:#EBFB80;
-  --white:#FFFFFF; --off:#F8F8F8;
-  --ink:#283050; --ink-2:#5A6178; --ink-3:#8A90A0; --line:#E3E5EC; --surface:#F3F4F8;
-  --success:#3DBE5A; --whatsapp:#25D366; --danger:#E5484D; --focus:var(--lime);
+  /* ---- Paleta oficial (Manual da Marca Rafael Gallassini, 2024) ----
+     Azul Profundo #1C2747 · Dourado #BD9853 · Taupe #9D9077
+     Bege #EADEC3 · Creme #F3F4F0
+     As escalas abaixo sao derivadas dessas cinco por mistura, e cada par que a
+     pagina usa foi verificado em contraste (minimo AA 4.5:1 para texto).
+     ⚠️ O Azul Profundo e a UNICA cor da marca que contrasta com as outras
+     quatro. Ouro, Taupe e Bege nao contrastam entre si — servem de superficie
+     e acento, NUNCA de texto sobre fundo claro. */
+  --navy:#1C2747; --navy-900:#141B32; --navy-700:#2C3654; --navy-500:#49526C;
+  --gold:#BD9853; --gold-600:#9F8046; --sand:#EADEC3;
+  --white:#FFFFFF; --off:#F3F4F0;
+  --ink:#1C2747; --ink-2:#4E5468; --ink-3:#6E6544; --line:#DBD8CE; --surface:#E9E8E1;
+  --success:#3DBE5A; --whatsapp:#25D366; --danger:#E5484D; --focus:var(--navy);
 
   --r-sm:8px; --r-md:16px; --r-lg:24px; --r-xl:32px; --r-pill:999px;
   --sh-sm:0 1px 2px rgba(var(--navy-rgb),.06),0 2px 8px rgba(var(--navy-rgb),.07);
   --sh-md:0 4px 10px rgba(var(--navy-rgb),.08),0 14px 30px rgba(var(--navy-rgb),.12);
   --sh-lg:0 8px 20px rgba(var(--navy-rgb),.10),0 30px 70px rgba(var(--navy-rgb),.18);
-  --sh-lime:0 10px 28px rgba(var(--lime-rgb),.35),0 2px 6px rgba(var(--lime-rgb),.25);
+  --sh-gold:0 10px 28px rgba(var(--gold-rgb),.30),0 2px 6px rgba(var(--gold-rgb),.22);
 
+  /* Componentes RGB, para as camadas translucidas */
+  --navy-rgb:28,39,71; --navy-900-rgb:20,27,50; --gold-rgb:189,152,83; --white-rgb:255,255,255;
 
-  /* Componentes RGB dos tons de base. Existem porque rgba() nao aceita var()
-     de cor inteira sem relative color syntax, que ainda nao tem suporte
-     universal. Manter em sincronia com os hexadecimais acima. */
-  --navy-rgb:40,48,80; --navy-900-rgb:27,33,56; --lime-rgb:208,248,0; --white-rgb:255,255,255;
+  /* Texto sobre fundo escuro, do mais forte ao mais apagado */
+  --on-dark:#F3F4F0; --on-dark-2:#E5E4DD; --on-dark-3:#D6D2C7;
+  --on-dark-4:#C6C0B1; --on-dark-5:#B7AE9B;
 
-  /* Escala de texto sobre fundo escuro, do mais forte ao mais apagado.
-     Estes cinco tons viviam cravados no CSS em 12 lugares. */
-  --on-dark:#E4E7F0; --on-dark-2:#D6D9E4; --on-dark-3:#C7CBD8;
-  --on-dark-4:#AEB4C6; --on-dark-5:#9AA0B2;
-
-  /* Listras dos placeholders de imagem */
-  --ph-dark-a:#2E3757; --ph-dark-b:#343D60; --ph-light-b:#EDEFF5;
+  /* Listras dos placeholders */
+  --ph-dark-a:#273250; --ph-dark-b:#37415D; --ph-light-b:#EAEAE4;
 
   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px; --s9:96px;
   --maxw:1080px;
@@ -49,7 +56,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:84px}
 body{
-  margin:0;font-family:"Rethink Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  margin:0;font-family:"Montserrat",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
   color:var(--ink);background:var(--off);line-height:1.55;-webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
 }
@@ -64,7 +71,12 @@ img{max-width:100%;display:block}
   font-weight:800;padding:12px 18px;border-radius:0 0 var(--r-md) 0;z-index:200}
 .skip:focus{left:0}
 
-h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
+/* Titulos na serifada da marca. Peso 600 e nao 800: a Goldoni/Playfair tem
+   contraste alto de traco e, no peso 800, fecha os contraforma e perde a
+   elegancia que justifica usar serifada. O tracking negativo tambem cai —
+   serifada de alto contraste nao aguenta o mesmo aperto da sem-serifa. */
+h1,h2,h3{font-family:"Playfair Display",Georgia,serif;font-weight:600;
+  line-height:1.08;letter-spacing:-.01em;margin:0;
   font-optical-sizing:auto;text-wrap:balance}
 .h-sec{font-size:clamp(28px,5vw,48px);letter-spacing:-.025em;margin:0 0 10px;max-width:20ch}
 .lead{font-size:clamp(17px,2.2vw,19px);color:var(--ink-2);max-width:62ch;margin:0;
@@ -79,8 +91,8 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
   text-decoration:none;text-align:center;will-change:transform}
 .btn:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
 .btn:active{transform:scale(.97)}
-.btn-primary{background:var(--lime);color:var(--navy);box-shadow:var(--sh-lime)}
-.btn-primary:hover{background:var(--lime-600);transform:translateY(-2px)}
+.btn-primary{background:var(--gold);color:var(--navy);box-shadow:var(--sh-gold)}
+.btn-primary:hover{background:var(--gold-600);transform:translateY(-2px)}
 .btn-secondary{background:var(--navy);color:var(--off)}
 .btn-secondary:hover{background:var(--navy-900);transform:translateY(-2px)}
 .btn-outline{background:transparent;color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy)}
@@ -91,20 +103,20 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
 .btn-block{width:100%}
 
 /* ---------- Header / Nav ---------- */
-.site-header{position:sticky;top:0;z-index:100;background:var(--lime);
+.site-header{position:sticky;top:0;z-index:100;background:var(--gold);
   backdrop-filter:saturate(180%) blur(18px);-webkit-backdrop-filter:saturate(180%) blur(18px);
   transition:background .3s ease}
 .site-header::after{content:"";position:absolute;left:0;right:0;bottom:-18px;height:18px;
   pointer-events:none;opacity:0;transition:opacity .3s ease;
   background:linear-gradient(rgba(var(--navy-900-rgb),.20),transparent)}
-.site-header.scrolled{background:rgba(var(--lime-rgb),.94)}
+.site-header.scrolled{background:rgba(var(--gold-rgb),.94)}
 .site-header.scrolled::after{opacity:1}
 .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;
   min-height:66px;max-width:var(--maxw);margin:0 auto;padding:8px 24px}
 .brand{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:17px;
   letter-spacing:-.01em;color:var(--navy);text-decoration:none}
 .brand .mark{width:34px;height:34px;border-radius:var(--r-sm);background:var(--navy);
-  color:var(--lime);display:grid;place-items:center;font-size:14px;font-weight:800;flex:none}
+  color:var(--gold);display:grid;place-items:center;font-size:14px;font-weight:800;flex:none}
 .nav-links{display:flex;align-items:center;gap:6px;list-style:none;margin:0;padding:0}
 .nav-links a{text-decoration:none;font-weight:700;font-size:15px;color:var(--navy);
   padding:10px 12px;border-radius:var(--r-pill);transition:.16s}
@@ -126,7 +138,7 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
 .hero-copy{max-width:640px}
 .hero h1{font-size:clamp(32px,5.6vw,64px);color:var(--off);letter-spacing:-.035em;
   line-height:1.02;margin:0;max-width:none}
-.hero h1 em{font-style:normal;color:var(--lime)}
+.hero h1 em{font-style:normal;color:var(--gold)}
 .hero .sub{margin-top:20px;font-size:clamp(17px,2.4vw,20px);color:var(--on-dark-3);max-width:52ch}
 .hero-cta{margin-top:32px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
 .hero .microcopy{margin-top:18px;font-size:14px;color:var(--on-dark-4);max-width:52ch}
@@ -156,7 +168,7 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
   transition:transform .32s cubic-bezier(.2,.7,.2,1),box-shadow .32s ease,border-color .32s ease}
 .card:hover{box-shadow:var(--sh-md);transform:translateY(-4px);border-color:transparent}
 .card:active{transform:translateY(-1px)}
-.card .ic{width:46px;height:46px;border-radius:var(--r-md);background:var(--lime);
+.card .ic{width:46px;height:46px;border-radius:var(--r-md);background:var(--gold);
   display:grid;place-items:center;color:var(--navy);margin-bottom:16px;font-weight:800;font-size:19px}
 .card h3,.card h4{margin:0 0 8px;font-size:19px;font-weight:800;letter-spacing:-.01em;line-height:1.2}
 .card p{margin:0;font-size:15.5px;color:var(--ink-2)}
@@ -192,7 +204,7 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
 /* Frase de virada / reforço */
 .turn{margin:44px auto 0;max-width:40ch;text-align:center;font-size:clamp(22px,3.4vw,30px);
   line-height:1.28;color:var(--navy)}
-.turn strong{background:var(--lime);color:var(--navy);padding:0 8px;border-radius:8px;
+.turn strong{background:var(--gold);color:var(--navy);padding:0 8px;border-radius:8px;
   font-weight:700;box-shadow:0 0 0 1px rgba(var(--navy-rgb),.04)}
 /* Frase de reforço — fecha a seção como rodapé do bloco, na medida dele (1032px).
    Era centralizada em 537px, num terceiro eixo que não batia nem com a coluna de texto
@@ -241,7 +253,7 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
   border:1px solid var(--navy-500);border-radius:var(--r-md);overflow:hidden}
 .panel li{background:var(--navy);padding:18px 20px;min-height:92px;
   display:flex;flex-direction:column;gap:10px}
-.panel .idx{font-size:11.5px;font-weight:800;letter-spacing:.16em;color:var(--lime);
+.panel .idx{font-size:11.5px;font-weight:800;letter-spacing:.16em;color:var(--gold);
   font-variant-numeric:tabular-nums}
 /* margin-top:auto joga o nome para a base: os nomes alinham numa linha de base
    comum mesmo quando um deles quebra em duas linhas. */
@@ -249,7 +261,7 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
   line-height:1.25;letter-spacing:-.01em}
 /* A última célula é o PREDICADO da frase ("Influenciam diretamente…"), trazido para
    dentro da grade: fecha o bloco e some um parágrafo avulso embaixo dele. */
-.panel li.close{grid-column:1/-1;background:var(--lime);justify-content:center}
+.panel li.close{grid-column:1/-1;background:var(--gold);justify-content:center}
 .panel li.close .nm{margin-top:0;color:var(--navy);font-size:19px;line-height:1.32}
 
 /* ---------- Sobre ---------- */
@@ -262,7 +274,7 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
   margin:0;height:100%;min-height:520px;display:grid;place-items:center;position:relative;
   overflow:hidden;box-shadow:var(--sh-md);border:1px solid var(--navy-500)}
 .portrait img{width:100%;height:100%;object-fit:cover}
-.portrait .mono{font-size:96px;font-weight:800;color:var(--lime);letter-spacing:-.03em;opacity:.95}
+.portrait .mono{font-size:96px;font-weight:800;color:var(--gold);letter-spacing:-.03em;opacity:.95}
 .about-body p{font-size:17px;color:var(--ink-2);margin:0 0 20px}
 .about-body .lead{max-width:none;margin:0 0 22px;color:var(--ink);font-weight:600}
 .about-body strong{color:var(--ink)}
@@ -280,7 +292,7 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
 .includes li{display:flex;gap:14px;background:none;border:0;
   border-top:1px solid var(--line);border-radius:0;padding:20px 0 0;box-shadow:none}
-.includes .tick{flex:none;width:30px;height:30px;border-radius:var(--r-sm);background:var(--lime-200);
+.includes .tick{flex:none;width:30px;height:30px;border-radius:var(--r-sm);background:var(--sand);
   display:grid;place-items:center;color:var(--navy)}
 .includes b{display:block;color:var(--ink);font-size:16px;margin-bottom:2px}
 .includes span.txt{color:var(--ink-2);font-size:15px}
@@ -289,7 +301,7 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
 .steps{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:36px}
 .step{background:var(--navy-700);border:1px solid var(--navy-500);border-radius:var(--r-lg);
   padding:28px;position:relative;overflow:hidden}
-.step .num{width:48px;height:48px;border-radius:var(--r-pill);background:var(--lime);color:var(--navy);
+.step .num{width:48px;height:48px;border-radius:var(--r-pill);background:var(--gold);color:var(--navy);
   font-weight:800;font-size:20px;display:grid;place-items:center;margin-bottom:18px}
 /* A foto sangra até a borda do card; o número passa a viver sobre ela */
 .step-media{margin:-28px -28px 22px;border-radius:0;border:0;box-shadow:none}
@@ -318,7 +330,7 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
 /* ---------- Depoimentos ---------- */
 .quotes{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:20px}
 blockquote.quote{margin:0;background:var(--white);border:1px solid var(--line);
-  border-left:5px solid var(--lime);border-radius:var(--r-md);padding:26px 26px 22px;box-shadow:var(--sh-sm)}
+  border-left:5px solid var(--gold);border-radius:var(--r-md);padding:26px 26px 22px;box-shadow:var(--sh-sm)}
 blockquote.quote p{font-size:17px;color:var(--ink);margin:0 0 16px;line-height:1.5}
 blockquote.quote cite{font-style:normal;font-weight:800;color:var(--navy);font-size:15px}
 
@@ -332,7 +344,7 @@ blockquote.quote cite{font-style:normal;font-weight:800;color:var(--navy);font-s
 .faq summary::-webkit-details-marker{display:none}
 .faq summary:focus-visible{outline:3px solid var(--focus);outline-offset:-3px;border-radius:var(--r-md)}
 .faq summary:hover{background:var(--surface)}
-.faq summary .chev{flex:none;transition:transform .2s;color:var(--lime-600)}
+.faq summary .chev{flex:none;transition:transform .2s;color:var(--gold-600)}
 .faq details[open] summary .chev{transform:rotate(180deg)}
 .faq .answer{padding:0 24px 22px;color:var(--ink-2);font-size:16px}
 
@@ -341,13 +353,13 @@ blockquote.quote cite{font-style:normal;font-weight:800;color:var(--navy);font-s
 .finalcta .box{background:var(--navy);border-radius:var(--r-xl);padding:clamp(34px,6vw,64px);
   position:relative;overflow:hidden;box-shadow:var(--sh-lg)}
 .finalcta .box::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(100% 120% at 100% 0%, rgba(var(--lime-rgb),.12), transparent 55%)}
+  background:radial-gradient(100% 120% at 100% 0%, rgba(var(--gold-rgb),.12), transparent 55%)}
 .finalcta .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4.5vw,52px);
   align-items:center;position:relative;z-index:2}
 .finalcta .inner{position:relative;z-index:2;max-width:44ch}
 .finalcta .figure{position:relative;z-index:2}
 .finalcta h2{color:var(--off);font-size:clamp(28px,4.6vw,44px);margin:0 0 18px;line-height:1.12}
-.finalcta h2 strong{color:var(--lime);font-weight:800}
+.finalcta h2 strong{color:var(--gold);font-weight:800}
 .finalcta p{color:var(--on-dark-3);font-size:18px;margin:0 0 30px}
 .finalcta .microcopy{margin-top:20px;font-size:14px;color:var(--on-dark-4)}
 
@@ -356,12 +368,12 @@ footer{background:var(--navy-900);color:var(--on-dark-4);padding:56px 0 40px;fon
 .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
 footer b,footer strong{color:var(--off)}
 .foot-brand .mark{width:40px;height:40px;border-radius:var(--r-sm);background:var(--navy-700);
-  color:var(--lime);display:grid;place-items:center;font-weight:800;margin-bottom:14px}
+  color:var(--gold);display:grid;place-items:center;font-weight:800;margin-bottom:14px}
 .foot-brand p{margin:6px 0 0;line-height:1.6}
 .foot-col h4{color:var(--off);font-size:14px;text-transform:uppercase;letter-spacing:.1em;margin:0 0 14px}
 .foot-col ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
 .foot-col a{text-decoration:none;transition:.16s}
-.foot-col a:hover{color:var(--lime)}
+.foot-col a:hover{color:var(--gold)}
 .foot-legal{border-top:1px solid var(--navy-500);margin-top:36px;padding-top:24px;
   display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font-size:13.5px;color:var(--ink-3)}
 .foot-legal p{margin:0;max-width:70ch;line-height:1.6}
@@ -436,7 +448,7 @@ footer b,footer strong{color:var(--off)}
 @media(max-width:768px){
   main section{padding:var(--s8) 0}
   .nav-links{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;
-    gap:2px;background:var(--lime);border-bottom:1px solid var(--lime-600);box-shadow:var(--sh-lg);
+    gap:2px;background:var(--gold);border-bottom:1px solid var(--gold-600);box-shadow:var(--sh-lg);
     padding:12px;display:none}
   .nav-links.open{display:flex;transform-origin:top right;animation:menuIn .22s cubic-bezier(.2,.7,.2,1)}
   .nav-links a{padding:14px 16px;font-size:16px}
@@ -466,8 +478,8 @@ footer b,footer strong{color:var(--off)}
 }
 /* Menos transparência: chrome sólido (skill §14) */
 @media(prefers-reduced-transparency:reduce){
-  .site-header{background:var(--lime);backdrop-filter:none;-webkit-backdrop-filter:none;
-    border-bottom:1px solid var(--lime-600)}
+  .site-header{background:var(--gold);backdrop-filter:none;-webkit-backdrop-filter:none;
+    border-bottom:1px solid var(--gold-600)}
   .site-header::after{display:none}
 }
 /* Mais contraste: bordas definidas (skill §14) */
