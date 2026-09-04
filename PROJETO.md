@@ -107,15 +107,211 @@ Tokens renomeados porque o nome virou mentira: `--lime`→`--gold`, `--lime-600`
 
 **Passo 3 — fontes, logo e navbar.**
 - **Montserrat** no conteúdo (Google Fonts). **Goldoni** nos títulos, arquivo real da marca — ver a ressalva abaixo.
-- O **logo** substituiu o monograma "RG" em CSS. A 46px o "GALLASSINI" era ilegível; está em **58px**, e a navbar subiu de 66 para 78px.
+- O **logo** substituiu o monograma "RG" em CSS. A 46px o "GALLASSINI" era ilegível; foi para **58px**, e a navbar subiu de 66 para 78px. **Em 04/09/2026 baixou para 52px** a pedido do usuário — ver abaixo.
 - A **navbar** deixou de ser uma barra de acento e virou **azul (`--navy-900`)**, um degrau abaixo da hero, com um fio dourado embaixo. Links, CTA, anel de foco, botão do menu e painel mobile foram ajustados junto — todos assumiam barra clara.
 - A **escala `on-dark` deixou de puxar amarelo.** Ela descia misturando creme com **taupe**, então quanto mais escuro o degrau, mais quente: `R-B` ia de +3 até +28. Sobre o azul isso lia como amarelo, e o usuário apontou. Agora desce para cinza neutro (`R-B` entre 0 e −5).
+
+#### ✅ O H1 DA HERO VOLTOU A 5 LINHAS (04/09/2026)
+
+O usuário mandou print e pediu para diminuir o título até caber em 5 linhas. **Teto do `clamp` do `.hero h1`: 64px → 60px.**
+
+**A linha que manda não é o texto todo, é a 4ª: "MÉDICO INDIVIDUALIZADO".** Ela é a mais larga e não cabia nos **640px** da `.hero-copy`, então "MÉDICO" caía sozinho e abria a 6ª linha. Medido a 1358px, variando só o corpo:
+
+| corpo | linhas | folga na linha mais larga |
+|---|---|---|
+| 64px (antes) | **6** | 33px |
+| 63px | 5 | **2,4px** |
+| 62px | 5 | 12,5px |
+| **60px (aplicado)** | **5** | **32,7px** |
+| 58px | 5 | 53px |
+
+**Por que 60 e não 63.** A 63px já cabe, mas com 2,4px de sobra — 0,4% da coluna, margem que qualquer arredondamento de outro navegador consome e devolve as 6 linhas. A 60px sobram 32,7px, **exatamente a mesma folga que os 64px tinham na linha mais larga deles**. É o menor corte que não fica na corda bamba.
+
+**Ganho de brinde:** "MÉDICO INDIVIDUALIZADO" passou a ler junto, em vez de "MÉDICO" órfão numa linha inteira. Altura do H1: 392px → **306px** (−86px); hero: 804 → **718px**.
+
+⚠️ **Ao mexer no corpo do H1, no `letter-spacing` ou na largura da `.hero-copy`, remedir "MÉDICO INDIVIDUALIZADO"** — é ela que decide, não o comprimento total.
+
+✅ **Conferido em 7 larguras, sem estouro horizontal:** 1600/1358/1143 → 5 linhas a 60px · 960 → 5 linhas a 53,8px · 768 → 4 linhas · 560 → 3 linhas · 375 → 5 linhas. Abaixo de 1071px o `clamp` já entregava menos que 60px, então **nada mudou no responsivo** — o corte só toca as telas largas. `text-wrap:balance` foi testado e **não estava influenciando**: com `normal` o resultado é idêntico.
+
+#### ✅ O TEXTO DOS CTAs GRANDES PERDEU PESO (04/09/2026)
+
+O usuário perguntou se dava para diminuir o tamanho **ou a grossura do texto** do botão da primeira dobra. **`.btn-lg` ganhou `font-weight:700`**, no lugar dos 800 herdados do `.btn`.
+
+**Quatro variações renderizadas lado a lado, em escala 1:1**, isolando os dois eixos:
+
+| | corpo | peso | largura do botão da hero |
+|---|---|---|---|
+| A · antes | 18px | 800 | 379px |
+| **B · aplicada** | **18px** | **700** | **374px** |
+| C | 16px | 800 | 345px |
+| D | 16px | 700 | 340px |
+
+**O eixo certo era o peso, não o corpo.** 800 é o Extrabold da Montserrat e, sobre o ouro, os traços engrossam a ponto de quase fechar os contraformas — o C mostra que encolher sem tirar peso mantém a mancha densa. O 700 tira a grossura e **quase não mexe na geometria** (379 → 374px de largura, altura idêntica), então a composição da dobra fica onde estava.
+
+**Aplicado nos 4 `.btn-lg`** — hero, Sobre, Como funciona e CTA final — escolha do usuário. Mudar só o da hero o deixaria diferente dos outros três idênticos, o que leria como descuido em vez de decisão.
+
+✅ **Contraste conferido antes de escolher: navy sobre ouro = 5,44:1.** ⚠️ Detalhe que decide isso: **18px ainda é "texto normal" pelo WCAG** — o limiar de texto grande é 24px, ou 18,66px com peso ≥700 —, então as quatro variações precisavam de **4,5:1**, não de 3:1. Todas passam. Se um dia o corpo do `.btn-lg` cair, o limiar continua o mesmo; o que não pode é a cor mudar.
+
+⚠️ **A regra `.btn-lg` tem de continuar DEPOIS de `.btn` no CSS.** As duas têm especificidade (0,1,0) — quem vence é quem vem por último. Movendo `.btn-lg` para cima, o peso 800 volta sem aviso.
+
+**A navbar não foi tocada e nem precisava:** o "Agendar" já renderiza em **600**, não em 800, porque `.nav-links a` (0,1,1) vence `.btn` (0,1,0) e impõe o próprio peso. É o mesmo detalhe de especificidade já registrado nas notas técnicas para a *cor* daquele botão.
+
+#### ✅ CTAs EM UMA LINHA NO CELULAR (04/09/2026) — e o CTA final que não fecha
+
+O usuário mandou print do celular: o botão da hero quebrava em duas linhas. **Medido a 375px, os quatro quebravam** — e o do rodapé em **três**.
+
+| botão | espaço | precisa de | antes |
+|---|---|---|---|
+| hero | 339px | 374px | 2 linhas |
+| Sobre | 327px | 377px | 2 linhas |
+| Como funciona | 327px | 389px | 2 linhas |
+| **CTA final** | **259px** | 434px | **3 linhas** |
+
+**O botão não estava grande demais — o padding é que era de desktop.** Os `18px 34px` do `.btn-lg` comem 68px dos 339 disponíveis num telefone.
+
+**Correção aplicada** (dentro do `@media(max-width:768px)`): `width:100%` + `max-width:420px` + `padding:16px 12px` + `font-size:clamp(14px,4.45vw,18px)`.
+
+🔑 **O achado que destravou o tamanho: largura cheia.** O usuário mandou de referência um print de landing de moto (`ablocacoesdeveiculos.com`) e pediu o botão "nesse sentido de tamanho e largura". O que aquela página faz e a nossa não fazia: **o CTA ocupa a coluna inteira**, texto centralizado. O nosso encolhia até o tamanho do texto — 302px numa coluna de 339 —, e era isso, não o corpo da fonte, que o fazia parecer pequeno.
+- **E largura cheia financia corpo maior.** Com `width:100%` o padding horizontal deixa de definir a largura do botão e vira só o recuo mínimo do texto, então pode encolher para 12px sem parecer apertado — o botão não está mais colado no texto. Isso devolveu espaço e o corpo subiu de novo.
+- **O `max-width:420px` existe para o tablet:** a regra vale até 768px, onde 100% de uma coluna de 705px viraria uma faixa atravessando a tela.
+
+⚠️ **Por que o corpo é FLUIDO e não um número fixo.** Foram varridos 5 paddings × 6 corpos em 6 larguras: **nenhum par fixo sobrevive à faixa inteira**. A largura que o texto pede cresce com a tela, então qualquer valor que caiba a 360px fica pequeno demais a 430px — e o melhor candidato fixo (pad 20 / 15,5px) ainda estourava o "Como funciona" por 5px a 360px. A `4.45vw` acompanha o aparelho e devolve os 18px cheios a partir de ~405px.
+
+🔎 **Os números são TETO MEDIDO, não chute.** Foram três rodadas com o usuário, cada uma pedindo mais tamanho. Varreduras de padding × corpo × largura em cada uma; o valor final é o maior corpo que mantém folga sadia na **largura crítica, que é 360px**. Evolução do corpo a 375px: **18px (quebrava em 2 linhas) → 15,4 → 16,1 → 16,7px**, e a largura do botão de 302 → **339px (coluna cheia)**. A partir de 405px ele já roda nos 18px cheios do desktop.
+
+✅ **Conferido: 1 linha em 360 · 375 · 390 · 414 · 430 · 768px, sem estouro horizontal.** Larguras do botão da hero: 324 · 339 · 354 · 394 · 420px (o teto). Altura estável em 57–60px (quem manda é o `min-height:56px`, não o padding). **Desktop intacto** — a regra vive dentro do breakpoint, e a 1358px os quatro seguem 18px / padding 18px 34px. Em telas muito estreitas o piso de 14px não basta e volta a quebrar — comportamento aceito, aparelho de 320px é residual.
+
+💡 **Onde ainda há corpo sobrando, se um dia quiserem:** o teto é do **"Como funciona"**, não da hero. A hero tem container mais largo (a `.hero .wrap` usa 18px de padding, não 24) e label mais curto, então **sozinha ela aguentaria mais**. Para aproveitar isso seria preciso ou deixar os CTAs com corpos diferentes — o usuário já optou por **consistência entre os quatro** quando o assunto foi o peso — ou encurtar o label "Quero dar o primeiro passo agora".
+
+📌 **A referência trazia mais duas coisas que NÃO foram aplicadas** (não foram pedidas, e uma delas mexe em decisão já fechada): (a) um **segundo botão de WhatsApp em verde logo abaixo do CTA**, empilhado — aqui o WhatsApp vive no botão flutuante, e o ícone dentro dos CTAs está na lista de rejeitados; (b) **texto do botão em caixa alta**. Se o assunto voltar, vale lembrar que a caixa alta do botão é decisão independente da caixa alta dos títulos (que segue pendente).
+
+⚠️ **Quem dita esses números é o botão do "Como funciona"** ("Quero dar o primeiro passo agora"), o label mais longo dos três. **Ao mexer em qualquer texto de CTA, remedir por ele.**
+
+🚨 **PENDENTE — o CTA final não fecha em uma linha, e não é problema de tipografia.** Ele melhorou de 3 para 2 linhas, mas o gargalo é o **container**: o `.finalcta .box` tem `padding:clamp(34px,6vw,64px)`, então a 375px sobram só **259px úteis** — 21% da largura da tela vira padding do cartão. Contas medidas:
+- Só encolhendo o corpo: precisaria de **~9,4px**. Fora de cogitação.
+- Só abrindo o box (34 → 20px no celular): precisaria de ~12px. Ainda não.
+- **Só as duas coisas juntas resolvem:** abrir o box para ~20px **e** tirar a palavra "agora" do label (que o deixaria idêntico ao da hero) dão ~15px — aí fecha.
+- ⚠️ Tirar "agora" é o **método de remoção de palavras já autorizado** para botões (hero e Sobre), não uma exceção nova. Mas mexe na copy do CTA final e no visual da seção 12, **então é decisão do usuário** — não foi feito.
+- 💡 Vale notar que a sugestão nº1 já registrada para a seção 12 (remover o `max-width:44ch` do `.inner`) é de desktop e **não ajuda aqui** — no celular o `.inner` já perde o `max-width` pelo breakpoint de 960px.
+
+#### ✅ LOGO DA NAVBAR: 58px → 52px (04/09/2026)
+
+O usuário pediu a logo "um pouco menor". **`.brand img{height:52px}`** — a largura vem sozinha da proporção do arquivo (747×285), então caiu de **152 para 136px**.
+
+⚠️ **Existe um piso, e ele é de legibilidade, não de gosto.** O subtítulo "GALLASSINI" é tracejado e de traço fino. Renderizados 58 · 52 · 48 · 44px em escala 1:1 sobre o azul: **a 44px o subtítulo degrada visivelmente**, o que confirma o registro antigo dos 46px. **52px foi o menor degrau que passou limpo.** Não descer daqui sem olhar o resultado renderizado — medir não resolve, tem de ver.
+
+**Onde isso mais pesa é no celular, não no desktop:** a 375px a logo ocupava **40% da largura da tela**; agora ocupa 36%. No desktop são 10%.
+
+⚠️ **A barra continua em `min-height:78px` e o header em 79px** — o pedido foi a logo, não a barra. Com 52px de logo mais os 16px de padding do `.nav`, o conteúdo dá 68px, então quem manda na altura continua sendo o `min-height`. **Se um dia a barra encolher junto, o `scroll-padding-top` do `<html>` e o `scroll-margin-top` das seções (hoje 84px, os dois) têm de cair na mesma medida** — senão cada âncora do menu passa a parar deixando um vão sob o cabeçalho.
+
+#### ✅ RODAPÉ: SÍMBOLO DA MARCA NO LUGAR DO MONOGRAMA (04/09/2026)
+
+O `<div class="mark">RG</div>` — quadrado de 40×40 com as letras em CSS, último resto do monograma que a navbar já tinha aposentado — deu lugar ao **`rg_ico_light.png`**, o símbolo sozinho, a **64px de altura** (largura 36px, vem da proporção 317×557 do arquivo).
+
+🔑 **Só o símbolo, sem o nome — e o usuário levantou isso sozinho, com razão.** A linha imediatamente abaixo já diz "Dr. Rafael Gallassini · Médico" em texto. O logo horizontal imprimiria o nome **duas vezes, a 16px de distância**. É o mesmo tipo de eco que este arquivo já registra em outros pontos da página.
+- **Pelo mesmo motivo a imagem é decorativa** (`alt=""` + `aria-hidden`): o leitor de tela não deve ouvir o nome duplicado. O monograma anterior também era `aria-hidden`, então nada mudou de semântica.
+- **Tamanho: 52px — o mesmo do logo da navbar**, a pedido do usuário ("para ficar harmônico"). Passou por 64px numa primeira rodada (escolhido vendo, contra o bloco de texto do rodapé) antes de o usuário pedir o pareamento.
+- 🔑 **E o pareamento é real, não só o número igual — isso foi medido nos arquivos.** A dúvida legítima era: a navbar exibe o **conjunto** (símbolo + letreiro, 747×285) e o rodapé exibe **só o símbolo** (317×557), então `height` igual poderia não significar símbolo do mesmo tamanho. **Medido: o símbolo ocupa 100% da altura do lockup horizontal** (162×285) e 100% da altura do arquivo do ícone, e as proporções batem (**0,5684 vs 0,5691**). Logo, os dois a 52px renderizam **idênticos: 52×30px**. Confirmado no DOM.
+- ⚠️ **POR ISSO OS DOIS ANDAM JUNTOS.** Se a altura do `.brand img` mudar, **mudar a do `.foot-brand .mark` na mesma medida** — senão a harmonia se perde e ninguém descobre de onde veio. Há comentário no CSS nos dois lugares.
+- ✅ **O monograma "RG" sumiu do rodapé.** O que resta na página é o `.portrait .mono`, que é o **placeholder do Slot 3** e sai quando a foto do Dr. Rafael entrar.
+
+**Removido junto, a pedido:** o parágrafo do **"Aviso legal"** no `.foot-legal`. Sobrou só a linha de copyright. 🚨 **Isso é compliance, não layout** — ver Regras invioláveis §2, onde ficou registrado o que a página perdeu.
+
+#### ✅ SISTEMA TIPOGRÁFICO UNIFICADO (04/09/2026) — a partir de ablocacoesdeveiculos.com
+
+O usuário mandou a landing de motos como referência de harmonia e pediu a análise antes da aplicação; depois delegou as três decisões em aberto ("faça da forma que achar melhor, se eu não gostar a gente volta").
+
+**O que a referência faz, medido no DOM dela:** 24 títulos, **uma** entrelinha (1,08), **um** peso (800), tracking como **razão constante** (−0,02em; só o H1 a −0,03em), H2 de **46px em todas as seções**, subtítulo em **duas** definições (20px sob H1, 18px sob H2, ambos 400/1,55), e **título e subtítulo na mesma medida** (614px). Padding de seção 96px e entrelinha de corpo 1,55 — **iguais aos nossos já**.
+
+**O diagnóstico:** o ritmo base da nossa página já estava certo. A desarmonia era só excesso de exceção no sistema de títulos.
+
+| | antes | depois |
+|---|---|---|
+| entrelinhas de título | **3** (1,02 · 1,08 · 1,12) | **1** (1,08) |
+| corpos de H2 | **3** (48 · 40 · 44) | **1** (46) |
+| razões de tracking | **3** (−0,035 · −0,025 · −0,01) | **2** (−0,03 no H1, −0,02 no resto) |
+| definições de subtítulo | **4** | **2** (20px sob H1 · 18px sob H2) |
+| medida título vs subtítulo | 511 vs 675px | **640px nos dois** |
+
+**Página: 10.231 → 9.935px (−296px).** Sem estouro horizontal em 1358 · 960 · 768 · 375px.
+
+🔑 **Token novo `--measure:640px`** — a medida que título e subtítulo dividem. Casa com o `max-width` da `.hero-copy`, então a página passou a ter **uma medida só**.
+- ⚠️ **EM PX, NUNCA EM `ch`.** Descoberto medindo: `24ch` dá **614px no título** (Goldoni) e **270px na intro** (Montserrat), porque `ch` é a largura do "0" **da fonte do elemento**. Com duas famílias, `ch` nunca produz medida compartilhada. Foi a armadilha central desta rodada.
+
+**A exceção de 40px do Mecanismo morreu.** Ela existia porque a 48px o título virava torre de 6 linhas na coluna de 523px. **A 46px ele cabe em 5** — medido. Custo: +32px naquela seção, pago com folga pelo resto.
+
+**O `.lead` manteve o peso 600 — é a única exceção do sistema, e é deliberada.** Ele aparece **uma vez só na página** (a linha de posicionamento sob o nome do médico, na seção "Sobre") e faz um trabalho que nenhum outro subtítulo faz: separar o nome dos dois parágrafos densos. Sem o peso, título/posicionamento/corpo viram dois níveis em vez de três. O **corpo** dele foi unificado em 18px.
+- ⚠️ **Cuidado de especificidade:** `.about-body p` (0,1,1) vence `.lead` (0,1,0) e estava impondo 17px por cima do sistema. O `font-size` está repetido em `.about-body .lead` de propósito.
+
+**Duas regras mortas removidas** (mesmo critério dos eyebrows): `.sec-head` (0 usos no HTML) e `.sec-dark .lead` (o único `.lead` da página vive em seção clara, então a regra nunca era aplicada).
+
+#### 🚨 CTA FINAL: a "sugestão nº1" registrada aqui ESTAVA ERRADA — corrigida
+
+O `PROJETO.md` registrava que remover o `max-width:44ch` do `.finalcta .inner` derrubaria o título de 5 para 4 linhas, "custo zero". **Medido hoje: sozinho ele é inerte.** O `44ch` dá ~449px na Montserrat de 16px e a coluna do grid já limitava em **447px** — quem manda é o grid, não o `max-width`.
+
+Também estava errado o diagnóstico da altura: o título **já caía em 6 linhas antes**, com o corpo em 44px (285px). A unificação em 46px custou 13px, **não uma linha**.
+
+**A alavanca real é o grid:** `.finalcta .grid` de `1.05fr .95fr` → **`1.25fr .75fr`**. A coluna de texto vai de 447 para **533px**, o título fecha em **4 linhas** (298 → 199px) e a caixa inteira cai de **827 para 671px**. A foto do Slot 7 fica em 320×427, ainda 3:4 confortável.
+- ⚠️ **O `max-width:44ch` tinha de sair junto** — senão reimporia a largura antiga e a mudança do grid não faria efeito nenhum. Saiu também a regra órfã `.finalcta .inner{max-width:none}` do breakpoint de 960px.
+- Este era **o único H2 da página que não recebia a medida**. Agora os 533px dele são o mais perto que a composição em duas colunas permite dos 640 do resto.
+
+⚠️ **Ponto de retorno desta rodada:** cópia verificada por md5 em `scratchpad/antes-tipografia/` (`index.html`, `index-dark.html`, `PROJETO.md`). Foi feita porque havia **seis mudanças não commitadas** — um `git checkout` teria descartado a sessão inteira, não só esta.
+
+#### ✅ A HERO GANHOU FOTO — fundo cheio (04/09/2026)
+
+O usuário mandou o Drive com **28 fotos** do ensaio de 10/2024 (`Rede Social - Cor`, numeradas 01–30 sem a 12 e a 24; 14 horizontais 3:2 e 14 verticais 2:3, 2048px no maior lado). Escolhida a **09**, como **fundo cobrindo a hero inteira** — o caminho (a) que este arquivo registrava como opção.
+
+**Arquivos:** `assets/Fotos/dr-rafael-hero-{1100,1600}.{avif,webp,jpg}`. O AVIF de 1600px pesa **45 KB**; o JPG é fallback.
+
+🔑 **A LIÇÃO GEOMÉTRICA, e ela custou duas rodadas erradas.** A hero tem ~1,85:1 e as fotos são 3:2 (1,50). Com `object-fit:cover`, **a escala é pela LARGURA — a imagem inteira aparece na horizontal e `object-position` no eixo X NÃO FAZ NADA.** O corte é só vertical. Logo:
+- **Não dá para "empurrar" o médico para a direita pelo CSS.** O arquivo tem de vir recortado.
+- O que está no ar é um recorte de **1406×762 de um original 2048×1365**, calculado para pôr o rosto a **83% da largura**. **Ao trocar a foto, refazer o recorte; mexer no `object-position` não resolve.**
+- **Como se chegou a 83%, em duas rodadas.** A 74% o corpo dele ficava parcialmente sob o painel de cor — o usuário pediu para levar mais à direita "para o corpo ficar mais evidente". Comparados 74 · 80 · 86% renderizados com o painel: a **80%** o torso, as mãos entrelaçadas e o relógio ficam inteiramente fora do painel; a **86%** ele cresce demais e o enquadramento aperta embaixo. O usuário pediu mais um empurrão e ficou em **83%** — o teto útil antes do aperto do 86%. **Empurrar para a direita = recorte MAIS ESTREITO** (1577 → 1459px), porque o recorte sempre começa na borda esquerda e o que se corta é o lado direito do original. Arquivos ficaram em 1440/1080px de largura. ⚠️ A 83% o recorte nativo é 1406px, então o de 1440 tem 2,4% de upscale — imperceptível, mas **se for além de 83% vale baixar as saídas junto**, senão o upscale cresce.
+- **Contraste refeito a cada rodada** (o fundo sob o texto muda junto): a 80% deu H1 10,22 · sub 5,43 · micro 8,93; a **83%** deu **H1 8,54 · sub 6,76 · micro 8,93**. Todos aprovados. ⚠️ Note que o H1 caiu e a subheadline subiu — mover a foto **troca** qual bloco fica sobre a parte clara, então não dá para supor a direção: tem de medir.
+
+⚠️ **As verticais não servem para fundo cheio.** A 10 foi a escolhida enquanto o plano era um card 4:5 à direita (e era ótima ali); em tela cheia o médico centralizado cai atrás do H1. Formato e tratamento andam juntos.
+
+🚨 **NÃO CONFIAR EM DETECÇÃO DE PELE NESTE ENSAIO.** Escrevi um localizador de rosto por faixa YCbCr e ele apontou 62% onde o rosto estava a 37%: **as molduras douradas e a madeira caem na mesma faixa de tom que pele**. As posições que valem foram lidas no olho, com grade de porcentagem sobreposta — método barato e confiável, vale repetir. Posições reais medidas assim: 09 → 57% · 05 → 57% · 22 → 53% · 20 → 42% · 26 → 40%.
+
+**O véu não é enfeite.** São duas camadas: um degradê horizontal (97% de opacidade à esquerda, onde vive o texto → 30% à direita, onde está o médico) e um escurecimento geral de 34%. É o que segura o contraste sem lavar a foto inteira.
+
+✅ **TRATAMENTO FINAL (04/09/2026): PAINEL DE COR + FOTO**, no padrão da referência `ablocacoesdeveiculos.com`, que o usuário trouxe.
+
+**Não é um véu sobre a foto inteira.** A esquerda é **azul chapado** (a foto não aparece ali), a direita é a foto em **força total, sem escurecimento nenhum**, e entre as duas há uma transição suave. Um único degradê horizontal resolve:
+
+```
+var(--navy) 0% → 52%  ·  rgba(navy,.55) 63%  ·  rgba(navy,0) 72%
+```
+
+**Os dois números que governam tudo — 52% e 72%.** O 52% precisa passar do fim do bloco de texto (~59% da largura) o bastante para o degradê ainda cobrir, mas **não tanto que engula o médico, que está a 74%**. É um corredor estreito entre duas restrições.
+
+🔧 **Contraste medido no pixel, e ele MELHOROU em relação ao véu anterior:**
+
+| elemento | véu antigo | **painel** | limiar |
+|---|---|---|---|
+| H1 | 9,59 | **13,03** | 3,0 |
+| subheadline | 7,36 | **5,63** | 4,5 |
+| microcopy | 8,51 | **8,93** | 4,5 |
+
+**A foto ficou mais viva E o texto mais legível ao mesmo tempo** — porque a cor deixou de ser um filtro sobre tudo e virou um bloco onde o texto realmente vive.
+
+**O caminho até aqui, para não repetir:** (1) véu em degradê sobre a foto inteira + 34% de escurecimento geral — funcionava, mas lavava a imagem; (2) sem véu nenhum, a pedido do usuário, só para ver — a foto ganhou muito, mas **reprovava** (H1 1,34 · sub 1,00 · micro 1,96), quebrando nas **arandelas acesas** atrás do H1 e no **braço iluminado** atrás da subheadline; (3) o painel, que é a referência e resolve os dois lados.
+
+**Estado:** desktop conferido a 1358px, sem estouro, hero em 736px e H1 ainda em 5 linhas. **Mobile funciona e não quebrou** (375px, sem estouro), mas **o enquadramento ainda não foi trabalhado** — o médico fica cortado à direita. Ficou combinado desktop primeiro.
+
+#### 📸 O ENSAIO — o que ele cobre e o que não cobre
+
+- ⚠️ **A direção de arte escrita neste arquivo está DESATUALIZADA.** Ela pede "luz natural neutra/fria, baixa saturação, fundos limpos, muito espaço negativo". O ensaio é o oposto: **luz quente de tungstênio, alto contraste, fundo ornamentado** (painéis azul-petróleo, molduras douradas, Chesterfield, tapete persa). **Mas ele combina com a marca melhor do que a direção escrita** — aquela direção é de quando a página era marinho + limão. O azul-petróleo da parede e o ouro das molduras são quase o Azul Profundo e o Dourado do manual. **Reescrever a direção a partir deste ensaio, não rejeitar as fotos.**
+- 🚨 **O ensaio NÃO tem imagem clínica nenhuma.** Não há consultório, exames, atendimento nem equipe. **Os slots 4, 5 e 6 (os três passos do "Como funciona") continuam sem material** e precisam de produção. O ensaio cobre a hero, o Slot 3 (retrato do "Sobre") e provavelmente o Slot 7.
+- ✅ **Compliance:** todas as 28 são retratos do médico, vestido. Nenhuma foto de corpo, nenhum antes-e-depois.
+- **A hero não é nenhum dos 7 slots numerados** — ela não tinha slot. É um oitavo, e a tabela dos 7 continua válida como está.
+- ⚠️ **`assets/Fotos/` não está no `.gitignore` e o repositório é PÚBLICO.** Hoje só há os 6 arquivos derivados da hero. As 28 originais estão no scratchpad, fora do repositório.
 
 #### 🚨 A GOLDONI SÓ TEM CAIXA ALTA — decisão pendente
 
 Medido no navegador: `"a"` e `"A"` têm a mesma largura (65px), `"g"` e `"G"` também (56px), `"emagrecer"` e `"EMAGRECER"` idem (519px). **Os slots de minúscula contêm desenho de maiúscula.**
 
-Resultado: **todos os títulos da página estão em caixa alta**, e o H1 da hero passou de 5 para **6 linhas**.
+Resultado: **todos os títulos da página estão em caixa alta**, e o H1 da hero passou de 5 para **6 linhas**. ✅ **As 6 linhas foram resolvidas em 04/09/2026** baixando o teto do `clamp` para 60px — ver o bloco logo acima. **A decisão sobre a caixa alta continua aberta.**
 
 Isso contradiz uma decisão registrada neste arquivo — *"título em caixa alta: testado (variações A–E) e descartado; escolhida a variação B, caixa mista"*. **Mas o contexto mudou:** a marca inteira é caixa alta, o logo é caixa alta, e o que foi rejeitado era caixa alta na tipografia antiga. Pode ser que agora funcione.
 
@@ -202,10 +398,10 @@ Ela é quase só um `:root` diferente, o que só foi possível por causa do pass
 
 Em ordem. Os três primeiros dependem de decisão do usuário e travam o resto.
 
-1. **Caixa alta dos títulos.** A Goldoni só tem maiúsculas e a página inteira virou caixa alta. Três saídas oferecidas, nenhuma escolhida. **Nada de tipografia fina antes disso**, porque qualquer escolha muda a quebra de linha de todos os títulos.
-2. **Reconferir o responsivo.** As alturas mudaram com a troca de fonte e **só foram medidas a 1180px**. Faltam 900/560/375px.
+1. **Caixa alta dos títulos.** A Goldoni só tem maiúsculas e a página inteira virou caixa alta. Três saídas oferecidas, nenhuma escolhida. **Nada de tipografia fina antes disso**, porque qualquer escolha muda a quebra de linha de todos os títulos. (O H1 da hero já voltou a 5 linhas — mas isso resolveu o *sintoma* naquele título, não a decisão.)
+2. **Reconferir o responsivo.** As alturas mudaram com a troca de fonte e **só foram medidas a 1180px**. ✅ **A hero foi conferida em 04/09** (1600/1358/1143/960/768/560/375, sem estouro); **falta o resto da página** nessas larguras.
 3. **Aplicar o fundo.** `assets/Fundo/fundo-1920.webp` (13 KB) está pronto e não está em uso. Onde entra é decisão em aberto — a hero é o candidato óbvio, mas o `PROJETO.md` registra que um degradê de "luz ambiente" na hero já foi rejeitado uma vez (no contexto do limão, que não existe mais).
-4. **CTA final** — a sugestão nº1 está medida e não aplicada: remover `max-width:44ch` do `.inner` derruba o título de 5 para 4 linhas (−49px) e reduz o vão em volta da foto de 40px para ~15px. Custo zero.
+4. ✅ **CTA final resolvido em 04/09/2026** — mas **não como estava escrito aqui**: remover o `max-width:44ch` sozinho é inerte (quem limitava era a coluna do grid). A alavanca foi `.finalcta .grid` → `1.25fr .75fr`, que derrubou o título de 6 para 4 linhas e a caixa de 827 para 671px. Ver o bloco no topo.
 5. **As 7 fotos.** Maior mudança visual disponível. ⚠️ **Reajustar o `object-position:50% 25%` do `.portrait` quando a foto do Slot 3 chegar.**
 6. **Depoimentos e compliance** antes de publicar.
 7. **`design-system.html`** está desatualizado (ainda marinho + limão). Decidir se atualiza ou aposenta.
@@ -345,6 +541,10 @@ Isto não é opcional e vale para qualquer texto ou imagem adicionada:
 - ⚠️ Depoimentos de pacientes são **restritos pelo CFM**. A Seção 10 está com **três placeholders** (`[Depoimento real…]`, `[Nome]`). **Confirmar com o compliance antes de publicar.**
   - 🚨 **O aviso que existia na própria página foi REMOVIDO** a pedido do usuário em 03/09/2026 (o bloco `.compliance`, com o CSS junto). Ele era a única salvaguarda visível de que aquela seção não estava pronta. **Agora nada na página sinaliza isso** — o alerta vive só aqui. Antes de publicar: ou entram depoimentos reais com autorização de uso de imagem, ou a seção inteira sai do ar. Publicar os placeholders como estão seria divulgar depoimento inventado.
 - Tom informativo, sem superlativos ("melhor médico").
+- 🚨 **O "AVISO LEGAL" DO RODAPÉ FOI REMOVIDO** a pedido do usuário em 04/09/2026. Ele dizia: *"As informações desta página têm caráter informativo e não substituem uma consulta médica. Resultados variam de pessoa para pessoa, de acordo com a avaliação individual e a adesão ao tratamento."*
+  - ⚠️ **A segunda frase era a única ressalva de resultado da página inteira.** Numa landing de emagrecimento, "resultados variam de pessoa para pessoa" é o texto padrão que equilibra as afirmações de resultado — e a página agora **não tem nenhum texto nesse sentido**. Conferido: a string "Aviso legal" não aparece mais em lugar nenhum.
+  - **É a segunda salvaguarda visível retirada da página** (a primeira foi o aviso dos depoimentos, em 03/09). Padrão a observar: as duas obrigações continuam valendo e passaram a viver **só neste arquivo**.
+  - **Antes de publicar, decidir com o compliance** se o aviso volta (no rodapé ou numa página de termos) — a remoção foi de exibição, não de obrigação.
 
 ### 3. Design system — **a paleta da marca, desde 04/09/2026**
 
@@ -478,9 +678,10 @@ Direção de arte para as fotos não brigarem entre si: luz natural neutra/fria 
 ### Próximos passos combinados
 1. ✅ **Seção "A virada" fechada** — o usuário escolheu o **E** e ele está aplicado. Ver o bloco no topo do arquivo, incluindo a regressão de ritmo de imagem que ficou em aberto.
 2. **Preencher os 7 slots de imagem** (tabela acima). ⚠️ **O Slot 2 mudou de 21:9 para 3:4 vertical** com o tratamento E — se já tiver sido produzido no formato antigo, refazer. Continua sendo o mais urgente: hoje é um retângulo listrado de 448×597 ocupando toda a coluna direita da seção.
-3. **Hero — decisão em aberto.** O usuário optou por **não mexer na hero** por enquanto. Quando for mexer, há dois caminhos que **não se somam**: (a) imagem/vídeo de fundo com `min-height` em `svh` + overlay escuro de contraste — se vídeo, `autoplay muted loop playsinline` + `poster` + respeitar `prefers-reduced-motion`; ou (b) card 4:5 emoldurado à direita, no padrão da referência, mantendo o navy chapado. Perguntar antes de implementar.
+3. ✅ **Hero resolvida em 04/09/2026** — foi o caminho (a), foto de fundo com véu de contraste. Ver o bloco no topo. **Falta só o enquadramento no mobile.** O texto abaixo fica como registro da decisão original:
+   ~~**Hero — decisão em aberto.** O usuário optou por **não mexer na hero** por enquanto.~~ Quando for mexer, há dois caminhos que **não se somam**: (a) imagem/vídeo de fundo com `min-height` em `svh` + overlay escuro de contraste — se vídeo, `autoplay muted loop playsinline` + `poster` + respeitar `prefers-reduced-motion`; ou (b) card 4:5 emoldurado à direita, no padrão da referência, mantendo o navy chapado. Perguntar antes de implementar.
 4. **Depoimentos** — 🚨 **ponto de atenção antes de publicar.** Continua com os três placeholders, e o aviso de compliance que ficava na própria página **foi removido** em 03/09/2026 a pedido do usuário. Não há mais nada na tela lembrando que a seção não está pronta. Decidir: entram depoimentos reais (com autorização de uso de imagem e aval do compliance) ou a seção sai.
-5. Revisão final de **compliance** antes de publicar.
+5. Revisão final de **compliance** antes de publicar. ⚠️ **Agora com dois itens concretos:** os depoimentos-placeholder e o **"Aviso legal" removido do rodapé** em 04/09/2026 — a página ficou sem nenhuma ressalva de que resultados variam.
 6. Rastreamento: conversão de clique no WhatsApp (GA4 + Google Ads) e parâmetro `gclid`.
 
 ## Como o usuário trabalha
