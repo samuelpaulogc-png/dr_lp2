@@ -42,7 +42,7 @@ T = {
     'off':      '#F3F4F0',   # creme — segue sendo COR DE TEXTO
     'ink':      '#F3F4F0', 'ink-2': '#C6C0B1', 'ink-3': '#A79F8E',
     'on-dark':  '#F3F4F0', 'on-dark-2': '#E5E4DD', 'on-dark-3': '#D6D2C7',
-    'on-dark-4': '#C6C0B1', 'on-dark-5': '#8C93A8',
+    'on-dark-4': '#C6C0B1', 'on-dark-5': '#A1A8BC',
     'ph-dark-a': '#1A2440', 'ph-dark-b': '#232F52', 'ph-light-b': '#1A2440',
     'navy-rgb': '11,17,31', 'navy-900-rgb': '5,8,16',
     'gold-rgb': '189,152,83', 'white-rgb': '255,255,255',
@@ -118,6 +118,17 @@ body{background:var(--bg)}
 .btn-secondary:hover{background:var(--gold);color:var(--navy)}
 .nav-links a.btn-secondary{background:var(--navy);color:var(--off);box-shadow:none}
 .nav-links a.btn-secondary:hover{background:var(--navy-900);color:var(--off)}
+
+/* Texto em azul que assumia fundo claro. Sobre escuro cai para ~1.1:1.
+   Sao os unicos casos em que color:var(--navy) NAO fica sobre ouro ou bege. */
+.turn{color:var(--on-dark)}
+.faq summary{color:var(--on-dark)}
+blockquote.quote cite{color:var(--gold)}
+.btn-outline{color:var(--gold);box-shadow:inset 0 0 0 2px var(--gold)}
+.btn-outline:hover{background:var(--gold);color:var(--navy)}
+
+/* O chevron do FAQ em ouro escuro ficava apagado sobre o cartao. */
+.faq summary .chev{color:var(--gold)}
 
 /* O retrato era um degrade claro->escuro; sobre escuro precisa de degraus
    proprios para nao virar um buraco. */
