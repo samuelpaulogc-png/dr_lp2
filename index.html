@@ -1,0 +1,1042 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dr. Rafael Gallassini | Emagrecimento e Saúde Metabólica com Acompanhamento Médico</title>
+<meta name="description" content="Já tentou de tudo para emagrecer e o peso sempre volta? Acompanhamento médico individualizado, com investigação do seu metabolismo e um plano feito para o seu corpo. Presencial em Florianópolis e online. Agende sua avaliação.">
+<meta name="theme-color" content="#283050">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  /* Cores da marca (design system AB / manual Roscy) */
+  --navy:#283050; --navy-900:#1B2138; --navy-700:#303858; --navy-500:#485068;
+  --lime:#D0F800; --lime-600:#B8DE00; --lime-200:#EBFB80;
+  --white:#FFFFFF; --off:#F8F8F8;
+  --ink:#283050; --ink-2:#5A6178; --ink-3:#8A90A0; --line:#E3E5EC; --surface:#F3F4F8;
+  --success:#3DBE5A; --whatsapp:#25D366; --danger:#E5484D; --focus:#D0F800;
+
+  --r-sm:8px; --r-md:16px; --r-lg:24px; --r-xl:32px; --r-pill:999px;
+  --sh-sm:0 1px 2px rgba(40,48,80,.06),0 2px 8px rgba(40,48,80,.07);
+  --sh-md:0 4px 10px rgba(40,48,80,.08),0 14px 30px rgba(40,48,80,.12);
+  --sh-lg:0 8px 20px rgba(40,48,80,.10),0 30px 70px rgba(40,48,80,.18);
+  --sh-lime:0 10px 28px rgba(208,248,0,.35),0 2px 6px rgba(208,248,0,.25);
+
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px; --s9:96px;
+  --maxw:1080px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{
+  margin:0;font-family:"Rethink Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--ink);background:var(--off);line-height:1.55;-webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+p{text-wrap:pretty}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+main section{padding:var(--s9) 0;scroll-margin-top:84px}
+a{color:inherit}
+img{max-width:100%;display:block}
+
+/* Skip link (acessibilidade) */
+.skip{position:absolute;left:-9999px;top:0;background:var(--navy);color:var(--off);
+  font-weight:800;padding:12px 18px;border-radius:0 0 var(--r-md) 0;z-index:200}
+.skip:focus{left:0}
+
+h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
+  font-optical-sizing:auto;text-wrap:balance}
+.h-sec{font-size:clamp(28px,5vw,48px);letter-spacing:-.025em;margin:0 0 10px;max-width:20ch}
+.lead{font-size:clamp(17px,2.2vw,19px);color:var(--ink-2);max-width:62ch;margin:0;
+  letter-spacing:.005em;text-wrap:pretty}
+.serif{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:500}
+
+/* Botões */
+.btn{font-family:inherit;font-weight:800;font-size:16px;border:none;cursor:pointer;
+  border-radius:var(--r-pill);padding:15px 26px;min-height:48px;
+  transition:transform .14s cubic-bezier(.2,.7,.2,1),background .18s ease,box-shadow .22s ease,filter .18s ease,color .18s ease;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;letter-spacing:.01em;
+  text-decoration:none;text-align:center;will-change:transform}
+.btn:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--lime);color:var(--navy);box-shadow:var(--sh-lime)}
+.btn-primary:hover{background:var(--lime-600);transform:translateY(-2px)}
+.btn-secondary{background:var(--navy);color:var(--off)}
+.btn-secondary:hover{background:var(--navy-900);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy)}
+.btn-outline:hover{background:var(--navy);color:var(--off)}
+.btn-wa{background:var(--whatsapp);color:#fff}
+.btn-wa:hover{filter:brightness(.94);transform:translateY(-2px)}
+.btn-lg{padding:18px 34px;font-size:18px;min-height:56px}
+.btn-block{width:100%}
+
+/* ---------- Header / Nav ---------- */
+.site-header{position:sticky;top:0;z-index:100;background:var(--lime);
+  backdrop-filter:saturate(180%) blur(18px);-webkit-backdrop-filter:saturate(180%) blur(18px);
+  transition:background .3s ease}
+.site-header::after{content:"";position:absolute;left:0;right:0;bottom:-18px;height:18px;
+  pointer-events:none;opacity:0;transition:opacity .3s ease;
+  background:linear-gradient(rgba(27,33,56,.20),transparent)}
+.site-header.scrolled{background:rgba(208,248,0,.94)}
+.site-header.scrolled::after{opacity:1}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  min-height:66px;max-width:var(--maxw);margin:0 auto;padding:8px 24px}
+.brand{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:17px;
+  letter-spacing:-.01em;color:var(--navy);text-decoration:none}
+.brand .mark{width:34px;height:34px;border-radius:var(--r-sm);background:var(--navy);
+  color:var(--lime);display:grid;place-items:center;font-size:14px;font-weight:800;flex:none}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none;margin:0;padding:0}
+.nav-links a{text-decoration:none;font-weight:700;font-size:15px;color:var(--navy);
+  padding:10px 12px;border-radius:var(--r-pill);transition:.16s}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--navy);background:rgba(40,48,80,.12)}
+/* O CTA da nav é botão, não link: precisa vencer a cor de link acima */
+.nav-links a.btn-secondary{color:var(--off);background:var(--navy)}
+.nav-links a.btn-secondary:hover{color:var(--off);background:var(--navy-900)}
+.nav-cta{display:inline-flex;align-items:center;gap:14px}
+.nav-toggle{display:none;background:transparent;border:1.5px solid rgba(40,48,80,.28);
+  border-radius:var(--r-sm);width:46px;height:46px;cursor:pointer;color:var(--navy)}
+/* Sobre o limão, o anel de foco limão sumiria — passa a ser marinho */
+.site-header .btn:focus-visible,.nav-links a:focus-visible,.nav-toggle:focus-visible{
+  outline:3px solid var(--navy);outline-offset:2px}
+
+/* ---------- Hero ---------- */
+.hero{background:var(--navy);color:var(--off);position:relative;overflow:hidden;
+  padding:var(--s8) 0}
+.hero .wrap{position:relative;z-index:2}
+.hero-copy{max-width:640px}
+.hero h1{font-size:clamp(32px,5.6vw,64px);color:var(--off);letter-spacing:-.035em;
+  line-height:1.02;margin:0;max-width:none}
+.hero h1 em{font-style:normal;color:var(--lime)}
+.hero .sub{margin-top:20px;font-size:clamp(17px,2.4vw,20px);color:#C7CBD8;max-width:52ch}
+.hero-cta{margin-top:32px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.hero .microcopy{margin-top:18px;font-size:14px;color:#AEB4C6;max-width:52ch}
+
+/* ---------- Barra de prova (marquee) ---------- */
+.proof{background:var(--navy-900);padding:18px 0;overflow:hidden}
+.marquee{display:flex;width:max-content;animation:marquee 46s linear infinite;will-change:transform}
+.proof:hover .marquee,.proof:focus-within .marquee{animation-play-state:paused}
+.marquee-track{display:flex;align-items:center;list-style:none;margin:0;padding:0;flex:none}
+.marquee-track li{display:inline-flex;align-items:center;color:var(--off);
+  font-weight:600;font-size:15px;padding:2px 30px;white-space:nowrap;
+  border-left:1px solid rgba(255,255,255,.12)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- Seção genérica clara/escura ---------- */
+.sec-surface{background:var(--surface)}
+.sec-dark{background:var(--navy);color:var(--off)}
+.sec-dark .lead{color:#C7CBD8}
+.sec-head{max-width:64ch}
+.intro{font-size:17px;color:var(--ink-2);margin:18px 0 0;max-width:60ch}
+.sec-dark .intro{color:#C7CBD8}
+
+/* Cards grid */
+.cardgrid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:36px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:26px;box-shadow:var(--sh-sm);
+  transition:transform .32s cubic-bezier(.2,.7,.2,1),box-shadow .32s ease,border-color .32s ease}
+.card:hover{box-shadow:var(--sh-md);transform:translateY(-4px);border-color:transparent}
+.card:active{transform:translateY(-1px)}
+.card .ic{width:46px;height:46px;border-radius:var(--r-md);background:var(--lime);
+  display:grid;place-items:center;color:var(--navy);margin-bottom:16px;font-weight:800;font-size:19px}
+.card h3,.card h4{margin:0 0 8px;font-size:19px;font-weight:800;letter-spacing:-.01em;line-height:1.2}
+.card p{margin:0;font-size:15.5px;color:var(--ink-2)}
+
+/* Split: imagem grande + grade de cards */
+.media-split{display:grid;grid-template-columns:.85fr 1.15fr;gap:32px;align-items:stretch;margin-top:36px}
+.media-split .cardgrid{margin-top:0}
+.cardgrid.cols-2{grid-template-columns:repeat(2,1fr)}
+
+/* ---------- Sistema de imagem: uma moldura para a página inteira ----------
+   Toda foto usa .figure + um modificador de proporção. O raio é sempre --r-xl.
+   É essa repetição que faz formatos diferentes lerem como um sistema único. */
+.figure{margin:0;position:relative;overflow:hidden;border-radius:var(--r-xl);
+  background:var(--surface);border:1px solid var(--line);box-shadow:var(--sh-sm)}
+.figure img,.figure video{width:100%;height:100%;object-fit:cover;display:block}
+.figure picture{display:contents}
+.figure.r-45{aspect-ratio:4/5}
+.figure.r-34{aspect-ratio:3/4}
+.figure.r-32{aspect-ratio:3/2}
+/* Preenche a altura da linha do grid (usado no split de duas colunas) */
+.figure.fill{min-height:440px;height:100%}
+/* Moldura sobre fundo marinho */
+.sec-dark .figure,.figure.on-dark{background:var(--navy-700);border-color:var(--navy-500)}
+/* Placeholder de slot — apagar o bloco .ph inteiro quando a foto entrar */
+.ph{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:10px;
+  padding:20px;text-align:center;color:var(--ink-3);
+  background:repeating-linear-gradient(45deg,#F3F4F8,#F3F4F8 14px,#EDEFF5 14px,#EDEFF5 28px)}
+.ph span{font-size:13.5px;font-weight:700;letter-spacing:.04em;line-height:1.45;max-width:28ch}
+.ph small{font-size:12px;font-weight:600;letter-spacing:.02em;opacity:.75}
+.ph.on-dark{color:#9AA0B2;
+  background:repeating-linear-gradient(45deg,#2E3757,#2E3757 14px,#343D60 14px,#343D60 28px)}
+
+/* Frase de virada / reforço */
+.turn{margin:44px auto 0;max-width:40ch;text-align:center;font-size:clamp(22px,3.4vw,30px);
+  line-height:1.28;color:var(--navy)}
+.turn strong{background:var(--lime);color:var(--navy);padding:0 8px;border-radius:8px;
+  font-weight:700;box-shadow:0 0 0 1px rgba(40,48,80,.04)}
+/* Frase de reforço — fecha a seção como rodapé do bloco, na medida dele (1032px).
+   Era centralizada em 537px, num terceiro eixo que não batia nem com a coluna de texto
+   (x=117) nem com a foto (x=703). Agora divide a margem esquerda e a medida com o .mech,
+   e o fio faz a separação que o alinhamento centralizado tentava fazer.
+   ⚠️ Não repetir aqui o gesto da .turn (serif centralizada) — são seções vizinhas. */
+.reinforce{margin:40px 0 0;max-width:none;text-align:left;color:#E4E7F0;
+  font-size:clamp(21px,3.4vw,26px);line-height:1.36;
+  border-top:1px solid var(--navy-500);padding-top:30px}
+
+/* ---------- Mecanismo (tratamento "E") ----------
+   Duas colunas: o texto à esquerda e o Slot 2 como foto VERTICAL 3:4 à direita,
+   grudada no scroll. Substituiu a faixa full-bleed 21:9 que ficava abaixo do bloco.
+   Escolhido pelo usuário em 03/09/2026 entre 12 tratamentos comparados. */
+.mech{display:grid;grid-template-columns:1.08fr .92fr;
+  gap:clamp(32px,5vw,64px);align-items:start}
+/* 40px e não os 48px do resto da página: numa coluna de ~525px o título de 48px
+   vira uma torre. A 40px são 4 linhas. Se mexer na largura das colunas, remedir. */
+.mech>div>h2{max-width:none;margin:0 0 20px;font-size:clamp(26px,3.2vw,40px)}
+.mech-intro{margin:0;font-size:clamp(17px,2vw,18.5px);color:#D6D9E4}
+.mech-body{margin:0;font-size:17px;color:#D6D9E4}
+/* O parágrafo era uma frase de 17 palavras seguida de uma de 56, coladas num bloco só
+   de 8 linhas. Agora são dois parágrafos — mesma copy, sem nenhuma palavra alterada.
+   ESTE É O BOTÃO DE AJUSTE do intervalo entre os dois: 0 = sem pular linha (só a quebra
+   do período); 1.55em = exatamente uma entrelinha, ou seja, uma linha em branco de
+   verdade. Em `em` para acompanhar o font-size. */
+.mech-body+.mech-body{margin-top:1.55em}
+.mech-body strong{color:var(--off)}
+/* A foto acompanha a rolagem do texto ao lado. */
+.mech-figura{margin:0;border-radius:var(--r-xl);overflow:hidden;
+  border:1px solid var(--navy-500);background:var(--navy-700);
+  aspect-ratio:3/4;position:sticky;top:96px}
+.mech-figura img{width:100%;height:100%;object-fit:cover;display:block}
+.mech-figura picture{display:contents}
+.mech-figura .ph{height:100%}
+
+/* Os 6 fatores como painel indexado.
+   A borda pertence ao PAINEL, não a cada célula: os fios são os próprios gaps de 1px
+   do grid, com o fundo do painel aparecendo por baixo. Isso resolve fio interno e
+   externo sozinho, sem nenhuma regra de nth-child, e continua correto em qualquer
+   número de colunas. As células precisam de fundo opaco para o truque funcionar.
+   A 2 colunas, 6 fatores dão 3 linhas exatas e o fechamento vira a faixa do rodapé. */
+.panel{list-style:none;margin:26px 0;padding:0;
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:1px;background:var(--navy-500);
+  border:1px solid var(--navy-500);border-radius:var(--r-md);overflow:hidden}
+.panel li{background:var(--navy);padding:18px 20px;min-height:92px;
+  display:flex;flex-direction:column;gap:10px}
+.panel .idx{font-size:11.5px;font-weight:800;letter-spacing:.16em;color:var(--lime);
+  font-variant-numeric:tabular-nums}
+/* margin-top:auto joga o nome para a base: os nomes alinham numa linha de base
+   comum mesmo quando um deles quebra em duas linhas. */
+.panel .nm{margin-top:auto;font-size:17px;font-weight:700;color:var(--off);
+  line-height:1.25;letter-spacing:-.01em}
+/* A última célula é o PREDICADO da frase ("Influenciam diretamente…"), trazido para
+   dentro da grade: fecha o bloco e some um parágrafo avulso embaixo dele. */
+.panel li.close{grid-column:1/-1;background:var(--lime);justify-content:center}
+.panel li.close .nm{margin-top:0;color:var(--navy);font-size:19px;line-height:1.32}
+
+/* ---------- Sobre ---------- */
+/* Sobre: uma coluna de texto + o retrato ao lado, esticado até a mesma altura.
+   O título vive DENTRO da coluna de texto (não acima das duas) — é o que compacta a seção. */
+.about{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:stretch}
+/* margin:0 é obrigatório — <figure> tem margem padrão do navegador (1em 40px),
+   que encolhia o retrato em 80px e o deslocava 16px para baixo. */
+.portrait{background:linear-gradient(160deg,var(--navy-700),var(--navy));border-radius:var(--r-xl);
+  margin:0;height:100%;min-height:520px;display:grid;place-items:center;position:relative;
+  overflow:hidden;box-shadow:var(--sh-md);border:1px solid var(--navy-500)}
+.portrait img{width:100%;height:100%;object-fit:cover}
+.portrait .mono{font-size:96px;font-weight:800;color:var(--lime);letter-spacing:-.03em;opacity:.95}
+.about-body p{font-size:17px;color:var(--ink-2);margin:0 0 20px}
+.about-body .lead{max-width:none;margin:0 0 22px;color:var(--ink);font-weight:600}
+.about-body strong{color:var(--ink)}
+
+/* ---------- O que inclui (grid check) ---------- */
+/* Lista sem caixa: cada item é separado por um fio, não por uma moldura.
+   Era uma grade de 6 cartões brancos com borda e sombra — o terceiro bloco de
+   cartões seguido da página (3, 6, 7, 8, 9 são todos grades). Tirando a moldura,
+   a seção ganha textura própria sem inventar componente novo: nenhum outro bloco
+   da página é uma lista sem caixa.
+   ⚠️ O gap cresceu de 16px para 34px/44px de propósito. Sem a moldura é o vão que
+   separa as colunas; a 16px os fios de colunas vizinhas quase se encostam e a
+   linha lê como uma régua quebrada em vez de três colunas. */
+.includes{list-style:none;margin:36px 0 0;padding:0;display:grid;gap:34px 44px;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.includes li{display:flex;gap:14px;background:none;border:0;
+  border-top:1px solid var(--line);border-radius:0;padding:20px 0 0;box-shadow:none}
+.includes .tick{flex:none;width:30px;height:30px;border-radius:var(--r-sm);background:var(--lime-200);
+  display:grid;place-items:center;color:var(--navy)}
+.includes b{display:block;color:var(--ink);font-size:16px;margin-bottom:2px}
+.includes span.txt{color:var(--ink-2);font-size:15px}
+
+/* ---------- Como funciona (passos) ---------- */
+.steps{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:36px}
+.step{background:var(--navy-700);border:1px solid var(--navy-500);border-radius:var(--r-lg);
+  padding:28px;position:relative;overflow:hidden}
+.step .num{width:48px;height:48px;border-radius:var(--r-pill);background:var(--lime);color:var(--navy);
+  font-weight:800;font-size:20px;display:grid;place-items:center;margin-bottom:18px}
+/* A foto sangra até a borda do card; o número passa a viver sobre ela */
+.step-media{margin:-28px -28px 22px;border-radius:0;border:0;box-shadow:none}
+.step-media .num{position:absolute;top:14px;left:14px;margin:0;width:44px;height:44px;
+  font-size:18px;box-shadow:var(--sh-sm);z-index:2}
+.step h3{color:var(--off);font-size:19px;margin-bottom:8px}
+.step p{color:#C7CBD8;font-size:15.5px;margin:0}
+
+/* ---------- Para quem é ---------- */
+.audience{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:34px}
+.aud-card{border-radius:var(--r-lg);padding:30px;box-shadow:var(--sh-sm)}
+.aud-yes{background:var(--white);border:2px solid var(--navy)}
+.aud-no{background:var(--surface);border:1px solid var(--line)}
+.aud-card h3{font-size:20px;margin-bottom:18px}
+.aud-card ul{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+/* ⚠️ O texto de cada item PRECISA estar dentro de um <span>. Como o <li> é flex, cada
+   filho vira um flex item — e um <strong> solto no meio do texto quebrava a frase em
+   três caixas lado a lado ("Você quer | causa | do problema…", embaralhado na tela).
+   Com o <span>, o texto inteiro é um flex item só e o <strong> volta a ser inline. */
+.aud-card li{display:flex;gap:12px;align-items:flex-start;font-size:16px;color:var(--ink)}
+.aud-card li>span{flex:1}
+.aud-card li svg{flex:none;margin-top:3px}
+.aud-yes li svg{color:var(--success)}
+.aud-no li svg{color:var(--ink-3)}
+
+/* ---------- Depoimentos ---------- */
+.quotes{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:20px}
+blockquote.quote{margin:0;background:var(--white);border:1px solid var(--line);
+  border-left:5px solid var(--lime);border-radius:var(--r-md);padding:26px 26px 22px;box-shadow:var(--sh-sm)}
+blockquote.quote p{font-size:17px;color:var(--ink);margin:0 0 16px;line-height:1.5}
+blockquote.quote cite{font-style:normal;font-weight:800;color:var(--navy);font-size:15px}
+
+/* ---------- FAQ ---------- */
+.faq{max-width:800px;margin:36px auto 0;display:grid;gap:12px}
+.faq details{background:var(--white);border:1px solid var(--line);border-radius:var(--r-md);
+  box-shadow:var(--sh-sm);overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;padding:20px 24px;font-weight:700;font-size:17px;
+  color:var(--navy);display:flex;justify-content:space-between;gap:16px;align-items:center;
+  min-height:44px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:focus-visible{outline:3px solid var(--focus);outline-offset:-3px;border-radius:var(--r-md)}
+.faq summary:hover{background:var(--surface)}
+.faq summary .chev{flex:none;transition:transform .2s;color:var(--lime-600)}
+.faq details[open] summary .chev{transform:rotate(180deg)}
+.faq .answer{padding:0 24px 22px;color:var(--ink-2);font-size:16px}
+
+/* ---------- CTA final ---------- */
+.finalcta{position:relative;overflow:hidden}
+.finalcta .box{background:var(--navy);border-radius:var(--r-xl);padding:clamp(34px,6vw,64px);
+  position:relative;overflow:hidden;box-shadow:var(--sh-lg)}
+.finalcta .box::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(100% 120% at 100% 0%, rgba(208,248,0,.12), transparent 55%)}
+.finalcta .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4.5vw,52px);
+  align-items:center;position:relative;z-index:2}
+.finalcta .inner{position:relative;z-index:2;max-width:44ch}
+.finalcta .figure{position:relative;z-index:2}
+.finalcta h2{color:var(--off);font-size:clamp(28px,4.6vw,44px);margin:0 0 18px;line-height:1.12}
+.finalcta h2 strong{color:var(--lime);font-weight:800}
+.finalcta p{color:#C7CBD8;font-size:18px;margin:0 0 30px}
+.finalcta .microcopy{margin-top:20px;font-size:14px;color:#AEB4C6}
+
+/* ---------- Footer ---------- */
+footer{background:var(--navy-900);color:#AEB4C6;padding:56px 0 40px;font-size:15px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
+footer b,footer strong{color:var(--off)}
+.foot-brand .mark{width:40px;height:40px;border-radius:var(--r-sm);background:var(--navy-700);
+  color:var(--lime);display:grid;place-items:center;font-weight:800;margin-bottom:14px}
+.foot-brand p{margin:6px 0 0;line-height:1.6}
+.foot-col h4{color:var(--off);font-size:14px;text-transform:uppercase;letter-spacing:.1em;margin:0 0 14px}
+.foot-col ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.foot-col a{text-decoration:none;transition:.16s}
+.foot-col a:hover{color:var(--lime)}
+.foot-legal{border-top:1px solid var(--navy-500);margin-top:36px;padding-top:24px;
+  display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font-size:13.5px;color:#8A90A0}
+.foot-legal p{margin:0;max-width:70ch;line-height:1.6}
+
+/* ---------- Botão flutuante WhatsApp ---------- */
+.wa-float{position:fixed;right:20px;bottom:20px;z-index:90;width:60px;height:60px;
+  border-radius:var(--r-pill);background:var(--whatsapp);color:#fff;display:grid;place-items:center;
+  box-shadow:var(--sh-md);transition:transform .18s cubic-bezier(.2,.7,.2,1),filter .18s ease}
+.wa-float:hover{transform:translateY(-3px) scale(1.04);filter:brightness(.96)}
+.wa-float:active{transform:scale(.92)}
+.wa-float:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+/* Só entra a partir da seção 2 (a barra de prova). Na hero fica fora — ali o CTA já é o botão
+   grande da própria dobra. `visibility` tira do foco e do leitor de tela enquanto está oculto;
+   sem JS o botão continua sempre visível (mesmo padrão de `.reveal`).
+   O `transition` repete transform/filter porque a regra acima seria sobrescrita — e é ela
+   que anima o hover. */
+.js .wa-float{opacity:0;visibility:hidden;
+  transition:transform .18s cubic-bezier(.2,.7,.2,1),filter .18s ease,opacity .25s ease,visibility 0s linear .25s}
+.js .wa-float.show{opacity:1;visibility:visible;
+  transition:transform .18s cubic-bezier(.2,.7,.2,1),filter .18s ease,opacity .25s ease,visibility 0s}
+
+/* ---------- Animações sutis (progressive enhancement) ---------- */
+/* Sem JS, o conteúdo permanece totalmente visível. O ocultar/animar só entra quando há JS. */
+.js .reveal{opacity:0;transform:translateY(18px);
+  transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.js .reveal.in{opacity:1;transform:none}
+/* Stagger sutil dos itens em grade quando a seção entra (a chegada telegrafa o conteúdo) */
+.js .reveal :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*{
+  transform:translateY(14px);transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*{transform:none}
+.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(2){transition-delay:.05s}
+.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(3){transition-delay:.1s}
+.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(4){transition-delay:.15s}
+.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(5){transition-delay:.2s}
+.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(6){transition-delay:.25s}
+.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(7){transition-delay:.3s}
+.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(8){transition-delay:.35s}
+/* Abertura suave do FAQ + microinterações (mantém o <details> nativo/acessível) */
+@keyframes faqIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.faq details[open] .answer{animation:faqIn .28s ease}
+.faq details{transition:box-shadow .2s ease}
+.faq details[open]{box-shadow:var(--sh-md)}
+.faq summary:active{background:var(--surface)}
+/* Menu mobile emergindo do gatilho (canto superior direito) */
+@keyframes menuIn{from{opacity:0;transform:translateY(-10px) scale(.98)}to{opacity:1;transform:none}}
+.nav-toggle:active{transform:scale(.94)}
+
+/* ---------- Responsivo ---------- */
+@media(max-width:960px){
+  .about{grid-template-columns:1fr;gap:28px}
+  /* No empilhado o retrato vira RETÂNGULO HORIZONTAL, a pedido do usuário: a 4/5 com
+     339px de largura ele virava um bloco de ~424px de altura, que tomava a tela inteira.
+     A 16/10 cai para ~212px. É a mesma proporção que .mech-figura e .finalcta .figure
+     já usam neste breakpoint, então o mobile fica coerente.
+     ⚠️ object-position sobe o enquadramento: a foto do Slot 3 é VERTICAL (~1000×1500) e,
+     recortada em 16/10, o cover pegaria a faixa central e cortaria a cabeça. Com 50% 25%
+     o rosto fica preservado. REAJUSTAR quando a foto real entrar. */
+  .portrait{height:auto;min-height:0;aspect-ratio:16/10;max-width:none;margin:0}
+  .portrait img{object-position:50% 25%}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .media-split{grid-template-columns:1fr;gap:26px}
+  .mech{grid-template-columns:1fr;gap:28px}
+  /* Empilhado a foto sai do sticky e vira horizontal, senão fica gigante no tablet.
+     `relative` e não `static`: o placeholder .ph é absolute/inset:0 e precisa de um
+     contexto de posicionamento — com static ele escaparia para o ancestral posicionado. */
+  .mech-figura{position:relative;top:auto;aspect-ratio:16/10}
+  .figure.fill{min-height:300px}
+  .finalcta .grid{grid-template-columns:1fr;gap:30px}
+  .finalcta .inner{max-width:none}
+  .finalcta .figure.r-34{aspect-ratio:16/10}
+}
+@media(max-width:768px){
+  main section{padding:var(--s8) 0}
+  .nav-links{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;
+    gap:2px;background:var(--lime);border-bottom:1px solid var(--lime-600);box-shadow:var(--sh-lg);
+    padding:12px;display:none}
+  .nav-links.open{display:flex;transform-origin:top right;animation:menuIn .22s cubic-bezier(.2,.7,.2,1)}
+  .nav-links a{padding:14px 16px;font-size:16px}
+  .nav-toggle{display:grid;place-items:center}
+  .nav .brand-cta{display:none}
+  .audience{grid-template-columns:1fr}
+  .cardgrid.cols-2{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr}
+  .foot-legal{flex-direction:column}
+  /* Subheadline usa toda a largura disponível no celular */
+  .hero .wrap{padding:0 18px}
+  .hero .sub{max-width:none}
+  .hero .microcopy{max-width:none}
+  .figure.fill{min-height:260px}
+  .panel{grid-template-columns:1fr}
+  .panel li{min-height:0;padding:16px 18px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;scroll-behavior:auto!important;animation:none!important}
+  .reveal{opacity:1;transform:none}
+  .js .reveal :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*{transform:none}
+  /* Marquee estático e centralizado, sem movimento */
+  .marquee{width:auto;flex-wrap:wrap;justify-content:center}
+  .marquee-track{flex-wrap:wrap;justify-content:center}
+  .marquee-track[aria-hidden="true"]{display:none}
+  .marquee-track li{padding:4px 22px}
+}
+/* Menos transparência: chrome sólido (skill §14) */
+@media(prefers-reduced-transparency:reduce){
+  .site-header{background:var(--lime);backdrop-filter:none;-webkit-backdrop-filter:none;
+    border-bottom:1px solid var(--lime-600)}
+  .site-header::after{display:none}
+}
+/* Mais contraste: bordas definidas (skill §14) */
+@media(prefers-contrast:more){
+  .card,.includes li,.aud-no,blockquote.quote,.figure{border-color:var(--ink-3)}
+  .nav-links a:hover{outline:1px solid var(--navy)}
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<!-- ======================= HEADER ======================= -->
+<header class="site-header">
+  <nav class="nav" aria-label="Navegação principal">
+    <a class="brand" href="#inicio" aria-label="Dr. Rafael Gallassini · Início">
+      <span class="mark" aria-hidden="true">RG</span>
+      <span>Dr. Rafael Gallassini</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menu de navegação">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#inicio">Início</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#como-funciona">Como funciona</a></li>
+      <li><a href="#duvidas">Dúvidas</a></li>
+      <li class="brand-cta"><a href="https://wa.me/55[DDD][NÚMERO]?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" class="btn btn-secondary" style="min-height:40px;padding:10px 22px;font-size:15px" target="_blank" rel="noopener">Agendar</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="conteudo">
+
+<!-- ======================= 1 · HERO ======================= -->
+<section class="hero" id="inicio" aria-labelledby="hero-title">
+  <div class="wrap">
+    <div class="hero-copy">
+      <h1 id="hero-title">Emagrecimento e <em>saúde metabólica</em> com acompanhamento médico individualizado em Florianópolis</h1>
+      <p class="sub">Um plano feito sob medida para o seu corpo. Investigamos o que trava o seu metabolismo, para você emagrecer com saúde e, dessa vez, manter o resultado.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="https://wa.me/55[DDD][NÚMERO]?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" target="_blank" rel="noopener">
+          Quero agendar minha avaliação
+        </a>
+      </div>
+      <p class="microcopy">Atendimento presencial em Florianópolis e online para todo o Brasil · Resposta pela nossa equipe em horário comercial</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 2 · BARRA DE PROVA (marquee) ======================= -->
+<aside class="proof" aria-label="Credenciais do Dr. Rafael Gallassini">
+  <div class="marquee">
+    <ul class="marquee-track">
+      <li>Médico · CRM/SC 21664</li>
+      <li>Pós-graduação em Nutrologia</li>
+      <li>Mais de 10 anos de atuação</li>
+      <li>Formação internacional</li>
+      <li>Participação em 5 congressos internacionais</li>
+      <li>Mais de 30 mil pacientes acompanhados</li>
+      <li>Emagrecimento, saúde metabólica e longevidade</li>
+    </ul>
+    <ul class="marquee-track" aria-hidden="true">
+      <li>Médico · CRM/SC 21664</li>
+      <li>Pós-graduação em Nutrologia</li>
+      <li>Mais de 10 anos de atuação</li>
+      <li>Formação internacional</li>
+      <li>Participação em 5 congressos internacionais</li>
+      <li>Mais de 30 mil pacientes acompanhados</li>
+      <li>Emagrecimento, saúde metabólica e longevidade</li>
+    </ul>
+  </div>
+</aside>
+
+<!-- ======================= 3 · VOCÊ SE RECONHECE ======================= -->
+<section id="reconhece" aria-labelledby="reconhece-title" class="reveal">
+  <div class="wrap">
+    <h2 class="h-sec" id="reconhece-title">Se você se identifica com pelo menos uma dessas situações, esta página é para você.</h2>
+    <p class="intro">Antes de falar de solução, vamos ser honestos sobre o que provavelmente já aconteceu com você:</p>
+
+    <div class="media-split">
+      <!-- ================= SLOT 1 · vertical (3:4 ou 4:5) =================
+           Sugestão de cena: consultório, ambiente de atendimento, o médico ouvindo o paciente.
+           NÃO usar foto de corpo — em página de emagrecimento isso vira promessa de resultado.
+           Para inserir, troque a <div class="ph"> inteira por:
+           <picture>
+             <source srcset="imagens/reconhece.avif" type="image/avif">
+             <source srcset="imagens/reconhece.webp" type="image/webp">
+             <img src="imagens/reconhece.jpg" alt="[descreva a cena]"
+                  width="900" height="1200" loading="lazy" decoding="async">
+           </picture> -->
+      <figure class="figure fill">
+        <div class="ph" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          <span>Slot 1 — imagem vertical</span>
+          <small>3:4 ou 4:5 · ~900×1200</small>
+        </div>
+      </figure>
+
+      <div class="cardgrid cols-2">
+      <article class="card">
+        <div class="ic" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#283050" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/></svg>
+        </div>
+        <h3>O efeito sanfona que não acaba</h3>
+        <p>Você perde peso, comemora e, alguns meses depois, está tudo de volta. Às vezes com alguns quilos a mais. Já perdeu a conta de quantas vezes recomeçou do zero.</p>
+      </article>
+      <article class="card">
+        <div class="ic" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#283050" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>
+        </div>
+        <h3>A disposição que sumiu</h3>
+        <p>Cansaço o dia inteiro, aquela sensação de "corpo pesado", vontade de comer o tempo todo e a impressão de que seu corpo trabalha contra você.</p>
+      </article>
+      <article class="card">
+        <div class="ic" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#283050" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h6"/></svg>
+        </div>
+        <h3>As dietas genéricas que nunca duram</h3>
+        <p>Você já seguiu a dieta da vizinha, o protocolo da internet, o cardápio que funcionou para todo mundo, menos para você. E ficou com a sensação de que o problema era falta de disciplina.</p>
+      </article>
+      <article class="card">
+        <div class="ic" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#283050" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-8.5A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6.5C19 16.65 12 21 12 21Z"/><path d="m9.5 12 1.8 1.8L15 10"/></svg>
+        </div>
+        <h3>A frustração de "já tentei de tudo"</h3>
+        <p>Nutricionista, academia, remédio por conta própria, jejum, low carb. Você tentou. E cada tentativa que não durou machucou um pouco mais a sua confiança.</p>
+      </article>
+      </div>
+    </div>
+
+    <p class="turn serif">Você não falhou em todas essas vezes. <strong class="serif">Você foi tratado como uma média.</strong> E o seu corpo não é uma média.</p>
+  </div>
+</section>
+
+<!-- ======================= 4 · A VIRADA / MECANISMO =======================
+     Tratamento "E", escolhido pelo usuário em 03/09/2026.
+     ⚠️ A faixa full-bleed 21:9 que existia aqui FOI REMOVIDA. O Slot 2 passou a ser
+     uma foto VERTICAL 3:4 ao lado do texto. Isso muda o sistema de imagem da página
+     inteira — ver PROJETO.md antes de mexer. -->
+<section class="sec-dark" id="mecanismo" aria-labelledby="mecanismo-title">
+  <div class="wrap reveal">
+    <div class="mech">
+      <div>
+        <h2 class="h-sec" id="mecanismo-title" style="color:var(--off)">Emagrecer não é sobre comer menos. É sobre entender por que o seu corpo não está deixando você emagrecer.</h2>
+        <p class="mech-intro">A maior parte das tentativas fracassa porque ataca só o sintoma, o peso na balança, e ignora a causa.</p>
+
+        <!-- Os fatores já eram uma lista dentro da frase da copy ("Alterações hormonais,
+             resistência à insulina, tireoide, …"). Aqui ela é apenas TIPOGRAFADA como
+             lista, e a última célula é o predicado da mesma frase.
+             ⚠️ Eram 7; hoje são 6. O usuário autorizou em 03/09/2026 cortar o "Tireoide" —
+             era o único item da lista inteiramente contido em outro ("Alterações hormonais"),
+             já que a tireoide é uma glândula endócrina. É a TERCEIRA exceção à regra 1 do
+             PROJETO.md, e está registrada no COPY.md. Fora isso, nenhuma palavra nova e
+             nenhuma removida além do "e" que a grade substitui. -->
+        <ul class="panel">
+          <li><span class="idx">01</span><span class="nm">Alterações hormonais</span></li>
+          <li><span class="idx">02</span><span class="nm">Resistência à insulina</span></li>
+          <li><span class="idx">03</span><span class="nm">Qualidade do sono</span></li>
+          <li><span class="idx">04</span><span class="nm">Uso de medicações</span></li>
+          <li><span class="idx">05</span><span class="nm">Histórico de dietas restritivas</span></li>
+          <li><span class="idx">06</span><span class="nm">Até o seu nível de estresse</span></li>
+          <li class="close"><span class="nm">Influenciam diretamente o quanto o seu corpo guarda ou queima de gordura.</span></li>
+        </ul>
+
+        <p class="mech-body">Como médico com pós-graduação em Nutrologia, o Dr. Rafael investiga esse conjunto <strong>antes</strong> de propor qualquer plano.</p>
+        <p class="mech-body">É construído um caminho individual, com ajuste do que for necessário e acompanhamento de perto para que o resultado <strong>se sustente</strong>, em vez de virar mais um ciclo de perder e recuperar.</p>
+      </div>
+
+      <!-- ================= SLOT 2 · foto VERTICAL 3:4 =================
+           ⚠️ MUDOU DE FORMATO: era uma faixa horizontal 21:9 (~2100×900) sangrando de
+           borda a borda; agora é vertical 3:4 (~900×1200), ao lado do texto e grudada
+           no scroll. Se você já tiver mandado produzir a foto no formato antigo, ela
+           não serve aqui — o recorte é outro.
+           Sugestão de cena: bancada de exames, ambiente clínico, mesa de consulta.
+           NÃO usar foto de corpo — em página de emagrecimento isso vira promessa de
+           resultado implícita. Troque a <div class="ph"> inteira por:
+           <picture>
+             <source srcset="imagens/mecanismo.avif" type="image/avif">
+             <source srcset="imagens/mecanismo.webp" type="image/webp">
+             <img src="imagens/mecanismo.jpg" alt="[descreva a cena]"
+                  width="900" height="1200" loading="lazy" decoding="async">
+           </picture> -->
+      <figure class="mech-figura">
+        <div class="ph on-dark" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          <span>Slot 2 — imagem vertical</span>
+          <small>3:4 · ~900×1200</small>
+        </div>
+      </figure>
+    </div>
+
+    <!-- A frase vive DENTRO do .wrap.reveal, junto com o .mech: é o rodapé do bloco,
+         não um parágrafo avulso. Antes ficava num segundo .wrap sem .reveal, então
+         aparecia de imediato enquanto o bloco acima ainda estava entrando. -->
+    <p class="reinforce serif">Sem cardápio de gaveta. Sem promessa mágica. Um plano que faz sentido para a sua rotina, o seu corpo e a sua história.</p>
+  </div>
+</section>
+
+<!-- ======================= 5 · SOBRE ======================= -->
+<section id="sobre" aria-labelledby="sobre-title" class="reveal">
+  <div class="wrap">
+    <div class="about">
+      <div class="about-body">
+        <h2 class="h-sec" id="sobre-title">Dr. Rafael Gallassini</h2>
+        <p class="lead">Emagrecimento e saúde metabólica: investigação, ciência e acompanhamento próximo.</p>
+        <p>Médico (CRM/SC 21664) com pós-graduação em Nutrologia e formação internacional, com mais de 10 anos de experiência e participação em 5 congressos internacionais. Atua com foco em emagrecimento, saúde metabólica, prevenção e longevidade.</p>
+        <p>Atende em consultório em Florianópolis e por teleconsulta para todo o Brasil, com <strong>mais de 30 mil pacientes acompanhados</strong>. Sua prática tem uma regra: investigar antes de prescrever. O plano nasce dos exames, da história e da rotina de cada paciente, e é ajustado nos retornos.</p>
+        <div class="hero-cta" style="margin-top:8px">
+          <a class="btn btn-secondary btn-lg" href="https://wa.me/55[DDD][NÚMERO]?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" target="_blank" rel="noopener">Quero começar minha avaliação</a>
+        </div>
+      </div>
+
+      <!-- ================= SLOT 3 · retrato vertical =================
+           Foto do Dr. Rafael. Ocupa toda a altura da coluna de texto ao lado, então a foto
+           deve ser VERTICAL e com folga em cima e embaixo — o recorte é feito por object-fit.
+           Formato de origem: 4:5 ou 2:3. O monograma é o placeholder: apague o <span class="mono">
+           e coloque no lugar:
+           <picture>
+             <source srcset="imagens/dr-rafael.avif" type="image/avif">
+             <source srcset="imagens/dr-rafael.webp" type="image/webp">
+             <img src="imagens/dr-rafael.jpg" alt="Dr. Rafael Gallassini"
+                  width="1000" height="1500" loading="lazy" decoding="async">
+           </picture> -->
+      <figure class="portrait">
+        <span class="mono" aria-hidden="true">RG</span>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 6 · DIFERENCIAIS ======================= -->
+<section class="sec-surface reveal" id="diferenciais" aria-labelledby="dif-title">
+  <div class="wrap">
+    <h2 class="h-sec" id="dif-title">O que torna esse acompanhamento diferente do que você já tentou</h2>
+
+    <div class="cardgrid cols-2">
+      <article class="card">
+        <div class="ic" aria-hidden="true">1</div>
+        <h3>Investigação antes do plano</h3>
+        <p>Nada de cardápio pronto no primeiro dia. Primeiro entendemos o que está travando o seu metabolismo, usando história, exames e composição corporal.</p>
+      </article>
+      <article class="card">
+        <div class="ic" aria-hidden="true">2</div>
+        <h3>Plano 100% individualizado</h3>
+        <p>Seu corpo, sua rotina, suas preferências e suas limitações. O plano é feito para você conseguir seguir, e não para caber num modelo padrão.</p>
+      </article>
+      <article class="card">
+        <div class="ic" aria-hidden="true">3</div>
+        <h3>Foco em manter o resultado</h3>
+        <p>O objetivo não é a próxima balança boa. É você não precisar recomeçar nunca mais, com acompanhamento próximo e ajustes ao longo do caminho.</p>
+      </article>
+      <article class="card">
+        <div class="ic" aria-hidden="true">4</div>
+        <h3>Ciência, sem modismo</h3>
+        <p>Condutas baseadas em evidência, com uso responsável de medicações quando há indicação clínica, e sem promessas milagrosas.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 7 · O QUE INCLUI ======================= -->
+<section id="inclui" aria-labelledby="inclui-title" class="reveal">
+  <div class="wrap">
+    <h2 class="h-sec" id="inclui-title">O que está incluído no seu acompanhamento</h2>
+    <p class="intro">Um cuidado completo, do diagnóstico ao dia a dia:</p>
+
+    <ul class="includes">
+      <li><span class="tick" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Avaliação médica completa:</b><span class="txt"> história clínica, hábitos e fatores que influenciam seu peso e sua energia.</span></span></li>
+      <li><span class="tick" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Solicitação e interpretação de exames:</b><span class="txt"> para investigar hormônios, metabolismo e possíveis causas ocultas.</span></span></li>
+      <li><span class="tick" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Avaliação da composição corporal:</b><span class="txt"> para acompanhar gordura, massa magra e evolução real, além da balança.</span></span></li>
+      <li><span class="tick" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Tratamento medicamentoso quando indicado:</b><span class="txt"> de forma segura, responsável e com acompanhamento médico.</span></span></li>
+      <li><span class="tick" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Ajuste de estilo de vida:</b><span class="txt"> sono, disposição, comportamento alimentar e relação com a comida.</span></span></li>
+      <li><span class="tick" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Suporte da equipe:</b><span class="txt"> canal direto para dúvidas entre as consultas.</span></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 8 · COMO FUNCIONA ======================= -->
+<section class="sec-dark reveal" id="como-funciona" aria-labelledby="cf-title">
+  <div class="wrap">
+    <h2 class="h-sec" id="cf-title" style="color:var(--off)">Começar é simples</h2>
+
+    <div class="steps">
+      <article class="step">
+        <!-- ============ SLOT 4 · horizontal (3:2) ============
+             Cena sugerida: recepção / atendimento da equipe / celular na mão.
+             Troque a <div class="ph"> inteira por:
+             <picture>
+               <source srcset="imagens/passo-1.avif" type="image/avif">
+               <source srcset="imagens/passo-1.webp" type="image/webp">
+               <img src="imagens/passo-1.jpg" alt="[descreva a cena]"
+                    width="1200" height="800" loading="lazy" decoding="async">
+             </picture> -->
+        <figure class="figure r-32 step-media">
+          <div class="ph on-dark" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <span>Slot 4 — horizontal</span>
+            <small>3:2 · ~1200×800</small>
+          </div>
+          <div class="num" aria-hidden="true">1</div>
+        </figure>
+        <h3>Você fala com a equipe pelo WhatsApp</h3>
+        <p>Clique no botão, conte rapidamente o seu caso e a nossa equipe te ajuda a agendar a avaliação, presencial em Florianópolis ou online.</p>
+      </article>
+      <article class="step">
+        <!-- ============ SLOT 5 · horizontal (3:2) ============
+             Cena sugerida: consulta em andamento, médico e paciente conversando.
+             Troque a <div class="ph"> inteira por:
+             <picture>
+               <source srcset="imagens/passo-2.avif" type="image/avif">
+               <source srcset="imagens/passo-2.webp" type="image/webp">
+               <img src="imagens/passo-2.jpg" alt="[descreva a cena]"
+                    width="1200" height="800" loading="lazy" decoding="async">
+             </picture> -->
+        <figure class="figure r-32 step-media">
+          <div class="ph on-dark" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <span>Slot 5 — horizontal</span>
+            <small>3:2 · ~1200×800</small>
+          </div>
+          <div class="num" aria-hidden="true">2</div>
+        </figure>
+        <h3>Avaliação individualizada com o Dr. Rafael</h3>
+        <p>Uma consulta sem pressa, para entender a sua história, pedir os exames necessários e montar um plano feito para o seu corpo.</p>
+      </article>
+      <article class="step">
+        <!-- ============ SLOT 6 · horizontal (3:2) ============
+             Cena sugerida: retorno / bancada com exames / acompanhamento.
+             Troque a <div class="ph"> inteira por:
+             <picture>
+               <source srcset="imagens/passo-3.avif" type="image/avif">
+               <source srcset="imagens/passo-3.webp" type="image/webp">
+               <img src="imagens/passo-3.jpg" alt="[descreva a cena]"
+                    width="1200" height="800" loading="lazy" decoding="async">
+             </picture> -->
+        <figure class="figure r-32 step-media">
+          <div class="ph on-dark" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <span>Slot 6 — horizontal</span>
+            <small>3:2 · ~1200×800</small>
+          </div>
+          <div class="num" aria-hidden="true">3</div>
+        </figure>
+        <h3>Acompanhamento até o resultado se sustentar</h3>
+        <p>Você segue com um plano claro e com acompanhamento próximo, ajustando o caminho até emagrecer <strong style="color:var(--off)">e manter</strong>.</p>
+      </article>
+    </div>
+
+    <div class="hero-cta" style="margin-top:36px">
+      <a class="btn btn-primary btn-lg" href="https://wa.me/55[DDD][NÚMERO]?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" target="_blank" rel="noopener">
+        Quero dar o primeiro passo agora
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 9 · PARA QUEM É ======================= -->
+<section class="sec-surface reveal" id="para-quem" aria-labelledby="pq-title">
+  <div class="wrap">
+    <h2 class="h-sec" id="pq-title">Esse acompanhamento é para você se…</h2>
+
+    <div class="audience">
+      <div class="aud-card aud-yes">
+        <h3>É para você se:</h3>
+        <ul>
+          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Você já tentou emagrecer outras vezes e o peso sempre volta.</span></li>
+          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Você sente que dietas genéricas não funcionam para o seu corpo.</span></li>
+          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Você quer entender a <strong>causa</strong> do problema, e não só enxugar a balança.</span></li>
+          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Você busca um acompanhamento médico sério, próximo e individualizado.</span></li>
+          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Você quer emagrecer com saúde e manter o resultado a longo prazo.</span></li>
+        </ul>
+      </div>
+      <div class="aud-card aud-no">
+        <h3>Talvez não seja para você se:</h3>
+        <ul>
+          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Você procura uma solução milagrosa, sem acompanhamento e da noite para o dia.</span></li>
+          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Você quer apenas uma receita de remédio, sem investigação e sem plano.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 10 · DEPOIMENTOS ======================= -->
+<section id="depoimentos" aria-labelledby="dep-title" class="reveal">
+  <div class="wrap">
+    <h2 class="h-sec" id="dep-title">Quem já vive essa mudança</h2>
+
+    <div class="quotes">
+      <blockquote class="quote">
+        <p>"[Depoimento real do paciente. Foco em: já tinha tentado várias vezes, o que mudou no acompanhamento e como se sente hoje.]"</p>
+        <cite>[Nome], [idade/ocupação opcional]</cite>
+      </blockquote>
+      <blockquote class="quote">
+        <p>"[Depoimento real. Foco em manter o resultado e recuperar disposição.]"</p>
+        <cite>[Nome]</cite>
+      </blockquote>
+      <blockquote class="quote">
+        <p>"[Depoimento real. Foco na diferença do atendimento individualizado.]"</p>
+        <cite>[Nome]</cite>
+      </blockquote>
+    </div>
+
+    <!-- ⚠️ O aviso de compliance que ficava aqui foi REMOVIDO da página a pedido do
+         usuário (03/09/2026). A obrigação continua valendo e está registrada no
+         PROJETO.md: os três depoimentos acima ainda são PLACEHOLDERS e não podem ir
+         ao ar como estão; depoimento de paciente é restrito pelo CFM e precisa de
+         autorização de uso de imagem. -->
+  </div>
+</section>
+
+<!-- ======================= 11 · FAQ ======================= -->
+<section class="sec-surface reveal" id="duvidas" aria-labelledby="faq-title">
+  <div class="wrap">
+    <h2 class="h-sec" id="faq-title">Dúvidas frequentes</h2>
+
+    <div class="faq">
+      <details>
+        <summary>Qual a diferença entre esse acompanhamento médico e o de um nutricionista?<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="answer">O Dr. Rafael é médico, o que permite investigar causas clínicas do ganho de peso, solicitar e interpretar exames e prescrever medicação quando há indicação. Em muitos casos, o ideal é que médico e nutricionista trabalhem de forma complementar. Aqui, a avaliação parte de um olhar médico completo sobre o seu metabolismo.</div>
+      </details>
+      <details>
+        <summary>Eu já tentei de tudo e nada durou. Por que agora seria diferente?<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="answer">Porque o ponto de partida é diferente. Em vez de te entregar mais uma dieta pronta, primeiro investigamos o que está travando o seu corpo e montamos um plano individualizado, com acompanhamento próximo para que o resultado se mantenha, em vez de virar mais um ciclo de perder e recuperar.</div>
+      </details>
+      <details>
+        <summary>O tratamento usa medicação para emagrecer?<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="answer">Medicação é uma ferramenta, não a regra. Quando há indicação clínica, ela pode ser usada de forma segura e responsável, sempre com acompanhamento médico e dentro de um plano maior. Nada de automedicação nem "fórmula milagrosa".</div>
+      </details>
+      <details>
+        <summary>Atende online ou só presencial?<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="answer">Os dois. O atendimento é presencial em Florianópolis e também online por teleconsulta, para pacientes de qualquer lugar do Brasil.</div>
+      </details>
+      <details>
+        <summary>Em quanto tempo vou ver resultado?<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="answer">Cada corpo responde de um jeito, e é por isso que o acompanhamento é individualizado. O foco não é o resultado mais rápido, e sim o resultado que <strong>se sustenta</strong>. Na avaliação, o Dr. Rafael conversa com você sobre expectativas realistas para o seu caso.</div>
+      </details>
+      <details>
+        <summary>Atende convênio?<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="answer">[Informar: atendimento particular / convênios aceitos / reembolso. Preencher conforme a realidade do consultório.]</div>
+      </details>
+      <details>
+        <summary>Como faço para agendar?<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="answer">É só clicar em um dos botões da página. Você fala com a nossa equipe pelo WhatsApp, tira suas dúvidas e agenda a sua avaliação.</div>
+      </details>
+      <details>
+        <summary>Onde fica o consultório?<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="answer">[Endereço completo em Florianópolis: rua, número, bairro, referência. Incluir link do Google Maps na página.]</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 12 · CTA FINAL ======================= -->
+<section class="finalcta reveal" id="agendar" aria-labelledby="final-title">
+  <div class="wrap">
+    <div class="box">
+      <div class="grid">
+      <div class="inner">
+        <h2 id="final-title">Você já tentou sozinho vezes o bastante. Que tal tentar com quem vai olhar para o <strong>seu</strong> caso?</h2>
+        <p>O próximo recomeço não precisa ser mais um da lista. Com uma investigação real do seu metabolismo e um plano feito para você, dá para emagrecer com saúde e, principalmente, manter. Dê o primeiro passo hoje: fale com a nossa equipe e agende a sua avaliação com o Dr. Rafael.</p>
+        <a class="btn btn-primary btn-lg" href="https://wa.me/55[DDD][NÚMERO]?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" target="_blank" rel="noopener">
+          Quero agendar minha avaliação agora
+        </a>
+        <p class="microcopy">Presencial em Florianópolis · Online para todo o Brasil · Atendimento pela equipe em horário comercial</p>
+      </div>
+
+      <!-- ================= SLOT 7 · vertical (3:4) =================
+           Fecha a página em espelho com a hero. Cena sugerida: ambiente do consultório,
+           detalhe do atendimento, o médico em contexto. Troque a <div class="ph"> por:
+           <picture>
+             <source srcset="imagens/cta-final.avif" type="image/avif">
+             <source srcset="imagens/cta-final.webp" type="image/webp">
+             <img src="imagens/cta-final.jpg" alt="[descreva a cena]"
+                  width="900" height="1200" loading="lazy" decoding="async">
+           </picture> -->
+      <figure class="figure r-34 on-dark">
+        <div class="ph on-dark" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          <span>Slot 7 — imagem vertical</span>
+          <small>3:4 · ~900×1200</small>
+        </div>
+      </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ======================= 13 · RODAPÉ ======================= -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="mark" aria-hidden="true">RG</div>
+        <p><b>Dr. Rafael Gallassini · Médico</b><br>CRM/SC 21664 · Pós-graduação em Nutrologia</p>
+        <p style="margin-top:16px">Endereço: [Rua, nº, bairro, Florianópolis/SC]<br>
+        WhatsApp: [(DDD) número]<br>
+        E-mail: [e-mail de contato]<br>
+        Instagram: [@perfil]</p>
+      </div>
+      <nav class="foot-col" aria-label="Links do rodapé">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#duvidas">Dúvidas</a></li>
+          <li><a href="https://wa.me/55[DDD][NÚMERO]?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" target="_blank" rel="noopener">Agendar</a></li>
+        </ul>
+      </nav>
+      <div class="foot-col">
+        <h4>Atendimento</h4>
+        <p style="margin:0;line-height:1.7">Presencial em Florianópolis<br>Online para todo o Brasil<br>Resposta pela equipe em horário comercial</p>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <p><b>Aviso legal:</b> As informações desta página têm caráter informativo e não substituem uma consulta médica. Resultados variam de pessoa para pessoa, de acordo com a avaliação individual e a adesão ao tratamento.</p>
+      <p>© [ANO] Dr. Rafael Gallassini. Todos os direitos reservados. · [Política de Privacidade]</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Botão flutuante WhatsApp (desktop) -->
+<a class="wa-float" href="https://wa.me/55[DDD][NÚMERO]?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" target="_blank" rel="noopener" aria-label="Falar no WhatsApp com a equipe do Dr. Rafael">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.5-.1l.7-.8c.2-.2.3-.2.6-.1l1.8.9c.3.1.5.2.5.4.1.2.1.8-.1 1.4Z"/></svg>
+</a>
+
+<script>
+(function(){
+  // Marca que há JS: só então os blocos .reveal começam ocultos para animar.
+  document.documentElement.classList.add('js');
+
+  // Header: material mais denso + borda-fade só quando há conteúdo por baixo (skill §12).
+  // O mesmo listener cuida do botão flutuante do WhatsApp, que fica fora da primeira dobra:
+  // entra quando a hero termina de sair, ou seja, da seção 2 em diante. Sem IntersectionObserver
+  // de propósito — a altura da hero é lida a cada evento, então continua certo depois de resize.
+  var header=document.querySelector('.site-header');
+  var wa=document.querySelector('.wa-float');
+  var hero=document.querySelector('.hero');
+  if(header||(wa&&hero)){
+    var onScroll=function(){
+      if(header){ header.classList.toggle('scrolled', window.scrollY>4); }
+      if(wa&&hero){ wa.classList.toggle('show', window.scrollY>=hero.offsetHeight); }
+    };
+    onScroll();
+    window.addEventListener('scroll',onScroll,{passive:true});
+  }
+  // Se a hero não existir, o botão não pode ficar oculto para sempre.
+  if(wa&&!hero){ wa.classList.add('show'); }
+
+  // Menu mobile
+  var toggle=document.getElementById('navToggle');
+  var links=document.getElementById('navLinks');
+  if(toggle&&links){
+    toggle.addEventListener('click',function(){
+      var open=links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded',open?'true':'false');
+      toggle.setAttribute('aria-label',open?'Fechar menu de navegação':'Abrir menu de navegação');
+    });
+    links.addEventListener('click',function(e){
+      if(e.target.closest('a')){
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  // Animações sutis ao rolar (respeitando reduced-motion)
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reveals=document.querySelectorAll('.reveal');
+  if(reduce||!('IntersectionObserver'in window)){
+    reveals.forEach(function(el){el.classList.add('in');});
+  }else{
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
+      });
+    },{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+    reveals.forEach(function(el){io.observe(el);});
+  }
+})();
+</script>
+</body>
+</html>

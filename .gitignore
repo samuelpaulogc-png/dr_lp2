@@ -1,0 +1,8 @@
+# Arquivos danificados pela falha de disco de 03/09/2026 — não versionar
+*.CORROMPIDO.bak
+
+# Comparativos temporários da sessão de 03/09/2026.
+# O PROJETO.md os marca como descartáveis; dois deles estão corrompidos no disco.
+_variacoes-*.html
+comparacao.html
+secao7.html
