@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dr. Rafael Gallassini | Emagrecimento e Saúde Metabólica com Acompanhamento Médico</title>
 <meta name="description" content="Já tentou de tudo para emagrecer e o peso sempre volta? Acompanhamento médico individualizado, com investigação do seu metabolismo e um plano feito para o seu corpo. Presencial em Florianópolis e online. Agende sua avaliação.">
+<!-- ATENCAO: atributo HTML nao aceita var(). Ao trocar a paleta,
+     atualizar este valor a mao para o novo fundo escuro. -->
 <meta name="theme-color" content="#283050">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,13 +20,27 @@
   --lime:#D0F800; --lime-600:#B8DE00; --lime-200:#EBFB80;
   --white:#FFFFFF; --off:#F8F8F8;
   --ink:#283050; --ink-2:#5A6178; --ink-3:#8A90A0; --line:#E3E5EC; --surface:#F3F4F8;
-  --success:#3DBE5A; --whatsapp:#25D366; --danger:#E5484D; --focus:#D0F800;
+  --success:#3DBE5A; --whatsapp:#25D366; --danger:#E5484D; --focus:var(--lime);
 
   --r-sm:8px; --r-md:16px; --r-lg:24px; --r-xl:32px; --r-pill:999px;
-  --sh-sm:0 1px 2px rgba(40,48,80,.06),0 2px 8px rgba(40,48,80,.07);
-  --sh-md:0 4px 10px rgba(40,48,80,.08),0 14px 30px rgba(40,48,80,.12);
-  --sh-lg:0 8px 20px rgba(40,48,80,.10),0 30px 70px rgba(40,48,80,.18);
-  --sh-lime:0 10px 28px rgba(208,248,0,.35),0 2px 6px rgba(208,248,0,.25);
+  --sh-sm:0 1px 2px rgba(var(--navy-rgb),.06),0 2px 8px rgba(var(--navy-rgb),.07);
+  --sh-md:0 4px 10px rgba(var(--navy-rgb),.08),0 14px 30px rgba(var(--navy-rgb),.12);
+  --sh-lg:0 8px 20px rgba(var(--navy-rgb),.10),0 30px 70px rgba(var(--navy-rgb),.18);
+  --sh-lime:0 10px 28px rgba(var(--lime-rgb),.35),0 2px 6px rgba(var(--lime-rgb),.25);
+
+
+  /* Componentes RGB dos tons de base. Existem porque rgba() nao aceita var()
+     de cor inteira sem relative color syntax, que ainda nao tem suporte
+     universal. Manter em sincronia com os hexadecimais acima. */
+  --navy-rgb:40,48,80; --navy-900-rgb:27,33,56; --lime-rgb:208,248,0; --white-rgb:255,255,255;
+
+  /* Escala de texto sobre fundo escuro, do mais forte ao mais apagado.
+     Estes cinco tons viviam cravados no CSS em 12 lugares. */
+  --on-dark:#E4E7F0; --on-dark-2:#D6D9E4; --on-dark-3:#C7CBD8;
+  --on-dark-4:#AEB4C6; --on-dark-5:#9AA0B2;
+
+  /* Listras dos placeholders de imagem */
+  --ph-dark-a:#2E3757; --ph-dark-b:#343D60; --ph-light-b:#EDEFF5;
 
   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px; --s9:96px;
   --maxw:1080px;
@@ -69,7 +85,7 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
 .btn-secondary:hover{background:var(--navy-900);transform:translateY(-2px)}
 .btn-outline{background:transparent;color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy)}
 .btn-outline:hover{background:var(--navy);color:var(--off)}
-.btn-wa{background:var(--whatsapp);color:#fff}
+.btn-wa{background:var(--whatsapp);color:var(--white)}
 .btn-wa:hover{filter:brightness(.94);transform:translateY(-2px)}
 .btn-lg{padding:18px 34px;font-size:18px;min-height:56px}
 .btn-block{width:100%}
@@ -80,8 +96,8 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
   transition:background .3s ease}
 .site-header::after{content:"";position:absolute;left:0;right:0;bottom:-18px;height:18px;
   pointer-events:none;opacity:0;transition:opacity .3s ease;
-  background:linear-gradient(rgba(27,33,56,.20),transparent)}
-.site-header.scrolled{background:rgba(208,248,0,.94)}
+  background:linear-gradient(rgba(var(--navy-900-rgb),.20),transparent)}
+.site-header.scrolled{background:rgba(var(--lime-rgb),.94)}
 .site-header.scrolled::after{opacity:1}
 .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;
   min-height:66px;max-width:var(--maxw);margin:0 auto;padding:8px 24px}
@@ -92,12 +108,12 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
 .nav-links{display:flex;align-items:center;gap:6px;list-style:none;margin:0;padding:0}
 .nav-links a{text-decoration:none;font-weight:700;font-size:15px;color:var(--navy);
   padding:10px 12px;border-radius:var(--r-pill);transition:.16s}
-.nav-links a:hover,.nav-links a:focus-visible{color:var(--navy);background:rgba(40,48,80,.12)}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--navy);background:rgba(var(--navy-rgb),.12)}
 /* O CTA da nav é botão, não link: precisa vencer a cor de link acima */
 .nav-links a.btn-secondary{color:var(--off);background:var(--navy)}
 .nav-links a.btn-secondary:hover{color:var(--off);background:var(--navy-900)}
 .nav-cta{display:inline-flex;align-items:center;gap:14px}
-.nav-toggle{display:none;background:transparent;border:1.5px solid rgba(40,48,80,.28);
+.nav-toggle{display:none;background:transparent;border:1.5px solid rgba(var(--navy-rgb),.28);
   border-radius:var(--r-sm);width:46px;height:46px;cursor:pointer;color:var(--navy)}
 /* Sobre o limão, o anel de foco limão sumiria — passa a ser marinho */
 .site-header .btn:focus-visible,.nav-links a:focus-visible,.nav-toggle:focus-visible{
@@ -111,9 +127,9 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
 .hero h1{font-size:clamp(32px,5.6vw,64px);color:var(--off);letter-spacing:-.035em;
   line-height:1.02;margin:0;max-width:none}
 .hero h1 em{font-style:normal;color:var(--lime)}
-.hero .sub{margin-top:20px;font-size:clamp(17px,2.4vw,20px);color:#C7CBD8;max-width:52ch}
+.hero .sub{margin-top:20px;font-size:clamp(17px,2.4vw,20px);color:var(--on-dark-3);max-width:52ch}
 .hero-cta{margin-top:32px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
-.hero .microcopy{margin-top:18px;font-size:14px;color:#AEB4C6;max-width:52ch}
+.hero .microcopy{margin-top:18px;font-size:14px;color:var(--on-dark-4);max-width:52ch}
 
 /* ---------- Barra de prova (marquee) ---------- */
 .proof{background:var(--navy-900);padding:18px 0;overflow:hidden}
@@ -122,16 +138,16 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
 .marquee-track{display:flex;align-items:center;list-style:none;margin:0;padding:0;flex:none}
 .marquee-track li{display:inline-flex;align-items:center;color:var(--off);
   font-weight:600;font-size:15px;padding:2px 30px;white-space:nowrap;
-  border-left:1px solid rgba(255,255,255,.12)}
+  border-left:1px solid rgba(var(--white-rgb),.12)}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ---------- Seção genérica clara/escura ---------- */
 .sec-surface{background:var(--surface)}
 .sec-dark{background:var(--navy);color:var(--off)}
-.sec-dark .lead{color:#C7CBD8}
+.sec-dark .lead{color:var(--on-dark-3)}
 .sec-head{max-width:64ch}
 .intro{font-size:17px;color:var(--ink-2);margin:18px 0 0;max-width:60ch}
-.sec-dark .intro{color:#C7CBD8}
+.sec-dark .intro{color:var(--on-dark-3)}
 
 /* Cards grid */
 .cardgrid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:36px}
@@ -167,23 +183,23 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
 /* Placeholder de slot — apagar o bloco .ph inteiro quando a foto entrar */
 .ph{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:10px;
   padding:20px;text-align:center;color:var(--ink-3);
-  background:repeating-linear-gradient(45deg,#F3F4F8,#F3F4F8 14px,#EDEFF5 14px,#EDEFF5 28px)}
+  background:repeating-linear-gradient(45deg,var(--surface),var(--surface) 14px,var(--ph-light-b) 14px,var(--ph-light-b) 28px)}
 .ph span{font-size:13.5px;font-weight:700;letter-spacing:.04em;line-height:1.45;max-width:28ch}
 .ph small{font-size:12px;font-weight:600;letter-spacing:.02em;opacity:.75}
-.ph.on-dark{color:#9AA0B2;
-  background:repeating-linear-gradient(45deg,#2E3757,#2E3757 14px,#343D60 14px,#343D60 28px)}
+.ph.on-dark{color:var(--on-dark-5);
+  background:repeating-linear-gradient(45deg,var(--ph-dark-a),var(--ph-dark-a) 14px,var(--ph-dark-b) 14px,var(--ph-dark-b) 28px)}
 
 /* Frase de virada / reforço */
 .turn{margin:44px auto 0;max-width:40ch;text-align:center;font-size:clamp(22px,3.4vw,30px);
   line-height:1.28;color:var(--navy)}
 .turn strong{background:var(--lime);color:var(--navy);padding:0 8px;border-radius:8px;
-  font-weight:700;box-shadow:0 0 0 1px rgba(40,48,80,.04)}
+  font-weight:700;box-shadow:0 0 0 1px rgba(var(--navy-rgb),.04)}
 /* Frase de reforço — fecha a seção como rodapé do bloco, na medida dele (1032px).
    Era centralizada em 537px, num terceiro eixo que não batia nem com a coluna de texto
    (x=117) nem com a foto (x=703). Agora divide a margem esquerda e a medida com o .mech,
    e o fio faz a separação que o alinhamento centralizado tentava fazer.
    ⚠️ Não repetir aqui o gesto da .turn (serif centralizada) — são seções vizinhas. */
-.reinforce{margin:40px 0 0;max-width:none;text-align:left;color:#E4E7F0;
+.reinforce{margin:40px 0 0;max-width:none;text-align:left;color:var(--on-dark);
   font-size:clamp(21px,3.4vw,26px);line-height:1.36;
   border-top:1px solid var(--navy-500);padding-top:30px}
 
@@ -196,8 +212,8 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
 /* 40px e não os 48px do resto da página: numa coluna de ~525px o título de 48px
    vira uma torre. A 40px são 4 linhas. Se mexer na largura das colunas, remedir. */
 .mech>div>h2{max-width:none;margin:0 0 20px;font-size:clamp(26px,3.2vw,40px)}
-.mech-intro{margin:0;font-size:clamp(17px,2vw,18.5px);color:#D6D9E4}
-.mech-body{margin:0;font-size:17px;color:#D6D9E4}
+.mech-intro{margin:0;font-size:clamp(17px,2vw,18.5px);color:var(--on-dark-2)}
+.mech-body{margin:0;font-size:17px;color:var(--on-dark-2)}
 /* O parágrafo era uma frase de 17 palavras seguida de uma de 56, coladas num bloco só
    de 8 linhas. Agora são dois parágrafos — mesma copy, sem nenhuma palavra alterada.
    ESTE É O BOTÃO DE AJUSTE do intervalo entre os dois: 0 = sem pular linha (só a quebra
@@ -280,7 +296,7 @@ h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;
 .step-media .num{position:absolute;top:14px;left:14px;margin:0;width:44px;height:44px;
   font-size:18px;box-shadow:var(--sh-sm);z-index:2}
 .step h3{color:var(--off);font-size:19px;margin-bottom:8px}
-.step p{color:#C7CBD8;font-size:15.5px;margin:0}
+.step p{color:var(--on-dark-3);font-size:15.5px;margin:0}
 
 /* ---------- Para quem é ---------- */
 .audience{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:34px}
@@ -325,18 +341,18 @@ blockquote.quote cite{font-style:normal;font-weight:800;color:var(--navy);font-s
 .finalcta .box{background:var(--navy);border-radius:var(--r-xl);padding:clamp(34px,6vw,64px);
   position:relative;overflow:hidden;box-shadow:var(--sh-lg)}
 .finalcta .box::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(100% 120% at 100% 0%, rgba(208,248,0,.12), transparent 55%)}
+  background:radial-gradient(100% 120% at 100% 0%, rgba(var(--lime-rgb),.12), transparent 55%)}
 .finalcta .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4.5vw,52px);
   align-items:center;position:relative;z-index:2}
 .finalcta .inner{position:relative;z-index:2;max-width:44ch}
 .finalcta .figure{position:relative;z-index:2}
 .finalcta h2{color:var(--off);font-size:clamp(28px,4.6vw,44px);margin:0 0 18px;line-height:1.12}
 .finalcta h2 strong{color:var(--lime);font-weight:800}
-.finalcta p{color:#C7CBD8;font-size:18px;margin:0 0 30px}
-.finalcta .microcopy{margin-top:20px;font-size:14px;color:#AEB4C6}
+.finalcta p{color:var(--on-dark-3);font-size:18px;margin:0 0 30px}
+.finalcta .microcopy{margin-top:20px;font-size:14px;color:var(--on-dark-4)}
 
 /* ---------- Footer ---------- */
-footer{background:var(--navy-900);color:#AEB4C6;padding:56px 0 40px;font-size:15px}
+footer{background:var(--navy-900);color:var(--on-dark-4);padding:56px 0 40px;font-size:15px}
 .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
 footer b,footer strong{color:var(--off)}
 .foot-brand .mark{width:40px;height:40px;border-radius:var(--r-sm);background:var(--navy-700);
@@ -347,12 +363,12 @@ footer b,footer strong{color:var(--off)}
 .foot-col a{text-decoration:none;transition:.16s}
 .foot-col a:hover{color:var(--lime)}
 .foot-legal{border-top:1px solid var(--navy-500);margin-top:36px;padding-top:24px;
-  display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font-size:13.5px;color:#8A90A0}
+  display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font-size:13.5px;color:var(--ink-3)}
 .foot-legal p{margin:0;max-width:70ch;line-height:1.6}
 
 /* ---------- Botão flutuante WhatsApp ---------- */
 .wa-float{position:fixed;right:20px;bottom:20px;z-index:90;width:60px;height:60px;
-  border-radius:var(--r-pill);background:var(--whatsapp);color:#fff;display:grid;place-items:center;
+  border-radius:var(--r-pill);background:var(--whatsapp);color:var(--white);display:grid;place-items:center;
   box-shadow:var(--sh-md);transition:transform .18s cubic-bezier(.2,.7,.2,1),filter .18s ease}
 .wa-float:hover{transform:translateY(-3px) scale(1.04);filter:brightness(.96)}
 .wa-float:active{transform:scale(.92)}
@@ -555,28 +571,28 @@ footer b,footer strong{color:var(--off)}
       <div class="cardgrid cols-2">
       <article class="card">
         <div class="ic" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#283050" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/></svg>
         </div>
         <h3>O efeito sanfona que não acaba</h3>
         <p>Você perde peso, comemora e, alguns meses depois, está tudo de volta. Às vezes com alguns quilos a mais. Já perdeu a conta de quantas vezes recomeçou do zero.</p>
       </article>
       <article class="card">
         <div class="ic" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#283050" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>
         </div>
         <h3>A disposição que sumiu</h3>
         <p>Cansaço o dia inteiro, aquela sensação de "corpo pesado", vontade de comer o tempo todo e a impressão de que seu corpo trabalha contra você.</p>
       </article>
       <article class="card">
         <div class="ic" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#283050" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h6"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h6"/></svg>
         </div>
         <h3>As dietas genéricas que nunca duram</h3>
         <p>Você já seguiu a dieta da vizinha, o protocolo da internet, o cardápio que funcionou para todo mundo, menos para você. E ficou com a sensação de que o problema era falta de disciplina.</p>
       </article>
       <article class="card">
         <div class="ic" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#283050" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-8.5A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6.5C19 16.65 12 21 12 21Z"/><path d="m9.5 12 1.8 1.8L15 10"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-8.5A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6.5C19 16.65 12 21 12 21Z"/><path d="m9.5 12 1.8 1.8L15 10"/></svg>
         </div>
         <h3>A frustração de "já tentei de tudo"</h3>
         <p>Nutricionista, academia, remédio por conta própria, jejum, low carb. Você tentou. E cada tentativa que não durou machucou um pouco mais a sua confiança.</p>
@@ -980,7 +996,7 @@ footer b,footer strong{color:var(--off)}
 
 <!-- Botão flutuante WhatsApp (desktop) -->
 <a class="wa-float" href="https://wa.me/55[DDD][NÚMERO]?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" target="_blank" rel="noopener" aria-label="Falar no WhatsApp com a equipe do Dr. Rafael">
-  <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.5-.1l.7-.8c.2-.2.3-.2.6-.1l1.8.9c.3.1.5.2.5.4.1.2.1.8-.1 1.4Z"/></svg>
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.5-.1l.7-.8c.2-.2.3-.2.6-.1l1.8.9c.3.1.5.2.5.4.1.2.1.8-.1 1.4Z"/></svg>
 </a>
 
 <script>
