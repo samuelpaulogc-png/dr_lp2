@@ -21,7 +21,8 @@
 | `assets/Logos/` | 6 arquivos: `rg_hrz` (horizontal), `rg_vrt` (vertical), `rg_ico` (só o símbolo), cada um em `_light` (para fundo escuro) e `_dark` (para fundo claro). |
 | `assets/Fontes/goldoni-webfont.woff2` | A serifada da marca. 24,5 KB. ⚠️ **Só tem caixa alta** — ver a ressalva na seção de tipografia. |
 | `assets/Fundo/` | `Fundo.jpg` é o original de 1,5 MB; `fundo-1920.webp` (13 KB) e `fundo-1280.webp` (4,7 KB) são as versões de uso. **Ainda não estão aplicados em lugar nenhum da página.** |
-| `.claude/launch.json` | Config do servidor local de preview (`landing`, porta 5173). Não faz parte da entrega. |
+| `.claude/launch.json` | Config do servidor local de preview (`landing`, **porta 5181**). Não faz parte da entrega. ⚠️ Era 5173; mudou em 05/09/2026 porque outra sessão tomou a porta e serviu outro projeto — ver as notas de preview. |
+| `assets/Fotos/` | Imagens reais. Os 6 derivados da hero são versionados; `_candidatas/` está no `.gitignore`. |
 
 Os comparativos temporários (`_variacoes-*.html`, `comparacao.html`, `secao7.html`) **ficaram na pasta antiga do `D:`** e estão no `.gitignore`. Dois deles corromperam no disco. Se precisar de algum, é mais rápido regenerar do que recuperar.
 
@@ -348,6 +349,44 @@ O usuário mandou o print do mobile da mesma referência e pediu esse arranjo. *
 - ✅ **Compliance:** todas as 28 são retratos do médico, vestido. Nenhuma foto de corpo, nenhum antes-e-depois.
 - **A hero não é nenhum dos 7 slots numerados** — ela não tinha slot. É um oitavo, e a tabela dos 7 continua válida como está.
 - ⚠️ **`assets/Fotos/` não está no `.gitignore` e o repositório é PÚBLICO.** Hoje só há os 6 arquivos derivados da hero. As 28 originais estão no scratchpad, fora do repositório.
+
+#### 🎨 SLOT 1 — quatro rodadas de imagem gerada, e o que cada erro ensinou (05/09/2026)
+
+O usuário pediu para **criar** a imagem do Slot 1 (seção "Você se reconhece?") com o Higgsfield, aprovando o cenário antes de gerar. **Nada foi instalado ainda** — a decisão está aberta.
+
+📐 **PRIMEIRO ACHADO, e ele invalida a tabela dos 7 slots: o Slot 1 NÃO é 3:4 nem 4:5.** Medido, ele renderiza em **425×686 — proporção 0,619**, porque `.figure.fill` tem `height:100%` e estica para acompanhar a coluna de cartões. Como o `object-fit` é `cover`, **uma imagem 3:4 perde ~17% da largura no recorte**. Gerar em **2:3** (0,667) e compor com folga nas laterais. ⚠️ **A tabela dos 7 slots, mais abaixo, está desatualizada nesse ponto.**
+
+🚨 **TRÊS DIREÇÕES ERRADAS ANTES DE ACERTAR O ENUNCIADO.** Registro porque o padrão do erro se repete e é caro:
+
+1. **Natureza-morta na sala do ensaio** (cadernos e fita métrica na mesa do médico). Bonita e coerente com a hero — **mas ancorada no mundo do MÉDICO.** A seção fala do **leitor**: as tentativas que falharam aconteceram na cozinha dela, não numa biblioteca de painéis com molduras douradas. *O que compartilhar com o ensaio é o TOM, não o LUGAR.*
+2. **Geladeira na madrugada / beira da cama.** A geladeira saiu com a pessoa **sem camisa** — pele exposta, exatamente o que a regra de compliance proíbe — e com uma cozinha degradada, que lê como julgamento e não como identificação. A beira da cama funcionava, mas **dramatiza angústia**, o que é ruim para Ads (ver abaixo).
+3. **Mãos na xícara de café.** O usuário matou com uma frase: *"uma mão na xícara de café não diz nada."* Estava certo — **eu estava perseguindo clima em vez de significado.**
+
+🔑 **O ENUNCIADO CERTO: a seção é sobre REPETIÇÃO, não sobre cansaço.** O que os quatro cartões têm em comum está na própria copy — *"já perdeu a conta de quantas vezes recomeçou do zero"*, *"cada tentativa que não durou"*. A imagem certa mostra o **rastro acumulado de tentativas que não pegaram**, no mundo dela. Foi só depois disso que as gerações passaram a servir.
+
+⚠️ **RESTRIÇÕES QUE O USUÁRIO TROUXE E QUE VALEM PARA QUALQUER IMAGEM FUTURA DA PÁGINA:**
+- **O público é majoritariamente feminino.**
+- **A página vai ser destino de anúncio no Google Ads.** Emagrecimento é categoria sensível: **imagem que dramatiza sofrimento ou insatisfação com o corpo atrai revisão.** Preferir cotidiano neutro. Isso **desqualificou a cena da beira da cama**, que eu havia recomendado.
+- **"Não inventar muito"** — nada conceitual demais.
+- **Nada de comprimido, cápsula ou frasco de remédio**, mesmo a copy citando "remédio por conta própria". Medicação numa página médica de emagrecimento é o que mais atrai revisão.
+
+🔧 **Higgsfield — o que funciona e o que engana:**
+- Modelo **`nano_banana_pro`**, `aspect_ratio: "2:3"`, `resolution: "2k"` → sai 1696×2528. **2 créditos por imagem** (confirmado com `get_cost`).
+- 🚨 **"Out of credits" pode ser MENTIRA.** Um lote falhou com *"Out of credits on plus (monthly) plan"* e eu repassei isso ao usuário como fato. **O saldo era 100 e a imagem custa 2.** Reenviado como envio único, passou na hora. **Conferir `balance` antes de anunciar falta de crédito.**
+- ⚠️ **O modelo escreve texto mesmo com "no lettering" no prompt.** A melhor bancada saiu com **"THE DIET PLAN" e "HERBAL TEA" em inglês**, legível no tamanho de exibição — inaceitável numa página em português.
+- ⚠️ **E o remédio tem efeito colateral:** ao exigir tudo sem rótulo, os objetos viraram um **jogo bege combinando, cara de catálogo** — e sumiu justamente o que dava sentido à cena, que era serem coisas **de fases diferentes que não combinam**. Se for refazer, pedir rótulos **em português**, não rótulo nenhum.
+
+📁 **As 12 candidatas estão em `assets/Fotos/_candidatas/`, fora do versionamento** (entrada nova no `.gitignore`). A recomendação atual é a **`09-GAVETA-A.png`**: vista de cima de uma gaveta com fita métrica, caderninho, colheres medidoras, sachês, balança e uma folha impressa — bagunçada de verdade, objetos de origens diferentes, sem pessoa, sem corpo, sem texto legível. Cobre os quatro cartões porque cada objeto é uma tentativa distinta.
+- ⚠️ **Duas ressalvas sobre ela, ainda não resolvidas:** é **vista de cima**, ângulo que nenhuma outra imagem da página usa; e a madeira clara é mais fria que o ensaio — na seção creme funciona, na versão escura vai puxar atenção.
+- ⚠️ **Elas ficaram fora do scratchpad de propósito: o scratchpad foi limpo DUAS VEZES nesta sessão**, levando junto tudo que estava baixado. As URLs do Higgsfield sobreviveram e permitiram recuperar — **guardar sempre a URL de resultado, não só o arquivo.**
+
+#### 🚨 O SERVIDOR DE PREVIEW SERVIU OUTRO PROJETO (05/09/2026)
+
+A porta **5173** foi tomada por um `python.exe` de **outra sessão**, servindo **outra pasta**. O preview parecia normal, mas o DOM trazia classes que não existem aqui (`recognition-layout`, `section-heading`) e **o Slot 1 nem existia**.
+
+**Como pegar:** comparar o que o servidor entrega com o arquivo em disco — **48 KB servidos contra 86 KB em disco**. O `.claude/launch.json` foi movido para a **porta 5181**.
+
+⚠️ **É a terceira vez que o preview engana nesta sessão.** As outras duas: `currentSrc` mentindo depois de redimensionar sem recarregar (o navegador mantém o candidato já baixado), e prints saindo com a foto em branco porque a captura acontece antes da pintura. **Regra: antes de concluir qualquer coisa sobre a página, confirmar que o servidor é o certo, recarregar, e repetir o print se vier estranho.**
 
 #### 🚨 A GOLDONI SÓ TEM CAIXA ALTA — decisão pendente
 
@@ -707,7 +746,7 @@ Cada slot tem, no HTML, um comentário com o `<picture>` pronto para copiar. Bas
 
 | Slot | Seção | Formato | Tamanho sugerido |
 |---|---|---|---|
-| 1 | Você se reconhece? (esquerda) | vertical 3:4 ou 4:5 | ~900×1200 |
+| 1 | Você se reconhece? (esquerda) | ⚠️ **0,62, não 3:4** — medido em 425×686; gerar em **2:3** | ~1700×2530 |
 | 2 | A virada — **ao lado do texto, grudada no scroll** | vertical **3:4** | ~900×1200 |
 | 3 | Sobre — retrato do Dr. Rafael | vertical, **estica até a altura do texto** | ~1000×1500 (origem 4:5 ou 2:3) |
 | 4·5·6 | Como funciona — um por passo | horizontal 3:2 | ~1200×800 |
@@ -725,6 +764,7 @@ Direção de arte para as fotos não brigarem entre si: luz natural neutra/fria 
 4. **Depoimentos** — 🚨 **ponto de atenção antes de publicar.** Continua com os três placeholders, e o aviso de compliance que ficava na própria página **foi removido** em 03/09/2026 a pedido do usuário. Não há mais nada na tela lembrando que a seção não está pronta. Decidir: entram depoimentos reais (com autorização de uso de imagem e aval do compliance) ou a seção sai.
 5. Revisão final de **compliance** antes de publicar. ⚠️ **Agora com dois itens concretos:** os depoimentos-placeholder e o **"Aviso legal" removido do rodapé** em 04/09/2026 — a página ficou sem nenhuma ressalva de que resultados variam.
 6. Rastreamento: conversão de clique no WhatsApp (GA4 + Google Ads) e parâmetro `gclid`.
+7. **Fechar o Slot 1.** 12 candidatas geradas em 05/09/2026 e nenhuma instalada — ver o bloco no topo. Recomendação atual: `_candidatas/09-GAVETA-A.png`. ⚠️ **A página é destino de anúncio no Google Ads**, e isso restringe toda imagem daqui para frente: nada que dramatize sofrimento ou insatisfação com o corpo, nada de medicação.
 
 ## Como o usuário trabalha
 

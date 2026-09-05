@@ -6,3 +6,10 @@
 _variacoes-*.html
 comparacao.html
 secao7.html
+
+# Candidatas de imagem geradas na sessao de 05/09/2026 (Slot 1) + a original
+# rg-09 do ensaio. Ficam FORA do repositorio de proposito: sao material de
+# trabalho, o repo e publico, e as originais do ensaio nao devem ser publicadas.
+# Estao aqui, e nao no scratchpad, porque o scratchpad ja foi limpo uma vez
+# nesta sessao e levou junto os arquivos baixados do Drive.
+assets/Fotos/_candidatas/
