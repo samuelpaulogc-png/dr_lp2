@@ -584,10 +584,15 @@ footer b,footer strong{color:var(--off)}
      <source media>. O recorte do desktop e uma faixa 1.85:1 com o medico a 83%:
      num bloco vertical ele ficaria minusculo e encostado na borda. */
   .hero-bg{order:2;position:relative;inset:auto;width:100%;
-    margin-top:clamp(8px,2vw,16px);height:clamp(300px,105vw,560px)}
+    margin-top:clamp(8px,2vw,16px);height:clamp(280px,86vw,560px)}
   /* 12% e nao 38%: o recorte movel ja poe a cabeca perto do topo, entao aqui so
      falta nao empurrar o enquadramento para baixo no TABLET, onde o bloco fica
-     1.58:1 e sobra corte vertical. A 38% a cabeca saia fora da moldura la. */
+     1.58:1 e sobra corte vertical. A 38% a cabeca saia fora da moldura la.
+     ⚠️ ESTE 12% E QUEM FAZ O BLOCO APARAR POR BAIXO. Desde que a altura caiu de
+     105vw para 86vw, o bloco ficou mais largo que alto, entao o `cover` passou a
+     escalar pela LARGURA e sobra corte vertical tambem no celular. Com o
+     enquadramento presa no topo, todo esse corte sai do RODAPE — que era o
+     pedido: mostrar menos mesa sem mexer na cabeca. */
   .hero-bg img{object-position:50% 12%}
   /* A TRANSICAO. E o mesmo gesto do painel do desktop, virado 90 graus: la a cor
      e opaca a esquerda e some a direita; aqui e opaca no topo e some descendo.

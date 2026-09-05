@@ -305,7 +305,9 @@ O usuário mandou o print do mobile da mesma referência e pediu esse arranjo. *
 
 **Como foi feito:**
 - `.hero` vira `display:flex;flex-direction:column`. A `<figure>` vem **antes** do `.wrap` no DOM (ela precisa disso para funcionar como fundo no desktop), então quem inverte a ordem visual é o **`order`** — a ordem do DOM continua a mesma para o leitor de tela.
-- `.hero-bg` volta ao fluxo com `position:relative;inset:auto`, largura total e `height:clamp(300px,105vw,560px)`. O teto de 560px existe porque a 4/5 puro um tablet de 900px daria **1125px só de foto**.
+- `.hero-bg` volta ao fluxo com `position:relative;inset:auto`, largura total e `height:clamp(280px,86vw,560px)`. O teto de 560px existe porque a 4/5 puro um tablet de 900px daria **1125px só de foto**.
+- ✅ **Menos mesa (04/09/2026, 3ª rodada).** O usuário pediu para aparar o rodapé — mostrar menos tampo — **sem mexer no topo**, que já estava certo. **Não foi preciso recorte novo:** bastou baixar a altura do bloco de `105vw` para **`86vw`**. Com o bloco mais largo que alto, o `cover` passa a escalar pela largura e sobra corte vertical; como o `object-position` está preso a **12%**, **todo esse corte sai do rodapé**. No celular: bloco de 394 → **323px**, com **53px de mesa a menos** e a cabeça exatamente onde estava.
+- ⚠️ **É esse par (`altura` + `object-position:12%`) que decide o que se perde.** Altura menor com enquadramento no topo = corta mesa; enquadramento mais alto em % = cortaria a cabeça. Tablet não muda: a 768 e 900px o teto de 560px já governa.
 - `.hero::before{display:none}` — **sem véu sobre a foto**, como na referência. O texto fica sobre o azul chapado da própria `.hero`.
 - ✅ **Transição no topo da foto (04/09/2026, 2ª rodada).** O usuário apontou dois pontos: a foto estava baixa demais e encostava no azul numa **aresta dura**. Duas correções:
   - **O bloco subiu:** `margin-top` de `clamp(28px,6vw,44px)` para `clamp(8px,2vw,16px)`. O vão entre a microcopy e a foto caiu de ~48 para **22px**.
