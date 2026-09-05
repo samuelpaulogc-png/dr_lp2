@@ -240,7 +240,16 @@ h1,h2,h3{font-family:"Goldoni","Playfair Display",Georgia,serif;font-weight:600;
    titulo/subtitulo da hero deixa de existir. Nao descer daqui sem decidir que o
    sistema passa a ter um nivel de subtitulo, e nao dois.
    O corpo nao muda a quebra: de 17 a 20px o texto fica em 3 linhas. */
-.hero .sub{margin-top:20px;font-size:clamp(17px,2.4vw,19px);color:var(--on-dark);max-width:52ch}
+/* max-width em PX e nao em ch, e menor que a coluna: e ele que puxa a borda
+   DIREITA do subtitulo para dentro, sem mexer no titulo nem na coluna (640px).
+   Os 52ch anteriores davam ~688px e eram INERTES — a coluna ja limitava antes.
+   ⚠️ 560 e escolhido, nao arredondado: a 540px o texto ainda cabe em 3 linhas e
+   a 520 quebra para 4. Os 560 deixam 20px de folga antes desse degrau.
+   Tambem e onde o rio da direita fica mais parelho: as duas primeiras linhas
+   quase iguais e a terceira em dois tercos (a 640 a terceira tinha so 226px).
+   ⚠️ INERTE NO CELULAR de proposito: la a coluna tem 339px, entao 560 nunca
+   morde. O ajuste vale so onde ha largura sobrando. */
+.hero .sub{margin-top:20px;font-size:clamp(17px,2.4vw,19px);color:var(--on-dark);max-width:560px}
 .hero-cta{margin-top:32px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
 .hero .microcopy{margin-top:18px;font-size:14px;color:var(--on-dark-4);max-width:52ch}
 

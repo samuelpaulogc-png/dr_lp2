@@ -239,6 +239,13 @@ O usuário mandou a landing de motos como referência de harmonia e pediu a aná
 - **É decisão de presença, não de layout:** de 17 a 20px o texto fica em **3 linhas** de qualquer jeito. A hero encolheu de 736 para 732px.
 - Contraste no pixel refeito (o bloco encolheu e ele fica sobre a foto no desktop): **H1 8,56 · subheadline 6,60 · microcopy 8,93**. Todos aprovados.
 
+⚠️ **A subheadline da hero tem medida PRÓPRIA de 560px**, menor que a coluna de 640px — o usuário pediu para puxar a borda **direita** para dentro só nela, em 04/09/2026.
+- **Os `52ch` anteriores eram INERTES:** davam ~688px e a coluna de 640 já limitava antes. Trocado por **px**, que é o que realmente morde.
+- **560 é escolhido, não arredondado:** a **540px o texto ainda cabe em 3 linhas e a 520 quebra para 4**; os 560 deixam 20px de folga antes desse degrau. É também onde o rio da direita fica mais parelho — as duas primeiras linhas quase iguais e a terceira em dois terços, contra a terceira com só 226px quando a medida era 640.
+- ⚠️ **É inerte no celular de propósito:** lá a coluna tem 339px, então 560 nunca morde. O ajuste vale só onde há largura sobrando (≥ ~608px de viewport).
+
+⚠️ **NÃO confundir com `--maxw`.** Numa rodada anterior eu interpretei "diminuir a largura do desktop" como o container da página e baixei o `--maxw` de 1080 para 1040 — **estava errado e foi revertido**. Aquele token governa o `.wrap` de **todas** as seções e a `.nav`; encolhê-lo estreita as **grades** (os cartões passaram a quebrar em mais linhas, +112px de página) e **não toca** no título nem no subtítulo, que estão presos ao `--measure`. São três larguras independentes: `--maxw` (página), `--measure` (título e subtítulo de seção) e o `max-width` próprio da subheadline da hero.
+
 🔑 **Token novo `--measure:640px`** — a medida que título e subtítulo dividem. Casa com o `max-width` da `.hero-copy`, então a página passou a ter **uma medida só**.
 - ⚠️ **EM PX, NUNCA EM `ch`.** Descoberto medindo: `24ch` dá **614px no título** (Goldoni) e **270px na intro** (Montserrat), porque `ch` é a largura do "0" **da fonte do elemento**. Com duas famílias, `ch` nunca produz medida compartilhada. Foi a armadilha central desta rodada.
 
