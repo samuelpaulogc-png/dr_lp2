@@ -50,7 +50,7 @@ Os comparativos temporários (`_variacoes-*.html`, `comparacao.html`, `secao7.ht
 
 1. **CAIXA ALTA DOS TÍTULOS.** O arquivo da Goldoni não tem caixa baixa, então **todos os títulos da página renderizam em maiúsculas**. Isso contraria uma decisão registrada aqui ("título em caixa alta — testado e descartado"). Três saídas foram oferecidas e nenhuma escolhida. Ver "Tipografia" abaixo.
 2. **Depoimentos** — três placeholders no ar e **sem nenhum aviso na tela**. Bloqueia a publicação.
-3. **As 7 fotos** — continuam vazias. É a maior mudança visual disponível e nenhuma decisão fina de layout se sustenta antes delas.
+3. **As fotos** — ✅ slots 2, 3, 4, 5 e 6 preenchidos em 05/09. **Faltam o 1 e o 7.**
 4. **Ritmo de imagem** — seções 4 e 5 estruturalmente idênticas (vertical à direita nas duas). Correção sugerida abaixo, não aplicada.
 5. **Seção 7** — duas perguntas abertas para o Dr. Rafael: o plano alimentar volta? Os retornos precisam aparecer?
 6. **CTA final** — sugestão nº1 levantada e **não aplicada**: remover `max-width:44ch` do `.inner`. Ver "Seção 12" abaixo.
@@ -267,7 +267,7 @@ Também estava errado o diagnóstico da altura: o título **já caía em 6 linha
 - ⚠️ **O `max-width:44ch` tinha de sair junto** — senão reimporia a largura antiga e a mudança do grid não faria efeito nenhum. Saiu também a regra órfã `.finalcta .inner{max-width:none}` do breakpoint de 960px.
 - Este era **o único H2 da página que não recebia a medida**. Agora os 533px dele são o mais perto que a composição em duas colunas permite dos 640 do resto.
 
-⚠️ **Ponto de retorno desta rodada:** cópia verificada por md5 em `scratchpad/antes-tipografia/` (`index.html`, `index-dark.html`, `PROJETO.md`). Foi feita porque havia **seis mudanças não commitadas** — um `git checkout` teria descartado a sessão inteira, não só esta.
+⚠️ **Ponto de retorno desta rodada:** cópia verificada por md5 em `scratchpad/antes-tipografia/` (`index.html`, `index-dark.html` — nome de antes da inversão de 05/09, hoje `index-white.html`/`index.html` —, `PROJETO.md`). Foi feita porque havia **seis mudanças não commitadas** — um `git checkout` teria descartado a sessão inteira, não só esta.
 
 #### ✅ A HERO GANHOU FOTO — fundo cheio (04/09/2026)
 
@@ -458,7 +458,7 @@ escolheu o que ia e o que ficava.
 - `dr-rafael-sobre-600.jpg`, `dr-rafael-mecanismo-600.jpg`, `dr-rafael-hero-1080.jpg`
   (188 KB). **Órfãos por construção:** o fallback JPG do `<picture>` aponta só para o
   arquivo grande, então o tamanho pequeno em JPG nunca é pedido. ⚠️ **Não gerar mais o
-  `-600.jpg`/`-1080.jpg` ao criar derivados novos.** O `hero-1080.jpg` era versionado,
+  `-600.jpg`/`-1080.jpg` ao criar derivados novos.** O `dr-rafael-hero-1080.jpg` era versionado,
   então esta é a única remoção que aparece no `git status`.
 - `human-output/` inteira (69 MB, 25 arquivos: 12 PNGs de rodadas anteriores do Slot 1 —
   `slot1-cabisbaixa`, `-cinto`, `-cozinha`, `-decostas`, `-espelho`, `-reconhece` — e 13
@@ -473,6 +473,38 @@ logos sem uso no HTML (`rg_hrz_dark`, `rg_vrt_*`), que são variantes de marca.
 
 ✅ Conferido depois da limpeza: **todo caminho `assets/…` citado no `index.html` e no
 `index-white.html` existe no disco.** Nenhuma referência ficou pendurada.
+
+#### ✅ CONFERÊNCIA DEPOIS DA INVERSÃO (05/09/2026) — o que foi verificado e não presumido
+
+A inversão (escura vira `index.html`) aconteceu **depois** da correção do amarelo e do
+preenchimento dos slots 2 e 3, e por outra sessão. Então tudo abaixo foi **remedido no
+estado atual**, não herdado.
+
+✅ **A correção do amarelo sobreviveu.** Os tokens de tinta do `index.html` publicado
+estão todos neutros — `--ink` +3 · `--ink-2` −8 · `--ink-3` −13 · `--on-dark-2` −2 ·
+`--on-dark-3` −5 · `--on-dark-4` −8 (valores de **R menos B**). Nenhum puxando quente.
+⚠️ **Esta é a checagem que pega o defeito, e a auditoria de contraste NÃO pega** — o
+amarelo passava com 9,85:1. Contraste e temperatura são coisas diferentes.
+
+✅ **Nenhuma referência de asset quebrada** em `index.html` nem em `index-white.html`.
+
+🚨 **ARMADILHA PARA QUEM RODAR UM VERIFICADOR DE LINKS: dão 15 falsos positivos.** São
+os caminhos `imagens/reconhece.*`, `imagens/passo-{1,2,3}.*` e `imagens/cta-final.*`, que
+vivem **dentro dos comentários** dos slots ainda vazios — são o markup de exemplo para
+copiar, não referências ativas. Medido: **0 ocorrências de `imagens/` fora de comentário**
+nos dois arquivos. Não "consertar" isso apagando os comentários; eles é que ensinam a
+preencher o slot.
+
+✅ **A remoção dos 3 `.jpg` órfãos foi conferida como inócua**, e não só assumida:
+`dr-rafael-hero-1080.jpg` não é citado em lugar nenhum (do tamanho 1080 só o AVIF e o WebP são
+usados, e ambos existem; o fallback do `<picture>` é o `-1440.jpg`), e os dois `-600.jpg`
+nunca chegaram ao HTML, porque o `src` aponta para `-900`/`-840`.
+
+⚠️ **PENDÊNCIA COSMÉTICA, LEVANTADA E NÃO RESOLVIDA: o `gerar-dark.py` tem nome enganoso.**
+Ele não gera mais uma versão de avaliação — **gera a entrega publicada**. Quem ler o nome
+supõe que é um script auxiliar e que o `index.html` é editável à mão, que é exatamente o
+erro que a inversão tornou caro. Renomear mexe em documentação e histórico, então ficou
+para decisão do usuário.
 
 #### 🔄 SLOT 3: A FOTO 28 SAIU, ENTROU A 12 (05/09/2026)
 
@@ -617,6 +649,8 @@ originais do ensaio não devem ser publicadas. **Os derivados recortados são a 
 continuam versionados.**
 
 **Restam 5 slots vazios:** 1 (Você se reconhece?), 4·5·6 (Como funciona) e 7 (CTA final).
+⚠️ **DESATUALIZADO no mesmo dia:** os slots **4, 5 e 6 foram preenchidos** ainda em
+05/09/2026, com imagens geradas. **Restam 1 e 7.** Ver o bloco dos slots 4·5·6.
 
 #### 🎨 SLOT 1 — quatro rodadas de imagem gerada, e o que cada erro ensinou (05/09/2026)
 
@@ -647,6 +681,127 @@ O usuário pediu para **criar** a imagem do Slot 1 (seção "Você se reconhece?
 📁 **As 12 candidatas estão em `assets/Fotos/_candidatas/`, fora do versionamento** (entrada nova no `.gitignore`). A recomendação atual é a **`09-GAVETA-A.png`**: vista de cima de uma gaveta com fita métrica, caderninho, colheres medidoras, sachês, balança e uma folha impressa — bagunçada de verdade, objetos de origens diferentes, sem pessoa, sem corpo, sem texto legível. Cobre os quatro cartões porque cada objeto é uma tentativa distinta.
 - ⚠️ **Duas ressalvas sobre ela, ainda não resolvidas:** é **vista de cima**, ângulo que nenhuma outra imagem da página usa; e a madeira clara é mais fria que o ensaio — na seção creme funciona, na versão escura vai puxar atenção.
 - ⚠️ **Elas ficaram fora do scratchpad de propósito: o scratchpad foi limpo DUAS VEZES nesta sessão**, levando junto tudo que estava baixado. As URLs do Higgsfield sobreviveram e permitiram recuperar — **guardar sempre a URL de resultado, não só o arquivo.**
+
+#### ✅ SLOTS 4, 5 E 6 PREENCHIDOS — as três imagens do "Como funciona" (05/09/2026)
+
+O usuário pediu para produzir as três imagens dos cards no Higgsfield. **Eram os únicos
+slots sem material nenhum**: o ensaio de 10/2024 não tem imagem clínica, então não havia
+de onde recortar. As três foram **geradas**, na mesma direção, e estão no ar.
+
+🔑 **O OBJETIVO QUE O USUÁRIO DECLAROU NO FIM DA SESSÃO, E QUE VALE PARA TUDO DAQUI PARA
+FRENTE:** *"o meu objetivo é deixar essa página o mínimo possível com cara de IA."*
+Isso não é sobre estas três imagens — é o critério permanente que já explicava a remoção
+dos eyebrows (03/09) e dos ícones de check da barra de prova. **Antes de propor qualquer
+elemento decorativo, medir por essa régua.** Ver a lista de candidatos no fim deste bloco.
+
+🚨 **A REGRA DAS TRÊS: NENHUM ROSTO. E o motivo não é estético.** A página nomeia o Dr.
+Rafael e exibe o CRM. Uma pessoa gerada com rosto numa cena de consulta **leria como sendo
+ele** — imagem fabricada de um profissional real e identificado. Nas três, o médico aparece
+só pelo torso e pelas mãos, cortado abaixo do pescoço.
+- ⚠️ **O MODELO NÃO OBEDECE ESSE CORTE.** Pedi "crop below the neck, no chin, no mouth"
+  em **cinco** gerações e em todas voltou queixo, boca ou nariz. **O corte final foi feito
+  NO ARQUIVO**, com Pillow, cortando o topo e reenquadrando em 3:2 exato. É mais barato e
+  mais confiável que gerar de novo — **não gastar crédito tentando resolver isso no prompt.**
+- ⚠️ **As três são imagens geradas, não o consultório real do Dr. Rafael.** Funcionam como
+  banco de imagem. Quem aprovar a página precisa saber disso.
+
+🔑 **O ESTETOSCÓPIO SAIU, E O DIAGNÓSTICO QUE ELE "CONSERTAVA" ESTAVA ERRADO.** Eu tinha
+posto um estetoscópio na mesa como "o objeto que faz a cena ler como médica". **O usuário
+apontou que não é instrumento desta consulta** — ele é médico com pós-graduação em
+Nutrologia, e a avaliação dele é anamnese, exame e composição corporal.
+- **O que fazia a 1ª rodada parecer reunião de banco era o TERNO ESCURO, não a falta de
+  estetoscópio.** O jaleco branco resolve sozinho. O estetoscópio era muleta em cima de
+  algo já resolvido.
+- **O objeto certo já estava na cena:** caderno, caneta e óculos — o material de uma
+  anamnese, que é o que o passo 2 de fato é.
+- 🚨 **Excluídos de propósito: balança, bioimpedância e fita métrica.** São os instrumentos
+  reais de uma avaliação de composição corporal — que inclusive está na lista da seção 7 —
+  mas peso e corpo em página de emagrecimento caem na mesma vedação do antes-e-depois, e a
+  página é destino de Google Ads. **Se o usuário quiser, é decisão dele; não colocar sozinho.**
+
+⚠️ **O JALECO DOS CARDS 2 E 3 TEM DE CASAR.** Na primeira rodada o card 3 saiu de terno
+escuro e o card 2 de jaleco — o mesmo médico com duas roupas em cards vizinhos. Ninguém
+sabe nomear o que está errado, mas lê como descuido, o mesmo raciocínio que fez os quatro
+`.btn-lg` terem o mesmo peso. **Ao regerar um dos dois, conferir a roupa do outro.**
+
+**O ritmo do trio é fechado → aberto → fechado**, e foi escolhido, não sorteado: o card 1
+é o plano com ar (poltrona de couro, luminária de pé), o 2 é o médio com os dois à mesa, e
+o 3 é o detalhe de mãos sobre o exame. **Ao trocar qualquer um, conferir se o ritmo
+sobrevive** — três planos fechados em fila viram três fotos da mesma mesa.
+
+**Card 1 — por que "ela" e não "a equipe".** Foram geradas as duas leituras. Venceu a
+dela, escrevendo no celular, por três motivos: (a) a copy diz "**você** fala com a equipe",
+e com a atendente o trio vira o ponto de vista da clínica e a leitora some; (b) a poltrona
+de couro é a **única superfície do trio que não é a mesma mesa de nogueira**; (c) o blusão
+creme da atendente era a mancha mais clara das três e puxava o olho para o card errado —
+o peso deveria estar no card 2, que é o passo central.
+
+⚠️ **O card 1 é visivelmente mais escuro que os outros dois** na fileira do desktop. No
+celular funciona, porque a foto fica grande. Fica registrado como o ponto fraco conhecido
+do trio, não corrigido.
+
+#### ✅ A NUMERAÇÃO 1‑2‑3 DOS PASSOS FOI REMOVIDA (05/09/2026)
+
+Com as fotos no lugar, o disco dourado de 44px deixou de ser o único elemento vivo do card
+e virou **adesivo em cima de uma fotografia** — e três discos de ouro em fila contrariam o
+"use com moderação" da regra 3. Saíram as três `<div class="num">` e, com elas, **as regras
+`.step .num` e `.step-media .num`**, que ficaram mortas (mesmo critério dos eyebrows, do
+`.sec-head` e do `.portrait .mono`).
+
+**O que se perdeu, com o usuário sabendo:** no empilhado nada mais diz que são três etapas
+em ordem. A sequência passa a viver só na copy e no "Começar é simples" do H2.
+
+⚠️ **Se um dia quiserem a ordem de volta, NÃO usar "01/02/03" em ouro.** Essa é a assinatura
+do painel de fatores da seção 4, e duplicar assinatura entre seções já foi o argumento que
+rejeitou um tratamento da seção 7.
+
+⚠️ **O `position:relative` do `.step` e o `overflow:hidden` continuam necessários** mesmo
+sem o `.num` absoluto: são eles que fazem a margem negativa da `.step-media` virar sangria
+em vez de estouro.
+
+**💡 Candidatos seguintes para a régua do "sem cara de IA"** — levantados, **não aplicados**,
+porque mexem em seções que o usuário não pediu:
+1. **Os chips 1‑2‑3‑4 dos Diferenciais** — é o mesmo dispositivo que acabou de sair dos
+   passos, uma seção adiante. É o mais forte dos três.
+2. **Os 4 ícones de linha do "Você se reconhece?"** (seta circular, raio, documento, coração
+   com check, em quadrado dourado de 46px). Conjunto de ícone genérico é sinal clássico de
+   template — e os checks da barra de prova já saíram por esse mesmo incômodo, em 03/09.
+   Ficou pela metade.
+3. **O marca-texto dourado da `.turn`** — fundo sólido atrás de "Você foi tratado como uma
+   média". É gesto de apresentação, não de página editorial.
+
+#### 🔧 Ficha técnica das três imagens
+
+- **Higgsfield**, modelo `nano_banana_pro`, `aspect_ratio:"3:2"`, `resolution:"2k"` → sai
+  **2528×1696**. **2 créditos por imagem.** Saldo: 62 → **40** (11 imagens em 4 rodadas).
+- ✅ **Aqui o 3:2 é REAL, ao contrário da armadilha do Slot 1:** `.figure.r-32` tem
+  `aspect-ratio:3/2` e **não** tem `.fill`, então nada estica. Conferido renderizado:
+  **329×219 a 1280px · 340×227 a 390px**, 3:2 exato nas duas.
+- **Derivados:** `dr-rafael-passo-{1,2,3}-{600,900}.{avif,webp}` + **só `-900.jpg`** — o
+  `-600.jpg` nasceria órfão, pela regra já registrada na limpeza de 05/09.
+- Pillow: Lanczos · avif q70 · webp q84 · jpg q85 progressivo. **AVIF conferido a olho:
+  sem banding** nos fundos azuis chapados, que era o risco real desta paleta.
+- **Peso: 20 + 30 + 32 KB em AVIF** (82 KB no total), com `loading="lazy"` — não tocam a
+  primeira dobra. `sizes="(max-width:768px) 100vw, 350px"`.
+- ⚠️ **Os PNGs originais estão em `assets/Fotos/_candidatas/passo-{1,2,3}-master.png`**,
+  fora do versionamento — mesma decisão das candidatas do Slot 1, porque o scratchpad já foi
+  limpo duas vezes neste projeto. **As URLs do Higgsfield são o backup real:**
+  `hf_20260905_223715_7c48f48b…` (card 1) · `hf_20260905_223115_c5aec531…` (card 2) ·
+  `hf_20260905_223715_9fb294ee…` (card 3).
+- ⚠️ **O modelo escreve texto em inglês mesmo com "no lettering"** — já registrado nas
+  candidatas do Slot 1 e reconfirmado aqui. O papel do card 3 tem só traçado. **Ao regerar,
+  conferir a olho se apareceu palavra.**
+
+#### ⚠️ DUAS ARMADILHAS NOVAS DO PREVIEW, confirmadas nesta sessão
+
+1. 🚨 **`document.getAnimations().forEach(a=>a.pause())` CONGELA O `.reveal` NO MEIO DO
+   FADE.** Pausar as animações logo depois de adicionar `.in` deixa o `opacity` parado perto
+   de 0 e **a captura sai chapada, com o DOM inteiro correto**. A saída é matar por CSS —
+   `*{transition:none!important;animation:none!important}` mais `.reveal{opacity:1!important}`
+   — e não pausar. O pause continua valendo para o marquee, mas só quando ele está visível.
+2. **A captura antes da pintura aconteceu DUAS vezes aqui**, com `img.complete===true`,
+   `naturalWidth` certo e o retângulo medido. **Print estranho = tirar de novo antes de
+   concluir qualquer coisa** — é o que o PROJETO.md já mandava fazer.
 
 #### 🚨 O SERVIDOR DE PREVIEW SERVIU OUTRO PROJETO (05/09/2026)
 
@@ -1010,23 +1165,35 @@ Também pendente:
 
 ### As 7 imagens
 
-Cada slot tem, no HTML, um comentário com o `<picture>` pronto para copiar. Basta apagar a `<div class="ph">` e colar no lugar.
+Cada slot vazio tem, no HTML, um comentário com o `<picture>` pronto para copiar: basta apagar a
+`<div class="ph">` e colar no lugar.
+
+🚨 **MAS EDITE O `index-white.html`, NUNCA O `index.html`.** Desde a inversão de 05/09 o
+`index.html` é **gerado** por `gerar-dark.py` — colar a foto lá some na próxima geração.
+Os slots 2 e 3 já estão preenchidos; restam **1, 4, 5, 6 e 7**.
 
 | Slot | Seção | Formato | Tamanho sugerido |
 |---|---|---|---|
 | 1 | Você se reconhece? (esquerda) | ⚠️ **0,62, não 3:4** — medido em 425×686; gerar em **2:3** | ~1700×2530 |
 | 2 | ✅ **PREENCHIDO 05/09** — foto 23 do ensaio | 3:4 (recorte 1365×1820) | feito |
-| 3 | ✅ **PREENCHIDO 05/09** — foto 28 do ensaio | **4:5** (recorte 1365×1706), não 2:3 — ver o bloco no topo | feito |
-| 4·5·6 | Como funciona — um por passo | horizontal 3:2 | ~1200×800 |
+| 3 | ✅ **PREENCHIDO 05/09** — foto **12** (a 28 ocupou o slot mais cedo no mesmo dia e saiu) | **4:5**, recorte **1092×1365 a partir de x=481** — a original é HORIZONTAL, então joga fora largura, não altura | feito |
+| 4·5·6 | ✅ **PREENCHIDOS 05/09** — imagens **geradas** (o ensaio não tem cena clínica) | 3:2 real, sem `.fill` | feito |
 | 7 | CTA final (direita) | vertical 3:4 | ~900×1200 |
 
 ⚠️ **Compliance de conteúdo:** em página de emagrecimento, **foto de corpo é promessa de resultado implícita** — cai na mesma vedação do antes-e-depois. As fotos devem ser de consultório, atendimento, exames, ambiente, alimento real ou o próprio médico. **Nunca corpo transformado.**
 
-Direção de arte para as fotos não brigarem entre si: luz natural neutra/fria (combina com o marinho), baixa saturação, fundos limpos, muito espaço negativo. Exportar em AVIF + WebP + JPG de fallback.
+⚠️ **A direção de arte abaixo está MORTA — mantida só como registro.** Ela é de quando a página
+era marinho + limão: ~~luz natural neutra/fria, baixa saturação, fundos limpos, muito espaço
+negativo~~. O ensaio real é o oposto (tungstênio quente, alto contraste, fundo ornamentado) **e
+combina melhor com a marca** — ver "O ENSAIO" no topo. **Seguir o ensaio, não este parágrafo.**
+
+Exportar em AVIF + WebP + JPG de fallback. ⚠️ **Só o tamanho GRANDE precisa de JPG:** o fallback
+do `<picture>` aponta só para ele, então `-600.jpg`/`-1080.jpg` nascem órfãos (foi o que gerou a
+limpeza de 05/09).
 
 ### Próximos passos combinados
 1. ✅ **Seção "A virada" fechada** — o usuário escolheu o **E** e ele está aplicado. Ver o bloco no topo do arquivo, incluindo a regressão de ritmo de imagem que ficou em aberto.
-2. **Preencher os 7 slots de imagem** (tabela acima). ⚠️ **O Slot 2 mudou de 21:9 para 3:4 vertical** com o tratamento E — se já tiver sido produzido no formato antigo, refazer. Continua sendo o mais urgente: hoje é um retângulo listrado de 448×597 ocupando toda a coluna direita da seção.
+2. **Preencher os slots de imagem restantes — 1 e 7** (tabela acima). ✅ Os slots **2 e 3** foram preenchidos em 05/09 com as fotos 23 e 12 do ensaio, e os **4·5·6** no mesmo dia com imagens geradas no Higgsfield — o ensaio não tem cena clínica. ⚠️ **Ao gerar os slots 1 e 7, seguir as regras do bloco dos slots 4·5·6:** sem rosto, sem balança/fita métrica, corte feito no arquivo e não no prompt.
 3. ✅ **Hero resolvida em 04/09/2026**, desktop e mobile. No largo é painel de cor + foto; no estreito o texto fica em cima e a foto vira um bloco cheio embaixo, com arquivo recortado próprio. Ver os dois blocos no topo. O texto abaixo fica como registro da decisão original:
    ~~**Hero — decisão em aberto.** O usuário optou por **não mexer na hero** por enquanto.~~ Quando for mexer, há dois caminhos que **não se somam**: (a) imagem/vídeo de fundo com `min-height` em `svh` + overlay escuro de contraste — se vídeo, `autoplay muted loop playsinline` + `poster` + respeitar `prefers-reduced-motion`; ou (b) card 4:5 emoldurado à direita, no padrão da referência, mantendo o navy chapado. Perguntar antes de implementar.
 4. **Depoimentos** — 🚨 **ponto de atenção antes de publicar.** Continua com os três placeholders, e o aviso de compliance que ficava na própria página **foi removido** em 03/09/2026 a pedido do usuário. Não há mais nada na tela lembrando que a seção não está pronta. Decidir: entram depoimentos reais (com autorização de uso de imagem e aval do compliance) ou a seção sai.

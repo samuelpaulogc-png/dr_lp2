@@ -445,12 +445,22 @@ h1,h2,h3{font-family:"Goldoni","Playfair Display",Georgia,serif;font-weight:600;
 .steps{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:36px}
 .step{background:var(--navy-700);border:1px solid var(--navy-500);border-radius:var(--r-lg);
   padding:28px;position:relative;overflow:hidden}
-.step .num{width:48px;height:48px;border-radius:var(--r-pill);background:var(--gold);color:var(--navy);
-  font-weight:800;font-size:20px;display:grid;place-items:center;margin-bottom:18px}
-/* A foto sangra até a borda do card; o número passa a viver sobre ela */
+/* A foto sangra até a borda do card.
+   ⚠️ O `position:relative` do .step acima e o `overflow:hidden` sao o que fazem a
+   margem negativa daqui virar sangria em vez de estouro. Nao tirar nenhum dos dois.
+   ⚠️ AS REGRAS `.step .num` E `.step-media .num` FORAM REMOVIDAS EM 05/09/2026, junto
+   com as tres <div class="num"> do HTML. O numero era um disco de ouro de 44px por
+   cima da foto: fazia sentido enquanto o slot era placeholder listrado, mas com foto
+   real virou adesivo sobre a imagem, e tres discos de ouro em fila contrariam o "use
+   com moderacao" da regra 3. Mesmo criterio dos eyebrows — o rotulo decorativo saiu e
+   a regra morta saiu junto.
+   O que se perdeu, de propósito: no empilhado nada mais diz que sao tres etapas em
+   ordem. A sequencia passa a viver so na copy (fala com a equipe → avaliacao →
+   acompanhamento) e no "Comecar e simples" do H2.
+   ⚠️ Se um dia quiserem a ordem de volta, NAO usar "01/02/03" em ouro: essa e a
+   assinatura do painel de fatores da secao 4, e duplicar assinatura entre secoes ja
+   foi motivo de rejeitar um tratamento da secao 7. */
 .step-media{margin:-28px -28px 22px;border-radius:0;border:0;box-shadow:none}
-.step-media .num{position:absolute;top:14px;left:14px;margin:0;width:44px;height:44px;
-  font-size:18px;box-shadow:var(--sh-sm);z-index:2}
 .step h3{color:var(--off);font-size:19px;margin-bottom:8px}
 .step p{color:var(--on-dark-3);font-size:15.5px;margin:0}
 
@@ -1082,64 +1092,76 @@ footer b,footer strong{color:var(--off)}
 
     <div class="steps">
       <article class="step">
-        <!-- ============ SLOT 4 · horizontal (3:2) ============
-             Cena sugerida: recepção / atendimento da equipe / celular na mão.
-             Troque a <div class="ph"> inteira por:
-             <picture>
-               <source srcset="imagens/passo-1.avif" type="image/avif">
-               <source srcset="imagens/passo-1.webp" type="image/webp">
-               <img src="imagens/passo-1.jpg" alt="[descreva a cena]"
-                    width="1200" height="800" loading="lazy" decoding="async">
-             </picture> -->
+        <!-- ================= SLOT 4 · PREENCHIDO 05/09/2026 =================
+             Imagem GERADA (Higgsfield / nano_banana_pro), nao foto do ensaio: o ensaio
+             de 10/2024 nao tem nenhuma imagem clinica, entao os passos 1, 2 e 3 nao
+             tinham material. As tres foram geradas na MESMA direcao para lerem como
+             uma sequencia: painel azul-petroleo, nogueira, latao e luz quente de
+             tungstenio — o mundo do ensaio, que e o que casa com a paleta da marca.
+             ⚠️ SEM ROSTO EM NENHUMA DAS TRES, e isso nao e estetica. A pagina nomeia o
+             Dr. Rafael com CRM; uma pessoa gerada com rosto em cena de consulta leria
+             como sendo ele, e seria imagem fabricada de um profissional real. O modelo
+             insistiu em deixar queixo e boca mesmo com o corte pedido no prompt — o
+             corte final foi feito NO ARQUIVO e reenquadrado em 3:2 exato.
+             ⚠️ O jaleco branco dos passos 2 e 3 e o mesmo de proposito: sao o mesmo
+             medico em cards vizinhos. Ao regerar um, conferir a roupa do outro.
+             Derivados: dr-rafael-passo-1-{600,900}.{avif,webp} + -900.jpg -->
         <figure class="figure r-32 step-media">
-          <div class="ph on-dark" aria-hidden="true">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            <span>Slot 4 — horizontal</span>
-            <small>3:2 · ~1200×800</small>
-          </div>
-          <div class="num" aria-hidden="true">1</div>
+          <picture>
+            <source type="image/avif" srcset="assets/Fotos/dr-rafael-passo-1-600.avif 600w, assets/Fotos/dr-rafael-passo-1-900.avif 900w" sizes="(max-width:768px) 100vw, 350px">
+            <source type="image/webp" srcset="assets/Fotos/dr-rafael-passo-1-600.webp 600w, assets/Fotos/dr-rafael-passo-1-900.webp 900w" sizes="(max-width:768px) 100vw, 350px">
+            <img src="assets/Fotos/dr-rafael-passo-1-900.jpg" alt="Mulher sentada em uma poltrona de couro, escrevendo uma mensagem no celular"
+                 width="900" height="600" loading="lazy" decoding="async">
+          </picture>
         </figure>
         <h3>Você fala com a equipe pelo WhatsApp</h3>
         <p>Clique no botão, conte rapidamente o seu caso e a nossa equipe te ajuda a agendar a avaliação, presencial em Florianópolis ou online.</p>
       </article>
       <article class="step">
-        <!-- ============ SLOT 5 · horizontal (3:2) ============
-             Cena sugerida: consulta em andamento, médico e paciente conversando.
-             Troque a <div class="ph"> inteira por:
-             <picture>
-               <source srcset="imagens/passo-2.avif" type="image/avif">
-               <source srcset="imagens/passo-2.webp" type="image/webp">
-               <img src="imagens/passo-2.jpg" alt="[descreva a cena]"
-                    width="1200" height="800" loading="lazy" decoding="async">
-             </picture> -->
+        <!-- ================= SLOT 5 · PREENCHIDO 05/09/2026 =================
+             Imagem gerada — ver a nota completa no Slot 4, logo acima.
+             ⚠️ NAO HA ESTETOSCOPIO NA CENA, e a ausencia e deliberada: o usuario
+             apontou que ele nao e instrumento desta consulta. O que faz a cena ler
+             como medica e o JALECO; a primeira rodada parecia reuniao de banco porque
+             ele estava de TERNO, nao por falta de estetoscopio. Os objetos da mesa
+             (caderno, caneta, oculos) sao o material de uma anamnese, que e o que o
+             passo 2 de fato e.
+             ⚠️ Tambem fora: balanca, bioimpedancia e fita metrica. Sao instrumentos
+             reais de avaliacao de composicao corporal, mas peso e corpo em pagina de
+             emagrecimento caem na mesma vedacao do antes-e-depois — e esta pagina e
+             destino de anuncio no Google Ads. Ver PROJETO.md, Regras invioláveis §2.
+             Derivados: dr-rafael-passo-2-{600,900}.{avif,webp} + -900.jpg -->
         <figure class="figure r-32 step-media">
-          <div class="ph on-dark" aria-hidden="true">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            <span>Slot 5 — horizontal</span>
-            <small>3:2 · ~1200×800</small>
-          </div>
-          <div class="num" aria-hidden="true">2</div>
+          <picture>
+            <source type="image/avif" srcset="assets/Fotos/dr-rafael-passo-2-600.avif 600w, assets/Fotos/dr-rafael-passo-2-900.avif 900w" sizes="(max-width:768px) 100vw, 350px">
+            <source type="image/webp" srcset="assets/Fotos/dr-rafael-passo-2-600.webp 600w, assets/Fotos/dr-rafael-passo-2-900.webp 900w" sizes="(max-width:768px) 100vw, 350px">
+            <img src="assets/Fotos/dr-rafael-passo-2-900.jpg" alt="Médico de jaleco branco conversando com uma paciente à mesa do consultório"
+                 width="900" height="600" loading="lazy" decoding="async">
+          </picture>
         </figure>
         <h3>Avaliação individualizada com o Dr. Rafael</h3>
         <p>Uma consulta sem pressa, para entender a sua história, pedir os exames necessários e montar um plano feito para o seu corpo.</p>
       </article>
       <article class="step">
-        <!-- ============ SLOT 6 · horizontal (3:2) ============
-             Cena sugerida: retorno / bancada com exames / acompanhamento.
-             Troque a <div class="ph"> inteira por:
-             <picture>
-               <source srcset="imagens/passo-3.avif" type="image/avif">
-               <source srcset="imagens/passo-3.webp" type="image/webp">
-               <img src="imagens/passo-3.jpg" alt="[descreva a cena]"
-                    width="1200" height="800" loading="lazy" decoding="async">
-             </picture> -->
+        <!-- ================= SLOT 6 · PREENCHIDO 05/09/2026 =================
+             Imagem gerada — ver a nota completa no Slot 4.
+             ⚠️ O PAPEL SOBRE A MESA SO TEM TRACADO, sem nada legivel, e isso e
+             requisito: o modelo escreve texto em INGLES mesmo com "no lettering" no
+             prompt (ja aconteceu nas candidatas do Slot 1) e a pagina e em portugues.
+             Ao regerar, conferir a olho se apareceu palavra no papel.
+             ⚠️ UM braco dele apontando e o outro apoiado. Na primeira versao saiam
+             DOIS bracos pela esquerda e ficava anatomicamente estranho.
+             ⚠️ Este e o unico dos tres em que a paciente aparece so pelas maos — e o
+             fechado do trio, contra o plano com ar do passo 1. Ao trocar um dos tres,
+             conferir se o ritmo fechado → aberto → fechado sobrevive.
+             Derivados: dr-rafael-passo-3-{600,900}.{avif,webp} + -900.jpg -->
         <figure class="figure r-32 step-media">
-          <div class="ph on-dark" aria-hidden="true">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            <span>Slot 6 — horizontal</span>
-            <small>3:2 · ~1200×800</small>
-          </div>
-          <div class="num" aria-hidden="true">3</div>
+          <picture>
+            <source type="image/avif" srcset="assets/Fotos/dr-rafael-passo-3-600.avif 600w, assets/Fotos/dr-rafael-passo-3-900.avif 900w" sizes="(max-width:768px) 100vw, 350px">
+            <source type="image/webp" srcset="assets/Fotos/dr-rafael-passo-3-600.webp 600w, assets/Fotos/dr-rafael-passo-3-900.webp 900w" sizes="(max-width:768px) 100vw, 350px">
+            <img src="assets/Fotos/dr-rafael-passo-3-900.jpg" alt="Médico apontando um exame impresso sobre a mesa, ao lado das mãos da paciente"
+                 width="900" height="600" loading="lazy" decoding="async">
+          </picture>
         </figure>
         <h3>Acompanhamento até o resultado se sustentar</h3>
         <p>Você segue com um plano claro e com acompanhamento próximo, ajustando o caminho até emagrecer <strong style="color:var(--off)">e manter</strong>.</p>
