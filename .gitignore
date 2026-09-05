@@ -13,3 +13,13 @@ secao7.html
 # Estao aqui, e nao no scratchpad, porque o scratchpad ja foi limpo uma vez
 # nesta sessao e levou junto os arquivos baixados do Drive.
 assets/Fotos/_candidatas/
+
+# Saidas da skill human-image (Higgsfield/Nano Banana 2). Material de trabalho:
+# candidatas, prompt e brief de cada rodada. Mesmo motivo das _candidatas acima —
+# o repositorio e publico e isto e bancada, nao entrega.
+human-output/
+
+# Originais do ensaio (10/2024). Mesma regra da rg-09 acima: o repositorio e
+# publico e as originais nao devem ser publicadas. Os DERIVADOS recortados
+# (dr-rafael-mecanismo-*, dr-rafael-sobre-*) sao a entrega e continuam versionados.
+assets/Fotos/Rafael Gallassini - Rede Social - Cor - *.jpg

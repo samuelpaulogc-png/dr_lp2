@@ -40,9 +40,16 @@ T = {
     'line':     '#2E3A5A',   # fios
     'gold':     '#BD9853', 'gold-600': '#9F8046', 'sand': '#EADEC3',
     'off':      '#F3F4F0',   # creme — segue sendo COR DE TEXTO
-    'ink':      '#F3F4F0', 'ink-2': '#C6C0B1', 'ink-3': '#A79F8E',
-    'on-dark':  '#F3F4F0', 'on-dark-2': '#E5E4DD', 'on-dark-3': '#D6D2C7',
-    'on-dark-4': '#C6C0B1', 'on-dark-5': '#A1A8BC',
+    # ⚠️ ESTA ESCALA DESCE PARA CINZA NEUTRO, E ISSO NAO E ESTETICA — E CORRECAO.
+    # Ela descia misturando creme com TAUPE, entao quanto mais escuro o degrau,
+    # mais quente ficava: ink-2 tinha R-B=+21 e ink-3 R-B=+25. Sobre o azul isso
+    # le como AMARELO, e o usuario apontou (05/09/2026) na secao "Sobre", que usa
+    # ink-2 nos dois paragrafos. E o MESMO defeito ja corrigido na escala on-dark
+    # do index.html em 04/09 — a correcao de la nunca foi trazida para ca.
+    # Regra: manter R-B entre 0 e -13. Ao mexer nestes hex, conferir R menos B.
+    'ink':      '#F3F4F0', 'ink-2': '#C7CACF', 'ink-3': '#A5A9B2',
+    'on-dark':  '#F3F4F0', 'on-dark-2': '#E8E9EA', 'on-dark-3': '#DADCDF',
+    'on-dark-4': '#C7CACF', 'on-dark-5': '#A5A9B2',
     'ph-dark-a': '#1A2440', 'ph-dark-b': '#232F52', 'ph-light-b': '#1A2440',
     'navy-rgb': '11,17,31', 'navy-900-rgb': '5,8,16',
     'gold-rgb': '189,152,83', 'white-rgb': '255,255,255',

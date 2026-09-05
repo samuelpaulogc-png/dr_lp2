@@ -43,7 +43,7 @@
   --navy:#1C2747; --navy-900:#0B111F; --navy-700:#26314F; --navy-500:#3A4463;
   --gold:#BD9853; --gold-600:#9F8046; --sand:#EADEC3;
   --white:#1E2A4B; --off:#F3F4F0;
-  --ink:#F3F4F0; --ink-2:#C6C0B1; --ink-3:#A79F8E; --line:#2E3A5A; --surface:#16203A;
+  --ink:#F3F4F0; --ink-2:#C7CACF; --ink-3:#A5A9B2; --line:#2E3A5A; --surface:#16203A;
   --success:#3DBE5A; --whatsapp:#25D366; --danger:#E5484D; --focus:var(--navy);
 
   --r-sm:8px; --r-md:16px; --r-lg:24px; --r-xl:32px; --r-pill:999px;
@@ -56,8 +56,8 @@
   --navy-rgb:11,17,31; --navy-900-rgb:5,8,16; --gold-rgb:189,152,83; --white-rgb:255,255,255;
 
   /* Texto sobre fundo escuro, do mais forte ao mais apagado */
-  --on-dark:#F3F4F0; --on-dark-2:#E5E4DD; --on-dark-3:#D6D2C7;
-  --on-dark-4:#C6C0B1; --on-dark-5:#A1A8BC;
+  --on-dark:#F3F4F0; --on-dark-2:#E8E9EA; --on-dark-3:#DADCDF;
+  --on-dark-4:#C7CACF; --on-dark-5:#A5A9B2;
 
   /* Listras dos placeholders */
   --ph-dark-a:#1A2440; --ph-dark-b:#232F52; --ph-light-b:#1A2440;
@@ -389,11 +389,33 @@ h1,h2,h3{font-family:"Goldoni","Playfair Display",Georgia,serif;font-weight:600;
 .about{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:stretch}
 /* margin:0 é obrigatório — <figure> tem margem padrão do navegador (1em 40px),
    que encolhia o retrato em 80px e o deslocava 16px para baixo. */
+/* ⚠️ SEM `place-items:center` — e a ausencia e deliberada. Ele existia para
+   centralizar o monograma "RG", que era o placeholder do Slot 3 e ja saiu. Com
+   `center` o <img> NAO estica e passa a depender do `height:100%`, que abaixo de
+   960px NAO RESOLVE: la o .portrait vira `height:auto` + `aspect-ratio`, e
+   porcentagem contra pai de altura automatica nao resolve nem com aspect-ratio.
+   O resultado era a foto em 325x406 dentro de uma moldura de 327x204.
+   O padrao do grid (`stretch`) faz o <img> preencher a area nos dois breakpoints,
+   sem depender de resolucao de porcentagem. Nao reintroduzir `place-items`. */
 .portrait{background:linear-gradient(160deg,var(--navy-700),var(--navy));border-radius:var(--r-xl);
-  margin:0;height:100%;min-height:520px;display:grid;place-items:center;position:relative;
+  margin:0;height:100%;min-height:520px;display:grid;position:relative;
   overflow:hidden;box-shadow:var(--sh-md);border:1px solid var(--navy-500)}
-.portrait img{width:100%;height:100%;object-fit:cover}
-.portrait .mono{font-size:96px;font-weight:800;color:var(--sand);letter-spacing:-.03em;opacity:.95}
+/* display:contents e OBRIGATORIO: sem ele o <picture> vira o filho centrado
+   pelo place-items do .portrait e o height:100% do <img> nao tem a que se
+   referir — a foto encolhe para o tamanho intrinseco. Mesmo motivo do
+   .figure picture e do .mech-figura picture. */
+.portrait picture{display:contents}
+/* ⚠️ `position:absolute;inset:0` E O QUE FAZ A FOTO PREENCHER, e nao o height:100%.
+   Tirar o `place-items:center` nao bastou: o `stretch` padrao do grid so estica
+   itens de altura AUTOMATICA, e este <img> tem `height:100%` — que abaixo de 960px
+   nao resolve, porque la o .portrait vira `height:auto` + `aspect-ratio` e
+   porcentagem contra pai automatico nao resolve. Resultado: 325x406 numa moldura
+   de 327x204. Com inset:0 a caixa vem do pai posicionado e nao depende de
+   resolucao de porcentagem em nenhum dos dois breakpoints.
+   Seguro porque o .portrait ja tem `position:relative` e altura propria nos dois
+   casos (min-height:520 no largo, aspect-ratio no estreito) — a moldura nunca
+   depende do conteudo para existir. */
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .about-body p{font-size:17px;color:var(--ink-2);margin:0 0 20px}
 /* ⚠️ O PESO 600 AQUI E PROPOSITAL e e a unica excecao do sistema de subtitulos.
    Este e o unico .lead da pagina: a linha de posicionamento logo abaixo do NOME
@@ -573,14 +595,59 @@ footer b,footer strong{color:var(--off)}
 @media(max-width:960px){
   .about{grid-template-columns:1fr;gap:28px}
   /* No empilhado o retrato vira RETÂNGULO HORIZONTAL, a pedido do usuário: a 4/5 com
-     339px de largura ele virava um bloco de ~424px de altura, que tomava a tela inteira.
-     A 16/10 cai para ~212px. É a mesma proporção que .mech-figura e .finalcta .figure
-     já usam neste breakpoint, então o mobile fica coerente.
-     ⚠️ object-position sobe o enquadramento: a foto do Slot 3 é VERTICAL (~1000×1500) e,
-     recortada em 16/10, o cover pegaria a faixa central e cortaria a cabeça. Com 50% 25%
-     o rosto fica preservado. REAJUSTAR quando a foto real entrar. */
-  .portrait{height:auto;min-height:0;aspect-ratio:16/10;max-width:none;margin:0}
-  .portrait img{object-position:50% 25%}
+     327px de largura ele virava um bloco de ~409px de altura, que tomava a tela inteira.
+     É a mesma proporção que .mech-figura e .finalcta .figure já usam neste breakpoint,
+     então o mobile fica coerente — MEXEU AQUI, MEXE NAS TRÊS.
+     ⚠️ 9/8 E NAO 16/10 (05/09/2026), em dois passos no mesmo dia: com as fotos reais no
+     lugar o usuário achou as três pequenas demais. A 16/10 a moldura tinha 204px de
+     altura num iPhone de 375px; passou a 5/4 (262px, +28%) e, num segundo pedido de
+     "um pouquinho maior", a 9/8 — 291px, +43% sobre o ponto de partida. O teto continua
+     sendo não voltar ao bloco vertical que ele recusou em 03/09 (a 4/5 seriam 409px).
+     ⚠️ SEM CANTO ARREDONDADO no empilhado, a pedido dele. É a única quebra do --r-xl na
+     página: cartões, botões e as mesmas figuras no desktop seguem arredondados. Foto
+     grande em largura total pede aresta reta; o raio, nesse tamanho, virava enfeite.
+     O border-radius:0 vai nas TRÊS, pelo mesmo motivo da razão — elas andam juntas.
+     ⚠️ As fotos são VERTICAIS (Slot 3 em 840×1050, Slot 2 em 900×1200), então o `cover`
+     escala pela LARGURA e todo o corte é vertical — o object-position abaixo é quem
+     decide de onde ele sai. Ao mexer na razão, remedir os dois. */
+  /* ⚠️ `display:block` E O CONSERTO DO RETRATO QUE SUMIA NO IPHONE (05/09/2026).
+     No largo a moldura tira altura do `height:100%` e a foto vive em
+     `position:absolute`. Aqui a altura passaria a vir SO do `aspect-ratio` — e a
+     moldura nao tem nenhum conteudo em fluxo para sustenta-la. Como ela e item
+     de grid do `.about`, que estica por padrao, o WebKit descarta a razao no
+     item esticado e devolve altura ZERO: no Safari do celular sobrava um fio
+     entre o botao e a secao seguinte, enquanto o Blink (desktop) resolvia a
+     razao e mostrava a foto. Dai o bug so aparecer no telefone.
+     Virando bloco comum a moldura sai da conta do stretch, e a foto volta ao
+     fluxo logo abaixo — a altura passa a existir por dois caminhos
+     independentes (a razao da moldura e a altura da propria imagem), sem
+     depender de qual motor resolve o que.
+     ⚠️ Nao devolver `position:absolute` a foto neste breakpoint sem testar em
+     Safari de iPhone real — o desktop nao reproduz a falha. */
+  .portrait{height:auto;min-height:0;aspect-ratio:9/8;max-width:none;margin:0;display:block;border-radius:0}
+  /* 8% e nao 25%: MEDIDO com a foto real em 375px. A imagem escalada tem 409px de
+     altura numa moldura de 327x291, entao sobram 118px para cortar. A 8% o corte
+     leva 9px do topo; a 25% levaria 30px.
+     ⚠️ REVALIDADO na troca da foto 28 pela 12 (05/09/2026): na 28 a cabeca comecava
+     a 8,1% da imagem, na 12 comeca a 8,9% (36px) — a folga acima dela caiu de 24 para
+     ~27px, entao o valor seguiu servindo. Foi CONFERIDO, nao herdado.
+     Como o enquadramento fica preso no topo, os 87px que a moldura ganhou desde a
+     16/10 aparecem EMBAIXO — na 12, o corte de baixo cai logo abaixo do relogio.
+     ⚠️ Este numero e casado com o recorte 4:5 do arquivo E com a razao da moldura.
+     Mexeu em qualquer um dos dois, remedir — nao herdar este valor. */
+  /* `position:static` + `height:auto` + a razao NA IMAGEM: e o que a poe de volta
+     no fluxo (ver o bloco do .portrait acima). `display:block` mata a folga de
+     linha de base que sobraria embaixo da foto. */
+  .portrait img{position:static;display:block;width:100%;height:auto;aspect-ratio:9/8;object-position:50% 8%}
+  /* O .mech-figura acompanha a razao do retrato e NAO tinha object-position: o padrao
+     de 50% cortava a cabeca em ~7px. A foto 23 (900x1200) tem a cabeca a 25% da altura;
+     a 35% o corte para antes dela e o quadro pega arandela, cabeca, torso e maos.
+     ⚠️ MANTIDO em 35% depois da mudanca para 9/8: a imagem escalada tem 436px numa
+     moldura de 291px, entao o corte caiu de 232 para 145px e a folga acima da cabeca
+     SUBIU de 28 para 51px. O ganho de altura aparece nas duas pontas — o quadro passou
+     a pegar o corpo inteiro sentado, com as maos. Nao ha o que recalibrar; so nao
+     baixar este numero achando que sobrou espaco. */
+  .mech-figura img{object-position:50% 35%}
   .foot-grid{grid-template-columns:1fr 1fr}
   .media-split{grid-template-columns:1fr;gap:26px}
   .mech{grid-template-columns:1fr;gap:28px}
@@ -630,10 +697,13 @@ footer b,footer strong{color:var(--off)}
   /* Empilhado a foto sai do sticky e vira horizontal, senão fica gigante no tablet.
      `relative` e não `static`: o placeholder .ph é absolute/inset:0 e precisa de um
      contexto de posicionamento — com static ele escaparia para o ancestral posicionado. */
-  .mech-figura{position:relative;top:auto;aspect-ratio:16/10}
+  .mech-figura{position:relative;top:auto;aspect-ratio:9/8;border-radius:0}
   .figure.fill{min-height:300px}
   .finalcta .grid{grid-template-columns:1fr;gap:30px}
-  .finalcta .figure.r-34{aspect-ratio:16/10}
+  /* Segue as outras duas. ⚠️ Aqui a moldura e MAIS ESTREITA que as demais: ela vive
+     dentro do .finalcta .box, que a 375px deixa so ~259px uteis — a 9/8 da ~230px de
+     altura, e nao os 291 do retrato. E o Slot 7, ainda em placeholder. */
+  .finalcta .figure.r-34{aspect-ratio:9/8;border-radius:0}
 }
 @media(max-width:768px){
   main section{padding:var(--s8) 0}
@@ -931,26 +1001,23 @@ blockquote.quote cite{color:var(--gold)}
         <p class="mech-body">É construído um caminho individual, com ajuste do que for necessário e acompanhamento de perto para que o resultado <strong>se sustente</strong>, em vez de virar mais um ciclo de perder e recuperar.</p>
       </div>
 
-      <!-- ================= SLOT 2 · foto VERTICAL 3:4 =================
-           ⚠️ MUDOU DE FORMATO: era uma faixa horizontal 21:9 (~2100×900) sangrando de
-           borda a borda; agora é vertical 3:4 (~900×1200), ao lado do texto e grudada
-           no scroll. Se você já tiver mandado produzir a foto no formato antigo, ela
-           não serve aqui — o recorte é outro.
-           Sugestão de cena: bancada de exames, ambiente clínico, mesa de consulta.
-           NÃO usar foto de corpo — em página de emagrecimento isso vira promessa de
-           resultado implícita. Troque a <div class="ph"> inteira por:
-           <picture>
-             <source srcset="imagens/mecanismo.avif" type="image/avif">
-             <source srcset="imagens/mecanismo.webp" type="image/webp">
-             <img src="imagens/mecanismo.jpg" alt="[descreva a cena]"
-                  width="900" height="1200" loading="lazy" decoding="async">
-           </picture> -->
+      <!-- ================= SLOT 2 · PREENCHIDO 05/09/2026 =================
+           Foto 23 do ensaio de 10/2024 ("Rede Social - Cor"), escolhida pelo usuario.
+           ⚠️ O ARQUIVO JA VEM RECORTADO em 3:4 — a fonte e 2:3 (1365x2048) e a moldura
+           e `aspect-ratio:3/4`, entao 228px de altura foram cortados na geracao, NAO
+           pelo CSS. O corte e assimetrico (60px do teto, 168px do rodape): para no
+           limite dos sapatos, que terminam por volta de y=1853 do original. Se trocar a
+           foto, refazer o recorte com a mesma logica — nao adianta mexer no CSS.
+           Mantida a cena inteira (poltrona, quadro, arandela) de proposito: e o
+           ambiente que casa com a paleta da marca, e aqui a imagem e clima, nao retrato.
+           Derivados: dr-rafael-mecanismo-{600,900}.{avif,webp,jpg} -->
       <figure class="mech-figura">
-        <div class="ph on-dark" aria-hidden="true">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-          <span>Slot 2 — imagem vertical</span>
-          <small>3:4 · ~900×1200</small>
-        </div>
+        <picture>
+          <source type="image/avif" srcset="assets/Fotos/dr-rafael-mecanismo-600.avif 600w, assets/Fotos/dr-rafael-mecanismo-900.avif 900w" sizes="(max-width:960px) 100vw, 448px">
+          <source type="image/webp" srcset="assets/Fotos/dr-rafael-mecanismo-600.webp 600w, assets/Fotos/dr-rafael-mecanismo-900.webp 900w" sizes="(max-width:960px) 100vw, 448px">
+          <img src="assets/Fotos/dr-rafael-mecanismo-900.jpg" alt="Dr. Rafael Gallassini sentado no consultório"
+               width="900" height="1200" loading="lazy" decoding="async">
+        </picture>
       </figure>
     </div>
 
@@ -975,19 +1042,31 @@ blockquote.quote cite{color:var(--gold)}
         </div>
       </div>
 
-      <!-- ================= SLOT 3 · retrato vertical =================
-           Foto do Dr. Rafael. Ocupa toda a altura da coluna de texto ao lado, então a foto
-           deve ser VERTICAL e com folga em cima e embaixo — o recorte é feito por object-fit.
-           Formato de origem: 4:5 ou 2:3. O monograma é o placeholder: apague o <span class="mono">
-           e coloque no lugar:
-           <picture>
-             <source srcset="imagens/dr-rafael.avif" type="image/avif">
-             <source srcset="imagens/dr-rafael.webp" type="image/webp">
-             <img src="imagens/dr-rafael.jpg" alt="Dr. Rafael Gallassini"
-                  width="1000" height="1500" loading="lazy" decoding="async">
-           </picture> -->
+      <!-- ================= SLOT 3 · PREENCHIDO 05/09/2026 =================
+           Foto 12 do ensaio de 10/2024 ("Rede Social - Cor"), escolhida pelo usuario.
+           Ela SUBSTITUIU a foto 28, que ocupou este slot mais cedo no mesmo dia.
+           O monograma "RG" que era o placeholder saiu, e com ele a regra morta
+           `.portrait .mono` (mesmo criterio dos eyebrows).
+           ⚠️ A ORIGINAL DA 12 E HORIZONTAL (2048x1365) — a 28 ja vinha vertical. Por
+           isso o recorte aqui JOGA FORA LARGURA, e nao altura: 1092x1365 a partir de
+           x=481, altura cheia, centrado no medico (centro dele em x~1027). Refazer com
+           esses numeros se precisar regerar; nao recortar "no olho" de novo.
+           ⚠️ RECORTADA EM 4:5, e nao em 2:3 de proposito. O .portrait renderiza
+           ~420x520 (0,81) e estica com o texto; com a fonte 2:3 o `cover` cortaria 110px
+           de altura e sobrariam SEIS PIXELS acima da cabeca. A 4:5 a moldura e a foto
+           quase coincidem e o corte deixa de ser uma aposta.
+           ⚠️ Se o texto do "Sobre" encurtar, a linha do grid encolhe e o corte volta a
+           apertar em cima — remedir a folga sobre a cabeca, nao so olhar o desktop.
+           Derivados: dr-rafael-sobre-{600,840}.{avif,webp,jpg} — mesmos nomes da 28, para
+           nao mexer no srcset. ⚠️ Aparelho que ja abriu a pagina pode servir a 28 do
+           cache: recarga forte na hora de conferir. -->
       <figure class="portrait">
-        <span class="mono" aria-hidden="true">RG</span>
+        <picture>
+          <source type="image/avif" srcset="assets/Fotos/dr-rafael-sobre-600.avif 600w, assets/Fotos/dr-rafael-sobre-840.avif 840w" sizes="(max-width:960px) 100vw, 420px">
+          <source type="image/webp" srcset="assets/Fotos/dr-rafael-sobre-600.webp 600w, assets/Fotos/dr-rafael-sobre-840.webp 840w" sizes="(max-width:960px) 100vw, 420px">
+          <img src="assets/Fotos/dr-rafael-sobre-840.jpg" alt="Dr. Rafael Gallassini"
+               width="840" height="1050" loading="lazy" decoding="async">
+        </picture>
       </figure>
     </div>
   </div>

@@ -22,7 +22,7 @@
 | `assets/Fontes/goldoni-webfont.woff2` | A serifada da marca. 24,5 KB. ⚠️ **Só tem caixa alta** — ver a ressalva na seção de tipografia. |
 | `assets/Fundo/` | `Fundo.jpg` é o original de 1,5 MB; `fundo-1920.webp` (13 KB) e `fundo-1280.webp` (4,7 KB) são as versões de uso. **Ainda não estão aplicados em lugar nenhum da página.** |
 | `.claude/launch.json` | Config do servidor local de preview (`landing`, **porta 5181**). Não faz parte da entrega. ⚠️ Era 5173; mudou em 05/09/2026 porque outra sessão tomou a porta e serviu outro projeto — ver as notas de preview. |
-| `assets/Fotos/` | Imagens reais. Os 6 derivados da hero são versionados; `_candidatas/` está no `.gitignore`. |
+| `assets/Fotos/` | Imagens reais. Os derivados são versionados; `_candidatas/` e as originais do ensaio estão no `.gitignore`. ⚠️ **Cada derivado existe em AVIF + WebP + JPG e os três são usados** — o `<picture>` serve AVIF, cai para WebP e o JPG é o fallback do `<img src>`. Não são "versões alternativas" descartáveis. **A única exceção é o tamanho pequeno em JPG**: o fallback aponta só para o arquivo grande, então `*-600.jpg` e `*-1080.jpg` nascem órfãos — não gerar (foram para a lixeira em 05/09/2026). |
 
 Os comparativos temporários (`_variacoes-*.html`, `comparacao.html`, `secao7.html`) **ficaram na pasta antiga do `D:`** e estão no `.gitignore`. Dois deles corromperam no disco. Se precisar de algum, é mais rápido regenerar do que recuperar.
 
@@ -350,6 +350,274 @@ O usuário mandou o print do mobile da mesma referência e pediu esse arranjo. *
 - **A hero não é nenhum dos 7 slots numerados** — ela não tinha slot. É um oitavo, e a tabela dos 7 continua válida como está.
 - ⚠️ **`assets/Fotos/` não está no `.gitignore` e o repositório é PÚBLICO.** Hoje só há os 6 arquivos derivados da hero. As 28 originais estão no scratchpad, fora do repositório.
 
+#### 🚨 DOIS DEFEITOS APONTADOS PELO USUÁRIO NO MOBILE (05/09/2026) — e um deles é REGRESSÃO
+
+Ele apontou, sobre a seção "Sobre" no celular: *"o texto tá amarelo e a imagem ao lado
+dele não tá aparecendo"*. São **dois defeitos independentes**, e nenhum dos dois é da foto.
+
+**1 · O AMARELO É UMA REGRESSÃO DE ALGO QUE ESTE PROJETO JÁ CONSERTOU.**
+Ele só existe na **versão escura**. Medido: `--ink-2` era `#C6C0B1` (**R−B = +21**) e
+`--ink-3` era `#A79F8E` (**R−B = +25**). É exatamente o defeito registrado em 04/09 —
+*"a escala descia misturando creme com taupe, então quanto mais escuro o degrau, mais
+quente; sobre o azul isso lia como amarelo"*. **Aquela correção foi feita na escala
+`on-dark` do `index.html` e nunca foi trazida para o `gerar-dark.py`.** As duas escalas
+de lá foram neutralizadas:
+
+| token | antes | R−B | depois | R−B |
+|---|---|---|---|---|
+| `ink-2` | `#C6C0B1` | **+21** | `#C7CACF` | −8 |
+| `ink-3` | `#A79F8E` | **+25** | `#A5A9B2` | −13 |
+| `on-dark-2` | `#E5E4DD` | +8 | `#E8E9EA` | −2 |
+| `on-dark-3` | `#D6D2C7` | +15 | `#DADCDF` | −5 |
+| `on-dark-4` | `#C6C0B1` | +21 | `#C7CACF` | −8 |
+
+⚠️ **Regra para o `gerar-dark.py`: manter R−B entre 0 e −13.** Ao mexer nesses hex,
+conferir R menos B — é a checagem barata que pega o problema. A auditoria do próprio
+script **não pega isso**, porque ela mede contraste, e o amarelo passava com folga
+(9,85:1). Contraste e temperatura são coisas diferentes. Depois da correção os
+contrastes até subiram (corpo sobre o chão: 9,85 → **10,88:1**), 0 reprovados.
+
+**2 · A IMAGEM: `height:100%` NÃO RESOLVE CONTRA `height:auto` + `aspect-ratio`.**
+Medido a 375px: moldura de **327×204** e `<img>` de **325×406** — a foto com o dobro da
+altura da caixa. A cadeia do defeito:
+- O `.portrait` tinha `place-items:center`, que existia só para centralizar o monograma
+  "RG". Com `center`, o `<img>` **não estica** e depende do `height:100%`.
+- Abaixo de 960px o `.portrait` vira `height:auto` + `aspect-ratio:16/10`. **Porcentagem
+  contra pai de altura automática não resolve, nem havendo `aspect-ratio`.** O `height:100%`
+  vira inerte e o `<img>` cai para a altura intrínseca (1050/840 × 325 = 406px).
+- ⚠️ **Tirar o `place-items` não bastou** — e essa foi a tentativa que falhou. O `stretch`
+  padrão do grid só estica itens de altura **automática**, e este `<img>` tem `height:100%`
+  declarado. Foi preciso `position:absolute;inset:0`, que tira a caixa da resolução de
+  porcentagem: ela passa a vir do pai posicionado. Seguro porque o `.portrait` já é
+  `position:relative` e tem altura própria nos dois breakpoints (`min-height:520` no
+  largo, `aspect-ratio` no estreito) — a moldura nunca depende do conteúdo.
+- ✅ Conferido: 1358px → moldura 420×520 / img 418×518 · 375px → 327×204 / 325×202.
+  (Os 2px são a borda de 1px de cada lado; `inset:0` respeita o box interno.)
+
+⚠️ **O `place-items:center` não deve voltar.** Não há mais nada para centralizar ali.
+
+🚨 **E ATENÇÃO AO DIAGNOSTICAR ISTO DE NOVO: no preview embutido o `loading="lazy"`
+NUNCA DISPARA.** As duas fotos ficam com `naturalWidth:0` e `currentSrc` vazio por mais
+que se role a página — é a mesma limitação já registrada aqui para o `IntersectionObserver`,
+porque o lazy nativo usa o mesmo mecanismo de interseção. **Provado que é do ambiente e
+não da página:** carregando o mesmo arquivo por `new Image()` vem `OK 600x750`, e trocando
+o atributo para `eager` a foto aparece na hora. **Para conferir imagem lazy no preview,
+forçar `eager` por JS antes de medir** — senão o diagnóstico sai errado.
+
+#### 🚨 O RETRATO DO "SOBRE" SUMIU DE NOVO NO CELULAR — e desta vez o culpado é o MOTOR (05/09/2026)
+
+O usuário mandou print do iPhone: entre o botão "Quero começar minha avaliação" e a
+seção seguinte sobra **um fio**, sem foto e sem moldura. No desktop, a mesma página
+mostra o retrato normalmente. **Não é arquivo e não é lazy:** os seis derivados de
+`dr-rafael-sobre-*` existem e estão íntegros.
+
+**A causa é a correção anterior encontrando um bug do WebKit.** Ao pôr o `<img>` em
+`position:absolute` (bloco acima), a moldura ficou **sem nenhum conteúdo em fluxo** — no
+estreito a altura dela passou a vir **só do `aspect-ratio:16/10`**. Só que o `.portrait`
+é item de grid do `.about`, que estica por padrão, e **o WebKit descarta a razão em item
+esticado**: a linha do grid nasce das contribuições de conteúdo, que ali são zero. Altura
+**0**, e o `overflow:hidden` come a foto. O Blink resolve a razão na mesma situação — por
+isso o defeito **só aparece no telefone**, e por isso a medição de 327×204 registrada
+acima estava certa e ainda assim não descrevia o que o usuário via.
+
+**Conserto (só no bloco `max-width:960px`, o desktop não foi tocado):**
+- `.portrait{display:block}` — a moldura deixa de ser item esticado de grid e vira bloco
+  comum, onde a razão resolve em qualquer motor.
+- `.portrait img{position:static;display:block;width:100%;height:auto;aspect-ratio:16/10}`
+  — a foto volta ao **fluxo**, com a razão nela mesma. `width` + `aspect-ratio` em elemento
+  substituído é o caso mais bem suportado que existe. O `display:block` mata a folga de
+  linha de base que sobraria embaixo.
+
+A altura passa a existir por **dois caminhos independentes** — a razão da moldura e a
+altura da própria imagem — e nenhum deles é porcentagem contra pai automático. O recorte
+não mudou: `object-fit:cover` + `object-position:50% 8%` seguem valendo.
+
+✅ Conferido em Chrome headless: 1264px → moldura 420×520 / img 418×518 (desktop idêntico
+ao de antes) · 500px → moldura 437×273 / img 435×272, exatamente 16/10, com a cabeça
+dentro do quadro.
+
+⚠️ **Não devolver `position:absolute` à foto neste breakpoint.** E a lição geral:
+**moldura com `aspect-ratio` e conteúdo 100% absoluto é frágil dentro de grid.** As outras
+figuras da página (`.figure`, `.mech-figura`) nunca tiveram esse problema justamente
+porque a imagem delas está em fluxo — se a razão falhar, a altura ainda vem do conteúdo.
+
+🚨 **O desktop NÃO reproduz esta classe de defeito.** Chrome e Edge são Blink; o
+iPhone é WebKit. Diante de "some no celular e aparece no desktop", desconfiar de
+`aspect-ratio`, `display:contents` e alinhamento de grid/flex **antes** de suspeitar do
+arquivo de imagem.
+
+#### 🧹 LIMPEZA DE ARQUIVOS (05/09/2026)
+
+O usuário perguntou se, tendo havido conversão para WebP, "o restante" podia ir para a
+lixeira. **A premissa não valia:** cada foto tem AVIF + WebP + JPG e os três estão em uso
+— o `<picture>` serve AVIF, cai para WebP, e o JPG é o fallback do `<img src>`. Apagar
+AVIF/JPG quebraria navegador antigo. Levantado o que estava **de fato** sem uso, ele
+escolheu o que ia e o que ficava.
+
+**Foi para a Lixeira do Windows (recuperável):**
+- `dr-rafael-sobre-600.jpg`, `dr-rafael-mecanismo-600.jpg`, `dr-rafael-hero-1080.jpg`
+  (188 KB). **Órfãos por construção:** o fallback JPG do `<picture>` aponta só para o
+  arquivo grande, então o tamanho pequeno em JPG nunca é pedido. ⚠️ **Não gerar mais o
+  `-600.jpg`/`-1080.jpg` ao criar derivados novos.** O `hero-1080.jpg` era versionado,
+  então esta é a única remoção que aparece no `git status`.
+- `human-output/` inteira (69 MB, 25 arquivos: 12 PNGs de rodadas anteriores do Slot 1 —
+  `slot1-cabisbaixa`, `-cinto`, `-cozinha`, `-decostas`, `-espelho`, `-reconhece` — e 13
+  txt de prompt/brief). ⚠️ Os nomes **não** coincidem com os das `_candidatas`, ou seja,
+  eram rodadas diferentes: se faltar material para o Slot 1, é de lá que se restaura.
+  A regra no `.gitignore` fica, porque a skill recria a pasta.
+
+**Ficou, por decisão dele:** `_candidatas/` (83 MB — contém a `09-GAVETA-A.png`, ainda
+recomendada para o Slot 1) e as 3 originais do ensaio (4,2 MB — fonte dos recortes).
+**Nunca entrou na lista:** `assets/Fundo/` (o `fundo-1920.webp` é próximo passo) e os
+logos sem uso no HTML (`rg_hrz_dark`, `rg_vrt_*`), que são variantes de marca.
+
+✅ Conferido depois da limpeza: **todo caminho `assets/…` citado no `index.html` e no
+`index-dark.html` existe no disco.** Nenhuma referência ficou pendurada.
+
+#### 🔄 SLOT 3: A FOTO 28 SAIU, ENTROU A 12 (05/09/2026)
+
+Vendo o "Sobre" pronto no desktop, o usuário trocou a foto do retrato: sai a **28**
+(sentado, plano fechado), entra a **12** — ele em pé, de colete, na biblioteca.
+
+⚠️ **A original da 12 é HORIZONTAL (2048×1365)**, ao contrário da 28, que já vinha
+vertical. Como a moldura do desktop é ~420×520, o recorte aqui **joga fora largura, e não
+altura**: `1092×1365 a partir de x=481`, altura cheia, centrado no médico (o centro dele
+está em x≈1027 da original). **Estes números estão no comentário do Slot 3 no HTML** —
+regerar por eles, não recortar "no olho" outra vez.
+
+- **Proporção 4:5 mantida**, então nada mudou no HTML além do comentário: mesmos nomes de
+  arquivo, mesmo `srcset`, mesmos `width`/`height`. Sai mais barato e evita divergência
+  entre `index.html` e `index-dark.html`.
+- **Derivados** `dr-rafael-sobre-{600,840}.{avif,webp,jpg}` regerados com Pillow (Lanczos;
+  jpg q85 progressivo, webp q84, avif q70). O AVIF de 840 pesa **49 KB** contra 61 KB da
+  28 — a cena é mais escura e comprime melhor. AVIF conferido a olho: **sem banding** nos
+  fundos escuros, que era o risco real dessa foto.
+- **`object-position:50% 8%` do celular foi REVALIDADO, não herdado.** Na 28 a cabeça
+  começava a 8,1% da imagem; na 12 começa a **8,9%** (36px dos 409 escalados), e a folga
+  acima dela ficou em ~27px. O corte de baixo agora cai logo abaixo do relógio.
+- ✅ Conferido: desktop 1264px serve `dr-rafael-sobre-600.avif` na moldura 420×520;
+  estreito serve a mesma imagem na moldura 9/8, com a cabeça folgada.
+
+⚠️ **Os nomes de arquivo não mudaram, então cache serve a 28.** Em aparelho que já abriu a
+página, recarga forte antes de concluir que a troca não funcionou. As originais do ensaio
+seguem fora do repositório pelo `.gitignore` — só os derivados são entrega.
+
+#### 📏 AS TRÊS FOTOS DO CELULAR ESTAVAM PEQUENAS — 16/10 → 9/8, SEM RAIO (05/09/2026)
+
+Assim que o retrato voltou a aparecer no iPhone (bloco acima), o usuário disse: *"o
+tamanho das imagens tá bem pequeno"*. Ele tinha razão — e a culpa era de uma decisão
+**dele mesmo**, de 03/09: naquele dia as figuras empilhadas viraram 16/10 porque, a 4/5,
+o retrato tomava a tela inteira. Só que ali a moldura ainda era **placeholder cinza**;
+com as fotos reais dentro, 204px de altura num iPhone ficou apertado.
+
+Medidas apresentadas a ele para escolher (iPhone de 375px, moldura de 327px):
+
+| razão | altura | vs. o ponto de partida |
+|---|---|---|
+| 16/10 (era) | 204px | — |
+| 4/3 | 245px | +20% |
+| 5/4 (1º passo) | 262px | +28% |
+| **9/8 (onde parou)** | **291px** | **+43%** |
+| 1/1 | 327px | +60% |
+
+**Foram DOIS passos no mesmo dia.** Ele escolheu 5/4 na primeira rodada e, vendo no
+aparelho, pediu *"um pouquinho maior"* — daí a 9/8, que é meio caminho entre a 5/4 e o
+quadrado. O teto não mudou: não voltar ao bloco vertical recusado em 03/09 (a 4/5 seriam
+409px num iPhone).
+
+**E o canto arredondado saiu**, no mesmo pedido. `border-radius:0` nas três, só abaixo de
+960px. ⚠️ **É a única quebra do `--r-xl` na página** — cartões, botões, FAQ e as mesmas
+três figuras **no desktop** seguem arredondados. Foto grande em largura total pede aresta
+reta; o raio, nesse tamanho, virava enfeite. Se um dia quiser o mesmo no desktop, é tirar
+o `border-radius` de `.portrait`, `.mech-figura` e `.figure` na folha base — mas aí é a
+página inteira que muda de linguagem, e cartão redondo ao lado de foto reta fica torto.
+
+**Aplicada nas TRÊS figuras que empilham abaixo de 960px** — `.portrait` (Slot 3),
+`.mech-figura` (Slot 2) e `.finalcta .figure.r-34` (Slot 7, ainda em placeholder) —, e não
+só no retrato: elas compartilham a razão desde 03/09, e mexer em uma quebraria o ritmo.
+⚠️ A do CTA final é **mais estreita** que as outras, porque vive dentro do `.finalcta .box`
+(~259px úteis a 375px), então ela dá ~230px de altura, não 291.
+
+**O enquadramento foi refeito, não herdado.** As duas fotos são verticais, então o `cover`
+escala pela largura e **todo** o corte é vertical — crescer a moldura muda quanto sobra:
+
+- **Slot 3** (840×1050): imagem escalada em 409px, corte cai de 205 para **118px**. Com
+  `50% 8%` a folga acima da cabeça vai de 17 para **24px**, e os 87px que a moldura ganhou
+  aparecem **embaixo** — mais poltrona, mesma cabeça. Valor mantido.
+- **Slot 2** (900×1200): imagem escalada em 436px, corte cai de 232 para **145px**. Com
+  `50% 35%` a folga acima da cabeça **sobe de 28 para 51px** e o quadro passa a pegar o
+  corpo inteiro sentado, com as mãos. Valor mantido — **não baixar** achando que sobrou
+  espaço.
+
+✅ Conferido em Chrome headless. Estreito (viewport 500px, moldura 437px): retrato
+437×388, "A virada" 437×388, CTA final 369×328 — 9/8 exato nas três e **raio 0**,
+escalando para 327×291 num iPhone. Desktop (1264px) **intacto**: retrato 420×520,
+"A virada" 446×594, CTA final 320×426, **raio 32px** nas três.
+
+⚠️ **Ao mexer na razão de novo, remedir os dois `object-position`.** Eles são casados com
+a razão da moldura E com o recorte do arquivo; nenhum dos dois números sobrevive sozinho.
+
+#### ✅ SLOTS 2 E 3 PREENCHIDOS — as duas primeiras fotos reais do Dr. (05/09/2026)
+
+O usuário pôs em `assets/Fotos/` as fotos **23** e **28** do ensaio e escolheu o destino de
+cada uma: a **23** no Slot 2 ("A virada") e a **28** no Slot 3 ("Sobre"). Duas fotos
+diferentes, a pedido dele — nada de repetir a mesma em dois blocos.
+
+🔑 **O RECORTE É DO ARQUIVO, NÃO DO CSS — e cada slot pediu uma proporção diferente.**
+As duas fontes são 1365×2048 (2:3, 0,667) e nenhuma das duas molduras é 2:3:
+
+| slot | moldura | recorte gerado | por quê |
+|---|---|---|---|
+| 2 · A virada | `aspect-ratio:3/4` (0,750) | **1365×1820**, corte 60px do teto + 168px do rodapé | o corte para no limite dos sapatos, que terminam em y≈1853 do original |
+| 3 · Sobre | ~420×520 (**0,801**), estica com o texto | **1365×1706** (4:5) | ver abaixo — é o achado desta rodada |
+
+🚨 **DEIXAR A 28 EM 2:3 TERIA SOBRADO SEIS PIXELS ACIMA DA CABEÇA.** O `.portrait`
+renderiza 420×520; com a fonte em 2:3 o `cover` escala pela largura (630px de altura
+para uma caixa de 520) e corta 110px, 55 de cada lado. O topo da cabeça está a 9,7% da
+foto = 61px — sobravam **6px**. Recortando o arquivo em **4:5**, moldura e imagem quase
+coincidem e o corte deixa de ser aposta. ⚠️ **Se o texto do "Sobre" encurtar, a linha do
+grid encolhe e isso volta a apertar em cima** — remedir, não confiar no desktop atual.
+
+🚨 **O AVISO ANTIGO DO `object-position:50% 25%` ESTAVA CERTO, E O NÚMERO ESTAVA ERRADO.**
+Este arquivo mandava "reajustar quando a foto chegar". Medido com a foto real a 375px:
+a moldura vira 327×204, a imagem escalada tem 408px e sobram 205px para cortar; a 25% o
+corte comia 51px e **a cabeça ficava 18px FORA da moldura**. Corrigido para **`50% 8%`**,
+que devolve ~17px de folga.
+
+🔑 **E havia o mesmo defeito no Slot 2, que ninguém tinha previsto.** Abaixo de 960px o
+`.mech-figura` também vira 16/10 e **não tinha `object-position` nenhum** — o padrão de
+50% cortava a cabeça em ~7px. Entrou **`50% 35%`**: o corte para antes da cabeça (que
+está a 25% da altura naquele recorte) e o quadro pega arandela, cabeça, torso e mãos.
+
+✅ **Folga acima da cabeça conferida em 8 larguras, todas positivas:**
+
+| vw | 375 | 430 | 768 | 900 | 960 | 1143 | 1358 | 1600 |
+|---|---|---|---|---|---|---|---|---|
+| slot 2 | 28px | 33px | 62px | 74px | 79px | 150px | 149px | 149px |
+| slot 3 | 17px | 20px | 37px | 44px | 47px | 40px | 40px | 40px |
+
+Sem estouro horizontal, console limpo, todas as requisições 200/304, **AVIF servido em
+todas as larguras**. Derivados: `dr-rafael-{mecanismo,sobre}-*.{avif,webp,jpg}` —
+o de 900px do mecanismo pesa 67 KB em AVIF, o de 840px do sobre pesa 60 KB.
+
+⚠️ **`.portrait picture{display:contents}` É OBRIGATÓRIO e foi preciso adicionar.**
+Sem ele o `<picture>` vira o filho centrado pelo `place-items` do `.portrait` e o
+`height:100%` do `<img>` não tem a que se referir — a foto encolhe para o tamanho
+intrínseco. `.figure` e `.mech-figura` já tinham a regra; o `.portrait` não, porque
+até agora só abrigava o monograma.
+
+✅ **O monograma "RG" sumiu da página inteira.** Era o último placeholder do Slot 3, e a
+regra `.portrait .mono` saiu junto por estar morta (mesmo critério dos eyebrows). Some
+também o único falso positivo conhecido da auditoria de contraste, que reprovava o
+"RG" por não enxergar o degradê atrás dele.
+
+⚠️ **AS ORIGINAIS NÃO SÃO VERSIONADAS.** `assets/Fotos/Rafael Gallassini - Rede Social -
+Cor - *.jpg` entrou no `.gitignore`, mesma regra da rg-09: o repositório é público e as
+originais do ensaio não devem ser publicadas. **Os derivados recortados são a entrega e
+continuam versionados.**
+
+**Restam 5 slots vazios:** 1 (Você se reconhece?), 4·5·6 (Como funciona) e 7 (CTA final).
+
 #### 🎨 SLOT 1 — quatro rodadas de imagem gerada, e o que cada erro ensinou (05/09/2026)
 
 O usuário pediu para **criar** a imagem do Slot 1 (seção "Você se reconhece?") com o Higgsfield, aprovando o cenário antes de gerar. **Nada foi instalado ainda** — a decisão está aberta.
@@ -483,7 +751,7 @@ Em ordem. Os três primeiros dependem de decisão do usuário e travam o resto.
 2. **Reconferir o responsivo.** As alturas mudaram com a troca de fonte e **só foram medidas a 1180px**. ✅ **A hero foi conferida em 04/09** (1600/1358/1143/960/768/560/375, sem estouro); **falta o resto da página** nessas larguras.
 3. **Aplicar o fundo.** `assets/Fundo/fundo-1920.webp` (13 KB) está pronto e não está em uso. Onde entra é decisão em aberto — a hero é o candidato óbvio, mas o `PROJETO.md` registra que um degradê de "luz ambiente" na hero já foi rejeitado uma vez (no contexto do limão, que não existe mais).
 4. ✅ **CTA final resolvido em 04/09/2026** — mas **não como estava escrito aqui**: remover o `max-width:44ch` sozinho é inerte (quem limitava era a coluna do grid). A alavanca foi `.finalcta .grid` → `1.25fr .75fr`, que derrubou o título de 6 para 4 linhas e a caixa de 827 para 671px. Ver o bloco no topo.
-5. **As 7 fotos.** Maior mudança visual disponível. ⚠️ **Reajustar o `object-position:50% 25%` do `.portrait` quando a foto do Slot 3 chegar.**
+5. **As fotos.** ✅ Slots 2 e 3 preenchidos em 05/09 com as fotos 23 e 28 — e o aviso do `object-position` do `.portrait` foi resolvido ali (25% cortava a cabeça em 18px; hoje é 8%). **Faltam os slots 1, 4, 5, 6 e 7.**
 6. **Depoimentos e compliance** antes de publicar.
 7. **`design-system.html`** está desatualizado (ainda marinho + limão). Decidir se atualiza ou aposenta.
 8. **Dívida técnica de token**, quando der: separar `--off` em `--bg` e `--on-invert` (18 substituições mecânicas) e resolver os `color:var(--navy)` que assumem fundo claro. Ver Notas técnicas.
@@ -662,7 +930,7 @@ Dependências externas: Google Fonts (Montserrat + Playfair Display) e os arquiv
 - **Seção "Você se reconhece?":** split — imagem grande à esquerda + 4 cards em **2×2** à direita.
 - **Seção "Diferenciais":** grid **2×2** (`.cardgrid.cols-2`), sem imagem — o fundo `--surface` é que dá o respiro. Resolve o antigo problema de 3+1.
 - **Seção "Sobre":** duas colunas apenas — **texto à esquerda, retrato à direita**. O `<h2>` vive **dentro** da coluna de texto (não acima das duas): é isso que compacta a seção. O retrato estica com `align-items:stretch` + `height:100%`. Ganho medido na época: **1035px → 718px** (−31%).
-  - **Retrato horizontal no mobile (03/09/2026, a pedido do usuário).** Abaixo de 960px o `.portrait` deixou de ser 4/5 limitado a 400px e passou a **16/10 em largura total**. Motivo: a 4/5 com 339px de largura ele virava um bloco de ~424px de altura que tomava a tela inteira; a 16/10 cai para ~204px num iPhone. É a mesma proporção que `.mech-figura` e `.finalcta .figure` já usam neste breakpoint, então o mobile ficou coerente. ⚠️ **A foto do Slot 3 é vertical (~1000×1500)** e, recortada em 16/10, o `cover` pegaria a faixa central e cortaria a cabeça — por isso entrou `object-position:50% 25%`. **Reajustar esse valor quando a foto real chegar.**
+  - **Retrato horizontal no mobile (03/09/2026, a pedido do usuário).** Abaixo de 960px o `.portrait` deixou de ser 4/5 limitado a 400px e passou a **16/10 em largura total**. Motivo: a 4/5 com 339px de largura ele virava um bloco de ~424px de altura que tomava a tela inteira; a 16/10 cai para ~204px num iPhone. É a mesma proporção que `.mech-figura` e `.finalcta .figure` já usam neste breakpoint, então o mobile ficou coerente. ⚠️ **A foto do Slot 3 é vertical (~1000×1500)** e, recortada em 16/10, o `cover` pegaria a faixa central e cortaria a cabeça — por isso entrou `object-position:50% 25%`. **Reajustar esse valor quando a foto real chegar.** — ⚠️ **DESATUALIZADO em 05/09/2026: a razão passou de 16/10 para 9/8, o canto deixou de ser arredondado no celular e o `object-position` do Slot 3 é `50% 8%`.** Ver o bloco *"As três fotos do celular estavam pequenas"*. O que continua valendo é o princípio: horizontal no empilhado, e as três figuras na MESMA razão.
   - ⚠️ **Medição refeita em 03/09/2026, e o número mudou:** depois dos cortes de hoje (legenda, P2 reescrito, eyebrow) a linha do grid é de **520px**, imposta pelo `min-height` do `.portrait`, mas o texto só ocupa **451px** — ou seja, existem hoje **69px de vão abaixo do botão**. Não é regressão de nada que se tenha feito hoje; já era assim. **Se o texto do "Sobre" encurtar mais, esse vão cresce.** Baixar o `min-height` não resolve: a 420×520 o retrato está em 0,81 (≈4:5), a proporção pedida para o Slot 3, e encolher deixaria a moldura quase quadrada. A saída testada foi `.about-body{align-self:center}`, que divide a folga em cima e embaixo — foi revertida junto com o resto, mas funciona e está medida.
 - **Copy da seção "Sobre" reescrita** (03/09/2026), no formato da referência drmariogomes.com.br: `<h2>` com o **nome** → uma linha de posicionamento (`.lead`) → dois parágrafos densos e factuais. (O eyebrow "Sobre o médico" que abria a seção foi removido depois, junto com os outros nove.) Saiu a narrativa em primeira pessoa ("Sou o Dr. Rafael... Me dediquei..."), entraram os fatos. **185 → 126 palavras**; a seção de referência tem 107.
 - **Eyebrows removidos da página inteira** (03/09/2026), a pedido do usuário: "deixa a página com cara de IA". Saíram os **10** `<span class="eyebrow">` ("Você se reconhece?", "A virada", "Sobre o médico", "Diferenciais", "O acompanhamento", "Como funciona", "Para quem é", "Depoimentos", "Dúvidas frequentes", "Dê o primeiro passo") e o bloco CSS `.eyebrow` inteiro, que ficou morto. **O `<h2>` virou o primeiro elemento de cada seção**, então o respiro de topo que existia para o eyebrow foi zerado em dois lugares: `.h-sec` (`margin:14px 0 10px` → `0 0 10px`) e `.finalcta h2` (`16px 0 18px` → `0 0 18px`). Sem isso as seções ficariam com 14–16px de vão inexplicado no topo.
@@ -747,8 +1015,8 @@ Cada slot tem, no HTML, um comentário com o `<picture>` pronto para copiar. Bas
 | Slot | Seção | Formato | Tamanho sugerido |
 |---|---|---|---|
 | 1 | Você se reconhece? (esquerda) | ⚠️ **0,62, não 3:4** — medido em 425×686; gerar em **2:3** | ~1700×2530 |
-| 2 | A virada — **ao lado do texto, grudada no scroll** | vertical **3:4** | ~900×1200 |
-| 3 | Sobre — retrato do Dr. Rafael | vertical, **estica até a altura do texto** | ~1000×1500 (origem 4:5 ou 2:3) |
+| 2 | ✅ **PREENCHIDO 05/09** — foto 23 do ensaio | 3:4 (recorte 1365×1820) | feito |
+| 3 | ✅ **PREENCHIDO 05/09** — foto 28 do ensaio | **4:5** (recorte 1365×1706), não 2:3 — ver o bloco no topo | feito |
 | 4·5·6 | Como funciona — um por passo | horizontal 3:2 | ~1200×800 |
 | 7 | CTA final (direita) | vertical 3:4 | ~900×1200 |
 
