@@ -238,7 +238,13 @@ h1,h2,h3{font-family:"Goldoni","Playfair Display",Georgia,serif;font-weight:600;
   margin:0;max-width:none}
 .hero h1 em{font-style:normal;color:var(--gold)}
 /* Branco, a pedido: sobre o azul o tom quente lia como amarelo. */
-.hero .sub{margin-top:20px;font-size:clamp(17px,2.4vw,20px);color:var(--on-dark);max-width:52ch}
+/* 19px, nao 20. ⚠️ ESTE E O NIVEL 1 DO SISTEMA DE SUBTITULOS (o outro e o 18px
+   de .lead/.intro/.mech-intro, que ficam sob os H2). 19 e o menor degrau que
+   ainda separa os dois niveis — a 18px eles viram um so e a hierarquia
+   titulo/subtitulo da hero deixa de existir. Nao descer daqui sem decidir que o
+   sistema passa a ter um nivel de subtitulo, e nao dois.
+   O corpo nao muda a quebra: de 17 a 20px o texto fica em 3 linhas. */
+.hero .sub{margin-top:20px;font-size:clamp(17px,2.4vw,19px);color:var(--on-dark);max-width:52ch}
 .hero-cta{margin-top:32px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
 .hero .microcopy{margin-top:18px;font-size:14px;color:var(--on-dark-4);max-width:52ch}
 
