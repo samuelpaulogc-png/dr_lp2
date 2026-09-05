@@ -308,9 +308,13 @@ O usuário mandou o print do mobile da mesma referência e pediu esse arranjo. *
 - `.hero-bg` volta ao fluxo com `position:relative;inset:auto`, largura total e `height:clamp(300px,105vw,560px)`. O teto de 560px existe porque a 4/5 puro um tablet de 900px daria **1125px só de foto**.
 - `.hero::before{display:none}` — **sem véu sobre a foto**, como na referência. O texto fica sobre o azul chapado da própria `.hero`.
 - ✅ **Transição no topo da foto (04/09/2026, 2ª rodada).** O usuário apontou dois pontos: a foto estava baixa demais e encostava no azul numa **aresta dura**. Duas correções:
-  - **A foto subiu:** `margin-top` de `clamp(28px,6vw,44px)` para `clamp(8px,2vw,16px)`. O vão entre a microcopy e a foto caiu de ~48 para **22px**.
-  - **`.hero-bg::after` com degradê vertical** — opaco no topo, transparente a 128px. **É o mesmo gesto do painel do desktop, girado 90°:** lá a cor é opaca à esquerda e some à direita; aqui é opaca em cima e some descendo. Sem ele a foto começa numa aresta.
-  - ⚠️ **As paradas são em PX, não em %.** A altura do bloco varia de 300 a 560px; em `%` a transição encolheria junto na tela pequena, que é justamente onde ela mais precisa aparecer. Em px ela ocupa 34% do bloco a 360px e 23% a 900px — mais forte onde a aresta seria mais visível.
+  - **O bloco subiu:** `margin-top` de `clamp(28px,6vw,44px)` para `clamp(8px,2vw,16px)`. O vão entre a microcopy e a foto caiu de ~48 para **22px**.
+  - 🚨 **Mas o pedido era outro, e eu errei na 1ª tentativa: ele queria o CONTEÚDO subir, não o bloco.** Havia muito teto/parede acima da cabeça dentro da foto. **`object-position` não resolvia:** a fonte é 1:1 num bloco de 0,95:1, então no celular **não sobra folga vertical nenhuma** para deslocar — o valor é inerte ali. Foi preciso **refazer o recorte**.
+  - **Topo da cabeça de 27% para 12% do bloco** (medido com grade horizontal sobre o recorte). Recorte novo: **1132×1132**, cortando 237px do topo do original. No celular a cabeça passou de ~128px para **69px** abaixo do último texto.
+  - ⚠️ **Recorte e transição são acoplados.** A transição de 128px cobriria a cabeça inteira no recorte novo — caiu para **64px**. **Ao mexer num, remedir o outro.**
+  - ⚠️ **`object-position` foi para `50% 12%`** por causa do TABLET: lá o bloco fica 1,58:1 e aí sim sobra corte vertical. A 38% a cabeça saía fora da moldura.
+  - **`.hero-bg::after` com degradê vertical** — opaco no topo, transparente a 64px. **É o mesmo gesto do painel do desktop, girado 90°:** lá a cor é opaca à esquerda e some à direita; aqui é opaca em cima e some descendo. Sem ele a foto começa numa aresta.
+  - ⚠️ **As paradas são em PX, não em %.** A altura do bloco varia de 300 a 560px; em `%` a transição encolheria junto na tela pequena, que é justamente onde ela mais precisa aparecer. Em px ela ocupa 17% do bloco a 360px e 11% a 900px — mais forte onde a aresta seria mais visível.
   - ⚠️ **Os 128px param ANTES do rosto.** Com `object-position:50% 38%` ele cai por volta dos 150px do topo do bloco. **Ao mexer num dos dois, conferir o outro.**
 - `padding-bottom:0` na `.hero`, para a foto encostar na seção seguinte em vez de sobrar uma faixa de azul.
 

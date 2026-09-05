@@ -589,19 +589,24 @@ footer b,footer strong{color:var(--off)}
      num bloco vertical ele ficaria minusculo e encostado na borda. */
   .hero-bg{order:2;position:relative;inset:auto;width:100%;
     margin-top:clamp(8px,2vw,16px);height:clamp(300px,105vw,560px)}
-  .hero-bg img{object-position:50% 38%}
+  /* 12% e nao 38%: o recorte movel ja poe a cabeca perto do topo, entao aqui so
+     falta nao empurrar o enquadramento para baixo no TABLET, onde o bloco fica
+     1.58:1 e sobra corte vertical. A 38% a cabeca saia fora da moldura la. */
+  .hero-bg img{object-position:50% 12%}
   /* A TRANSICAO. E o mesmo gesto do painel do desktop, virado 90 graus: la a cor
      e opaca a esquerda e some a direita; aqui e opaca no topo e some descendo.
      Sem isso a foto comeca numa aresta dura contra o azul.
      ⚠️ Em PX e nao em %: a altura do bloco varia de 300 a 560px, e uma parada em
      % faria a transicao encolher junto na tela pequena, que e onde ela mais
      precisa aparecer.
-     ⚠️ Os 128px do fim da transicao param ANTES do rosto — com
-     object-position 50% 38% ele cai por volta dos 150px do topo do bloco. Ao
-     mexer num, conferir o outro. */
+     ⚠️ 64px, e ESTE NUMERO ANDA COM O RECORTE. O arquivo movel foi refeito para
+     por o topo da cabeca a 12% do bloco (~47px no celular), a pedido do usuario,
+     que queria a cabeca perto do ultimo texto. Uma transicao de 128px, como era
+     antes, cobriria a cabeca inteira. Ao mexer no recorte, remedir a transicao —
+     e vice-versa. */
   .hero-bg::after{content:"";position:absolute;inset:0;pointer-events:none;
     background:linear-gradient(var(--navy) 0,
-      rgba(var(--navy-rgb),.55) 46px, rgba(var(--navy-rgb),0) 128px)}
+      rgba(var(--navy-rgb),.55) 23px, rgba(var(--navy-rgb),0) 64px)}
   /* Empilhado a foto sai do sticky e vira horizontal, senão fica gigante no tablet.
      `relative` e não `static`: o placeholder .ph é absolute/inset:0 e precisa de um
      contexto de posicionamento — com static ele escaparia para o ancestral posicionado. */
