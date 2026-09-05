@@ -230,10 +230,14 @@ O usuário mandou a landing de motos como referência de harmonia e pediu a aná
 | entrelinhas de título | **3** (1,02 · 1,08 · 1,12) | **1** (1,08) |
 | corpos de H2 | **3** (48 · 40 · 44) | **1** (46) |
 | razões de tracking | **3** (−0,035 · −0,025 · −0,01) | **2** (−0,03 no H1, −0,02 no resto) |
-| definições de subtítulo | **4** | **2** (20px sob H1 · 18px sob H2) |
+| definições de subtítulo | **4** | **2** (19px sob H1 · 18px sob H2) |
 | medida título vs subtítulo | 511 vs 675px | **640px nos dois** |
 
 **Página: 10.231 → 9.935px (−296px).** Sem estouro horizontal em 1358 · 960 · 768 · 375px.
+
+⚠️ **O nível 1 dos subtítulos foi de 20 para 19px em 04/09/2026**, a pedido do usuário ("diminua um pouquinho" o subtítulo da hero). **19 é o piso:** o nível 2 (`.lead`/`.intro`/`.mech-intro`, sob os H2) está em **18px**, então a 18 os dois níveis viram um só e a hierarquia título/subtítulo da hero deixa de existir. Não descer daqui sem decidir que o sistema passa a ter **um** nível de subtítulo, e não dois.
+- **É decisão de presença, não de layout:** de 17 a 20px o texto fica em **3 linhas** de qualquer jeito. A hero encolheu de 736 para 732px.
+- Contraste no pixel refeito (o bloco encolheu e ele fica sobre a foto no desktop): **H1 8,56 · subheadline 6,60 · microcopy 8,93**. Todos aprovados.
 
 🔑 **Token novo `--measure:640px`** — a medida que título e subtítulo dividem. Casa com o `max-width` da `.hero-copy`, então a página passou a ter **uma medida só**.
 - ⚠️ **EM PX, NUNCA EM `ch`.** Descoberto medindo: `24ch` dá **614px no título** (Goldoni) e **270px na intro** (Montserrat), porque `ch` é a largura do "0" **da fonte do elemento**. Com duas famílias, `ch` nunca produz medida compartilhada. Foi a armadilha central desta rodada.
