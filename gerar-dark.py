@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Gera index-dark.html: a mesma pagina inteiramente em tons escuros, sem sair
-da paleta da marca. Troca o :root e acrescenta os poucos ajustes que dependem
-de contexto (coisas que assumiam fundo claro)."""
+"""Gera index.html a partir de index-white.html, convertendo a pagina para tons
+escuros sem sair da paleta da marca. Troca o :root e acrescenta os poucos
+ajustes que dependem de contexto (coisas que assumiam fundo claro)."""
 import io, os, re
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-s = io.open(os.path.join(BASE, 'index.html'), encoding='utf-8').read()
+s = io.open(os.path.join(BASE, 'index-white.html'), encoding='utf-8').read()
 
 
 def hx(h):
@@ -45,7 +45,7 @@ T = {
     # mais quente ficava: ink-2 tinha R-B=+21 e ink-3 R-B=+25. Sobre o azul isso
     # le como AMARELO, e o usuario apontou (05/09/2026) na secao "Sobre", que usa
     # ink-2 nos dois paragrafos. E o MESMO defeito ja corrigido na escala on-dark
-    # do index.html em 04/09 — a correcao de la nunca foi trazida para ca.
+    # do index-white.html em 04/09 — a correcao de la nunca foi trazida para ca.
     # Regra: manter R-B entre 0 e -13. Ao mexer nestes hex, conferir R menos B.
     'ink':      '#F3F4F0', 'ink-2': '#C7CACF', 'ink-3': '#A5A9B2',
     'on-dark':  '#F3F4F0', 'on-dark-2': '#E8E9EA', 'on-dark-3': '#DADCDF',
@@ -147,5 +147,5 @@ s = s.replace('<meta name="theme-color" content="#1C2747">',
               '<meta name="theme-color" content="#0F1729">', 1)
 s = s.replace('<title>', '<title>[ESCURA] ', 1)
 
-io.open(os.path.join(BASE, 'index-dark.html'), 'w', encoding='utf-8').write(s)
-print("gerado: index-dark.html  (%d bytes)" % len(s))
+io.open(os.path.join(BASE, 'index.html'), 'w', encoding='utf-8').write(s)
+print("gerado: index.html  (%d bytes)" % len(s))

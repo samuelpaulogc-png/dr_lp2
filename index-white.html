@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>[ESCURA] Dr. Rafael Gallassini | Emagrecimento e Saúde Metabólica com Acompanhamento Médico</title>
+<title>Dr. Rafael Gallassini | Emagrecimento e Saúde Metabólica com Acompanhamento Médico</title>
 <meta name="description" content="Já tentou de tudo para emagrecer e o peso sempre volta? Acompanhamento médico individualizado, com investigação do seu metabolismo e um plano feito para o seu corpo. Presencial em Florianópolis e online. Agende sua avaliação.">
 <!-- ATENCAO: atributo HTML nao aceita var(). Ao trocar a paleta,
      atualizar este valor a mao para o novo fundo escuro. -->
 <link rel="icon" type="image/png" href="assets/Logos/rg_ico_dark.png">
-<meta name="theme-color" content="#0F1729">
+<meta name="theme-color" content="#1C2747">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,10 +29,7 @@
   font-weight:100 900; font-style:normal; font-display:swap;
 }
 :root{
-  /* ---- VERSAO ESCURA, gerada por _gerar_dark.py ----
-     Mesmas 5 cores da marca; muda so qual degrau cada papel ocupa.
-     Cinco degraus de fundo: navy-900 < bg < surface < navy < white/navy-700
-     Paleta oficial (Manual da Marca Rafael Gallassini, 2024) ----
+  /* ---- Paleta oficial (Manual da Marca Rafael Gallassini, 2024) ----
      Azul Profundo #1C2747 · Dourado #BD9853 · Taupe #9D9077
      Bege #EADEC3 · Creme #F3F4F0
      As escalas abaixo sao derivadas dessas cinco por mistura, e cada par que a
@@ -40,10 +37,10 @@
      ⚠️ O Azul Profundo e a UNICA cor da marca que contrasta com as outras
      quatro. Ouro, Taupe e Bege nao contrastam entre si — servem de superficie
      e acento, NUNCA de texto sobre fundo claro. */
-  --navy:#1C2747; --navy-900:#0B111F; --navy-700:#26314F; --navy-500:#3A4463;
+  --navy:#1C2747; --navy-900:#141B32; --navy-700:#2C3654; --navy-500:#49526C;
   --gold:#BD9853; --gold-600:#9F8046; --sand:#EADEC3;
-  --white:#1E2A4B; --off:#F3F4F0;
-  --ink:#F3F4F0; --ink-2:#C7CACF; --ink-3:#A5A9B2; --line:#2E3A5A; --surface:#16203A;
+  --white:#FFFFFF; --off:#F3F4F0;
+  --ink:#1C2747; --ink-2:#4E5468; --ink-3:#6E6544; --line:#DBD8CE; --surface:#E9E8E1;
   --success:#3DBE5A; --whatsapp:#25D366; --danger:#E5484D; --focus:var(--navy);
 
   --r-sm:8px; --r-md:16px; --r-lg:24px; --r-xl:32px; --r-pill:999px;
@@ -53,14 +50,14 @@
   --sh-gold:0 10px 28px rgba(var(--gold-rgb),.30),0 2px 6px rgba(var(--gold-rgb),.22);
 
   /* Componentes RGB, para as camadas translucidas */
-  --navy-rgb:11,17,31; --navy-900-rgb:5,8,16; --gold-rgb:189,152,83; --white-rgb:255,255,255;
+  --navy-rgb:28,39,71; --navy-900-rgb:20,27,50; --gold-rgb:189,152,83; --white-rgb:255,255,255;
 
   /* Texto sobre fundo escuro, do mais forte ao mais apagado */
   --on-dark:#F3F4F0; --on-dark-2:#E8E9EA; --on-dark-3:#DADCDF;
-  --on-dark-4:#C7CACF; --on-dark-5:#A5A9B2;
+  --on-dark-4:#C7CACF; --on-dark-5:#B3B7BF;
 
   /* Listras dos placeholders */
-  --ph-dark-a:#1A2440; --ph-dark-b:#232F52; --ph-light-b:#1A2440;
+  --ph-dark-a:#273250; --ph-dark-b:#37415D; --ph-light-b:#EAEAE4;
 
   /* A MEDIDA. Titulo de secao e o subtitulo dele dividem esta largura — e a
      regra que a referencia ablocacoesdeveiculos.com segue e que dava a maior
@@ -72,7 +69,6 @@
   --measure:640px;
 
   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px; --s9:96px;
-  --bg:#0F1729;  /* chao da versao escura */
   --maxw:1080px;
 }
 
@@ -773,46 +769,6 @@ footer b,footer strong{color:var(--off)}
   .card,.includes li,.aud-no,blockquote.quote,.figure{border-color:var(--ink-3)}
   .nav-links a:hover{outline:1px solid var(--navy)}
 }
-
-/* ================= AJUSTES DA VERSAO ESCURA =================
-   O resto da pagina ficou escuro so trocando o :root. As regras abaixo existem
-   porque assumiam explicitamente um fundo claro.
-
-   O chao vem de --bg, e nao de --off: --off e usado como COR DE TEXTO em 18
-   lugares do CSS e como fundo em apenas 1. Reaproveita-lo aqui apagaria os 18. */
-body{background:var(--bg)}
-
-/* A sombra e azul sobre claro; sobre escuro ela desaparece. Quem separa as
-   superficies passa a ser a borda. */
-.card,.includes li,blockquote.quote,.faq details{box-shadow:none}
-.card:hover{box-shadow:none;border-color:var(--gold)}
-.finalcta .box{box-shadow:none}
-
-/* Borda de 2px em azul sobre cartao azul e invisivel: passa a ouro. */
-.aud-yes{border-color:var(--gold)}
-
-/* O botao secundario era azul sobre claro; sobre escuro sumia no fundo.
-   Vira contorno em ouro — o gesto discreto que a marca pede. Dentro da navbar
-   (que e dourada) ele continua solido em azul, senao ouro sobre ouro sumiria. */
-.btn-secondary{background:transparent;color:var(--gold);box-shadow:inset 0 0 0 1.5px var(--gold)}
-.btn-secondary:hover{background:var(--gold);color:var(--navy)}
-.nav-links a.btn-secondary{background:var(--navy);color:var(--off);box-shadow:none}
-.nav-links a.btn-secondary:hover{background:var(--navy-900);color:var(--off)}
-
-/* Texto em azul que assumia fundo claro. Sobre escuro cai para ~1.1:1.
-   Sao os unicos casos em que color:var(--navy) NAO fica sobre ouro ou bege. */
-.turn{color:var(--on-dark)}
-.faq summary{color:var(--on-dark)}
-blockquote.quote cite{color:var(--gold)}
-.btn-outline{color:var(--gold);box-shadow:inset 0 0 0 2px var(--gold)}
-.btn-outline:hover{background:var(--gold);color:var(--navy)}
-
-/* O chevron do FAQ em ouro escuro ficava apagado sobre o cartao. */
-.faq summary .chev{color:var(--gold)}
-
-/* O retrato era um degrade claro->escuro; sobre escuro precisa de degraus
-   proprios para nao virar um buraco. */
-.portrait{background:linear-gradient(160deg,var(--navy-700),var(--navy-900))}
 </style>
 </head>
 <body>

@@ -1,6 +1,6 @@
 # Projeto — Landing Page Dr. Rafael Gallassini
 
-> **Para o assistente:** leia este arquivo e `index.html` antes de qualquer alteração.
+> **Para o assistente:** leia este arquivo, `index-white.html` e `index.html` antes de qualquer alteração.
 > Ele registra decisões, restrições e pendências que **não estão dedutíveis do código**.
 
 > 📍 **O projeto mudou de lugar e agora tem git.**
@@ -13,11 +13,11 @@
 
 | Arquivo | Papel |
 |---|---|
-| `index.html` | **A entrega.** Landing page completa, arquivo único (HTML + CSS em `<style>` + JS inline). |
+| `index.html` | **A entrega escura e a página publicada.** Gerada por `gerar-dark.py` a partir de `index-white.html`; **não editar à mão**, pois a próxima geração sobrescreve. |
+| `index-white.html` | Versão clara e arquivo-fonte da landing page completa (HTML + CSS em `<style>` + JS inline). |
 | `COPY.md` | Copy original aprovada. Fonte da verdade do texto. (No disco o nome é maiúsculo — em deploy Linux isso importa.) |
 | `design-system.html` | Design system (cores, tipografia, componentes). Fonte da verdade visual. |
-| `index-dark.html` | **Só para avaliação.** A página inteira em tons escuros, dentro da paleta da marca. Gerado por `gerar-dark.py` — **não editar à mão**, senão a próxima geração sobrescreve. |
-| `gerar-dark.py` | Regenera o `index-dark.html` a partir do `index.html`. Rodar sempre que o principal mudar. |
+| `gerar-dark.py` | Regenera o `index.html` escuro a partir do `index-white.html`. Rodar sempre que o arquivo-fonte mudar. |
 | `assets/Logos/` | 6 arquivos: `rg_hrz` (horizontal), `rg_vrt` (vertical), `rg_ico` (só o símbolo), cada um em `_light` (para fundo escuro) e `_dark` (para fundo claro). |
 | `assets/Fontes/goldoni-webfont.woff2` | A serifada da marca. 24,5 KB. ⚠️ **Só tem caixa alta** — ver a ressalva na seção de tipografia. |
 | `assets/Fundo/` | `Fundo.jpg` é o original de 1,5 MB; `fundo-1920.webp` (13 KB) e `fundo-1280.webp` (4,7 KB) são as versões de uso. **Ainda não estão aplicados em lugar nenhum da página.** |
@@ -360,7 +360,7 @@ Ele só existe na **versão escura**. Medido: `--ink-2` era `#C6C0B1` (**R−B =
 `--ink-3` era `#A79F8E` (**R−B = +25**). É exatamente o defeito registrado em 04/09 —
 *"a escala descia misturando creme com taupe, então quanto mais escuro o degrau, mais
 quente; sobre o azul isso lia como amarelo"*. **Aquela correção foi feita na escala
-`on-dark` do `index.html` e nunca foi trazida para o `gerar-dark.py`.** As duas escalas
+`on-dark` do `index-white.html` e nunca foi trazida para o `gerar-dark.py`.** As duas escalas
 de lá foram neutralizadas:
 
 | token | antes | R−B | depois | R−B |
@@ -472,7 +472,7 @@ recomendada para o Slot 1) e as 3 originais do ensaio (4,2 MB — fonte dos reco
 logos sem uso no HTML (`rg_hrz_dark`, `rg_vrt_*`), que são variantes de marca.
 
 ✅ Conferido depois da limpeza: **todo caminho `assets/…` citado no `index.html` e no
-`index-dark.html` existe no disco.** Nenhuma referência ficou pendurada.
+`index-white.html` existe no disco.** Nenhuma referência ficou pendurada.
 
 #### 🔄 SLOT 3: A FOTO 28 SAIU, ENTROU A 12 (05/09/2026)
 
@@ -487,7 +487,7 @@ regerar por eles, não recortar "no olho" outra vez.
 
 - **Proporção 4:5 mantida**, então nada mudou no HTML além do comentário: mesmos nomes de
   arquivo, mesmo `srcset`, mesmos `width`/`height`. Sai mais barato e evita divergência
-  entre `index.html` e `index-dark.html`.
+  entre `index-white.html` e `index.html`.
 - **Derivados** `dr-rafael-sobre-{600,840}.{avif,webp,jpg}` regerados com Pillow (Lanczos;
   jpg q85 progressivo, webp q84, avif q70). O AVIF de 840 pesa **49 KB** contra 61 KB da
   28 — a cena é mais escura e comprime melhor. AVIF conferido a olho: **sem banding** nos
@@ -681,9 +681,9 @@ Ela achou coisas que a lista manual não achou, inclusive **um defeito que estav
 
 ⚠️ **Limitação conhecida:** a auditoria lê `background-color` e **não enxerga gradiente**. O "RG" do retrato aparece reprovado, mas está sobre o degradê azul. Falso positivo.
 
-#### A versão escura (`index-dark.html`)
+#### A versão escura (`index.html`)
 
-Pedida pelo usuário só para avaliação. **É gerada, não editada** — `python gerar-dark.py`. Rodar sempre que o `index.html` mudar.
+Agora é a versão publicada. **É gerada, não editada** — `python gerar-dark.py`. Rodar sempre que o `index-white.html` mudar.
 
 Ela é quase só um `:root` diferente, o que só foi possível por causa do passo 1. Cinco degraus de fundo: `#0B111F` (prova/rodapé) < `#0F1729` (chão) < `#16203A` (faixa secundária) < `#1C2747` (faixa escura) < `#1E2A4B`/`#26314F` (cartões). A alternância clara/escura da página sobrevive, invertida.
 
@@ -1066,8 +1066,8 @@ Direção de arte para as fotos não brigarem entre si: luz natural neutra/fria 
   - Quem serve para o celular é o **Live Server do VS Code, na porta 5500** (`http://192.168.0.117:5500/...`) — o Safari esconde a porta na barra compacta. Ele manda `Cache-Control: public, max-age=0`, e abas suspensas do iOS reexibem sem perguntar ao servidor.
 - 🔧 **AUDITORIA DE CONTRASTE — usar antes de fechar qualquer mudança de cor.** Verificação de pares "a mão" já deixou defeito passar duas vezes. O script percorre `document.querySelectorAll('body *')`, filtra os que têm texto próprio e são visíveis, sobe a árvore até achar um fundo opaco, calcula o contraste WCAG e reprova abaixo de 4.5:1 (ou 3:1 para texto grande: ≥24px, ou ≥18.66px com peso ≥700). Roda no console do navegador. Foi ela que achou o texto legal do rodapé a 2,93:1, que estava no ar havia dias.
   - ⚠️ **Limitação:** lê `background-color` e **não enxerga gradiente**. Elementos sobre degradê dão falso positivo — hoje só o `.mono` do retrato.
-- ⚠️ **`color:var(--navy)` assumindo fundo claro — irmão do problema do `--off`.** São 14 usos no CSS. Dez estão corretos porque ficam sobre ouro ou bege (botão primário, navbar, chips numerados, célula de fechamento, tick). Os outros quatro assumem fundo claro e **quebram em qualquer variante escura**: `.turn` (1,22:1), `.faq summary` (1,04:1), `blockquote.quote cite`, `.btn-outline`. Corrigidos na `index-dark.html` pelo bloco de ajustes; **no arquivo principal continuam como estão** (lá o fundo é claro, então funcionam).
-- ⚠️ **`--off` é um token SOBRECARREGADO.** Ele é usado como **cor de texto em 18 lugares** do CSS (H1 da hero, `.sec-dark`, `.btn-secondary`, `.panel .nm`, títulos do rodapé…) e como **fundo em apenas 1** (o `body`). Na paleta clara isso passa despercebido, porque o creme faz os dois papéis. **Qualquer variante que mude o fundo da página tem de separar os dois** — foi o que quebrou na primeira geração da versão escura: o H1 ficou da cor do próprio fundo. Na `index-dark.html` a solução foi manter `--off` como creme e criar `--bg` para o chão.
+- ⚠️ **`color:var(--navy)` assumindo fundo claro — irmão do problema do `--off`.** São 14 usos no CSS. Dez estão corretos porque ficam sobre ouro ou bege (botão primário, navbar, chips numerados, célula de fechamento, tick). Os outros quatro assumem fundo claro e **quebram em qualquer variante escura**: `.turn` (1,22:1), `.faq summary` (1,04:1), `blockquote.quote cite`, `.btn-outline`. Corrigidos no `index.html` escuro pelo bloco de ajustes; **no arquivo-fonte `index-white.html` continuam como estão** (lá o fundo é claro, então funcionam).
+- ⚠️ **`--off` é um token SOBRECARREGADO.** Ele é usado como **cor de texto em 18 lugares** do CSS (H1 da hero, `.sec-dark`, `.btn-secondary`, `.panel .nm`, títulos do rodapé…) e como **fundo em apenas 1** (o `body`). Na paleta clara isso passa despercebido, porque o creme faz os dois papéis. **Qualquer variante que mude o fundo da página tem de separar os dois** — foi o que quebrou na primeira geração da versão escura: o H1 ficou da cor do próprio fundo. No `index.html` escuro a solução foi manter `--off` como creme e criar `--bg` para o chão.
   - **Melhoria pendente no arquivo principal:** separar `--off` em `--bg` (fundo) e `--on-invert` (texto sobre escuro). São 18 substituições mecânicas, verificáveis pelo mesmo método da tokenização. Não foi feito para não misturar com a troca de paleta.
 - ⚠️ **O servidor de preview e o cache atrapalharam a conferência várias vezes.** Depois de editar, o preview serviu o arquivo antigo em três tentativas seguidas, e chegou a servir a **pasta errada** depois da mudança de diretório. **Sempre carregar com parâmetro na URL (`?v=2`, `?v=3`)** e, se a medição vier estranha, conferir por HTTP o que o servidor está entregando antes de concluir qualquer coisa sobre a página:
   ```python

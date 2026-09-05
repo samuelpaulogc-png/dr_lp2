@@ -105,7 +105,7 @@ Como médico com pós-graduação em Nutrologia, o Dr. Rafael investiga esse con
 ### Frase de reforço
 Sem cardápio de gaveta. Sem promessa mágica. Um plano que faz sentido para a sua rotina, o seu corpo e a sua história.
 
-> **Nota de layout (03/09/2026):** o parágrafo acima ("Como médico com pós-graduação…") foi **quebrado em dois** no `index.html`, no fim do primeiro período — decisão de tipografia, não de copy. O intervalo entre os dois é uma **linha em branco** (`.mech-body+.mech-body{margin-top:1.55em}` — 1.55em = exatamente uma entrelinha do próprio corpo). Esse é o botão de ajuste, se um dia quiserem mudar o respiro. A frase de reforço deixou de ser centralizada e passou a fechar a seção alinhada à esquerda, na medida do bloco. ⚠️ O corte do 2º período (acima) veio **depois** desta nota.
+> **Nota de layout (03/09/2026):** o parágrafo acima ("Como médico com pós-graduação…") foi **quebrado em dois** no `index-white.html`, no fim do primeiro período — decisão de tipografia, não de copy. O intervalo entre os dois é uma **linha em branco** (`.mech-body+.mech-body{margin-top:1.55em}` — 1.55em = exatamente uma entrelinha do próprio corpo). Esse é o botão de ajuste, se um dia quiserem mudar o respiro. A frase de reforço deixou de ser centralizada e passou a fechar a seção alinhada à esquerda, na medida do bloco. ⚠️ O corte do 2º período (acima) veio **depois** desta nota.
 
 ## 5. SOBRE O DR. RAFAEL GALLASSINI
 
