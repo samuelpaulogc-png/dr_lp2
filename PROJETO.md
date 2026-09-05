@@ -306,12 +306,17 @@ O usuário mandou o print do mobile da mesma referência e pediu esse arranjo. *
 **Como foi feito:**
 - `.hero` vira `display:flex;flex-direction:column`. A `<figure>` vem **antes** do `.wrap` no DOM (ela precisa disso para funcionar como fundo no desktop), então quem inverte a ordem visual é o **`order`** — a ordem do DOM continua a mesma para o leitor de tela.
 - `.hero-bg` volta ao fluxo com `position:relative;inset:auto`, largura total e `height:clamp(300px,105vw,560px)`. O teto de 560px existe porque a 4/5 puro um tablet de 900px daria **1125px só de foto**.
-- `.hero::before{display:none}` — **sem véu**, como na referência. O texto fica sobre o azul chapado da própria `.hero`.
+- `.hero::before{display:none}` — **sem véu sobre a foto**, como na referência. O texto fica sobre o azul chapado da própria `.hero`.
+- ✅ **Transição no topo da foto (04/09/2026, 2ª rodada).** O usuário apontou dois pontos: a foto estava baixa demais e encostava no azul numa **aresta dura**. Duas correções:
+  - **A foto subiu:** `margin-top` de `clamp(28px,6vw,44px)` para `clamp(8px,2vw,16px)`. O vão entre a microcopy e a foto caiu de ~48 para **22px**.
+  - **`.hero-bg::after` com degradê vertical** — opaco no topo, transparente a 128px. **É o mesmo gesto do painel do desktop, girado 90°:** lá a cor é opaca à esquerda e some à direita; aqui é opaca em cima e some descendo. Sem ele a foto começa numa aresta.
+  - ⚠️ **As paradas são em PX, não em %.** A altura do bloco varia de 300 a 560px; em `%` a transição encolheria junto na tela pequena, que é justamente onde ela mais precisa aparecer. Em px ela ocupa 34% do bloco a 360px e 23% a 900px — mais forte onde a aresta seria mais visível.
+  - ⚠️ **Os 128px param ANTES do rosto.** Com `object-position:50% 38%` ele cai por volta dos 150px do topo do bloco. **Ao mexer num dos dois, conferir o outro.**
 - `padding-bottom:0` na `.hero`, para a foto encostar na seção seguinte em vez de sobrar uma faixa de azul.
 
 🔑 **O ARQUIVO É OUTRO, e isso é a mesma lição de sempre: formato e tratamento andam juntos.** O recorte do desktop é uma faixa **1,85:1 com o médico a 83%** — num bloco vertical ele ficaria minúsculo e encostado na borda. Foi gerado um recorte **1:1 centrado nele** (`dr-rafael-hero-mob-*`, 640 e 900px), servido por `<source media="(max-width:960px)">`. ⚠️ **As `<source>` com `media` têm de vir PRIMEIRO** no `<picture>`: o navegador usa a primeira que casar.
 
-✅ **Conferido em 360 · 375 · 430 · 768 · 900 · 1358px, sem estouro.** A foto fica em ~0,95:1 no celular (375×394) e abre para 1,58:1 no tablet — a composição aguenta, com ele à esquerda e as telas preenchendo a direita.
+✅ **Conferido em 360 · 375 · 430 · 768 · 900 · 1358px, sem estouro** (transição incluída; a 1358 ela é `none` e o painel do desktop segue ativo). A foto fica em ~0,95:1 no celular (375×394) e abre para 1,58:1 no tablet — a composição aguenta, com ele à esquerda e as telas preenchendo a direita.
 
 ✅ **Ganho de brinde:** no estreito o texto voltou a ficar **sobre cor chapada**, então **a auditoria de contraste do projeto volta a cobrir a hero ali**. Ela só é cega onde o texto está sobre a foto, que agora é só o desktop.
 
