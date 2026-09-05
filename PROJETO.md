@@ -297,7 +297,27 @@ var(--navy) 0% → 52%  ·  rgba(navy,.55) 63%  ·  rgba(navy,0) 72%
 
 **O caminho até aqui, para não repetir:** (1) véu em degradê sobre a foto inteira + 34% de escurecimento geral — funcionava, mas lavava a imagem; (2) sem véu nenhum, a pedido do usuário, só para ver — a foto ganhou muito, mas **reprovava** (H1 1,34 · sub 1,00 · micro 1,96), quebrando nas **arandelas acesas** atrás do H1 e no **braço iluminado** atrás da subheadline; (3) o painel, que é a referência e resolve os dois lados.
 
-**Estado:** desktop conferido a 1358px, sem estouro, hero em 736px e H1 ainda em 5 linhas. **Mobile funciona e não quebrou** (375px, sem estouro), mas **o enquadramento ainda não foi trabalhado** — o médico fica cortado à direita. Ficou combinado desktop primeiro.
+#### ✅ A HERO NO ESTREITO: TEXTO EM CIMA, FOTO EM BLOCO EMBAIXO (04/09/2026)
+
+O usuário mandou o print do mobile da mesma referência e pediu esse arranjo. **Até 960px a foto deixa de ser fundo e vira um bloco cheio abaixo do texto, sem véu nenhum.**
+
+**Por que o tratamento do desktop não sobrevive aqui:** no largo, o painel de cor cobre a esquerda e a foto ocupa a direita. No estreito o texto passa a ocupar a largura toda — **não sobra lado nenhum para a foto respirar**. A saída é parar de sobrepor.
+
+**Como foi feito:**
+- `.hero` vira `display:flex;flex-direction:column`. A `<figure>` vem **antes** do `.wrap` no DOM (ela precisa disso para funcionar como fundo no desktop), então quem inverte a ordem visual é o **`order`** — a ordem do DOM continua a mesma para o leitor de tela.
+- `.hero-bg` volta ao fluxo com `position:relative;inset:auto`, largura total e `height:clamp(300px,105vw,560px)`. O teto de 560px existe porque a 4/5 puro um tablet de 900px daria **1125px só de foto**.
+- `.hero::before{display:none}` — **sem véu**, como na referência. O texto fica sobre o azul chapado da própria `.hero`.
+- `padding-bottom:0` na `.hero`, para a foto encostar na seção seguinte em vez de sobrar uma faixa de azul.
+
+🔑 **O ARQUIVO É OUTRO, e isso é a mesma lição de sempre: formato e tratamento andam juntos.** O recorte do desktop é uma faixa **1,85:1 com o médico a 83%** — num bloco vertical ele ficaria minúsculo e encostado na borda. Foi gerado um recorte **1:1 centrado nele** (`dr-rafael-hero-mob-*`, 640 e 900px), servido por `<source media="(max-width:960px)">`. ⚠️ **As `<source>` com `media` têm de vir PRIMEIRO** no `<picture>`: o navegador usa a primeira que casar.
+
+✅ **Conferido em 360 · 375 · 430 · 768 · 900 · 1358px, sem estouro.** A foto fica em ~0,95:1 no celular (375×394) e abre para 1,58:1 no tablet — a composição aguenta, com ele à esquerda e as telas preenchendo a direita.
+
+✅ **Ganho de brinde:** no estreito o texto voltou a ficar **sobre cor chapada**, então **a auditoria de contraste do projeto volta a cobrir a hero ali**. Ela só é cega onde o texto está sobre a foto, que agora é só o desktop.
+
+⚠️ **Ao medir `currentSrc` depois de redimensionar sem recarregar, o valor mente:** o navegador mantém o candidato já baixado e o desktop aparece "servindo" a imagem do mobile. **Recarregar antes de concluir.** Confirmado com carga limpa: desktop serve `dr-rafael-hero-1440.avif`, estreito serve `dr-rafael-hero-mob-900.avif`.
+
+**Estado:** desktop conferido a 1358px, sem estouro, hero em 736px e H1 em 5 linhas. **Mobile e tablet fechados.**
 
 #### 📸 O ENSAIO — o que ele cobre e o que não cobre
 
@@ -678,7 +698,7 @@ Direção de arte para as fotos não brigarem entre si: luz natural neutra/fria 
 ### Próximos passos combinados
 1. ✅ **Seção "A virada" fechada** — o usuário escolheu o **E** e ele está aplicado. Ver o bloco no topo do arquivo, incluindo a regressão de ritmo de imagem que ficou em aberto.
 2. **Preencher os 7 slots de imagem** (tabela acima). ⚠️ **O Slot 2 mudou de 21:9 para 3:4 vertical** com o tratamento E — se já tiver sido produzido no formato antigo, refazer. Continua sendo o mais urgente: hoje é um retângulo listrado de 448×597 ocupando toda a coluna direita da seção.
-3. ✅ **Hero resolvida em 04/09/2026** — foi o caminho (a), foto de fundo com véu de contraste. Ver o bloco no topo. **Falta só o enquadramento no mobile.** O texto abaixo fica como registro da decisão original:
+3. ✅ **Hero resolvida em 04/09/2026**, desktop e mobile. No largo é painel de cor + foto; no estreito o texto fica em cima e a foto vira um bloco cheio embaixo, com arquivo recortado próprio. Ver os dois blocos no topo. O texto abaixo fica como registro da decisão original:
    ~~**Hero — decisão em aberto.** O usuário optou por **não mexer na hero** por enquanto.~~ Quando for mexer, há dois caminhos que **não se somam**: (a) imagem/vídeo de fundo com `min-height` em `svh` + overlay escuro de contraste — se vídeo, `autoplay muted loop playsinline` + `poster` + respeitar `prefers-reduced-motion`; ou (b) card 4:5 emoldurado à direita, no padrão da referência, mantendo o navy chapado. Perguntar antes de implementar.
 4. **Depoimentos** — 🚨 **ponto de atenção antes de publicar.** Continua com os três placeholders, e o aviso de compliance que ficava na própria página **foi removido** em 03/09/2026 a pedido do usuário. Não há mais nada na tela lembrando que a seção não está pronta. Decidir: entram depoimentos reais (com autorização de uso de imagem e aval do compliance) ou a seção sai.
 5. Revisão final de **compliance** antes de publicar. ⚠️ **Agora com dois itens concretos:** os depoimentos-placeholder e o **"Aviso legal" removido do rodapé** em 04/09/2026 — a página ficou sem nenhuma ressalva de que resultados variam.

@@ -565,14 +565,27 @@ footer b,footer strong{color:var(--off)}
   .foot-grid{grid-template-columns:1fr 1fr}
   .media-split{grid-template-columns:1fr;gap:26px}
   .mech{grid-template-columns:1fr;gap:28px}
-  /* Hero no tablet/celular: a coluna de texto ocupa a largura toda, entao o
-     degrade lateral nao protege mais nada — passa a ser vertical, escuro em cima
-     (texto) e mais aberto embaixo. O enquadramento tambem centraliza.
-     ⚠️ Ajuste provisorio: o mobile ainda nao foi trabalhado a fundo. */
+  /* ---- HERO NO ESTREITO: texto em cima, foto como BLOCO embaixo ----
+     No largo a foto e FUNDO e o painel de cor a cobre pela esquerda. Aqui isso
+     nao funciona: o texto passa a ocupar a largura toda, entao nao sobra lado
+     nenhum para a foto respirar. A solucao (padrao da referencia
+     ablocacoesdeveiculos.com) e parar de sobrepor: o texto fica no azul chapado
+     e a foto vira um bloco cheio logo abaixo, SEM VEU — por isso o ::before some.
+     Como a <figure> vem ANTES do .wrap no DOM (ela precisa disso para funcionar
+     como fundo no desktop), quem inverte a ordem visual e o `order` do flex.
+     A ordem do DOM continua a mesma para o leitor de tela. */
+  .hero{display:flex;flex-direction:column;padding-bottom:0}
+  .hero .wrap{order:1}
   .hero-copy{max-width:none}
-  .hero-bg img{object-position:58% 30%}
-  .hero::before{background:linear-gradient(rgba(var(--navy-rgb),.94) 0%,
-    rgba(var(--navy-rgb),.90) 52%, rgba(var(--navy-rgb),.66) 100%)}
+  .hero::before{display:none}
+  /* inset:auto desfaz o position:absolute do desktop e devolve a figura ao fluxo.
+     A altura e fluida com teto: a 4/5 puro um tablet de 900px daria 1125px de foto.
+     ⚠️ O ARQUIVO E OUTRO AQUI — recorte 1:1 centrado nele, servido por
+     <source media>. O recorte do desktop e uma faixa 1.85:1 com o medico a 83%:
+     num bloco vertical ele ficaria minusculo e encostado na borda. */
+  .hero-bg{order:2;position:relative;inset:auto;width:100%;
+    margin-top:clamp(28px,6vw,44px);height:clamp(300px,105vw,560px)}
+  .hero-bg img{object-position:50% 32%}
   /* Empilhado a foto sai do sticky e vira horizontal, senão fica gigante no tablet.
      `relative` e não `static`: o placeholder .ph é absolute/inset:0 e precisa de um
      contexto de posicionamento — com static ele escaparia para o ancestral posicionado. */
@@ -692,6 +705,11 @@ footer b,footer strong{color:var(--off)}
        identifica o medico e o H1 e a barra de prova. -->
   <figure class="hero-bg" aria-hidden="true">
     <picture>
+      <!-- Ate 960px vale o recorte 1:1, centrado no medico. As <source> com media
+           vem PRIMEIRO: o navegador usa a primeira que casar. -->
+      <source media="(max-width:960px)" type="image/avif" srcset="assets/Fotos/dr-rafael-hero-mob-640.avif 640w, assets/Fotos/dr-rafael-hero-mob-900.avif 900w" sizes="100vw">
+      <source media="(max-width:960px)" type="image/webp" srcset="assets/Fotos/dr-rafael-hero-mob-640.webp 640w, assets/Fotos/dr-rafael-hero-mob-900.webp 900w" sizes="100vw">
+      <source media="(max-width:960px)" srcset="assets/Fotos/dr-rafael-hero-mob-640.jpg 640w, assets/Fotos/dr-rafael-hero-mob-900.jpg 900w" sizes="100vw">
       <source type="image/avif" srcset="assets/Fotos/dr-rafael-hero-1080.avif 1080w, assets/Fotos/dr-rafael-hero-1440.avif 1440w" sizes="100vw">
       <source type="image/webp" srcset="assets/Fotos/dr-rafael-hero-1080.webp 1080w, assets/Fotos/dr-rafael-hero-1440.webp 1440w" sizes="100vw">
       <img src="assets/Fotos/dr-rafael-hero-1440.jpg" alt=""
