@@ -43,7 +43,7 @@
   --navy:#1C2747; --navy-900:#0B111F; --navy-700:#26314F; --navy-500:#3A4463;
   --gold:#BD9853; --gold-600:#9F8046; --sand:#EADEC3;
   --white:#1E2A4B; --off:#F3F4F0;
-  --ink:#F3F4F0; --ink-2:#C7CACF; --ink-3:#A5A9B2; --line:#2E3A5A; --surface:#16203A;
+  --ink:#F3F4F0; --ink-2:#DADCDF; --ink-3:#A5A9B2; --line:#2E3A5A; --surface:#16203A;
   --success:#3DBE5A; --whatsapp:#25D366; --danger:#E5484D; --focus:var(--navy);
 
   --r-sm:8px; --r-md:16px; --r-lg:24px; --r-xl:32px; --r-pill:999px;
@@ -440,10 +440,24 @@ h1,h2,h3{font-family:"Goldoni","Playfair Display",Georgia,serif;font-weight:600;
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
 .includes li{display:flex;gap:14px;background:none;border:0;
   border-top:1px solid var(--line);border-radius:0;padding:20px 0 0;box-shadow:none}
-.includes .tick{flex:none;width:30px;height:30px;border-radius:var(--r-sm);background:var(--sand);
+/* Chip em OURO, nao mais em bege (05/09/2026, a pedido do usuario).
+   ⚠️ `var(--gold)` e nao o hex `#BD9853` cravado: sao a mesma cor, mas o projeto
+   tokenizou 24 ocorrencias de hex justamente para a paleta poder mudar num lugar
+   so. Cravar o numero aqui abriria de novo o buraco que a tokenizacao fechou.
+   O check continua em --navy: azul sobre ouro da 5,44:1, o mesmo par ja usado no
+   botao "Agendar" da navbar, e esta na auditoria do gerar-dark.py. */
+.includes .tick{flex:none;width:30px;height:30px;border-radius:var(--r-sm);background:var(--gold);
   display:grid;place-items:center;color:var(--navy)}
 .includes b{display:block;color:var(--ink);font-size:16px;margin-bottom:2px}
-.includes span.txt{color:var(--ink-2);font-size:15px}
+/* --ink e nao --ink-2, a pedido do usuario: o rotulo e a descricao passam a ter a
+   MESMA cor, entao a hierarquia dentro do item fica so no peso (700 x 400).
+   ⚠️ --ink, e nao #FFFFFF: branco puro nao existe em lugar nenhum da pagina, e o
+   branco dela e o Creme #F3F4F0 da marca. Este e o mesmo valor que o corpo de
+   "Para quem e" e de "Depoimentos" ja usa, entao a secao entra num padrao que
+   existe, em vez de virar o ponto mais claro da pagina.
+   ⚠️ Efeito colateral aceito: o corpo daqui fica um degrau mais claro que o dos
+   Diferenciais e o do FAQ, que seguem em --ink-2. */
+.includes span.txt{color:var(--ink);font-size:15px}
 
 /* ---------- Como funciona (passos) ---------- */
 .steps{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:36px}
@@ -923,22 +937,27 @@ blockquote.quote cite{color:var(--gold)}
     <p class="intro">Antes de falar de solução, vamos ser honestos sobre o que provavelmente já aconteceu com você:</p>
 
     <div class="media-split">
-      <!-- ================= SLOT 1 · vertical (3:4 ou 4:5) =================
-           Sugestão de cena: consultório, ambiente de atendimento, o médico ouvindo o paciente.
-           NÃO usar foto de corpo — em página de emagrecimento isso vira promessa de resultado.
-           Para inserir, troque a <div class="ph"> inteira por:
-           <picture>
-             <source srcset="imagens/reconhece.avif" type="image/avif">
-             <source srcset="imagens/reconhece.webp" type="image/webp">
-             <img src="imagens/reconhece.jpg" alt="[descreva a cena]"
-                  width="900" height="1200" loading="lazy" decoding="async">
-           </picture> -->
+      <!-- ================= SLOT 1 · PREENCHIDO 05/09/2026 =================
+           Imagem GERADA (Higgsfield), escolhida pelo usuario. Fonte: assets/Fotos/v2.png.
+           🚨 ESTE SLOT NAO E 3:4 NEM 4:5 — E 0,619. Medido: a `.figure.fill` tem
+           `height:100%` e estica para acompanhar a coluna de cartoes ao lado, entao ela
+           renderiza ~425x686. O comentario antigo aqui dizia "3:4 ou 4:5" e ESTAVA ERRADO;
+           a tabela dos 7 slots do PROJETO.md tambem. Ao trocar a foto, gerar em 2:3 (0,667)
+           e recortar para 0,619 — nao em 4:5, que perderia 23% da largura.
+           ⚠️ O ARQUIVO JA VEM RECORTADO: a fonte e 1856x2304 (0,806) e o derivado e
+           1427x2304. Os 430px sairam TODOS DA ESQUERDA, de proposito — e daquele lado que
+           estao as maos com a caneta, que na geracao sairam com a CANETA DUPLICADA e os
+           dedos fundidos. O corte empurra o defeito para a borda; no tamanho de exibicao
+           (425px de largura) aquele trecho fica com ~45px, desfocado, e nao se le.
+           ⚠️ Se um dia esta foto for reaproveitada MAIOR, o defeito volta a aparecer.
+           Derivados: dr-rafael-reconhece-{600,900}.{avif,webp} + -900.jpg -->
       <figure class="figure fill">
-        <div class="ph" aria-hidden="true">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-          <span>Slot 1 — imagem vertical</span>
-          <small>3:4 ou 4:5 · ~900×1200</small>
-        </div>
+        <picture>
+          <source type="image/avif" srcset="assets/Fotos/dr-rafael-reconhece-600.avif 600w, assets/Fotos/dr-rafael-reconhece-900.avif 900w" sizes="(max-width:960px) 100vw, 425px">
+          <source type="image/webp" srcset="assets/Fotos/dr-rafael-reconhece-600.webp 600w, assets/Fotos/dr-rafael-reconhece-900.webp 900w" sizes="(max-width:960px) 100vw, 425px">
+          <img src="assets/Fotos/dr-rafael-reconhece-900.jpg" alt="Mãos de uma paciente apoiadas na mesa do consultório durante uma conversa"
+               width="900" height="1453" loading="lazy" decoding="async">
+        </picture>
       </figure>
 
       <div class="cardgrid cols-2">
@@ -1362,10 +1381,15 @@ blockquote.quote cite{color:var(--gold)}
         <img class="mark" src="assets/Logos/rg_ico_light.png" alt="" aria-hidden="true"
              width="317" height="557" decoding="async">
         <p><b>Dr. Rafael Gallassini · Médico</b><br>CRM/SC 21664 · Pós-graduação em Nutrologia</p>
-        <p style="margin-top:16px">Endereço: [Rua, nº, bairro, Florianópolis/SC]<br>
-        WhatsApp: [(DDD) número]<br>
-        E-mail: [e-mail de contato]<br>
-        Instagram: [@perfil]</p>
+        <!-- Dados reais preenchidos pelo usuario em 05/09/2026.
+             ⚠️ A linha do E-MAIL foi REMOVIDA a pedido dele, nao esquecida — o contato
+             passa a ser WhatsApp e Instagram. Se voltar, entra aqui entre os dois.
+             ⚠️ O numero aqui e TEXTO. Os links `wa.me` da pagina continuam com o
+             placeholder [DDD][NÚMERO] em 7 lugares (nav, hero, Sobre, Como funciona, CTA
+             final, rodape e botao flutuante) — ver PROJETO.md, Pendencias. -->
+        <p style="margin-top:16px">Endereço: Av. Mauro Ramos, 1213 - Centro, Florianópolis - SC, 88020-303<br>
+        WhatsApp: +55 48 9970-9753<br>
+        Instagram: <a href="https://www.instagram.com/dr.rafaelgalassini" target="_blank" rel="noopener">@dr.rafaelgalassini</a></p>
       </div>
       <nav class="foot-col" aria-label="Links do rodapé">
         <h4>Links</h4>
@@ -1388,7 +1412,14 @@ blockquote.quote cite{color:var(--gold)}
            "resultados variam de pessoa para pessoa". Essa última frase era a ressalva que
            equilibrava as afirmações de resultado numa página de emagrecimento. A página
            não tem mais NENHUM texto nesse sentido — ver PROJETO.md, Regras invioláveis §2. -->
-      <p>© [ANO] Dr. Rafael Gallassini. Todos os direitos reservados. · [Política de Privacidade]</p>
+      <!-- ⚠️ O link de POLÍTICA DE PRIVACIDADE foi REMOVIDO a pedido do usuário
+           (05/09/2026), junto com o separador "·". É a TERCEIRA salvaguarda visível a
+           sair do rodapé — as outras duas foram o aviso dos depoimentos (03/09) e o
+           "Aviso legal" (04/09). ⚠️ Esta tem peso próprio: a página é destino de Google
+           Ads e vai receber GA4 + tag de conversão, e política de privacidade é
+           requisito tanto da LGPD quanto das políticas do Google para quem anuncia com
+           rastreamento. Ver PROJETO.md, Regras invioláveis §2. -->
+      <p>© 2026 Dr. Rafael Gallassini. Todos os direitos reservados.</p>
     </div>
   </div>
 </footer>

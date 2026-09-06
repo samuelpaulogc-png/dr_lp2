@@ -47,7 +47,22 @@ T = {
     # ink-2 nos dois paragrafos. E o MESMO defeito ja corrigido na escala on-dark
     # do index-white.html em 04/09 — a correcao de la nunca foi trazida para ca.
     # Regra: manter R-B entre 0 e -13. Ao mexer nestes hex, conferir R menos B.
-    'ink':      '#F3F4F0', 'ink-2': '#C7CACF', 'ink-3': '#A5A9B2',
+    #
+    # ⚠️ ink-2 = on-dark-3 DE PROPOSITO (05/09/2026). Nao alinhar os dois de novo
+    # sem entender o porque: na pagina CLARA as duas escalas fazem trabalhos
+    # opostos — `ink` e tinta escura sobre papel claro, `on-dark` e texto claro
+    # sobre marinho. Na pagina ESCURA as duas pintam A MESMA COISA: texto claro
+    # sobre fundo escuro. Ficaram rodando juntas com valores diferentes, e o
+    # ink-2 era #C7CACF, que e EXATAMENTE o on-dark-4 — um degrau inteiro mais
+    # apagado. Resultado: o corpo das secoes que nasceram claras (Voce se
+    # reconhece?, Sobre, Diferenciais, O que inclui, FAQ) saia mais escuro que o
+    # das que nasceram escuras (A virada, Como funciona), e o usuario apontou na
+    # secao 7, que fica logo acima da 8 e deixa a diferenca lado a lado.
+    # Pior: o degrau mais apagado caia justo nos fundos MAIS ESCUROS (bg e
+    # surface), ou seja, o contraste andava ao contrario do que devia.
+    # E a mesma familia de divida que o PROJETO.md ja registra para --off e para
+    # color:var(--navy) — token que presumia papel claro sobrevivendo a inversao.
+    'ink':      '#F3F4F0', 'ink-2': '#DADCDF', 'ink-3': '#A5A9B2',
     'on-dark':  '#F3F4F0', 'on-dark-2': '#E8E9EA', 'on-dark-3': '#DADCDF',
     'on-dark-4': '#C7CACF', 'on-dark-5': '#A5A9B2',
     'ph-dark-a': '#1A2440', 'ph-dark-b': '#232F52', 'ph-light-b': '#1A2440',
@@ -71,7 +86,9 @@ PARES = [
     ('corpo dentro do cartao',    'ink-2', 'white', 4.5),
     ('corpo no cartao escuro',    'on-dark-3', 'navy-700', 4.5),
     ('navbar: azul sobre ouro',   'navy', 'gold', 4.5),
-    ('tick: check sobre bege',    'navy', 'sand', 4.5),
+    # O chip do .includes passou de bege para ouro em 05/09/2026 — a auditoria
+    # tem de medir o par que existe na pagina, senao aprova uma combinacao morta.
+    ('tick: check sobre ouro',    'navy', 'gold', 4.5),
     ('rodape sobre o mais fundo', 'ink-2', 'navy-900', 4.5),
     ('placeholder sobre escuro',  'on-dark-5', 'navy', 3.0),
 ]

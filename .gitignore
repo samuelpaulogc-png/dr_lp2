@@ -23,3 +23,11 @@ human-output/
 # publico e as originais nao devem ser publicadas. Os DERIVADOS recortados
 # (dr-rafael-mecanismo-*, dr-rafael-sobre-*) sao a entrega e continuam versionados.
 assets/Fotos/Rafael Gallassini - Rede Social - Cor - *.jpg
+
+# Masters de imagem gerada largados direto em assets/Fotos/ (05/09/2026).
+# Mesma regra das _candidatas e das originais do ensaio: o repositorio e PUBLICO e
+# master de 7 MB nao e entrega — o que se versiona sao os derivados recortados
+# (dr-rafael-*). O v2.png e a fonte do Slot 1 e continua no disco; o recorte dele
+# esta em _candidatas/reconhece-master.png.
+assets/Fotos/v1.png
+assets/Fotos/v2.png
