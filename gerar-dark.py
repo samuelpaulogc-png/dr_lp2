@@ -162,7 +162,13 @@ s = s.replace('</style>', AJUSTES, 1)
 
 s = s.replace('<meta name="theme-color" content="#1C2747">',
               '<meta name="theme-color" content="#0F1729">', 1)
-s = s.replace('<title>', '<title>[ESCURA] ', 1)
+
+# ⚠️ AQUI EXISTIA UM `s.replace('<title>', '<title>[ESCURA] ')`. FOI REMOVIDO EM
+# 05/09/2026 e NAO DEVE VOLTAR. Ele era util quando a escura era so uma versao de
+# avaliacao e convinha distinguir as duas abas. Depois da inversao o index.html
+# virou A PAGINA PUBLICADA, e o prefixo passou a ir para a aba do navegador e para
+# o resultado do Google. Ficou no ar por dias exatamente por isso: o nome deste
+# script ainda sugere que ele gera um arquivo auxiliar, e nao a entrega.
 
 io.open(os.path.join(BASE, 'index.html'), 'w', encoding='utf-8').write(s)
 print("gerado: index.html  (%d bytes)" % len(s))
