@@ -68,6 +68,35 @@
      uma medida so. */
   --measure:640px;
 
+  /* ---- MOVIMENTO: TRES TOKENS, NAO OITO CONJUNTOS AVULSOS (05/09/2026) ----
+     A pagina tinha 8 conjuntos de transicao com duracoes de .14 .16 .18 .2 .22 .25
+     .3 .55 e .6s — acumulo, nao sistema. Agora sao tres degraus, e cada um tem um
+     PAPEL, que e o criterio para escolher:
+       --mo-1  resposta imediata ao dedo/cursor: :active, troca de cor no hover.
+       --mo-2  mudanca de estado visivel: elevacao, chevron, material do cabecalho.
+       --mo-3  entrada de bloco: reveal, menu, abertura do FAQ.
+     Nada acima de --mo-3. Movimento de interface acima de ~350ms para de parecer
+     resposta e comeca a parecer espera.
+     A curva e a mesma em tudo: sai rapido e assenta devagar, sem ultrapassar o
+     alvo. Sem bounce em lugar nenhum — a pagina nao tem gesto arrastavel, e
+     overshoot so se justifica quando o proprio gesto trouxe inercia. */
+  --mo-1:120ms; --mo-2:200ms; --mo-3:320ms;
+  --ease:cubic-bezier(.2,.7,.2,1);
+
+  /* ---- RITMO VERTICAL: TRES DEGRAUS, NAO UM (05/09/2026) ----
+     As 11 secoes tinham exatamente 96/96px. Nenhuma respirava diferente de
+     nenhuma, e e isso que le como template.
+     O criterio nao e gosto, e DENSIDADE: ar acompanha o quanto a secao ja tem de
+     espaco interno proprio.
+       --sec-tight  secoes que JA sao grade (Diferenciais, O que inclui, Para quem
+                    e): o gap entre os itens ja faz o trabalho, e 96 em cima disso
+                    empilha vao com vao.
+       --sec-base   o padrao narrativo.
+       --sec-air    os dois momentos de pausa da pagina: o "Sobre", que e uma
+                    coluna de texto com um retrato, e o CTA final, que e o destino.
+     ⚠️ Ao criar secao nova, escolher um dos tres — nao inventar um quarto valor. */
+  --sec-tight:80px; --sec-base:96px; --sec-air:128px;
+
   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px; --s9:96px;
   --maxw:1080px;
 }
@@ -81,7 +110,9 @@ body{
 }
 p{text-wrap:pretty}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-main section{padding:var(--s9) 0;scroll-margin-top:84px}
+main section{padding:var(--sec-base) 0;scroll-margin-top:84px}
+#sobre,#agendar{padding:var(--sec-air) 0}
+#diferenciais,#inclui,#para-quem{padding:var(--sec-tight) 0}
 a{color:inherit}
 img{max-width:100%;display:block}
 
@@ -94,9 +125,22 @@ img{max-width:100%;display:block}
    contraste alto de traco e, no peso 800, fecha os contraforma e perde a
    elegancia que justifica usar serifada. O tracking negativo tambem cai —
    serifada de alto contraste nao aguenta o mesmo aperto da sem-serifa. */
+/* ⚠️ ENTRELINHA E TRACKING AQUI SAO CALIBRADOS PARA CAIXA ALTA, e isso e o oposto
+   do que se faz com caixa mista. A Goldoni so tem maiusculas (ver PROJETO.md), entao
+   TODO titulo da pagina e caps — e caps nao tem descendentes: preenchem a caixa
+   inteira, entao 1.08 encostava linha na linha. E tracking negativo, que serve a
+   display em caixa mista, fecha o contraforma das maiusculas.
+   Era `line-height:1.08` + `letter-spacing:-.02em`; virou 1.16 e tracking ZERO.
+   ⚠️ Tracking mexe na QUEBRA DE LINHA: sair de -.02em para 0 alarga cada caractere
+   em ~1,2px a 60px. A linha que manda no H1 e "MEDICO INDIVIDUALIZADO" — remedir
+   sempre por ela, nunca pelo texto todo. */
 h1,h2,h3{font-family:"Goldoni","Playfair Display",Georgia,serif;font-weight:600;
-  line-height:1.08;letter-spacing:-.02em;margin:0;
+  line-height:1.16;letter-spacing:0;margin:0;
   font-optical-sizing:auto;text-wrap:balance}
+/* Titulo pequeno que QUEBRA em duas linhas (cartoes e passos) precisa de mais
+   entrelinha que um display de 46px, nao da mesma: a 1.16 as duas linhas de
+   "VOCE FALA COM A / EQUIPE PELO WHATSAPP" ainda se tocavam. */
+.card h3,.card h4,.step h3,.aud-card h3{line-height:1.24}
 /* 46px e nao 48: a 48 o H2 do Mecanismo quebrava em 6 linhas na coluna dele e
    por isso existia uma excecao de 40px so ali. A 46 ele cabe em 5 — a excecao
    morreu e a pagina passou a ter UM corpo de titulo de secao.
@@ -106,11 +150,22 @@ h1,h2,h3{font-family:"Goldoni","Playfair Display",Georgia,serif;font-weight:600;
    .about-body .lead e MANTIDO de proposito — ver la embaixo. */
 .lead{font-size:18px;color:var(--ink-2);max-width:var(--measure);margin:0;text-wrap:pretty}
 .serif{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:500}
+/* ---- TRACKING POR FAIXA DE TAMANHO (05/09/2026) ----
+   Todo o texto sans da pagina estava em `normal`, dos 11,5px aos 19px. Tracking e
+   especifico do tamanho: texto pequeno le melhor com um respiro a mais entre as
+   letras, texto grande le melhor apertado. Sao dois degraus, so no que e pequeno —
+   de 16px para cima fica em zero, que ja e o certo para corpo. */
+.hero .microcopy,.foot-legal,.marquee-track li{letter-spacing:.014em}
+.card p,.step p,.includes span.txt,.nav-links a,footer,.ph small{letter-spacing:.008em}
+/* As duas frases-ancora sao a UNICA serifada em caixa MISTA da pagina (a Goldoni
+   so tem caps; estas usam Playfair). Por isso levam tracking negativo, ao contrario
+   dos titulos: em caixa mista, display grande realmente pede aperto. */
+.turn,.reinforce{letter-spacing:-.01em}
 
 /* Botões */
 .btn{font-family:inherit;font-weight:800;font-size:16px;border:none;cursor:pointer;
   border-radius:var(--r-pill);padding:15px 26px;min-height:48px;
-  transition:transform .14s cubic-bezier(.2,.7,.2,1),background .18s ease,box-shadow .22s ease,filter .18s ease,color .18s ease;
+  transition:transform var(--mo-1) var(--ease),background var(--mo-2) var(--ease),box-shadow var(--mo-2) var(--ease),filter var(--mo-2) var(--ease),color var(--mo-2) var(--ease);
   display:inline-flex;align-items:center;justify-content:center;gap:10px;letter-spacing:.01em;
   text-decoration:none;text-align:center;will-change:transform}
 .btn:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
@@ -141,9 +196,9 @@ h1,h2,h3{font-family:"Goldoni","Playfair Display",Georgia,serif;font-weight:600;
 .site-header{position:sticky;top:0;z-index:100;background:var(--navy-900);
   border-bottom:1px solid rgba(var(--gold-rgb),.28);
   backdrop-filter:saturate(180%) blur(18px);-webkit-backdrop-filter:saturate(180%) blur(18px);
-  transition:background .3s ease}
+  transition:background var(--mo-2) var(--ease)}
 .site-header::after{content:"";position:absolute;left:0;right:0;bottom:-18px;height:18px;
-  pointer-events:none;opacity:0;transition:opacity .3s ease;
+  pointer-events:none;opacity:0;transition:opacity var(--mo-2) var(--ease);
   background:linear-gradient(rgba(var(--navy-900-rgb),.20),transparent)}
 .site-header.scrolled{background:rgba(var(--navy-900-rgb),.92)}
 .site-header.scrolled::after{opacity:1}
@@ -168,7 +223,7 @@ h1,h2,h3{font-family:"Goldoni","Playfair Display",Georgia,serif;font-weight:600;
 .brand img{height:52px;width:auto;display:block}
 .nav-links{display:flex;align-items:center;gap:6px;list-style:none;margin:0;padding:0}
 .nav-links a{text-decoration:none;font-weight:600;font-size:15px;color:var(--on-dark-2);
-  padding:10px 12px;border-radius:var(--r-pill);transition:.16s}
+  padding:10px 12px;border-radius:var(--r-pill);transition:color var(--mo-1) var(--ease),background var(--mo-1) var(--ease)}
 .nav-links a:hover,.nav-links a:focus-visible{color:var(--off);background:rgba(var(--white-rgb),.10)}
 /* O CTA da nav é botão, não link: precisa vencer a cor de link acima */
 .nav-links a.btn-secondary{color:var(--navy);background:var(--gold)}
@@ -230,8 +285,23 @@ h1,h2,h3{font-family:"Goldoni","Playfair Display",Georgia,serif;font-weight:600;
    a mesma folga que os 64px tinham na linha mais larga deles.
    ⚠️ A linha que manda aqui e a 4ª, nao o texto todo: ao mexer no corpo, no
    tracking ou na largura da .hero-copy, remedir "MEDICO INDIVIDUALIZADO". */
-.hero h1{font-size:clamp(32px,5.6vw,60px);color:var(--off);letter-spacing:-.03em;
+/* ⚠️ TRACKING ZERO (era -.03em) E TETO DE 56px (era 60px) — os dois andam juntos.
+   O -.03em era o valor mais fechado da pagina e fechava os contraformas justo no
+   texto maior. Mas abrir o tracking CUSTA LARGURA: medido, "MEDICO INDIVIDUALIZADO"
+   passou de 607 para 653px numa coluna de 640 — folga de -13px, e o H1 caiu em 6
+   linhas. A 56px ele volta a 609px, com ~31px de folga, que e exatamente a margem
+   que os 60px com tracking fechado tinham.
+   🔑 E A ALTURA DO BLOCO NAO MUDA: 5 linhas x 60px x 1.08 = 324px; 5 x 56 x 1.16 =
+   325px. Ou seja, a composicao da dobra fica onde estava e o que se ganha e a
+   letra aberta. Nao subir o corpo sem baixar a entrelinha junto. */
+.hero h1{font-size:clamp(28px,5.6vw,56px);color:var(--off);letter-spacing:0;
   margin:0;max-width:none}
+/* ⚠️ O PISO TAMBEM CAIU (32 -> 28px), pelo mesmo motivo do teto: abrir o tracking
+   custa largura em TODA largura de tela, nao so no desktop. Medido no celular, com
+   tracking 0: a 32px o H1 ia a 6 linhas num iPhone de 375 e a SETE a 360; a 29px
+   ainda dava 6 a 360. 28px e o maior valor que devolve 5 linhas em 360, 375 e 430.
+   A 360px, que e a largura critica que este projeto usa de referencia, o bloco do
+   H1 caiu de 260 para 162px — ficou mais curto do que era ANTES da mudanca. */
 .hero h1 em{font-style:normal;color:var(--gold)}
 /* Branco, a pedido: sobre o azul o tom quente lia como amarelo. */
 /* 19px, nao 20. ⚠️ ESTE E O NIVEL 1 DO SISTEMA DE SUBTITULOS (o outro e o 18px
@@ -249,7 +319,10 @@ h1,h2,h3{font-family:"Goldoni","Playfair Display",Georgia,serif;font-weight:600;
    quase iguais e a terceira em dois tercos (a 640 a terceira tinha so 226px).
    ⚠️ INERTE NO CELULAR de proposito: la a coluna tem 339px, entao 560 nunca
    morde. O ajuste vale so onde ha largura sobrando. */
-.hero .sub{margin-top:20px;font-size:clamp(17px,2.4vw,19px);color:var(--on-dark);max-width:560px}
+/* line-height 1.45, nao os 1.55 do corpo: a 19px em 3 linhas o 1.55 abria vao
+   demais entre linhas curtas e o bloco perdia unidade. Entrelinha acompanha o
+   tamanho de forma inversa — quanto maior o corpo, mais fechada. */
+.hero .sub{margin-top:20px;font-size:clamp(17px,2.4vw,19px);color:var(--on-dark);max-width:560px;line-height:1.45}
 .hero-cta{margin-top:32px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
 .hero .microcopy{margin-top:18px;font-size:14px;color:var(--on-dark-4);max-width:52ch}
 
@@ -274,11 +347,19 @@ h1,h2,h3{font-family:"Goldoni","Playfair Display",Georgia,serif;font-weight:600;
 .cardgrid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:36px}
 .card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);
   padding:26px;box-shadow:var(--sh-sm);
-  transition:transform .32s cubic-bezier(.2,.7,.2,1),box-shadow .32s ease,border-color .32s ease}
+  transition:transform var(--mo-2) var(--ease),box-shadow var(--mo-2) var(--ease),border-color var(--mo-2) var(--ease)}
 .card:hover{box-shadow:var(--sh-md);transform:translateY(-4px);border-color:transparent}
 .card:active{transform:translateY(-1px)}
-.card .ic{width:46px;height:46px;border-radius:var(--r-md);background:var(--gold);
-  display:grid;place-items:center;color:var(--navy);margin-bottom:16px;font-weight:800;font-size:19px}
+/* ⚠️ `.card .ic` FOI REMOVIDA (05/09/2026) junto com os 8 chips do HTML: os 4
+   icones de linha do "Voce se reconhece?" e os 4 numeros dos Diferenciais.
+   Os icones eram decorativos — seta circular, raio, documento, coracao — e nao
+   acrescentavam informacao nenhuma ao titulo logo abaixo. Conjunto de icone
+   generico e um dos sinais mais diretos de template, e os checks da barra de prova
+   ja tinham saido por esse mesmo incomodo em 03/09; ficou pela metade ate agora.
+   Os NUMEROS eram pior que decorativos: numeravam 1-4 quatro diferenciais que NAO
+   sao uma sequencia. Numerar o que nao tem ordem e mentir sobre a hierarquia — e
+   era, ainda por cima, o mesmo disco dourado que saiu dos passos hoje de manha.
+   Regra morta sai junto, mesmo criterio dos eyebrows e do .portrait .mono. */
 /* Sem line-height nem letter-spacing proprios: herdam 1.08 / -.02em de h1,h2,h3,
    que e a entrelinha unica de titulo da pagina. O font-weight:800 tambem saiu —
    era inerte, a Goldoni tem um peso so. */
@@ -316,8 +397,12 @@ h1,h2,h3{font-family:"Goldoni","Playfair Display",Georgia,serif;font-weight:600;
 /* Frase de virada / reforço */
 .turn{margin:44px auto 0;max-width:40ch;text-align:center;font-size:clamp(22px,3.4vw,30px);
   line-height:1.28;color:var(--navy)}
-.turn strong{background:var(--gold);color:var(--navy);padding:0 8px;border-radius:8px;
-  font-weight:700;box-shadow:0 0 0 1px rgba(var(--navy-rgb),.04)}
+/* ⚠️ ERA UM MARCA-TEXTO: fundo dourado solido atras do trecho, com raio e sombra.
+   Virou COR, sem caixa. O argumento nao e gosto, e consistencia: a pagina JA tem um
+   jeito de destacar um trecho dentro de uma frase — o <em> do H1 da hero, que e so
+   ouro no texto. Duas gramaticas para o mesmo gesto, e uma delas com cara de
+   apresentacao de slides. Agora as duas sao a mesma. */
+.turn strong{color:var(--gold);font-weight:600}
 /* Frase de reforço — fecha a seção como rodapé do bloco, na medida dele (1032px).
    Era centralizada em 537px, num terceiro eixo que não batia nem com a coluna de texto
    (x=117) nem com a foto (x=703). Agora divide a margem esquerda e a medida com o .mech,
@@ -368,8 +453,10 @@ h1,h2,h3{font-family:"Goldoni","Playfair Display",Georgia,serif;font-weight:600;
   border:1px solid var(--navy-500);border-radius:var(--r-md);overflow:hidden}
 .panel li{background:var(--navy);padding:18px 20px;min-height:92px;
   display:flex;flex-direction:column;gap:10px}
+/* line-height:1 — e um indice de UMA linha, e herdava a entrelinha de paragrafo
+   (1.55), que reservava espaco de duas. */
 .panel .idx{font-size:11.5px;font-weight:800;letter-spacing:.16em;color:var(--gold);
-  font-variant-numeric:tabular-nums}
+  line-height:1;font-variant-numeric:tabular-nums}
 /* margin-top:auto joga o nome para a base: os nomes alinham numa linha de base
    comum mesmo quando um deles quebra em duas linhas. */
 .panel .nm{margin-top:auto;font-size:17px;font-weight:700;color:var(--off);
@@ -512,9 +599,12 @@ blockquote.quote cite{font-style:normal;font-weight:800;color:var(--navy);font-s
 .faq summary::-webkit-details-marker{display:none}
 .faq summary:focus-visible{outline:3px solid var(--focus);outline-offset:-3px;border-radius:var(--r-md)}
 .faq summary:hover{background:var(--surface)}
-.faq summary .chev{flex:none;transition:transform .2s;color:var(--gold-600)}
+.faq summary .chev{flex:none;transition:transform var(--mo-2) var(--ease);color:var(--gold-600)}
 .faq details[open] summary .chev{transform:rotate(180deg)}
-.faq .answer{padding:0 24px 22px;color:var(--ink-2);font-size:16px}
+/* ⚠️ max-width na RESPOSTA, nao no componente: a 800px de largura a linha dava
+   ~100 caracteres, muito alem dos 45-75 legiveis. A pergunta continua ocupando
+   a largura toda de proposito — ela e um alvo de clique, e alvo quer area. */
+.faq .answer{padding:0 24px 22px;color:var(--ink-2);font-size:16px;max-width:600px}
 
 /* ---------- CTA final ---------- */
 .finalcta{position:relative;overflow:hidden}
@@ -562,7 +652,7 @@ footer b,footer strong{color:var(--off)}
 .foot-brand p{margin:6px 0 0;line-height:1.6}
 .foot-col h4{color:var(--off);font-size:14px;text-transform:uppercase;letter-spacing:.1em;margin:0 0 14px}
 .foot-col ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.foot-col a{text-decoration:none;transition:.16s}
+.foot-col a{text-decoration:none;transition:color var(--mo-1) var(--ease)}
 .foot-col a:hover{color:var(--gold)}
 .foot-legal{border-top:1px solid var(--navy-500);margin-top:36px;padding-top:24px;
   display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font-size:13.5px;color:var(--on-dark-4)}
@@ -571,7 +661,7 @@ footer b,footer strong{color:var(--off)}
 /* ---------- Botão flutuante WhatsApp ---------- */
 .wa-float{position:fixed;right:20px;bottom:20px;z-index:90;width:60px;height:60px;
   border-radius:var(--r-pill);background:var(--whatsapp);color:var(--white);display:grid;place-items:center;
-  box-shadow:var(--sh-md);transition:transform .18s cubic-bezier(.2,.7,.2,1),filter .18s ease}
+  box-shadow:var(--sh-md);transition:transform var(--mo-1) var(--ease),filter var(--mo-2) var(--ease)}
 .wa-float:hover{transform:translateY(-3px) scale(1.04);filter:brightness(.96)}
 .wa-float:active{transform:scale(.92)}
 .wa-float:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
@@ -581,30 +671,36 @@ footer b,footer strong{color:var(--off)}
    O `transition` repete transform/filter porque a regra acima seria sobrescrita — e é ela
    que anima o hover. */
 .js .wa-float{opacity:0;visibility:hidden;
-  transition:transform .18s cubic-bezier(.2,.7,.2,1),filter .18s ease,opacity .25s ease,visibility 0s linear .25s}
+  transition:transform var(--mo-1) var(--ease),filter var(--mo-2) var(--ease),opacity var(--mo-3) var(--ease),visibility 0s linear var(--mo-3)}
 .js .wa-float.show{opacity:1;visibility:visible;
-  transition:transform .18s cubic-bezier(.2,.7,.2,1),filter .18s ease,opacity .25s ease,visibility 0s}
+  transition:transform var(--mo-1) var(--ease),filter var(--mo-2) var(--ease),opacity var(--mo-3) var(--ease),visibility 0s}
 
 /* ---------- Animações sutis (progressive enhancement) ---------- */
 /* Sem JS, o conteúdo permanece totalmente visível. O ocultar/animar só entra quando há JS. */
-.js .reveal{opacity:0;transform:translateY(18px);
-  transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+/* ⚠️ ERA .6s COM DESLOCAMENTO DE 18px, e o stagger abaixo somava ate .35s — um
+   cartao podia aparecer 0,95s depois da secao entrar em tela. Acima de ~350ms o
+   movimento de interface para de parecer resposta e passa a parecer espera, e e
+   isso que da cara de template a uma animacao de scroll.
+   Agora: --mo-3 (320ms) e 12px de deslocamento. O gesto continua o mesmo, so
+   deixou de cobrar pedagio para ler a pagina. */
+.js .reveal{opacity:0;transform:translateY(12px);
+  transition:opacity var(--mo-3) var(--ease),transform var(--mo-3) var(--ease)}
 .js .reveal.in{opacity:1;transform:none}
 /* Stagger sutil dos itens em grade quando a seção entra (a chegada telegrafa o conteúdo) */
 .js .reveal :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*{
-  transform:translateY(14px);transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+  transform:translateY(10px);transition:transform var(--mo-3) var(--ease)}
 .js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*{transform:none}
-.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(2){transition-delay:.05s}
-.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(3){transition-delay:.1s}
-.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(4){transition-delay:.15s}
-.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(5){transition-delay:.2s}
-.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(6){transition-delay:.25s}
-.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(7){transition-delay:.3s}
-.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(8){transition-delay:.35s}
+.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(2){transition-delay:.04s}
+.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(3){transition-delay:.08s}
+.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(4){transition-delay:.12s}
+.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(5){transition-delay:.12s}
+.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(6){transition-delay:.12s}
+.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(7){transition-delay:.12s}
+.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(8){transition-delay:.12s}
 /* Abertura suave do FAQ + microinterações (mantém o <details> nativo/acessível) */
 @keyframes faqIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
-.faq details[open] .answer{animation:faqIn .28s ease}
-.faq details{transition:box-shadow .2s ease}
+.faq details[open] .answer{animation:faqIn var(--mo-3) var(--ease)}
+.faq details{transition:box-shadow var(--mo-2) var(--ease)}
 .faq details[open]{box-shadow:var(--sh-md)}
 .faq summary:active{background:var(--surface)}
 /* Menu mobile emergindo do gatilho (canto superior direito) */
@@ -730,7 +826,7 @@ footer b,footer strong{color:var(--off)}
   .nav-links{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;
     gap:2px;background:var(--navy-900);border-bottom:1px solid rgba(var(--gold-rgb),.28);box-shadow:var(--sh-lg);
     padding:12px;display:none}
-  .nav-links.open{display:flex;transform-origin:top right;animation:menuIn .22s cubic-bezier(.2,.7,.2,1)}
+  .nav-links.open{display:flex;transform-origin:top right;animation:menuIn var(--mo-3) var(--ease)}
   .nav-links a{padding:14px 16px;font-size:16px}
   .nav-toggle{display:grid;place-items:center}
   .nav .brand-cta{display:none}
@@ -918,30 +1014,18 @@ footer b,footer strong{color:var(--off)}
 
       <div class="cardgrid cols-2">
       <article class="card">
-        <div class="ic" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/></svg>
-        </div>
         <h3>O efeito sanfona que não acaba</h3>
         <p>Você perde peso, comemora e, alguns meses depois, está tudo de volta. Às vezes com alguns quilos a mais. Já perdeu a conta de quantas vezes recomeçou do zero.</p>
       </article>
       <article class="card">
-        <div class="ic" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>
-        </div>
         <h3>A disposição que sumiu</h3>
         <p>Cansaço o dia inteiro, aquela sensação de "corpo pesado", vontade de comer o tempo todo e a impressão de que seu corpo trabalha contra você.</p>
       </article>
       <article class="card">
-        <div class="ic" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h6"/></svg>
-        </div>
         <h3>As dietas genéricas que nunca duram</h3>
         <p>Você já seguiu a dieta da vizinha, o protocolo da internet, o cardápio que funcionou para todo mundo, menos para você. E ficou com a sensação de que o problema era falta de disciplina.</p>
       </article>
       <article class="card">
-        <div class="ic" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-8.5A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6.5C19 16.65 12 21 12 21Z"/><path d="m9.5 12 1.8 1.8L15 10"/></svg>
-        </div>
         <h3>A frustração de "já tentei de tudo"</h3>
         <p>Nutricionista, academia, remédio por conta própria, jejum, low carb. Você tentou. E cada tentativa que não durou machucou um pouco mais a sua confiança.</p>
       </article>
@@ -1064,22 +1148,18 @@ footer b,footer strong{color:var(--off)}
 
     <div class="cardgrid cols-2">
       <article class="card">
-        <div class="ic" aria-hidden="true">1</div>
         <h3>Investigação antes do plano</h3>
         <p>Nada de cardápio pronto no primeiro dia. Primeiro entendemos o que está travando o seu metabolismo, usando história, exames e composição corporal.</p>
       </article>
       <article class="card">
-        <div class="ic" aria-hidden="true">2</div>
         <h3>Plano 100% individualizado</h3>
         <p>Seu corpo, sua rotina, suas preferências e suas limitações. O plano é feito para você conseguir seguir, e não para caber num modelo padrão.</p>
       </article>
       <article class="card">
-        <div class="ic" aria-hidden="true">3</div>
         <h3>Foco em manter o resultado</h3>
         <p>O objetivo não é a próxima balança boa. É você não precisar recomeçar nunca mais, com acompanhamento próximo e ajustes ao longo do caminho.</p>
       </article>
       <article class="card">
-        <div class="ic" aria-hidden="true">4</div>
         <h3>Ciência, sem modismo</h3>
         <p>Condutas baseadas em evidência, com uso responsável de medicações quando há indicação clínica, e sem promessas milagrosas.</p>
       </article>

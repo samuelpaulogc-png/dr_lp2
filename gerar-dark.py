@@ -157,6 +157,21 @@ blockquote.quote cite{color:var(--gold)}
 /* O retrato era um degrade claro->escuro; sobre escuro precisa de degraus
    proprios para nao virar um buraco. */
 .portrait{background:linear-gradient(160deg,var(--navy-700),var(--navy-900))}
+
+/* 🚨 O ANEL DE FOCO ERA INVISIVEL NA PAGINA INTEIRA (corrigido em 05/09/2026).
+   `--focus` vale `var(--navy)` no arquivo-fonte, e la esta certo: azul sobre papel
+   claro. Aqui o azul e FUNDO, entao o anel desenhava a mesma cor por baixo dele:
+   1,00:1 sobre a faixa navy (identico), 1,10 sobre surface, 1,14 sobre cartao,
+   1,22 sobre o chao. O minimo do WCAG para indicador de foco e 3,0:1 — ou seja,
+   quem navega por teclado nao via onde estava em NENHUM botao, link ou pergunta
+   do FAQ. So o cabecalho escapava, porque ja tinha um override proprio em ouro.
+   Em ouro o anel da 6,62:1 sobre o chao.
+   ⚠️ E o QUINTO caso da divida "color:var(--navy) assumindo fundo claro" que o
+   PROJETO.md registra. Os outros quatro (.turn, .faq summary, cite, .btn-outline)
+   foram corrigidos; este passou porque a auditoria do script mede TEXTO, e anel de
+   foco nao e texto. Ao acrescentar tokens de cor aqui, perguntar sempre: este
+   valor assume papel claro? */
+:root{--focus:var(--gold)}
 </style>"""
 s = s.replace('</style>', AJUSTES, 1)
 
