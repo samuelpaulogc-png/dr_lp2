@@ -1,1095 +1,655 @@
 <!doctype html>
 <html lang="pt-BR">
+<!-- Fonte editavel: index.html. Nao regenerar com gerar-dark.py. -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dr. Rafael Gallassini | Emagrecimento e Saúde Metabólica</title>
 <meta name="description" content="Já tentou de tudo para emagrecer e o peso sempre volta? Acompanhamento médico individualizado, com investigação do seu metabolismo e um plano feito para o seu corpo. Presencial em Florianópolis e online. Agende sua avaliação.">
-<!-- ATENCAO: atributo HTML nao aceita var(). Ao trocar a paleta,
-     atualizar este valor a mao para o novo fundo escuro. -->
+
 <link rel="icon" type="image/png" href="assets/Logos/rg_ico_dark.png">
 <meta name="theme-color" content="#0F1729">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Marca: titulos em Goldoni, conteudo em Montserrat.
-     Goldoni e fonte comercial e nao esta no Google Fonts — enquanto os
-     arquivos .woff2 licenciados nao chegam, Playfair Display entra como
-     substituta provisoria (mesma familia visual, ja usada nas frases-ancora). -->
+
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
 
 <style>
-/* A Goldoni da marca. Arquivo unico, um peso so — por isso o range 100 900:
-   ele faz o navegador usar esta face para qualquer peso pedido, em vez de
-   fabricar um falso-negrito, que borra o desenho de uma serifada de alto
-   contraste. Playfair Display fica de reserva se o arquivo faltar. */
-@font-face{
-  font-family:"Goldoni";
-  src:url("assets/Fontes/goldoni-webfont.woff2") format("woff2");
-  font-weight:100 900; font-style:normal; font-display:swap;
-}
+/* Identidade do Dr. Rafael Gallassini. Este index.html e a fonte editavel.
+   design-system.html preserva apenas a referencia historica de outra marca. */
+@font-face{font-family:"Goldoni";src:url("assets/Fontes/goldoni-webfont.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
 :root{
-  /* ---- VERSAO ESCURA, gerada por _gerar_dark.py ----
-     Mesmas 5 cores da marca; muda so qual degrau cada papel ocupa.
-     Cinco degraus de fundo: navy-900 < bg < surface < navy < white/navy-700
-     Paleta oficial (Manual da Marca Rafael Gallassini, 2024) ----
-     Azul Profundo #1C2747 · Dourado #BD9853 · Taupe #9D9077
-     Bege #EADEC3 · Creme #F3F4F0
-     As escalas abaixo sao derivadas dessas cinco por mistura, e cada par que a
-     pagina usa foi verificado em contraste (minimo AA 4.5:1 para texto).
-     ⚠️ O Azul Profundo e a UNICA cor da marca que contrasta com as outras
-     quatro. Ouro, Taupe e Bege nao contrastam entre si — servem de superficie
-     e acento, NUNCA de texto sobre fundo claro. */
-  --navy:#1C2747; --navy-900:#0B111F; --navy-700:#26314F; --navy-500:#3A4463;
-  --gold:#BD9853; --gold-600:#9F8046; --sand:#EADEC3;
-  --white:#1E2A4B; --off:#F3F4F0;
-  --ink:#F3F4F0; --ink-2:#DADCDF; --ink-3:#A5A9B2; --line:#2E3A5A; --surface:#16203A;
-  --success:#3DBE5A; --whatsapp:#25D366; --danger:#E5484D; --focus:var(--navy);
-
-  --r-sm:8px; --r-md:16px; --r-lg:24px; --r-xl:32px; --r-pill:999px;
-  --sh-sm:0 1px 2px rgba(var(--navy-rgb),.06),0 2px 8px rgba(var(--navy-rgb),.07);
-  --sh-md:0 4px 10px rgba(var(--navy-rgb),.08),0 14px 30px rgba(var(--navy-rgb),.12);
-  --sh-lg:0 8px 20px rgba(var(--navy-rgb),.10),0 30px 70px rgba(var(--navy-rgb),.18);
-  --sh-gold:0 10px 28px rgba(var(--gold-rgb),.30),0 2px 6px rgba(var(--gold-rgb),.22);
-
-  /* Componentes RGB, para as camadas translucidas */
-  --navy-rgb:11,17,31; --navy-900-rgb:5,8,16; --gold-rgb:189,152,83; --white-rgb:255,255,255;
-
-  /* Texto sobre fundo escuro, do mais forte ao mais apagado */
-  --on-dark:#F3F4F0; --on-dark-2:#E8E9EA; --on-dark-3:#DADCDF;
-  --on-dark-4:#C7CACF; --on-dark-5:#A5A9B2;
-
-  /* Listras dos placeholders */
-  --ph-dark-a:#1A2440; --ph-dark-b:#232F52; --ph-light-b:#1A2440;
-
-  /* ---- O CHIP DE ICONE (06/09/2026) — a partir de aurumclinic.org ----
-     O chip antigo era um QUADRADO DE OURO SOLIDO de 46px com o icone em azul
-     vazado. Ele nao foi removido por ser icone: foi removido por ser um SELO —
-     mancha cheia de acento, do tamanho de um botao, repetida 4 ou 8 vezes numa
-     grade. Isso e o que le como template, e e o que a regra 3 chama de "use o
-     ouro com moderacao".
-     A referencia resolve o mesmo problema com o material invertido: o chip vira
-     VIDRO — quase transparente, com um fio de contorno e o icone em TINTA, nao
-     em acento. Medido no DOM dela: 52x52, raio 10px, fundo em degrade da cor
-     CLARA a 5-20% de alfa, borda 1px a 28%, icone de 22px com traco de 1.6.
-     🔑 O ouro sai do chip e nao se perde: ele volta a ser o que a marca pede,
-     um acento pontual, em vez de 8 selos cheios numa pagina so.
-     ⚠️ SAO TINTAS RELATIVAS, NAO CORES FIXAS — e por isso funcionam nas duas
-     versoes. Aqui o chip e uma tinta do AZUL sobre o cartao claro; na versao
-     escura o gerar-dark.py troca os quatro tokens por tintas do CREME. A forma,
-     as medidas e o traco do icone nao mudam; muda so de que lado da escala vem
-     a tinta. */
-  --chip-bg:linear-gradient(155deg,rgba(var(--white-rgb),.16) 0%,rgba(var(--white-rgb),.04) 45%,rgba(var(--white-rgb),.09) 100%);
-  --chip-border:rgba(var(--white-rgb),.26);
-  --chip-ink:var(--off);
-  --chip-inset:inset 0 1px 0 rgba(var(--white-rgb),.20);
-  /* ⚠️ O BRILHO E TOKEN PORQUE ELE INVERTE DE FORCA ENTRE AS DUAS VERSOES.
-     Ele pinta em `screen`, que so CLAREIA. Sobre o cartao escuro isso desenha o
-     reflexo e e o que faz o chip parecer vidro. Sobre o cartao BRANCO nao ha o
-     que clarear — no claro ele fica quase inerte de proposito, e quem desenha o
-     chip ali e a borda mais a tinta do fundo. Forcar o mesmo valor nos dois
-     lados apagaria a quina superior esquerda do chip na versao clara. */
-  --chip-sheen:linear-gradient(115deg,rgba(var(--white-rgb),.95) 0%,rgba(var(--white-rgb),.35) 20%,rgba(var(--white-rgb),0) 46%);
-
-  /* A MEDIDA. Titulo de secao e o subtitulo dele dividem esta largura — e a
-     regra que a referencia ablocacoesdeveiculos.com segue e que dava a maior
-     desarmonia aqui (o titulo vinha em 511px e a intro em 675px).
-     ⚠️ EM PX, NAO EM ch: `ch` e a largura do "0" da fonte DO ELEMENTO, e as duas
-     usam fontes diferentes — 24ch da 614px na Goldoni e 270px na Montserrat.
-     640px casa com o max-width da .hero-copy, entao a pagina inteira passa a ter
-     uma medida so. */
-  --measure:640px;
-
-  /* ---- MOVIMENTO: TRES TOKENS, NAO OITO CONJUNTOS AVULSOS (05/09/2026) ----
-     A pagina tinha 8 conjuntos de transicao com duracoes de .14 .16 .18 .2 .22 .25
-     .3 .55 e .6s — acumulo, nao sistema. Agora sao tres degraus, e cada um tem um
-     PAPEL, que e o criterio para escolher:
-       --mo-1  resposta imediata ao dedo/cursor: :active, troca de cor no hover.
-       --mo-2  mudanca de estado visivel: elevacao, chevron, material do cabecalho.
-       --mo-3  entrada de bloco: reveal, menu, abertura do FAQ.
-     Nada acima de --mo-3. Movimento de interface acima de ~350ms para de parecer
-     resposta e comeca a parecer espera.
-     A curva e a mesma em tudo: sai rapido e assenta devagar, sem ultrapassar o
-     alvo. Sem bounce em lugar nenhum — a pagina nao tem gesto arrastavel, e
-     overshoot so se justifica quando o proprio gesto trouxe inercia. */
-  --mo-1:120ms; --mo-2:200ms; --mo-3:320ms;
-  --ease:cubic-bezier(.2,.7,.2,1);
-
-  /* ---- RITMO VERTICAL: TRES DEGRAUS, NAO UM (05/09/2026) ----
-     As 11 secoes tinham exatamente 96/96px. Nenhuma respirava diferente de
-     nenhuma, e e isso que le como template.
-     O criterio nao e gosto, e DENSIDADE: ar acompanha o quanto a secao ja tem de
-     espaco interno proprio.
-       --sec-tight  secoes que JA sao grade (Diferenciais, O que inclui, Para quem
-                    e): o gap entre os itens ja faz o trabalho, e 96 em cima disso
-                    empilha vao com vao.
-       --sec-base   o padrao narrativo.
-       --sec-air    os dois momentos de pausa da pagina: o "Sobre", que e uma
-                    coluna de texto com um retrato, e o CTA final, que e o destino.
-     ⚠️ Ao criar secao nova, escolher um dos tres — nao inventar um quarto valor. */
-  --sec-tight:80px; --sec-base:96px; --sec-air:128px;
-
-  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px; --s9:96px;
-  --bg:#0F1729;  /* chao da versao escura */
-  --maxw:1080px;
+  --navy:#1C2747;--navy-900:#0B111F;--navy-700:#26314F;--navy-500:#3A4463;
+  --gold:#BD9853;--gold-600:#9F8046;--sand:#EADEC3;--off:#F3F4F0;
+  --bg:#0F1729;--surface:#16203A;--surface-card:#1E2A4B;
+  --white:var(--surface-card);--ink:var(--off);--ink-2:#DADCDF;--ink-3:#A5A9B2;--line:#2E3A5A;
+  --on-dark:var(--off);--on-dark-2:#E8E9EA;--on-dark-3:var(--ink-2);--on-dark-4:#C7CACF;--on-dark-5:var(--ink-3);
+  --success:#3DBE5A;--whatsapp:#25D366;--focus:var(--gold);
+  --navy-rgb:28,39,71;--gold-rgb:189,152,83;--white-rgb:255,255,255;
+  --r-sm:8px;--r-md:16px;--r-lg:24px;--r-xl:32px;--r-pill:999px;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;
+  --text-small:14px;--text-body:16px;--text-lead:18px;--text-card:20px;
+  --text-section:clamp(26px,3.2vw,42px);--text-hero:clamp(46px,4.45vw,64px);--text-hero-detail:clamp(26px,2.4vw,34px);
+  --sec-tight:80px;--sec-base:96px;--sec-air:112px;
+  --gutter:24px;--maxw:1128px;--measure:760px;--header-height:79px;
+  --mo-1:120ms;--mo-2:200ms;--mo-3:320ms;--ease:cubic-bezier(.2,.7,.2,1);
+  --sh-sm:0 2px 8px rgba(0,0,0,.08);--sh-md:0 12px 32px rgba(0,0,0,.16);
+  --sh-gold:0 6px 20px rgba(var(--gold-rgb),.16);
+  --ring:linear-gradient(155deg,rgba(var(--white-rgb),.2),rgba(var(--white-rgb),.035) 50%,rgba(var(--white-rgb),.08));
+  --chip-bg:linear-gradient(155deg,rgba(var(--white-rgb),.13),rgba(var(--white-rgb),.04));
 }
-
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:84px}
-body{
-  margin:0;font-family:"Montserrat",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  color:var(--ink);background:var(--off);line-height:1.55;-webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
-}
-p{text-wrap:pretty}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-main section{padding:var(--sec-base) 0;scroll-margin-top:84px}
-#sobre,#agendar{padding:var(--sec-air) 0}
-#diferenciais,#inclui,#para-quem{padding:var(--sec-tight) 0}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-height) + 20px)}
+body{margin:0;font-family:"Montserrat",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:var(--text-body);line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+::selection{background:var(--gold);color:var(--navy)}
 a{color:inherit}
+button{font:inherit}
 img{max-width:100%;display:block}
-
-/* Skip link (acessibilidade) */
-.skip{position:absolute;left:-9999px;top:0;background:var(--navy);color:var(--off);
-  font-weight:800;padding:12px 18px;border-radius:0 0 var(--r-md) 0;z-index:200}
+p{text-wrap:pretty}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter)}
+main section{padding-block:var(--sec-base)}
+#sobre,#agendar{padding-block:var(--sec-air)}
+#diferenciais,#inclui,#para-quem{padding-block:var(--sec-tight)}
+:where(a,button,summary,[tabindex]):focus-visible{outline:3px solid var(--focus);outline-offset:4px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--gold);color:var(--navy);font-weight:700;padding:var(--s3) var(--s5);z-index:200}
 .skip:focus{left:0}
-
-/* Titulos na serifada da marca. Peso 600 e nao 800: a Goldoni/Playfair tem
-   contraste alto de traco e, no peso 800, fecha os contraforma e perde a
-   elegancia que justifica usar serifada. O tracking negativo tambem cai —
-   serifada de alto contraste nao aguenta o mesmo aperto da sem-serifa. */
-/* ⚠️ ENTRELINHA E TRACKING AQUI SAO CALIBRADOS PARA CAIXA ALTA, e isso e o oposto
-   do que se faz com caixa mista. A Goldoni so tem maiusculas (ver PROJETO.md), entao
-   TODO titulo da pagina e caps — e caps nao tem descendentes: preenchem a caixa
-   inteira, entao 1.08 encostava linha na linha. E tracking negativo, que serve a
-   display em caixa mista, fecha o contraforma das maiusculas.
-   Era `line-height:1.08` + `letter-spacing:-.02em`; virou 1.16 e tracking ZERO.
-   ⚠️ Tracking mexe na QUEBRA DE LINHA: sair de -.02em para 0 alarga cada caractere
-   em ~1,2px a 60px. A linha que manda no H1 e "MEDICO INDIVIDUALIZADO" — remedir
-   sempre por ela, nunca pelo texto todo. */
-h1,h2,h3{font-family:"Goldoni","Playfair Display",Georgia,serif;font-weight:600;
-  line-height:1.16;letter-spacing:0;margin:0;
-  font-optical-sizing:auto;text-wrap:balance}
-/* Titulo pequeno que QUEBRA em duas linhas (cartoes e passos) precisa de mais
-   entrelinha que um display de 46px, nao da mesma: a 1.16 as duas linhas de
-   "VOCE FALA COM A / EQUIPE PELO WHATSAPP" ainda se tocavam. */
-.card h3,.card h4,.step h3,.aud-card h3{line-height:1.24}
-/* 46px e nao 48: a 48 o H2 do Mecanismo quebrava em 6 linhas na coluna dele e
-   por isso existia uma excecao de 40px so ali. A 46 ele cabe em 5 — a excecao
-   morreu e a pagina passou a ter UM corpo de titulo de secao.
-   Sem letter-spacing proprio: herda o -.02em de h1,h2,h3. */
-.h-sec{font-size:clamp(28px,5vw,46px);margin:0 0 10px;max-width:var(--measure)}
-/* Subtitulo sob H2: 18px. Na mesma medida do titulo. O peso 600 do
-   .about-body .lead e MANTIDO de proposito — ver la embaixo. */
-.lead{font-size:18px;color:var(--ink-2);max-width:var(--measure);margin:0;text-wrap:pretty}
+h1,h2,h3{font-family:"Goldoni","Playfair Display",Georgia,serif;font-weight:600;line-height:1.18;letter-spacing:0;margin:0;text-wrap:balance}
+.h-sec{font-size:var(--text-section);max-width:var(--measure);margin-bottom:var(--s4)}
+.lead,.intro{font-size:var(--text-lead);color:var(--ink-2);max-width:var(--measure);margin:0;line-height:1.6}
+.intro{margin-top:var(--s4)}
 .serif{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:500}
-/* ---- TRACKING POR FAIXA DE TAMANHO (05/09/2026) ----
-   Todo o texto sans da pagina estava em `normal`, dos 11,5px aos 19px. Tracking e
-   especifico do tamanho: texto pequeno le melhor com um respiro a mais entre as
-   letras, texto grande le melhor apertado. Sao dois degraus, so no que e pequeno —
-   de 16px para cima fica em zero, que ja e o certo para corpo. */
-.hero .microcopy,.foot-legal,.marquee-track li{letter-spacing:.014em}
-.card p,.step p,.includes span.txt,.nav-links a,footer,.ph small{letter-spacing:.008em}
-/* As duas frases-ancora sao a UNICA serifada em caixa MISTA da pagina (a Goldoni
-   so tem caps; estas usam Playfair). Por isso levam tracking negativo, ao contrario
-   dos titulos: em caixa mista, display grande realmente pede aperto. */
-.turn,.reinforce{letter-spacing:-.01em}
-
-/* Botões */
-.btn{font-family:inherit;font-weight:800;font-size:16px;border:none;cursor:pointer;
-  border-radius:var(--r-pill);padding:15px 26px;min-height:48px;
-  transition:transform var(--mo-1) var(--ease),background var(--mo-2) var(--ease),box-shadow var(--mo-2) var(--ease),filter var(--mo-2) var(--ease),color var(--mo-2) var(--ease);
-  display:inline-flex;align-items:center;justify-content:center;gap:10px;letter-spacing:.01em;
-  text-decoration:none;text-align:center;will-change:transform}
-.btn:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
-.btn:active{transform:scale(.97)}
+/* Controles: um acento, tres tamanhos, o mesmo ritmo. */
+.btn{font-family:inherit;font-weight:700;font-size:var(--text-body);border:none;cursor:pointer;border-radius:var(--r-pill);padding:var(--s4) var(--s5);min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:var(--s3);text-decoration:none;text-align:center;line-height:1.4;transition:background var(--mo-2) var(--ease),box-shadow var(--mo-2) var(--ease),transform var(--mo-1) var(--ease),color var(--mo-2) var(--ease)}
+.btn:active{transform:scale(.98)}
 .btn-primary{background:var(--gold);color:var(--navy);box-shadow:var(--sh-gold)}
-.btn-primary:hover{background:var(--gold-600);transform:translateY(-2px)}
-.btn-secondary{background:var(--navy);color:var(--off)}
-.btn-secondary:hover{background:var(--navy-900);transform:translateY(-2px)}
-.btn-outline{background:transparent;color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy)}
-.btn-outline:hover{background:var(--navy);color:var(--off)}
-.btn-wa{background:var(--whatsapp);color:var(--white)}
-.btn-wa:hover{filter:brightness(.94);transform:translateY(-2px)}
-/* Peso 700 e nao os 800 do .btn base: a pedido do usuario, o texto dos CTAs
-   grandes estava "grosso" demais. 800 e o Extrabold da Montserrat e, sobre o
-   ouro, os tracos engrossam a ponto de quase fechar os contraformas. O 700
-   tira o peso sem tirar a presenca — a largura do botao da hero so cai de
-   379 para 374px, entao a composicao da dobra nao se mexe.
-   Vale para os 4 .btn-lg (hero, Sobre, Como funciona e CTA final): mudar so
-   um deixaria o da hero diferente dos outros tres, e isso leria como descuido.
-   ⚠️ Vem DEPOIS de .btn de proposito — mesma especificidade (0,1,0), quem
-   vence e quem vem por ultimo. Nao mover esta regra para cima do .btn. */
-.btn-lg{padding:18px 34px;font-size:18px;font-weight:700;min-height:56px}
+.btn-secondary,.btn-outline{background:transparent;color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+.btn-lg{min-height:56px;padding:18px var(--s6);font-size:17px}
 .btn-block{width:100%}
-
-/* ---------- Header / Nav ---------- */
-/* Navbar em azul, um degrau abaixo da hero para haver aresta entre as duas.
-   O fio dourado embaixo mantem o acento da marca sem uma barra inteira de ouro. */
-.site-header{position:sticky;top:0;z-index:100;background:var(--navy-900);
-  border-bottom:1px solid rgba(var(--gold-rgb),.28);
-  backdrop-filter:saturate(180%) blur(18px);-webkit-backdrop-filter:saturate(180%) blur(18px);
-  transition:background var(--mo-2) var(--ease)}
-.site-header::after{content:"";position:absolute;left:0;right:0;bottom:-18px;height:18px;
-  pointer-events:none;opacity:0;transition:opacity var(--mo-2) var(--ease);
-  background:linear-gradient(rgba(var(--navy-900-rgb),.20),transparent)}
-.site-header.scrolled{background:rgba(var(--navy-900-rgb),.92)}
-.site-header.scrolled::after{opacity:1}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;
-  min-height:78px;max-width:var(--maxw);margin:0 auto;padding:8px 24px}
-/* O logo substituiu o monograma "RG" em CSS. A altura manda; a largura vem da
-   proporcao do arquivo (747x285). width/height no <img> reservam o espaco e
-   evitam o pulo de layout enquanto a imagem carrega. */
-.brand{display:inline-flex;align-items:center;text-decoration:none}
-/* ⚠️ ANDA JUNTO COM .foot-brand .mark, que usa a MESMA altura de proposito:
-   o simbolo ocupa 100% da altura tanto neste arquivo quanto no do icone solto,
-   entao 52px aqui e 52px la rendem simbolos identicos (52x30). Mexeu num, mexa
-   no outro.
-   52px, nao 58. ⚠️ EXISTE UM PISO AQUI: a 46px o "GALLASSINI" fica ilegivel,
-   e a 44px ja degrada visivelmente — o subtitulo e tracejado e de traco fino.
-   52px foi o menor degrau que sobreviveu a comparacao renderizada em 1:1.
-   Nao descer daqui sem olhar o resultado; medir nao resolve, tem de ver.
-   A barra continua com min-height:78px de proposito — o usuario pediu a logo
-   menor, nao a barra. Se um dia a barra encolher junto, o scroll-padding-top do
-   <html> e o scroll-margin-top das secoes (84px) tem de cair na mesma medida,
-   senao a ancora de menu passa a deixar um vao. */
-.brand img{height:52px;width:auto;display:block}
-.nav-links{display:flex;align-items:center;gap:6px;list-style:none;margin:0;padding:0}
-.nav-links a{text-decoration:none;font-weight:600;font-size:15px;color:var(--on-dark-2);
-  padding:10px 12px;border-radius:var(--r-pill);transition:color var(--mo-1) var(--ease),background var(--mo-1) var(--ease)}
-.nav-links a:hover,.nav-links a:focus-visible{color:var(--off);background:rgba(var(--white-rgb),.10)}
-/* O CTA da nav é botão, não link: precisa vencer a cor de link acima */
-.nav-links a.btn-secondary{color:var(--navy);background:var(--gold)}
-.nav-links a.btn-secondary:hover{color:var(--navy);background:var(--gold-600)}
-.nav-cta{display:inline-flex;align-items:center;gap:14px}
-.nav-toggle{display:none;background:transparent;border:1.5px solid rgba(var(--white-rgb),.22);
-  border-radius:var(--r-sm);width:46px;height:46px;cursor:pointer;color:var(--on-dark-2)}
-/* A barra agora e escura: o anel de foco azul sumiria. Passa a ouro. */
-.site-header .btn:focus-visible,.nav-links a:focus-visible,.nav-toggle:focus-visible{
-  outline:3px solid var(--gold);outline-offset:2px}
-
-/* ---------- Hero ---------- */
-.hero{background:var(--navy);color:var(--off);position:relative;overflow:hidden;
-  padding:var(--s8) 0}
+@media(hover:hover){
+  .btn-primary:hover{background:var(--sand);transform:translateY(-2px);box-shadow:0 10px 24px rgba(var(--gold-rgb),.2)}
+  .btn-secondary:hover,.btn-outline:hover{background:var(--gold);color:var(--navy);transform:translateY(-2px)}
+}
+/* Navegacao sempre oferece agendamento, inclusive no celular. */
+.site-header{position:sticky;top:0;z-index:100;background:var(--navy-900);border-bottom:1px solid rgba(var(--gold-rgb),.22);transition:background var(--mo-2) var(--ease),box-shadow var(--mo-2) var(--ease)}
+.site-header.scrolled{background:rgba(11,17,31,.96);backdrop-filter:blur(16px);box-shadow:0 4px 20px rgba(0,0,0,.12)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);min-height:78px;max-width:var(--maxw);margin:auto;padding:var(--s3) var(--gutter)}
+.brand{display:inline-flex;flex:none;text-decoration:none}
+.brand img{height:52px;width:auto}
+.nav-links{display:flex;align-items:center;gap:var(--s1);list-style:none;margin:0;padding:0}
+.nav-links a{display:block;text-decoration:none;font-weight:600;font-size:14px;color:var(--on-dark-2);padding:10px var(--s4);border-radius:var(--r-pill);transition:color var(--mo-1) var(--ease),background var(--mo-1) var(--ease)}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a.btn-secondary{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:10px var(--s5);font-weight:700;color:var(--navy);background:var(--gold);box-shadow:none;margin-left:var(--s3)}
+.nav-links a.btn-secondary:hover{background:var(--sand)}
+.nav-toggle{display:none;background:transparent;border:1px solid var(--line);border-radius:var(--r-sm);width:44px;height:44px;flex:none;cursor:pointer;color:var(--off)}
+.nav-mobile-cta{display:none}
+/* Hero: foto real e tipografia da marca. */
+main .hero{background:var(--navy);color:var(--off);position:relative;overflow:hidden;padding-block:72px}
 .hero .wrap{position:relative;z-index:2}
-.hero-copy{max-width:640px}
-/* ---- Foto de fundo cobrindo a hero inteira ----
-   A imagem e irma do .wrap, nao filha: fica em inset:0 sob o texto, cobrindo a
-   secao toda. O `background:var(--navy)` da .hero continua embaixo como chao,
-   entao se a imagem falhar a hero volta ao azul chapado e nada quebra. */
+.hero-copy{max-width:620px}
 .hero-bg{position:absolute;inset:0;z-index:0;margin:0;overflow:hidden}
 .hero-bg picture{display:contents}
-/* ⚠️ O POSICIONAMENTO NAO SE RESOLVE AQUI, E SIM NO RECORTE DO ARQUIVO.
-   A fonte e 3:2 (1.50) e o container e ~1.85 — o `cover` escala pela LARGURA, entao
-   a imagem inteira aparece na horizontal e `object-position` no eixo X NAO FAZ NADA.
-   Por isso o arquivo ja vem recortado com o medico a 74% da largura, fora dos 640px
-   da coluna de texto. O eixo Y continua valendo, porque ali sim ha sobra.
-   ⚠️ AO TROCAR A FOTO, REFAZER O RECORTE — nao adianta mexer neste numero. */
-.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:50% 34%;display:block}
-/* O VEU. Duas camadas com papeis diferentes:
-   1) degrade horizontal — solido a esquerda (onde vive o texto) e transparente a
-      direita (onde esta o medico), para nao lavar a foto inteira;
-   2) um escurecimento geral fraco, que segura o contraste se a foto trocar.
-   ⚠️ ISTO NAO E ENFEITE: e o que mantem o H1 acima de 4.5:1. A auditoria de
-   contraste do PROJETO.md le `background-color` e NAO ENXERGA IMAGEM — ela vai
-   dar falso OK aqui. O contraste desta secao tem de ser medido no pixel. */
-/* PAINEL DE COR + FOTO, no padrao da referencia ablocacoesdeveiculos.com:
-   a esquerda e azul CHAPADO (a foto nao aparece ali), a direita e a foto em
-   forca total, e entre os dois ha uma transicao suave.
-   ⚠️ NAO e um veu sobre a foto inteira — a tentativa anterior escurecia tudo em
-   34% e lavava a imagem. Aqui o escurecimento geral e ZERO: a foto do lado
-   direito esta intacta.
-   Os tres numeros que governam tudo:
-     52% — ate onde a cor e opaca. Precisa passar do fim do texto (~59% da
-           largura) o suficiente para o degrade ainda cobrir, mas nao tanto que
-           engula o medico, que esta a 74%.
-     72% — onde a cor zera e a foto aparece limpa.
-     ⚠️ AO MEXER NESSES DOIS, REMEDIR O CONTRASTE NO PIXEL. A auditoria do
-     projeto le background-color e nao enxerga imagem: ela da OK falso aqui. */
-.hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(90deg,
-    var(--navy) 0%, var(--navy) 52%,
-    rgba(var(--navy-rgb),.55) 63%,
-    rgba(var(--navy-rgb),0) 72%)}
-/* Teto em 60px e nao 64px: a 64 o titulo quebrava em 6 linhas, porque
-   "MEDICO INDIVIDUALIZADO" nao cabia nos 640px da .hero-copy e MEDICO caia
-   sozinho numa linha. A 63 ja cabe, mas com 2,4px de sobra — margem que
-   qualquer arredondamento de outro navegador consome. A 60px sobram 33px,
-   a mesma folga que os 64px tinham na linha mais larga deles.
-   ⚠️ A linha que manda aqui e a 4ª, nao o texto todo: ao mexer no corpo, no
-   tracking ou na largura da .hero-copy, remedir "MEDICO INDIVIDUALIZADO". */
-/* ⚠️ TRACKING ZERO (era -.03em) E TETO DE 56px (era 60px) — os dois andam juntos.
-   O -.03em era o valor mais fechado da pagina e fechava os contraformas justo no
-   texto maior. Mas abrir o tracking CUSTA LARGURA: medido, "MEDICO INDIVIDUALIZADO"
-   passou de 607 para 653px numa coluna de 640 — folga de -13px, e o H1 caiu em 6
-   linhas. A 56px ele volta a 609px, com ~31px de folga, que e exatamente a margem
-   que os 60px com tracking fechado tinham.
-   🔑 E A ALTURA DO BLOCO NAO MUDA: 5 linhas x 60px x 1.08 = 324px; 5 x 56 x 1.16 =
-   325px. Ou seja, a composicao da dobra fica onde estava e o que se ganha e a
-   letra aberta. Nao subir o corpo sem baixar a entrelinha junto. */
-.hero h1{font-size:clamp(28px,5.6vw,56px);color:var(--off);letter-spacing:0;
-  margin:0;max-width:none}
-/* ⚠️ O PISO TAMBEM CAIU (32 -> 28px), pelo mesmo motivo do teto: abrir o tracking
-   custa largura em TODA largura de tela, nao so no desktop. Medido no celular, com
-   tracking 0: a 32px o H1 ia a 6 linhas num iPhone de 375 e a SETE a 360; a 29px
-   ainda dava 6 a 360. 28px e o maior valor que devolve 5 linhas em 360, 375 e 430.
-   A 360px, que e a largura critica que este projeto usa de referencia, o bloco do
-   H1 caiu de 260 para 162px — ficou mais curto do que era ANTES da mudanca. */
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:50% 34%}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,var(--navy) 0%,var(--navy) 44%,rgba(var(--navy-rgb),.95) 51%,rgba(var(--navy-rgb),.5) 63%,rgba(var(--navy-rgb),.08) 75%,rgba(var(--navy-rgb),0) 84%)}
+.hero::after{content:"";position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(var(--gold-rgb),.4) 30%,rgba(var(--gold-rgb),.12) 70%,transparent);z-index:3;pointer-events:none}
+.hero h1{font-size:var(--text-hero);line-height:1.12;color:var(--off);text-wrap:normal}
+.hero-title-main{display:block}
+.hero-title-main em{display:block}
+.hero-title-detail{display:block;margin-top:20px;max-width:550px;font-size:var(--text-hero-detail);line-height:1.28;color:var(--on-dark-2);text-wrap:balance}
 .hero h1 em{font-style:normal;color:var(--gold)}
-/* Branco, a pedido: sobre o azul o tom quente lia como amarelo. */
-/* 19px, nao 20. ⚠️ ESTE E O NIVEL 1 DO SISTEMA DE SUBTITULOS (o outro e o 18px
-   de .lead/.intro/.mech-intro, que ficam sob os H2). 19 e o menor degrau que
-   ainda separa os dois niveis — a 18px eles viram um so e a hierarquia
-   titulo/subtitulo da hero deixa de existir. Nao descer daqui sem decidir que o
-   sistema passa a ter um nivel de subtitulo, e nao dois.
-   O corpo nao muda a quebra: de 17 a 20px o texto fica em 3 linhas. */
-/* max-width em PX e nao em ch, e menor que a coluna: e ele que puxa a borda
-   DIREITA do subtitulo para dentro, sem mexer no titulo nem na coluna (640px).
-   Os 52ch anteriores davam ~688px e eram INERTES — a coluna ja limitava antes.
-   ⚠️ 560 e escolhido, nao arredondado: a 540px o texto ainda cabe em 3 linhas e
-   a 520 quebra para 4. Os 560 deixam 20px de folga antes desse degrau.
-   Tambem e onde o rio da direita fica mais parelho: as duas primeiras linhas
-   quase iguais e a terceira em dois tercos (a 640 a terceira tinha so 226px).
-   ⚠️ INERTE NO CELULAR de proposito: la a coluna tem 339px, entao 560 nunca
-   morde. O ajuste vale so onde ha largura sobrando. */
-/* line-height 1.45, nao os 1.55 do corpo: a 19px em 3 linhas o 1.55 abria vao
-   demais entre linhas curtas e o bloco perdia unidade. Entrelinha acompanha o
-   tamanho de forma inversa — quanto maior o corpo, mais fechada. */
-.hero .sub{margin-top:20px;font-size:clamp(17px,2.4vw,19px);color:var(--on-dark);max-width:560px;line-height:1.45}
-.hero-cta{margin-top:32px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
-.hero .microcopy{margin-top:18px;font-size:14px;color:var(--on-dark-4);max-width:52ch}
-
-/* ---------- Barra de prova (marquee) ---------- */
-.proof{background:var(--navy-900);padding:18px 0;overflow:hidden}
-.marquee{display:flex;width:max-content;animation:marquee 46s linear infinite;will-change:transform}
-.proof:hover .marquee,.proof:focus-within .marquee{animation-play-state:paused}
+.hero .sub{margin:var(--s5) 0 0;font-size:17px;color:var(--on-dark-3);max-width:525px;line-height:1.7}
+.hero-cta{margin-top:var(--s6);display:flex;flex-wrap:wrap;gap:var(--s4);align-items:center}
+.hero .hero-cta{margin-top:var(--s6)}
+.hero .btn-primary{padding:10px 12px 10px 26px;min-height:60px;gap:20px;background:linear-gradient(115deg,var(--sand) -85%,var(--gold) 75%);box-shadow:inset 0 1px 0 rgba(var(--white-rgb),.22),0 8px 24px rgba(var(--gold-rgb),.16);font-size:16px}
+.hero-cta-label{min-width:0}
+.hero-cta-arrow{display:grid;place-items:center;flex:none;width:36px;height:36px;border-radius:50%;background:var(--navy);color:var(--sand);box-shadow:inset 0 1px 0 rgba(var(--white-rgb),.12)}
+.hero-cta-arrow svg{width:18px;height:18px;transition:transform var(--mo-2) var(--ease)}
+@media(hover:hover){.hero .btn-primary:hover{background:var(--sand)}.hero .btn-primary:hover .hero-cta-arrow svg{transform:translateX(2px)}}
+.hero .microcopy{margin:var(--s5) 0 0;font-size:13px;color:var(--on-dark-4);max-width:490px;line-height:1.65;display:grid;gap:10px}
+.hero-meta-line{display:flex;align-items:flex-start;gap:10px}
+.hero-meta-line>svg{width:16px;height:16px;flex:none;margin-top:3px;color:var(--gold)}
+.hero-meta-separator{display:none}
+/* Credenciais: pausa explicita; no touch a faixa pode ser arrastada. */
+.proof{position:relative;background:var(--navy-900);padding:var(--s5) 0;overflow:hidden;border-block:1px solid rgba(var(--gold-rgb),.22)}
+.proof::before,.proof::after{content:"";position:absolute;top:0;bottom:0;width:clamp(24px,5vw,80px);z-index:1;pointer-events:none}
+.proof::before{left:0;background:linear-gradient(90deg,var(--navy-900),transparent)}
+.proof::after{right:0;background:linear-gradient(270deg,var(--navy-900),transparent)}
+.marquee{display:flex;width:max-content;animation:marquee 60s linear infinite}
 .marquee-track{display:flex;align-items:center;list-style:none;margin:0;padding:0;flex:none}
-.marquee-track li{display:inline-flex;align-items:center;color:var(--off);
-  font-weight:600;font-size:15px;padding:2px 30px;white-space:nowrap;
-  border-left:1px solid rgba(var(--white-rgb),.12)}
-@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-/* ---------- Seção genérica clara/escura ---------- */
+.marquee-track li{display:inline-flex;align-items:center;gap:var(--s7);color:var(--on-dark-2);font-weight:500;font-size:var(--text-small);line-height:1.6;padding:0 var(--s5);white-space:nowrap}
+.marquee-track li::before{content:"";width:4px;height:4px;flex:none;background:var(--gold);transform:rotate(45deg)}
+@media(max-width:768px){
+  .proof{padding-block:20px}
+  .marquee-track li{gap:var(--s6);padding-inline:var(--s4)}
+}
+@keyframes marquee{to{transform:translateX(-50%)}}
 .sec-surface{background:var(--surface)}
 .sec-dark{background:var(--navy);color:var(--off)}
-/* .sec-head saiu: 0 usos no HTML, regra morta (mesmo criterio dos eyebrows). */
-.intro{font-size:18px;color:var(--ink-2);margin:18px 0 0;max-width:var(--measure)}
-.sec-dark .intro{color:var(--on-dark-3)}
-
-/* Cards grid */
-.cardgrid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:36px}
-.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);
-  padding:26px;box-shadow:var(--sh-sm);
-  transition:transform var(--mo-2) var(--ease),box-shadow var(--mo-2) var(--ease),border-color var(--mo-2) var(--ease)}
-.card:hover{box-shadow:var(--sh-md);transform:translateY(-4px);border-color:transparent}
-.card:active{transform:translateY(-1px)}
-/* ---- O CHIP DE ICONE VOLTOU, COMO VIDRO (06/09/2026) ----
-   Historico curto, porque ele decide o que NAO fazer aqui: em 05/09 os 8 chips
-   sairam (4 icones no "Voce se reconhece?", 4 numeros nos Diferenciais). O
-   usuario pediu os icones de volta — "nao precisava tirar, eu so queria de uma
-   forma mais bonita" — e mandou aurumclinic.org de referencia.
-   🔑 O DEFEITO NAO ERA O ICONE, ERA O SELO. O chip antigo era ouro SOLIDO em
-   46px: uma mancha cheia de acento, do tamanho de um botao, repetida 8 vezes.
-   Duas coisas erradas de uma vez — competia com os CTAs (a unica outra coisa
-   dourada e cheia da pagina) e gastava o ouro que a regra 3 manda usar com
-   moderacao. A referencia faz o oposto: chip quase transparente, fio de
-   contorno, e o icone em TINTA. Medido no DOM dela — 52x52, icone de 22px,
-   traco 1.6, fundo em degrade da cor clara entre 5% e 20% de alfa.
-   ⚠️ O TRACO DE 1.6 NAO E DETALHE. Os icones antigos vinham em 2.2 e, num
-   quadrado de acento, precisavam mesmo desse peso para nao sumir. Sobre vidro o
-   2.2 vira borrao: o icone passa a ser a unica coisa desenhada no chip, entao
-   ele fica fino e preciso. Os checks de "Para quem e" seguem em 3 de proposito —
-   la o simbolo e marca de lista, nao ilustracao.
-   ⚠️ RAIO EM --r-sm (8px) E NAO OS 10px DA REFERENCIA. A pagina tem uma escala
-   de raio de 8/16/24/32 e o sistema de imagem do PROJETO.md manda nao inventar
-   raio novo. A 52px a diferenca entre 8 e 10 nao se le; um quinto valor na
-   escala, sim.
-   ⚠️ OS NUMEROS 1-2-3-4 DOS DIFERENCIAIS NAO VOLTARAM, e isso e deliberado.
-   Eles sairam por um motivo diferente dos icones: numeravam quatro diferenciais
-   que NAO sao uma sequencia, e numerar o que nao tem ordem mente sobre a
-   hierarquia. Aquela secao recebeu ICONE, como a secao 3 — e o mesmo componente
-   .card nas duas, entao ter chip numa e nada na outra leria como descuido. */
-.ic{width:52px;height:52px;border-radius:var(--r-sm);margin-bottom:var(--s5);
-  display:grid;place-items:center;position:relative;overflow:hidden;
-  background:var(--chip-bg);border:1px solid var(--chip-border);
-  color:var(--chip-ink);box-shadow:var(--chip-inset)}
-/* O BRILHO DIAGONAL. E o que separa "vidro" de "quadrado com borda": uma faixa
-   clara atravessando o canto superior esquerdo, como reflexo. Sem ele o chip
-   fica chapado e o degrade do fundo nao se percebe.
-   `mix-blend-mode:screen` para clarear o que estiver embaixo em vez de pintar
-   por cima — assim a mesma regra serve as duas versoes da pagina. */
-.ic::before{content:"";position:absolute;top:-70%;left:-35%;width:80%;height:220%;
-  transform:rotate(-20deg);pointer-events:none;mix-blend-mode:screen;
-  background:var(--chip-sheen)}
-.ic svg{position:relative;z-index:1;width:22px;height:22px}
-/* O chip acompanha o cartao no hover: o cartao sobe, e o fio do chip acende.
-   Sem isso o cartao se move e o chip parece colado num plano diferente. */
-.card:hover .ic{border-color:rgba(var(--gold-rgb),.55)}
-/* Sem line-height nem letter-spacing proprios: herdam 1.08 / -.02em de h1,h2,h3,
-   que e a entrelinha unica de titulo da pagina. O font-weight:800 tambem saiu —
-   era inerte, a Goldoni tem um peso so. */
-.card h3,.card h4{margin:0 0 8px;font-size:19px}
-.card p{margin:0;font-size:15.5px;color:var(--ink-2)}
-
-/* Split: imagem grande + grade de cards */
-.media-split{display:grid;grid-template-columns:.85fr 1.15fr;gap:32px;align-items:stretch;margin-top:36px}
-.media-split .cardgrid{margin-top:0}
-.cardgrid.cols-2{grid-template-columns:repeat(2,1fr)}
-
-/* ---------- Sistema de imagem: uma moldura para a página inteira ----------
-   Toda foto usa .figure + um modificador de proporção. O raio é sempre --r-xl.
-   É essa repetição que faz formatos diferentes lerem como um sistema único. */
-.figure{margin:0;position:relative;overflow:hidden;border-radius:var(--r-xl);
-  background:var(--surface);border:1px solid var(--line);box-shadow:var(--sh-sm)}
-.figure img,.figure video{width:100%;height:100%;object-fit:cover;display:block}
+/* Cards de conteudo: superficie discreta, icones com material comum. */
+.cardgrid{display:grid;gap:var(--s5);grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));margin-top:var(--s6)}
+.cardgrid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card{background:linear-gradient(var(--surface-card),var(--surface-card)) padding-box,var(--ring) border-box;border:1px solid transparent;border-radius:var(--r-lg);padding:var(--s5);box-shadow:var(--sh-sm);transition:border-color var(--mo-2) var(--ease)}
+.card:hover{border-color:rgba(var(--gold-rgb),.4)}
+.ic{width:48px;height:48px;border-radius:var(--r-sm);margin-bottom:var(--s5);display:grid;place-items:center;background:var(--chip-bg);border:1px solid rgba(var(--white-rgb),.22);color:var(--off);box-shadow:inset 0 1px 0 rgba(var(--white-rgb),.14)}
+.ic svg{width:22px;height:22px}
+.card h3,.step h3{font-size:var(--text-card);line-height:1.28;margin:0 0 var(--s3)}
+.card p,.step p{margin:0;font-size:var(--text-body);color:var(--ink-2);line-height:1.65}
+.media-split{display:grid;grid-template-columns:.72fr 1.28fr;gap:var(--s6);align-items:stretch;margin-top:var(--s6)}
+.media-split .cardgrid{margin:0}
+.figure{margin:0;position:relative;overflow:hidden;border-radius:var(--r-xl);background:var(--surface);border:1px solid var(--line)}
 .figure picture{display:contents}
-.figure.r-45{aspect-ratio:4/5}
-.figure.r-34{aspect-ratio:3/4}
-.figure.r-32{aspect-ratio:3/2}
-/* Preenche a altura da linha do grid (usado no split de duas colunas) */
+.figure img{width:100%;height:100%;object-fit:cover}
+.figure.r-45{aspect-ratio:4/5}.figure.r-34{aspect-ratio:3/4}.figure.r-32{aspect-ratio:3/2}
 .figure.fill{min-height:440px;height:100%}
-/* Moldura sobre fundo marinho */
-.sec-dark .figure,.figure.on-dark{background:var(--navy-700);border-color:var(--navy-500)}
-/* Placeholder de slot — apagar o bloco .ph inteiro quando a foto entrar */
-.ph{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:10px;
-  padding:20px;text-align:center;color:var(--ink-3);
-  background:repeating-linear-gradient(45deg,var(--surface),var(--surface) 14px,var(--ph-light-b) 14px,var(--ph-light-b) 28px)}
-.ph span{font-size:13.5px;font-weight:700;letter-spacing:.04em;line-height:1.45;max-width:28ch}
-.ph small{font-size:12px;font-weight:600;letter-spacing:.02em;opacity:.75}
-.ph.on-dark{color:var(--on-dark-5);
-  background:repeating-linear-gradient(45deg,var(--ph-dark-a),var(--ph-dark-a) 14px,var(--ph-dark-b) 14px,var(--ph-dark-b) 28px)}
-
-/* Frase de virada / reforço */
-.turn{margin:44px auto 0;max-width:40ch;text-align:center;font-size:clamp(22px,3.4vw,30px);
-  line-height:1.28;color:var(--navy)}
-/* ⚠️ ERA UM MARCA-TEXTO: fundo dourado solido atras do trecho, com raio e sombra.
-   Virou COR, sem caixa. O argumento nao e gosto, e consistencia: a pagina JA tem um
-   jeito de destacar um trecho dentro de uma frase — o <em> do H1 da hero, que e so
-   ouro no texto. Duas gramaticas para o mesmo gesto, e uma delas com cara de
-   apresentacao de slides. Agora as duas sao a mesma. */
-.turn strong{color:var(--gold);font-weight:600}
-/* Frase de reforço — fecha a seção como rodapé do bloco, na medida dele (1032px).
-   Era centralizada em 537px, num terceiro eixo que não batia nem com a coluna de texto
-   (x=117) nem com a foto (x=703). Agora divide a margem esquerda e a medida com o .mech,
-   e o fio faz a separação que o alinhamento centralizado tentava fazer.
-   ⚠️ Não repetir aqui o gesto da .turn (serif centralizada) — são seções vizinhas. */
-.reinforce{margin:40px 0 0;max-width:none;text-align:left;color:var(--on-dark);
-  font-size:clamp(21px,3.4vw,26px);line-height:1.36;
-  border-top:1px solid var(--navy-500);padding-top:30px}
-
-/* ---------- Mecanismo (tratamento "E") ----------
-   Duas colunas: o texto à esquerda e o Slot 2 como foto VERTICAL 3:4 à direita,
-   grudada no scroll. Substituiu a faixa full-bleed 21:9 que ficava abaixo do bloco.
-   Escolhido pelo usuário em 03/09/2026 entre 12 tratamentos comparados. */
-.mech{display:grid;grid-template-columns:1.08fr .92fr;
-  gap:clamp(32px,5vw,64px);align-items:start}
-/* 40px e não os 48px do resto da página: numa coluna de ~525px o título de 48px
-   vira uma torre. A 40px são 4 linhas. Se mexer na largura das colunas, remedir. */
-/* A excecao de 40px MORREU: com o H2 da pagina a 46px o titulo daqui cabe em
-   5 linhas na coluna de 523px (a 48 ele ia a 6, e era isso que a excecao
-   resolvia). Sobra so o max-width:none, porque quem limita aqui e a coluna. */
-.mech>div>h2{max-width:none;margin:0 0 20px}
-.mech-intro{margin:0;font-size:18px;color:var(--on-dark-2)}
-.mech-body{margin:0;font-size:17px;color:var(--on-dark-2)}
-/* O parágrafo era uma frase de 17 palavras seguida de uma de 56, coladas num bloco só
-   de 8 linhas. Agora são dois parágrafos — mesma copy, sem nenhuma palavra alterada.
-   ESTE É O BOTÃO DE AJUSTE do intervalo entre os dois: 0 = sem pular linha (só a quebra
-   do período); 1.55em = exatamente uma entrelinha, ou seja, uma linha em branco de
-   verdade. Em `em` para acompanhar o font-size. */
-.mech-body+.mech-body{margin-top:1.55em}
-.mech-body strong{color:var(--off)}
-/* A foto acompanha a rolagem do texto ao lado. */
-.mech-figura{margin:0;border-radius:var(--r-xl);overflow:hidden;
-  border:1px solid var(--navy-500);background:var(--navy-700);
-  aspect-ratio:3/4;position:sticky;top:96px}
-.mech-figura img{width:100%;height:100%;object-fit:cover;display:block}
-.mech-figura picture{display:contents}
-.mech-figura .ph{height:100%}
-
-/* Os 6 fatores como painel indexado.
-   A borda pertence ao PAINEL, não a cada célula: os fios são os próprios gaps de 1px
-   do grid, com o fundo do painel aparecendo por baixo. Isso resolve fio interno e
-   externo sozinho, sem nenhuma regra de nth-child, e continua correto em qualquer
-   número de colunas. As células precisam de fundo opaco para o truque funcionar.
-   A 2 colunas, 6 fatores dão 3 linhas exatas e o fechamento vira a faixa do rodapé. */
-.panel{list-style:none;margin:26px 0;padding:0;
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:1px;background:var(--navy-500);
-  border:1px solid var(--navy-500);border-radius:var(--r-md);overflow:hidden}
-.panel li{background:var(--navy);padding:18px 20px;min-height:92px;
-  display:flex;flex-direction:column;gap:10px}
-/* line-height:1 — e um indice de UMA linha, e herdava a entrelinha de paragrafo
-   (1.55), que reservava espaco de duas. */
-.panel .idx{font-size:11.5px;font-weight:800;letter-spacing:.16em;color:var(--gold);
-  line-height:1;font-variant-numeric:tabular-nums}
-/* margin-top:auto joga o nome para a base: os nomes alinham numa linha de base
-   comum mesmo quando um deles quebra em duas linhas. */
-.panel .nm{margin-top:auto;font-size:17px;font-weight:700;color:var(--off);
-  line-height:1.25;letter-spacing:-.01em}
-/* A última célula é o PREDICADO da frase ("Influenciam diretamente…"), trazido para
-   dentro da grade: fecha o bloco e some um parágrafo avulso embaixo dele. */
-.panel li.close{grid-column:1/-1;background:var(--gold);justify-content:center}
-.panel li.close .nm{margin-top:0;color:var(--navy);font-size:19px;line-height:1.32}
-
-/* ---------- Sobre ---------- */
-/* Sobre: uma coluna de texto + o retrato ao lado, esticado até a mesma altura.
-   O título vive DENTRO da coluna de texto (não acima das duas) — é o que compacta a seção. */
-.about{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:stretch}
-/* margin:0 é obrigatório — <figure> tem margem padrão do navegador (1em 40px),
-   que encolhia o retrato em 80px e o deslocava 16px para baixo. */
-/* ⚠️ SEM `place-items:center` — e a ausencia e deliberada. Ele existia para
-   centralizar o monograma "RG", que era o placeholder do Slot 3 e ja saiu. Com
-   `center` o <img> NAO estica e passa a depender do `height:100%`, que abaixo de
-   960px NAO RESOLVE: la o .portrait vira `height:auto` + `aspect-ratio`, e
-   porcentagem contra pai de altura automatica nao resolve nem com aspect-ratio.
-   O resultado era a foto em 325x406 dentro de uma moldura de 327x204.
-   O padrao do grid (`stretch`) faz o <img> preencher a area nos dois breakpoints,
-   sem depender de resolucao de porcentagem. Nao reintroduzir `place-items`. */
-.portrait{background:linear-gradient(160deg,var(--navy-700),var(--navy));border-radius:var(--r-xl);
-  margin:0;height:100%;min-height:520px;display:grid;position:relative;
-  overflow:hidden;box-shadow:var(--sh-md);border:1px solid var(--navy-500)}
-/* display:contents e OBRIGATORIO: sem ele o <picture> vira o filho centrado
-   pelo place-items do .portrait e o height:100% do <img> nao tem a que se
-   referir — a foto encolhe para o tamanho intrinseco. Mesmo motivo do
-   .figure picture e do .mech-figura picture. */
-.portrait picture{display:contents}
-/* ⚠️ `position:absolute;inset:0` E O QUE FAZ A FOTO PREENCHER, e nao o height:100%.
-   Tirar o `place-items:center` nao bastou: o `stretch` padrao do grid so estica
-   itens de altura AUTOMATICA, e este <img> tem `height:100%` — que abaixo de 960px
-   nao resolve, porque la o .portrait vira `height:auto` + `aspect-ratio` e
-   porcentagem contra pai automatico nao resolve. Resultado: 325x406 numa moldura
-   de 327x204. Com inset:0 a caixa vem do pai posicionado e nao depende de
-   resolucao de porcentagem em nenhum dos dois breakpoints.
-   Seguro porque o .portrait ja tem `position:relative` e altura propria nos dois
-   casos (min-height:520 no largo, aspect-ratio no estreito) — a moldura nunca
-   depende do conteudo para existir. */
-.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.about-body p{font-size:17px;color:var(--ink-2);margin:0 0 20px}
-/* ⚠️ O PESO 600 AQUI E PROPOSITAL e e a unica excecao do sistema de subtitulos.
-   Este e o unico .lead da pagina: a linha de posicionamento logo abaixo do NOME
-   do medico. Ela faz um trabalho que nenhum outro subtitulo faz — separar o nome
-   dos dois paragrafos densos que vem embaixo. Sem o peso, titulo/posicionamento/
-   corpo viram dois niveis em vez de tres. O corpo dela ja foi unificado em 18px. */
-/* ⚠️ font-size repetido aqui de proposito: `.about-body p` (0,1,1) vence `.lead`
-   (0,1,0) e estava impondo 17px por cima do 18px do sistema. */
-.about-body .lead{max-width:none;margin:0 0 22px;color:var(--ink);font-weight:600;font-size:18px}
-.about-body strong{color:var(--ink)}
-
-/* ---------- O que inclui (grid check) ---------- */
-/* Lista sem caixa: cada item é separado por um fio, não por uma moldura.
-   Era uma grade de 6 cartões brancos com borda e sombra — o terceiro bloco de
-   cartões seguido da página (3, 6, 7, 8, 9 são todos grades). Tirando a moldura,
-   a seção ganha textura própria sem inventar componente novo: nenhum outro bloco
-   da página é uma lista sem caixa.
-   ⚠️ O gap cresceu de 16px para 34px/44px de propósito. Sem a moldura é o vão que
-   separa as colunas; a 16px os fios de colunas vizinhas quase se encostam e a
-   linha lê como uma régua quebrada em vez de três colunas. */
-.includes{list-style:none;margin:36px 0 0;padding:0;display:grid;gap:34px 44px;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-.includes li{display:flex;gap:14px;background:none;border:0;
-  border-top:1px solid var(--line);border-radius:0;padding:20px 0 0;box-shadow:none}
-/* Chip em OURO, nao mais em bege (05/09/2026, a pedido do usuario).
-   ⚠️ `var(--gold)` e nao o hex `#BD9853` cravado: sao a mesma cor, mas o projeto
-   tokenizou 24 ocorrencias de hex justamente para a paleta poder mudar num lugar
-   so. Cravar o numero aqui abriria de novo o buraco que a tokenizacao fechou.
-   O check continua em --navy: azul sobre ouro da 5,44:1, o mesmo par ja usado no
-   botao "Agendar" da navbar, e esta na auditoria do gerar-dark.py. */
-.includes .tick{flex:none;width:30px;height:30px;border-radius:var(--r-sm);background:var(--gold);
-  display:grid;place-items:center;color:var(--navy)}
-.includes b{display:block;color:var(--ink);font-size:16px;margin-bottom:2px}
-/* --ink e nao --ink-2, a pedido do usuario: o rotulo e a descricao passam a ter a
-   MESMA cor, entao a hierarquia dentro do item fica so no peso (700 x 400).
-   ⚠️ --ink, e nao #FFFFFF: branco puro nao existe em lugar nenhum da pagina, e o
-   branco dela e o Creme #F3F4F0 da marca. Este e o mesmo valor que o corpo de
-   "Para quem e" e de "Depoimentos" ja usa, entao a secao entra num padrao que
-   existe, em vez de virar o ponto mais claro da pagina.
-   ⚠️ Efeito colateral aceito: o corpo daqui fica um degrau mais claro que o dos
-   Diferenciais e o do FAQ, que seguem em --ink-2. */
-.includes span.txt{color:var(--ink);font-size:15px}
-
-/* ---------- Como funciona (passos) ---------- */
-.steps{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:36px}
-.step{background:var(--navy-700);border:1px solid var(--navy-500);border-radius:var(--r-lg);
-  padding:28px;position:relative;overflow:hidden}
-/* A foto sangra até a borda do card.
-   ⚠️ O `position:relative` do .step acima e o `overflow:hidden` sao o que fazem a
-   margem negativa daqui virar sangria em vez de estouro. Nao tirar nenhum dos dois.
-   ⚠️ AS REGRAS `.step .num` E `.step-media .num` FORAM REMOVIDAS EM 05/09/2026, junto
-   com as tres <div class="num"> do HTML. O numero era um disco de ouro de 44px por
-   cima da foto: fazia sentido enquanto o slot era placeholder listrado, mas com foto
-   real virou adesivo sobre a imagem, e tres discos de ouro em fila contrariam o "use
-   com moderacao" da regra 3. Mesmo criterio dos eyebrows — o rotulo decorativo saiu e
-   a regra morta saiu junto.
-   O que se perdeu, de propósito: no empilhado nada mais diz que sao tres etapas em
-   ordem. A sequencia passa a viver so na copy (fala com a equipe → avaliacao →
-   acompanhamento) e no "Comecar e simples" do H2.
-   ⚠️ Se um dia quiserem a ordem de volta, NAO usar "01/02/03" em ouro: essa e a
-   assinatura do painel de fatores da secao 4, e duplicar assinatura entre secoes ja
-   foi motivo de rejeitar um tratamento da secao 7. */
-.step-media{margin:-28px -28px 22px;border-radius:0;border:0;box-shadow:none}
-.step h3{color:var(--off);font-size:19px;margin-bottom:8px}
-.step p{color:var(--on-dark-3);font-size:15.5px;margin:0}
-
-/* ---------- Para quem é ---------- */
-.audience{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:34px}
-.aud-card{border-radius:var(--r-lg);padding:30px;box-shadow:var(--sh-sm)}
-.aud-yes{background:var(--white);border:2px solid var(--navy)}
-.aud-no{background:var(--surface);border:1px solid var(--line)}
-.aud-card h3{font-size:20px;margin-bottom:18px}
-.aud-card ul{list-style:none;margin:0;padding:0;display:grid;gap:14px}
-/* ⚠️ O texto de cada item PRECISA estar dentro de um <span>. Como o <li> é flex, cada
-   filho vira um flex item — e um <strong> solto no meio do texto quebrava a frase em
-   três caixas lado a lado ("Você quer | causa | do problema…", embaralhado na tela).
-   Com o <span>, o texto inteiro é um flex item só e o <strong> volta a ser inline. */
-.aud-card li{display:flex;gap:12px;align-items:flex-start;font-size:16px;color:var(--ink)}
-.aud-card li>span{flex:1}
-.aud-card li svg{flex:none;margin-top:3px}
-.aud-yes li svg{color:var(--success)}
-.aud-no li svg{color:var(--ink-3)}
-
-/* ---------- Depoimentos ---------- */
-.quotes{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:20px}
-blockquote.quote{margin:0;background:var(--white);border:1px solid var(--line);
-  border-left:5px solid var(--gold);border-radius:var(--r-md);padding:26px 26px 22px;box-shadow:var(--sh-sm)}
-blockquote.quote p{font-size:17px;color:var(--ink);margin:0 0 16px;line-height:1.5}
-blockquote.quote cite{font-style:normal;font-weight:800;color:var(--navy);font-size:15px}
-
-/* ---------- FAQ ---------- */
-.faq{max-width:800px;margin:36px auto 0;display:grid;gap:12px}
-.faq details{background:var(--white);border:1px solid var(--line);border-radius:var(--r-md);
-  box-shadow:var(--sh-sm);overflow:hidden}
-.faq summary{list-style:none;cursor:pointer;padding:20px 24px;font-weight:700;font-size:17px;
-  color:var(--navy);display:flex;justify-content:space-between;gap:16px;align-items:center;
-  min-height:44px}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary:focus-visible{outline:3px solid var(--focus);outline-offset:-3px;border-radius:var(--r-md)}
-.faq summary:hover{background:var(--surface)}
-.faq summary .chev{flex:none;transition:transform var(--mo-2) var(--ease);color:var(--gold-600)}
-.faq details[open] summary .chev{transform:rotate(180deg)}
-/* ⚠️ max-width na RESPOSTA, nao no componente: a 800px de largura a linha dava
-   ~100 caracteres, muito alem dos 45-75 legiveis. A pergunta continua ocupando
-   a largura toda de proposito — ela e um alvo de clique, e alvo quer area. */
-.faq .answer{padding:0 24px 22px;color:var(--ink-2);font-size:16px;max-width:600px}
-
-/* ---------- CTA final ---------- */
-.finalcta{position:relative;overflow:hidden}
-.finalcta .box{background:var(--navy);border-radius:var(--r-xl);padding:clamp(34px,6vw,64px);
-  position:relative;overflow:hidden;box-shadow:var(--sh-lg)}
-.finalcta .box::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(100% 120% at 100% 0%, rgba(var(--gold-rgb),.12), transparent 55%)}
-/* 1.25fr/.75fr, nao 1.05/.95. Este era o UNICO H2 da pagina que nao recebia a
-   medida: a coluna dava 447px e o titulo caia em 6 linhas / 298px — e ja caia em
-   6 linhas antes, quando o corpo era 44px, entao nao e efeito da unificacao.
-   A 1.25fr a coluna vai a 533px e o titulo fecha em 4 linhas / 199px; a caixa
-   inteira cai de 827 para 671px. A foto continua 3:4 confortavel (320x427).
-   ⚠️ O max-width:44ch do .inner TINHA de sair junto: ~449px na Montserrat de 16px,
-   ele reimporia a largura antiga e a mudanca do grid nao faria efeito nenhum.
-   (A "sugestao nº1" registrada no PROJETO.md dizia que so remover o 44ch derrubava
-   o titulo — medido hoje, nao derruba: sozinho ele e inerte, porque a coluna do
-   grid ja limitava em 447px. A alavanca e o grid.) */
-.finalcta .grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(28px,4.5vw,52px);
-  align-items:center;position:relative;z-index:2}
-.finalcta .inner{position:relative;z-index:2}
-.finalcta .figure{position:relative;z-index:2}
-/* Mesmo clamp do .h-sec e sem line-height proprio: era 44px/1.12, a terceira
-   entrelinha de titulo da pagina. */
-.finalcta h2{color:var(--off);font-size:clamp(28px,5vw,46px);margin:0 0 18px}
-.finalcta h2 strong{color:var(--gold);font-weight:800}
-.finalcta p{color:var(--on-dark-3);font-size:18px;margin:0 0 30px}
-.finalcta .microcopy{margin-top:20px;font-size:14px;color:var(--on-dark-4)}
-
-/* ---------- Footer ---------- */
-footer{background:var(--navy-900);color:var(--on-dark-4);padding:56px 0 40px;font-size:15px}
-.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
-footer b,footer strong{color:var(--off)}
-/* So o SIMBOLO, sem o nome. A linha logo abaixo ja diz "Dr. Rafael Gallassini
-   · Medico" em texto — o logo horizontal imprimiria o nome duas vezes a 16px de
-   distancia. Pelo mesmo motivo a imagem e decorativa (alt="" + aria-hidden):
-   o leitor de tela nao deve ouvir o nome duplicado.
-   ⚠️ 52px = A MESMA ALTURA DO LOGO DA NAVBAR, e isso deixa os dois simbolos do
-   MESMO TAMANHO de verdade, nao so no numero: medido nos arquivos, o simbolo
-   ocupa 100% da altura do lockup horizontal (162x285) e 100% da altura do icone
-   solto (317x557), e as proporcoes batem (0.5684 vs 0.5691). Entao o simbolo da
-   navbar a 52px e este a 52px renderizam identicos.
-   ⚠️ POR ISSO OS DOIS ANDAM JUNTOS: se a altura do .brand img mudar, mudar esta
-   tambem, ou a harmonia se perde sem ninguem notar de onde veio. */
-.foot-brand .mark{height:52px;width:auto;display:block;margin-bottom:16px}
-.foot-brand p{margin:6px 0 0;line-height:1.6}
-.foot-col h4{color:var(--off);font-size:14px;text-transform:uppercase;letter-spacing:.1em;margin:0 0 14px}
-.foot-col ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.foot-col a{text-decoration:none;transition:color var(--mo-1) var(--ease)}
-.foot-col a:hover{color:var(--gold)}
-.foot-legal{border-top:1px solid var(--navy-500);margin-top:36px;padding-top:24px;
-  display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font-size:13.5px;color:var(--on-dark-4)}
-.foot-legal p{margin:0;max-width:70ch;line-height:1.6}
-
-/* ---------- Botão flutuante WhatsApp ---------- */
-.wa-float{position:fixed;right:20px;bottom:20px;z-index:90;width:60px;height:60px;
-  border-radius:var(--r-pill);background:var(--whatsapp);color:var(--white);display:grid;place-items:center;
-  box-shadow:var(--sh-md);transition:transform var(--mo-1) var(--ease),filter var(--mo-2) var(--ease)}
-.wa-float:hover{transform:translateY(-3px) scale(1.04);filter:brightness(.96)}
-.wa-float:active{transform:scale(.92)}
-.wa-float:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
-/* Só entra a partir da seção 2 (a barra de prova). Na hero fica fora — ali o CTA já é o botão
-   grande da própria dobra. `visibility` tira do foco e do leitor de tela enquanto está oculto;
-   sem JS o botão continua sempre visível (mesmo padrão de `.reveal`).
-   O `transition` repete transform/filter porque a regra acima seria sobrescrita — e é ela
-   que anima o hover. */
-.js .wa-float{opacity:0;visibility:hidden;
-  transition:transform var(--mo-1) var(--ease),filter var(--mo-2) var(--ease),opacity var(--mo-3) var(--ease),visibility 0s linear var(--mo-3)}
-.js .wa-float.show{opacity:1;visibility:visible;
-  transition:transform var(--mo-1) var(--ease),filter var(--mo-2) var(--ease),opacity var(--mo-3) var(--ease),visibility 0s}
-
-/* ---------- Animações sutis (progressive enhancement) ---------- */
-/* Sem JS, o conteúdo permanece totalmente visível. O ocultar/animar só entra quando há JS. */
-/* ⚠️ ERA .6s COM DESLOCAMENTO DE 18px, e o stagger abaixo somava ate .35s — um
-   cartao podia aparecer 0,95s depois da secao entrar em tela. Acima de ~350ms o
-   movimento de interface para de parecer resposta e passa a parecer espera, e e
-   isso que da cara de template a uma animacao de scroll.
-   Agora: --mo-3 (320ms) e 12px de deslocamento. O gesto continua o mesmo, so
-   deixou de cobrar pedagio para ler a pagina. */
-.js .reveal{opacity:0;transform:translateY(12px);
-  transition:opacity var(--mo-3) var(--ease),transform var(--mo-3) var(--ease)}
-.js .reveal.in{opacity:1;transform:none}
-/* Stagger sutil dos itens em grade quando a seção entra (a chegada telegrafa o conteúdo) */
-.js .reveal :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*{
-  transform:translateY(10px);transition:transform var(--mo-3) var(--ease)}
-.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*{transform:none}
-.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(2){transition-delay:.04s}
-.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(3){transition-delay:.08s}
-.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(4){transition-delay:.12s}
-.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(5){transition-delay:.12s}
-.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(6){transition-delay:.12s}
-.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(7){transition-delay:.12s}
-.js .reveal.in :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*:nth-child(8){transition-delay:.12s}
-/* Abertura suave do FAQ + microinterações (mantém o <details> nativo/acessível) */
-@keyframes faqIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
-.faq details[open] .answer{animation:faqIn var(--mo-3) var(--ease)}
-.faq details{transition:box-shadow var(--mo-2) var(--ease)}
-.faq details[open]{box-shadow:var(--sh-md)}
-.faq summary:active{background:var(--surface)}
-/* Menu mobile emergindo do gatilho (canto superior direito) */
-@keyframes menuIn{from{opacity:0;transform:translateY(-10px) scale(.98)}to{opacity:1;transform:none}}
-.nav-toggle:active{transform:scale(.94)}
-
-/* ---------- Responsivo ---------- */
-@media(max-width:960px){
-  .about{grid-template-columns:1fr;gap:28px}
-  /* No empilhado o retrato vira RETÂNGULO HORIZONTAL, a pedido do usuário: a 4/5 com
-     327px de largura ele virava um bloco de ~409px de altura, que tomava a tela inteira.
-     É a mesma proporção que .mech-figura e .finalcta .figure já usam neste breakpoint,
-     então o mobile fica coerente — MEXEU AQUI, MEXE NAS TRÊS.
-     ⚠️ 9/8 E NAO 16/10 (05/09/2026), em dois passos no mesmo dia: com as fotos reais no
-     lugar o usuário achou as três pequenas demais. A 16/10 a moldura tinha 204px de
-     altura num iPhone de 375px; passou a 5/4 (262px, +28%) e, num segundo pedido de
-     "um pouquinho maior", a 9/8 — 291px, +43% sobre o ponto de partida. O teto continua
-     sendo não voltar ao bloco vertical que ele recusou em 03/09 (a 4/5 seriam 409px).
-     ⚠️ SEM CANTO ARREDONDADO no empilhado, a pedido dele. É a única quebra do --r-xl na
-     página: cartões, botões e as mesmas figuras no desktop seguem arredondados. Foto
-     grande em largura total pede aresta reta; o raio, nesse tamanho, virava enfeite.
-     O border-radius:0 vai nas TRÊS, pelo mesmo motivo da razão — elas andam juntas.
-     ⚠️ As fotos são VERTICAIS (Slot 3 em 840×1050, Slot 2 em 900×1200), então o `cover`
-     escala pela LARGURA e todo o corte é vertical — o object-position abaixo é quem
-     decide de onde ele sai. Ao mexer na razão, remedir os dois. */
-  /* ⚠️ `display:block` E O CONSERTO DO RETRATO QUE SUMIA NO IPHONE (05/09/2026).
-     No largo a moldura tira altura do `height:100%` e a foto vive em
-     `position:absolute`. Aqui a altura passaria a vir SO do `aspect-ratio` — e a
-     moldura nao tem nenhum conteudo em fluxo para sustenta-la. Como ela e item
-     de grid do `.about`, que estica por padrao, o WebKit descarta a razao no
-     item esticado e devolve altura ZERO: no Safari do celular sobrava um fio
-     entre o botao e a secao seguinte, enquanto o Blink (desktop) resolvia a
-     razao e mostrava a foto. Dai o bug so aparecer no telefone.
-     Virando bloco comum a moldura sai da conta do stretch, e a foto volta ao
-     fluxo logo abaixo — a altura passa a existir por dois caminhos
-     independentes (a razao da moldura e a altura da propria imagem), sem
-     depender de qual motor resolve o que.
-     ⚠️ Nao devolver `position:absolute` a foto neste breakpoint sem testar em
-     Safari de iPhone real — o desktop nao reproduz a falha. */
-  .portrait{height:auto;min-height:0;aspect-ratio:9/8;max-width:none;margin:0;display:block;border-radius:0}
-  /* 8% e nao 25%: MEDIDO com a foto real em 375px. A imagem escalada tem 409px de
-     altura numa moldura de 327x291, entao sobram 118px para cortar. A 8% o corte
-     leva 9px do topo; a 25% levaria 30px.
-     ⚠️ REVALIDADO na troca da foto 28 pela 12 (05/09/2026): na 28 a cabeca comecava
-     a 8,1% da imagem, na 12 comeca a 8,9% (36px) — a folga acima dela caiu de 24 para
-     ~27px, entao o valor seguiu servindo. Foi CONFERIDO, nao herdado.
-     Como o enquadramento fica preso no topo, os 87px que a moldura ganhou desde a
-     16/10 aparecem EMBAIXO — na 12, o corte de baixo cai logo abaixo do relogio.
-     ⚠️ Este numero e casado com o recorte 4:5 do arquivo E com a razao da moldura.
-     Mexeu em qualquer um dos dois, remedir — nao herdar este valor. */
-  /* `position:static` + `height:auto` + a razao NA IMAGEM: e o que a poe de volta
-     no fluxo (ver o bloco do .portrait acima). `display:block` mata a folga de
-     linha de base que sobraria embaixo da foto. */
-  .portrait img{position:static;display:block;width:100%;height:auto;aspect-ratio:9/8;object-position:50% 8%}
-  /* O .mech-figura acompanha a razao do retrato e NAO tinha object-position: o padrao
-     de 50% cortava a cabeca em ~7px. A foto 23 (900x1200) tem a cabeca a 25% da altura;
-     a 35% o corte para antes dela e o quadro pega arandela, cabeca, torso e maos.
-     ⚠️ MANTIDO em 35% depois da mudanca para 9/8: a imagem escalada tem 436px numa
-     moldura de 291px, entao o corte caiu de 232 para 145px e a folga acima da cabeca
-     SUBIU de 28 para 51px. O ganho de altura aparece nas duas pontas — o quadro passou
-     a pegar o corpo inteiro sentado, com as maos. Nao ha o que recalibrar; so nao
-     baixar este numero achando que sobrou espaco. */
-  .mech-figura img{object-position:50% 35%}
-  .foot-grid{grid-template-columns:1fr 1fr}
-  .media-split{grid-template-columns:1fr;gap:26px}
-  .mech{grid-template-columns:1fr;gap:28px}
-  /* ---- HERO NO ESTREITO: texto em cima, foto como BLOCO embaixo ----
-     No largo a foto e FUNDO e o painel de cor a cobre pela esquerda. Aqui isso
-     nao funciona: o texto passa a ocupar a largura toda, entao nao sobra lado
-     nenhum para a foto respirar. A solucao (padrao da referencia
-     ablocacoesdeveiculos.com) e parar de sobrepor: o texto fica no azul chapado
-     e a foto vira um bloco cheio logo abaixo, SEM VEU — por isso o ::before some.
-     Como a <figure> vem ANTES do .wrap no DOM (ela precisa disso para funcionar
-     como fundo no desktop), quem inverte a ordem visual e o `order` do flex.
-     A ordem do DOM continua a mesma para o leitor de tela. */
-  .hero{display:flex;flex-direction:column;padding-bottom:0}
-  .hero .wrap{order:1}
-  .hero-copy{max-width:none}
-  .hero::before{display:none}
-  /* inset:auto desfaz o position:absolute do desktop e devolve a figura ao fluxo.
-     A altura e fluida com teto: a 4/5 puro um tablet de 900px daria 1125px de foto.
-     ⚠️ O ARQUIVO E OUTRO AQUI — recorte 1:1 centrado nele, servido por
-     <source media>. O recorte do desktop e uma faixa 1.85:1 com o medico a 83%:
-     num bloco vertical ele ficaria minusculo e encostado na borda. */
-  .hero-bg{order:2;position:relative;inset:auto;width:100%;
-    margin-top:clamp(8px,2vw,16px);height:clamp(280px,86vw,560px)}
-  /* 12% e nao 38%: o recorte movel ja poe a cabeca perto do topo, entao aqui so
-     falta nao empurrar o enquadramento para baixo no TABLET, onde o bloco fica
-     1.58:1 e sobra corte vertical. A 38% a cabeca saia fora da moldura la.
-     ⚠️ ESTE 12% E QUEM FAZ O BLOCO APARAR POR BAIXO. Desde que a altura caiu de
-     105vw para 86vw, o bloco ficou mais largo que alto, entao o `cover` passou a
-     escalar pela LARGURA e sobra corte vertical tambem no celular. Com o
-     enquadramento presa no topo, todo esse corte sai do RODAPE — que era o
-     pedido: mostrar menos mesa sem mexer na cabeca. */
-  .hero-bg img{object-position:50% 12%}
-  /* A TRANSICAO. E o mesmo gesto do painel do desktop, virado 90 graus: la a cor
-     e opaca a esquerda e some a direita; aqui e opaca no topo e some descendo.
-     Sem isso a foto comeca numa aresta dura contra o azul.
-     ⚠️ Em PX e nao em %: a altura do bloco varia de 300 a 560px, e uma parada em
-     % faria a transicao encolher junto na tela pequena, que e onde ela mais
-     precisa aparecer.
-     ⚠️ 64px, e ESTE NUMERO ANDA COM O RECORTE. O arquivo movel foi refeito para
-     por o topo da cabeca a 12% do bloco (~47px no celular), a pedido do usuario,
-     que queria a cabeca perto do ultimo texto. Uma transicao de 128px, como era
-     antes, cobriria a cabeca inteira. Ao mexer no recorte, remedir a transicao —
-     e vice-versa. */
-  .hero-bg::after{content:"";position:absolute;inset:0;pointer-events:none;
-    background:linear-gradient(var(--navy) 0,
-      rgba(var(--navy-rgb),.55) 23px, rgba(var(--navy-rgb),0) 64px)}
-  /* Empilhado a foto sai do sticky e vira horizontal, senão fica gigante no tablet.
-     `relative` e não `static`: o placeholder .ph é absolute/inset:0 e precisa de um
-     contexto de posicionamento — com static ele escaparia para o ancestral posicionado. */
-  .mech-figura{position:relative;top:auto;aspect-ratio:9/8;border-radius:0}
-  .figure.fill{min-height:300px}
-  .finalcta .grid{grid-template-columns:1fr;gap:30px}
-  /* Segue as outras duas. ⚠️ Aqui a moldura e MAIS ESTREITA que as demais: ela vive
-     dentro do .finalcta .box, que a 375px deixa so ~259px uteis — a 9/8 da ~230px de
-     altura, e nao os 291 do retrato. E o Slot 7, ainda em placeholder. */
-  .finalcta .figure.r-34{aspect-ratio:9/8;border-radius:0}
+.figure.fill img{position:absolute;inset:0;object-position:50% 70%}
+.figure.on-dark{background:var(--navy-700);border-color:var(--navy-500)}
+.turn{margin:var(--s7) auto 0;max-width:48ch;text-align:center;font-size:clamp(22px,2.4vw,28px);line-height:1.45;color:var(--on-dark);letter-spacing:-.01em}
+.turn strong{color:var(--gold);font-weight:500}
+/* Reconhecimento: retrato editorial e leitura mais ampla, sem blocos estreitos. */
+#reconhece .recognition-heading{display:grid;grid-template-columns:1.35fr .8fr;gap:var(--s8);align-items:end}
+#reconhece .h-sec{max-width:none;margin:0;text-wrap:balance}
+#reconhece .h-sec span{color:var(--gold)}
+#reconhece .intro{margin:0;padding-bottom:4px;font-size:var(--text-body);line-height:1.8;max-width:36ch;color:var(--ink-2)}
+#reconhece .media-split{grid-template-columns:.88fr 1.12fr;gap:var(--s8);margin-top:var(--s7);align-items:stretch}
+.recognition-photo{border-radius:var(--r-lg);border-color:rgba(var(--gold-rgb),.3);min-height:540px;box-shadow:0 24px 64px rgba(0,0,0,.16)}
+.recognition-photo img{position:absolute;inset:0;object-position:50% 42%}
+.recognition-photo::after{content:"";position:absolute;inset:var(--s4);border:1px solid rgba(var(--gold-rgb),.35);border-radius:var(--r-sm);pointer-events:none}
+#reconhece .recognition-cards{grid-template-columns:1fr;gap:0;border-top:1px solid rgba(var(--gold-rgb),.35);border-bottom:1px solid rgba(var(--gold-rgb),.35)}
+#reconhece .card{display:grid;grid-template-columns:48px minmax(0,1fr);column-gap:var(--s5);row-gap:var(--s3);align-content:center;padding:var(--s5) 0;border:0;border-radius:0;background:none;box-shadow:none;transition:none}
+#reconhece .card+.card{border-top:1px solid var(--line)}
+#reconhece .ic{grid-column:1;grid-row:1 / 3;margin:0;border-radius:50%;color:var(--gold);background:rgba(var(--gold-rgb),.07);border-color:rgba(var(--gold-rgb),.26);box-shadow:inset 0 1px 0 rgba(var(--gold-rgb),.1)}
+#reconhece .card h3{grid-column:2;margin:0;font-size:23px;line-height:1.25;text-wrap:balance}
+#reconhece .card p{grid-column:2;font-size:15px;line-height:1.75}
+#reconhece .turn{position:relative;max-width:770px;margin-top:var(--s7);padding-top:var(--s6);font-size:clamp(23px,2.2vw,28px);line-height:1.55;text-wrap:balance}
+#reconhece .turn::before{content:"";position:absolute;top:0;left:calc(50% - 32px);width:64px;height:1px;background:var(--gold)}
+@media(max-width:1100px) and (min-width:769px){
+  #reconhece .recognition-heading{grid-template-columns:1.3fr 1fr;gap:var(--s6)}
+  #reconhece .media-split{grid-template-columns:.8fr 1.2fr;gap:var(--s6)}
+  #reconhece .card{column-gap:var(--s4)}
+  #reconhece .card h3{font-size:21px}
 }
 @media(max-width:768px){
-  /* ---- 🚨 O RITMO VERTICAL ESTAVA QUEBRADO NO CELULAR (06/09/2026) ----
-     Aqui havia `main section{padding:var(--s8) 0}`, que pretendia achatar as 11
-     secoes em 64px no telefone. Ele estava INERTE em cinco delas, e ninguem viu
-     ate o usuario mandar print do "Sobre".
-     🔑 A CAUSA E ESPECIFICIDADE, E MEDIA QUERY NAO AJUDA: `main section` e
-     (0,0,2); `#sobre,#agendar` e `#diferenciais,#inclui,#para-quem` sao ID,
-     (1,0,0). Media query NAO soma especificidade — ela so liga ou desliga o
-     bloco. Entao as regras de ID venciam aqui dentro exatamente como venciam no
-     desktop, e o breakpoint nao encostava nelas. Medido a 375px antes do
-     conserto: 64px na maioria, 80px em diferenciais/inclui/para-quem e
-     **128px em sobre e agendar** — o dobro do previsto, num aparelho onde 128px
-     e um terco da largura da tela so de vao.
-     ✅ POR ISSO A CORRECAO E NOS TOKENS, E NAO NUMA REGRA MAIS FORTE. Redefinir
-     `--sec-*` conserta a causa: as tres regras de ID continuam valendo e passam
-     a ler os valores do celular sozinhas. Subir a especificidade (`main
-     section#sobre`, ou pior, `!important`) so contornaria, e deixaria a proxima
-     secao com id cair na mesma armadilha.
-     ⚠️ O RITMO SOBREVIVE, COMPRIMIDO — nao foi achatado em 64 para todos. Os
-     tres degraus existem porque as 11 secoes em 96/96 liam como template (ver a
-     nota no :root). O que muda no telefone e a AMPLITUDE: no desktop a razao
-     ar/base e 128/96 = 1,33; aqui e 80/64 = 1,25. Mais fechada porque no
-     estreito as grades viram uma coluna so e as secoes ja ficam altas — ar em
-     cima de secao alta vira rolagem morta, nao pausa.
-     ⚠️ Multiplos de 4, como toda a escala de espaco da pagina.
-     ⚠️ Se um dia quiser TODAS iguais no celular, o certo continua sendo mexer
-     aqui: os tres tokens no mesmo valor. Nao voltar a regra `main section`. */
-  :root{--sec-tight:56px;--sec-base:64px;--sec-air:80px}
-  .nav-links{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;
-    gap:2px;background:var(--navy-900);border-bottom:1px solid rgba(var(--gold-rgb),.28);box-shadow:var(--sh-lg);
-    padding:12px;display:none}
-  .nav-links.open{display:flex;transform-origin:top right;animation:menuIn var(--mo-3) var(--ease)}
-  .nav-links a{padding:14px 16px;font-size:16px}
+  #reconhece .recognition-heading{grid-template-columns:1fr;gap:var(--s5)}
+  #reconhece .h-sec{text-wrap:pretty}
+  #reconhece .intro{max-width:52ch;padding:0;line-height:1.7}
+  #reconhece .media-split{grid-template-columns:1fr;gap:var(--s6);margin-top:var(--s6)}
+  .recognition-photo{min-height:0}
+  .recognition-photo picture{display:block}
+  .recognition-photo img{position:static;width:100%;height:auto;aspect-ratio:4/3;object-position:50% 20%}
+  .recognition-photo::after{inset:var(--s3)}
+  #reconhece .card{grid-template-columns:44px minmax(0,1fr);column-gap:var(--s4);row-gap:var(--s4);padding:var(--s5) 0}
+  #reconhece .ic{grid-row:1;align-self:center}
+  #reconhece .card h3{font-size:22px;align-self:center;text-wrap:pretty}
+  #reconhece .card p{grid-column:1 / -1;font-size:var(--text-body)}
+  #reconhece .turn{margin-top:var(--s6);padding-top:var(--s5)}
+}
+/* Mecanismo: fatores de investigacao, sem sugerir uma sequencia de etapas. */
+#mecanismo{background:radial-gradient(ellipse at 95% 30%,rgba(var(--gold-rgb),.055),transparent 55%),var(--navy)}
+.mech-heading{max-width:950px;margin-bottom:var(--s7)}
+.mech-heading .h-sec{max-width:none;text-wrap:balance}
+.mech-title-lead{display:block;margin-bottom:var(--s4);font-size:clamp(22px,2.25vw,30px);line-height:1.3;color:var(--ink-2)}
+.mech-heading .h-sec em{font-style:normal;color:var(--gold)}
+.mech-heading .intro{max-width:690px;font-size:17px;line-height:1.75;margin-top:var(--s5)}
+.mech{display:grid;grid-template-columns:1.12fr .88fr;gap:var(--s8);align-items:stretch}
+.mech-content{min-width:0}
+.mech-body{margin:0;font-size:var(--text-body);line-height:1.8;color:var(--on-dark-2)}
+.mech-body+.mech-body{margin-top:var(--s5)}
+.mech-body strong{color:var(--sand);font-weight:600}
+.mech-figura{margin:0;border-radius:var(--r-lg);overflow:hidden;border:1px solid rgba(var(--gold-rgb),.3);background:var(--navy-900);position:relative;min-height:540px;box-shadow:0 24px 64px rgba(0,0,0,.18)}
+.mech-figura picture{display:block;height:100%}
+.mech-figura img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%}
+.mech-figura::after{content:"";position:absolute;inset:var(--s4);border:1px solid rgba(var(--gold-rgb),.3);border-radius:var(--r-sm);pointer-events:none}
+.mech-factors{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid rgba(var(--gold-rgb),.25);border-radius:var(--r-lg);overflow:hidden;background:linear-gradient(135deg,rgba(var(--gold-rgb),.045),transparent 70%),var(--surface);box-shadow:0 12px 40px rgba(0,0,0,.08)}
+.mech-factors li{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:var(--s4);padding:var(--s5);border-top:1px solid rgba(var(--white-rgb),.1)}
+.mech-factors li:nth-child(-n+2){border-top:0}
+.mech-factors li:nth-child(even){border-left:1px solid rgba(var(--white-rgb),.1)}
+.factor-icon{width:28px;height:28px;color:var(--gold);flex-shrink:0}
+.mech-factors .nm{font-size:15px;font-weight:500;color:var(--off);line-height:1.55;text-wrap:pretty}
+.mech-summary{position:relative;margin:var(--s5) 0 var(--s6);padding-left:var(--s5);color:var(--sand);font-size:16px;line-height:1.7;font-weight:500}
+.mech-summary::before{content:"";position:absolute;inset:4px auto 4px 0;width:2px;background:var(--gold)}
+.reinforce{margin:var(--s7) 0 0;font-size:clamp(23px,2.2vw,28px);line-height:1.55;color:var(--on-dark);border-top:1px solid rgba(var(--gold-rgb),.25);padding:var(--s6) var(--s7) 0;text-align:center;text-wrap:balance;letter-spacing:-.01em}
+.reinforce strong{font-weight:500;color:var(--gold)}
+@media(max-width:1100px){
+  .mech{gap:var(--s6)}
+  .mech-factors li{padding:20px}
+}
+@media(max-width:768px){
+  .mech-heading{margin-bottom:var(--s6)}
+  .mech-heading .h-sec{text-wrap:pretty}
+  .mech-title-lead{font-size:21px;line-height:1.4}
+  .mech-heading .intro{font-size:var(--text-body);line-height:1.7}
+  .mech{grid-template-columns:1fr;gap:var(--s6)}
+  .mech-figura{order:-1;min-height:0}
+  .mech-figura img{position:static;height:auto;aspect-ratio:6/5;object-position:50% 48%}
+  .mech-figura::after{inset:var(--s3)}
+  .mech-factors li{padding:20px var(--s4);gap:var(--s3)}
+  .mech-factors .nm{font-size:14px;line-height:1.6}
+  .mech-summary{font-size:15px;padding-left:var(--s4)}
+  .mech-body{line-height:1.75}
+  .reinforce{margin-top:var(--s6);padding:var(--s5) 0 0}
+}
+@media(max-width:360px){
+  .mech-factors{grid-template-columns:1fr}
+  .mech-factors li{flex-direction:row;align-items:center;gap:var(--s4);padding:var(--s4)}
+  .mech-factors li:nth-child(n+2){border-top:1px solid rgba(var(--white-rgb),.1);border-left:0}
+}
+/* Apresentacao editorial: nome, retrato e biografia com hierarquia propria. */
+#sobre{background:radial-gradient(ellipse at 5% 45%,rgba(var(--gold-rgb),.055),transparent 52%),var(--bg)}
+.about{display:grid;grid-template-columns:.95fr 1.05fr;grid-template-areas:"portrait heading" "portrait bio";column-gap:var(--s8);row-gap:var(--s6);align-items:start}
+.about-heading{grid-area:heading;padding-top:var(--s3)}
+.about-heading .h-sec{font-size:clamp(38px,4.25vw,58px);line-height:1.08;margin:0 0 var(--s5)}
+.about-heading .h-sec span{display:block;color:var(--gold);margin-top:var(--s2)}
+.about-heading .lead{font-size:17px;line-height:1.8;color:var(--ink-2);max-width:46ch;margin:0;padding-left:var(--s5);border-left:1px solid rgba(var(--gold-rgb),.65)}
+.about-heading .lead strong{color:var(--off);font-weight:500}
+.portrait{grid-area:portrait;align-self:stretch;background:var(--navy-700);border-radius:var(--r-lg);margin:0;min-height:600px;position:relative;overflow:hidden;border:1px solid rgba(var(--gold-rgb),.3);box-shadow:0 24px 64px rgba(0,0,0,.2)}
+.portrait picture{display:block;height:100%}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.portrait::after{content:"";position:absolute;inset:var(--s4);border:1px solid rgba(var(--gold-rgb),.3);border-radius:var(--r-sm);pointer-events:none}
+.about-body{grid-area:bio;min-width:0}
+.about-body p{font-size:var(--text-body);color:var(--ink-2);margin:0 0 var(--s5);line-height:1.8}
+.about-body strong{color:var(--sand);font-weight:600}
+.about-body .hero-cta{margin-top:var(--s6)}
+.about-body .btn-primary{width:auto;max-width:100%;min-height:60px;padding:10px 12px 10px 24px;font-size:15px;gap:var(--s4);background:linear-gradient(115deg,var(--sand) -85%,var(--gold) 75%);box-shadow:inset 0 1px 0 rgba(var(--white-rgb),.22),0 8px 24px rgba(var(--gold-rgb),.16)}
+@media(hover:hover){
+  .about-body .btn-primary:hover{background:var(--sand)}
+  .about-body .btn-primary:hover .hero-cta-arrow svg{transform:translateX(2px)}
+}
+@media(max-width:1100px){
+  .about{column-gap:var(--s6)}
+  .about-heading .h-sec{font-size:46px}
+}
+@media(max-width:768px){
+  .about{grid-template-columns:1fr;grid-template-areas:"heading" "portrait" "bio";gap:var(--s6)}
+  .about-heading{padding:0}
+  .about-heading .h-sec{font-size:clamp(38px,9.5vw,52px)}
+  .about-heading .lead{font-size:var(--text-body);line-height:1.75;padding-left:var(--s4);max-width:52ch}
+  .portrait{min-height:0}
+  .portrait img{position:static;height:auto;aspect-ratio:1;object-position:50% 12%}
+  .portrait::after{inset:var(--s3)}
+  .about-body p{line-height:1.75}
+  .about-body .btn-primary{width:100%;max-width:440px;padding-left:20px;gap:var(--s3)}
+}
+@media(max-width:360px){
+  .about-body .btn-primary{font-size:14px;padding-left:var(--s4)}
+  .about-body .hero-cta-arrow{width:32px;height:32px}
+}
+/* Diferenciais em quatro colunas: uma pausa visual entre retrato e cuidados. */
+#diferenciais{background:radial-gradient(ellipse at 50% 0,rgba(var(--gold-rgb),.055),transparent 65%),var(--surface)}
+#diferenciais .h-sec{max-width:900px;margin:0 auto;text-align:center;text-wrap:balance}
+#diferenciais .h-sec span{display:block;color:var(--gold)}
+.difference-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:var(--s7);border:1px solid rgba(var(--gold-rgb),.3);border-radius:var(--r-lg);overflow:hidden;background:linear-gradient(160deg,rgba(var(--white-rgb),.025),transparent 65%),var(--bg);box-shadow:0 24px 64px rgba(0,0,0,.12)}
+.difference{position:relative;min-width:0;padding:var(--s6) var(--s5);display:grid;grid-template-rows:auto auto 1fr;align-content:start;row-gap:var(--s5)}
+.difference+.difference{border-left:1px solid rgba(var(--white-rgb),.1)}
+.difference::after{content:"";position:absolute;left:var(--s5);right:var(--s5);bottom:0;height:2px;background:linear-gradient(90deg,rgba(var(--gold-rgb),.65),rgba(var(--gold-rgb),.05));pointer-events:none}
+.difference-icon{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;color:var(--gold);border:1px solid rgba(var(--gold-rgb),.3);background:radial-gradient(circle at 30% 20%,rgba(var(--gold-rgb),.1),rgba(var(--gold-rgb),.025));box-shadow:inset 0 1px 0 rgba(var(--gold-rgb),.08)}
+.difference-icon svg{width:25px;height:25px}
+.difference h3{font-size:24px;line-height:1.3;min-height:2.6em;margin:0;text-wrap:balance}
+.difference p{font-size:15px;line-height:1.8;color:var(--ink-2);margin:0}
+.difference p strong{font-weight:500;color:var(--sand)}
+@media(max-width:1100px){
+  .difference-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .difference{padding:var(--s6);grid-template-columns:56px minmax(0,1fr);grid-template-rows:auto 1fr;gap:var(--s5)}
+  .difference:nth-child(odd){border-left:0}
+  .difference:nth-child(n+3){border-top:1px solid rgba(var(--white-rgb),.1)}
+  .difference::after{display:none}
+  .difference-icon{align-self:center}
+  .difference h3{align-self:center;min-height:0;text-wrap:pretty}
+  .difference p{grid-column:1/-1;font-size:var(--text-body);line-height:1.75}
+}
+@media(max-width:600px){
+  #diferenciais .h-sec{text-align:left;text-wrap:pretty}
+  .difference-grid{grid-template-columns:1fr;margin-top:var(--s6)}
+  .difference{grid-template-columns:48px minmax(0,1fr);padding:28px var(--s5);gap:var(--s4)}
+  .difference+.difference{border-left:0;border-top:1px solid rgba(var(--white-rgb),.1)}
+  .difference-icon{width:48px;height:48px}
+  .difference-icon svg{width:23px;height:23px}
+  .difference h3{font-size:23px}
+}
+@media(max-width:360px){
+  .difference{padding:var(--s5) var(--s4);column-gap:var(--s3)}
+  .difference h3{font-size:21px}
+}
+/* Cuidados em uma lista editorial, distinta do painel de diferenciais. */
+#inclui{background:radial-gradient(ellipse at 0 30%,rgba(var(--gold-rgb),.04),transparent 50%),var(--bg)}
+.includes-layout{display:grid;grid-template-columns:340px minmax(0,1fr);gap:var(--s8);align-items:start}
+.includes-heading{position:sticky;top:calc(var(--header-height) + var(--s6));padding-top:var(--s6)}
+.includes-heading::before{content:"";position:absolute;left:0;top:0;width:var(--s8);height:1px;background:var(--gold)}
+.includes-heading .h-sec{max-width:none;margin:0;font-size:clamp(26px,3.2vw,40px);line-height:1.2;text-wrap:pretty}
+.includes-heading .h-sec span{color:var(--gold)}
+.includes-heading .intro{max-width:25ch;margin:var(--s5) 0 0;font-size:24px;line-height:1.6;color:var(--ink-2)}
+.includes{list-style:none;margin:0;padding:0;border-top:1px solid rgba(var(--gold-rgb),.35);border-bottom:1px solid rgba(var(--gold-rgb),.35)}
+.includes li{display:grid;grid-template-columns:32px minmax(0,.95fr) minmax(0,1.05fr);gap:var(--s5);align-items:start;padding:28px 0;min-width:0}
+.includes li+li{border-top:1px solid var(--line)}
+.include-icon{display:grid;place-items:center;width:32px;height:32px;color:var(--gold)}
+.include-icon svg{width:28px;height:28px;stroke-width:1.4}
+.includes h3{font-size:23px;line-height:1.35;color:var(--off);margin:0;text-wrap:pretty}
+.includes p{font-size:15px;line-height:1.8;color:var(--ink-2);margin:0;padding-top:2px}
+@media(max-width:1100px){
+  .includes-layout{grid-template-columns:1fr;gap:var(--s7)}
+  .includes-heading{position:relative;top:auto;display:grid;grid-template-columns:1.3fr .7fr;align-items:center;gap:var(--s7)}
+  .includes-heading .h-sec{max-width:620px}
+  .includes-heading .intro{margin:0;font-size:23px}
+  .includes li{grid-template-columns:32px minmax(0,.95fr) minmax(0,1.05fr)}
+  .includes p{font-size:var(--text-body)}
+}
+@media(max-width:600px){
+  .includes-layout{gap:var(--s6)}
+  .includes-heading{grid-template-columns:1fr;gap:var(--s4);padding-top:var(--s5)}
+  .includes-heading .intro{font-size:22px;max-width:28ch}
+  .includes li{grid-template-columns:28px minmax(0,1fr);column-gap:var(--s4);row-gap:var(--s3);padding:var(--s5) 0}
+  .include-icon{width:28px;height:28px}
+  .include-icon svg{width:26px;height:26px}
+  .includes h3{font-size:23px;align-self:center}
+  .includes p{grid-column:2;padding:0;line-height:1.75}
+}
+@media(max-width:360px){
+  .includes h3{font-size:21px}
+  .includes p{grid-column:1/-1}
+}
+/* Uma sequencia de tres passos, com fotografia e conexoes discretas. */
+#como-funciona{background:radial-gradient(ellipse at 50% 35%,rgba(var(--gold-rgb),.055),transparent 65%),var(--navy)}
+#como-funciona .h-sec{max-width:none;margin:0;font-size:clamp(32px,3.6vw,50px)}
+#como-funciona .h-sec span{color:var(--gold)}
+.steps{list-style:none;margin:var(--s7) 0 0;padding:0;display:grid;gap:var(--s6);grid-template-columns:repeat(3,minmax(0,1fr))}
+.step{position:relative;min-width:0;display:grid;grid-template-rows:auto auto auto 1fr;row-gap:var(--s5);align-content:start}
+.step:not(:last-child)::after{content:"";position:absolute;top:24px;left:64px;width:calc(100% - 48px);height:1px;background:linear-gradient(90deg,rgba(var(--gold-rgb),.55),rgba(var(--gold-rgb),.15));pointer-events:none}
+.step-marker{display:grid;place-items:center;width:48px;height:48px;border:1px solid rgba(var(--gold-rgb),.55);border-radius:50%;color:var(--sand);font-size:14px;letter-spacing:.08em;line-height:1;font-variant-numeric:tabular-nums;background:rgba(var(--gold-rgb),.035)}
+.step-media{margin:0;border-radius:var(--r-md);border:1px solid rgba(var(--gold-rgb),.25);background:var(--navy-900);box-shadow:0 12px 32px rgba(0,0,0,.14)}
+.step-media picture{display:block}
+.step-media img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:50% 45%}
+.step:nth-child(2) .step-media img{transform:scale(1.2);transform-origin:50% 20%}
+.step h3{color:var(--off);font-size:24px;line-height:1.35;min-height:2.7em;margin:0;text-wrap:balance}
+.step p{font-size:var(--text-body);line-height:1.75;color:var(--ink-2);margin:0}
+.step p strong{color:var(--sand);font-weight:600}
+#como-funciona .hero-cta{margin-top:var(--s7);justify-content:center}
+#como-funciona .btn-primary{width:auto;max-width:100%;min-height:60px;padding:10px 12px 10px 24px;font-size:15px;gap:var(--s4);background:linear-gradient(115deg,var(--sand) -85%,var(--gold) 75%);box-shadow:inset 0 1px 0 rgba(var(--white-rgb),.22),0 8px 24px rgba(var(--gold-rgb),.16)}
+@media(hover:hover){
+  #como-funciona .btn-primary:hover{background:var(--sand)}
+  #como-funciona .btn-primary:hover .hero-cta-arrow svg{transform:translateX(2px)}
+}
+@media(max-width:960px){
+  .steps{grid-template-columns:1fr;gap:var(--s7)}
+  .step{grid-template-columns:48px minmax(0,.9fr) minmax(0,1.1fr);grid-template-rows:auto 1fr;gap:var(--s4) var(--s5)}
+  .step-marker{grid-column:1;grid-row:1/3}
+  .step-media{grid-column:2;grid-row:1/3;align-self:start}
+  .step h3,.step p{grid-column:3;min-height:0;text-wrap:pretty}
+  .step:not(:last-child)::after{top:64px;left:24px;width:1px;height:calc(100% - 32px);background:linear-gradient(rgba(var(--gold-rgb),.5),rgba(var(--gold-rgb),.15))}
+}
+@media(max-width:600px){
+  .steps{margin-top:var(--s6);gap:var(--s6)}
+  .step{grid-template-columns:36px minmax(0,1fr);grid-template-rows:auto auto 1fr;gap:var(--s4)}
+  .step-marker{width:36px;height:36px;font-size:12px;grid-row:1/4}
+  .step-media{grid-column:2;grid-row:1}
+  .step h3,.step p{grid-column:2}
+  .step h3{font-size:23px}
+  .step:not(:last-child)::after{top:48px;left:18px;height:calc(100% - 28px)}
+  #como-funciona .hero-cta{margin-top:var(--s6)}
+  #como-funciona .btn-primary{width:100%;max-width:440px;padding-left:20px;gap:var(--s3)}
+}
+@media(max-width:360px){
+  .step{grid-template-columns:28px minmax(0,1fr);column-gap:var(--s3)}
+  .step-marker{width:28px;height:28px;font-size:11px}
+  .step:not(:last-child)::after{top:40px;left:14px;height:calc(100% - 20px)}
+  .step h3{font-size:21px}
+  #como-funciona .btn-primary{font-size:14px;padding-left:var(--s4)}
+}
+/* Um convite centrado na identificacao, com os cinco criterios positivos. */
+#para-quem{background:var(--surface)}
+.audience{position:relative;padding:var(--s7) var(--s8);border:1px solid rgba(var(--gold-rgb),.3);border-radius:var(--r-xl);background:radial-gradient(ellipse at 50% 0,rgba(var(--gold-rgb),.075),transparent 65%),var(--bg);box-shadow:0 24px 64px rgba(0,0,0,.14)}
+.audience::before{content:"";position:absolute;left:calc(50% - 40px);top:0;width:80px;height:2px;background:var(--gold)}
+#para-quem .h-sec{max-width:760px;margin:0 auto var(--s6);text-align:center;font-size:clamp(30px,3.4vw,46px);line-height:1.2;text-wrap:balance}
+#para-quem .h-sec span{display:block;color:var(--gold)}
+.audience-list{list-style:none;max-width:800px;margin:0 auto;padding:0}
+.audience-list li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:var(--s5);align-items:start;padding:20px 0;border-bottom:1px solid rgba(var(--white-rgb),.1);font-size:17px;line-height:1.8;color:var(--ink-2)}
+.audience-list li:first-child{border-top:1px solid rgba(var(--white-rgb),.1)}
+.audience-list li>span{min-width:0}
+.audience-list li strong{font-weight:600;color:var(--sand)}
+.audience-list li svg{width:28px;height:28px;margin-top:1px;padding:6px;stroke-width:2;color:var(--gold);border:1px solid rgba(var(--gold-rgb),.3);border-radius:50%;background:rgba(var(--gold-rgb),.07)}
+.aud-action{display:flex;justify-content:center;margin-top:var(--s6)}
+.aud-action .btn{width:auto;max-width:100%;min-height:60px;padding:10px 12px 10px 24px;font-size:15px;line-height:1.5;gap:var(--s4);background:linear-gradient(115deg,var(--sand) -85%,var(--gold) 75%);box-shadow:inset 0 1px 0 rgba(var(--white-rgb),.22),0 8px 24px rgba(var(--gold-rgb),.16)}
+@media(hover:hover){
+  .aud-action .btn:hover{background:var(--sand)}
+  .aud-action .btn:hover .hero-cta-arrow svg{transform:translateX(2px)}
+}
+@media(max-width:960px){
+  .audience{padding:var(--s7) var(--s6)}
+}
+@media(max-width:600px){
+  .audience{padding:var(--s6) var(--s5);border-radius:var(--r-lg)}
+  #para-quem .h-sec{font-size:30px;margin-bottom:var(--s5)}
+  .audience-list li{grid-template-columns:24px minmax(0,1fr);gap:var(--s3);font-size:var(--text-body);line-height:1.75;padding:var(--s4) 0}
+  .audience-list li svg{width:24px;height:24px;padding:5px}
+  .aud-action .btn{width:100%;font-size:14px;padding-left:var(--s4);gap:var(--s3)}
+  .aud-action .hero-cta-arrow{width:32px;height:32px}
+}
+@media(max-width:360px){
+  .audience{padding-inline:var(--s4)}
+  #para-quem .h-sec{font-size:27px}
+}
+.quotes{display:grid;gap:var(--s5);grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));margin-top:var(--s6)}
+blockquote.quote{margin:0;background:var(--surface-card);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:var(--r-md);padding:var(--s5)}
+blockquote.quote p{font-size:var(--text-body);margin:0 0 var(--s4)}
+blockquote.quote cite{font-style:normal;font-weight:700;color:var(--gold);font-size:var(--text-small)}
+/* FAQ: perguntas abertas no layout e respostas com destaque discreto. */
+#duvidas{background:radial-gradient(ellipse at 95% 10%,rgba(var(--gold-rgb),.04),transparent 60%),var(--surface)}
+.faq-wrap{max-width:1008px}
+#duvidas .h-sec{display:flex;align-items:center;gap:var(--s6);max-width:none;margin:0;font-size:clamp(30px,3.4vw,46px)}
+#duvidas .h-sec::after{content:"";flex:1;min-width:var(--s6);height:1px;background:linear-gradient(90deg,rgba(var(--gold-rgb),.45),rgba(var(--gold-rgb),.05))}
+#duvidas .h-sec em{font-style:normal;color:var(--gold)}
+.faq{margin:var(--s7) 0 0;border-top:1px solid rgba(var(--gold-rgb),.35)}
+.faq details{border-bottom:1px solid var(--line);transition:background var(--mo-2) var(--ease),border-color var(--mo-2) var(--ease)}
+.faq details[open]{background:linear-gradient(110deg,rgba(var(--gold-rgb),.055),rgba(var(--white-rgb),.015));border-bottom-color:rgba(var(--gold-rgb),.4)}
+.faq summary{list-style:none;cursor:pointer;padding:var(--s5);font-weight:500;font-size:18px;color:var(--off);display:flex;justify-content:space-between;gap:var(--s6);align-items:center;min-height:88px;line-height:1.6}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::marker{content:""}
+.faq summary:focus-visible{outline-offset:-4px}
+.faq-question{min-width:0;max-width:750px;text-wrap:pretty}
+.faq-toggle{flex:none;display:grid;place-items:center;width:36px;height:36px;border:1px solid rgba(var(--gold-rgb),.35);border-radius:50%;color:var(--gold);transition:background var(--mo-2) var(--ease),color var(--mo-2) var(--ease)}
+.faq-toggle svg{width:18px;height:18px}
+.faq-toggle .faq-plus{transform-origin:12px 12px;transition:transform var(--mo-2) var(--ease)}
+.faq details[open] .faq-toggle{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.faq details[open] .faq-plus{transform:scaleY(0)}
+.faq .answer{padding:0 92px var(--s6) var(--s5);color:var(--ink-2);font-size:var(--text-body);line-height:1.8;max-width:900px}
+.faq .answer a{color:var(--sand);text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(var(--gold-rgb),.7)}
+.faq details[open] .answer{animation:faqIn var(--mo-3) var(--ease)}
+@keyframes faqIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@media(hover:hover){
+  .faq summary:hover{color:var(--sand);background:rgba(var(--white-rgb),.025)}
+  .faq summary:hover .faq-toggle{border-color:var(--gold)}
+}
+@media(max-width:600px){
+  #duvidas .h-sec{gap:var(--s4)}
+  #duvidas .h-sec::after{display:none}
+  .faq{margin-top:var(--s6)}
+  .faq summary{padding:20px var(--s3);gap:var(--s4);font-size:var(--text-body);min-height:80px;line-height:1.65}
+  .faq-toggle{width:32px;height:32px}
+  .faq .answer{padding:0 var(--s3) var(--s5);font-size:var(--text-body);line-height:1.8}
+}
+/* Fechamento com um retrato real do mesmo ensaio. */
+/* Fechamento com retrato integrado e convite de agendamento em destaque. */
+.finalcta .box{background:radial-gradient(ellipse at 0 0,rgba(var(--gold-rgb),.075),transparent 65%),var(--navy-900);border:1px solid rgba(var(--gold-rgb),.35);border-radius:var(--r-xl);position:relative;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.2)}
+.finalcta .grid{display:grid;grid-template-columns:1.15fr .85fr;grid-template-areas:"heading photo" "body photo";gap:var(--s5) var(--s6);align-items:start}
+.finalcta .inner{grid-area:body;min-width:0;padding:0 0 var(--s7) var(--s7)}
+.finalcta h2{grid-area:heading;font-size:clamp(30px,3.2vw,44px);line-height:1.18;color:var(--off);margin:0;padding:var(--s7) 0 0 var(--s7);text-wrap:pretty}
+.final-title-lead{display:block;margin-bottom:var(--s4);font-size:clamp(22px,2.1vw,28px);line-height:1.35;color:var(--ink-2)}
+.finalcta h2 strong{color:var(--gold);font-weight:600}
+.finalcta p{font-size:var(--text-body);color:var(--ink-2);margin:0 0 var(--s6);line-height:1.8}
+.finalcta .btn-primary{width:auto;max-width:100%;min-height:60px;padding:10px 12px 10px 24px;font-size:15px;gap:var(--s4);background:linear-gradient(115deg,var(--sand) -85%,var(--gold) 75%);box-shadow:inset 0 1px 0 rgba(var(--white-rgb),.22),0 8px 24px rgba(var(--gold-rgb),.16)}
+.finalcta .microcopy{display:grid;gap:var(--s3);margin:var(--s5) 0 0;padding-top:var(--s5);border-top:1px solid rgba(var(--gold-rgb),.2);font-size:12px;color:var(--on-dark-4);line-height:1.7}
+.final-service{display:flex;gap:10px;align-items:flex-start}
+.final-service svg{width:16px;height:16px;flex:none;color:var(--gold);margin-top:2px}
+.final-separator{display:none}
+.finalcta .figure{grid-area:photo;position:relative;margin:0;border:0;border-radius:0;align-self:stretch;min-height:560px;background:var(--navy-900)}
+.finalcta .figure picture{display:block;height:100%}
+.finalcta .figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+.finalcta .figure::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,var(--navy-900),transparent 24%)}
+@media(hover:hover){
+  .finalcta .btn-primary:hover{background:var(--sand)}
+  .finalcta .btn-primary:hover .hero-cta-arrow svg{transform:translateX(2px)}
+}
+@media(max-width:1100px){
+  .finalcta h2{padding:var(--s6) 0 0 var(--s6);font-size:34px}
+  .finalcta .inner{padding:0 0 var(--s6) var(--s6)}
+  .final-title-lead{font-size:23px}
+  .finalcta .grid{grid-template-columns:1.2fr .8fr;column-gap:var(--s5)}
+}
+@media(max-width:768px){
+  .finalcta .box{border-radius:var(--r-lg)}
+  .finalcta .grid{grid-template-columns:1fr;grid-template-areas:"heading" "photo" "body";gap:var(--s5)}
+  .finalcta h2{padding:var(--s6) var(--s5) 0;font-size:clamp(30px,5.4vw,38px)}
+  .final-title-lead{font-size:22px}
+  .finalcta .inner{padding:0 var(--s5) var(--s6)}
+  .finalcta .figure{min-height:0;margin-inline:var(--s5);border-radius:var(--r-md);border:1px solid rgba(var(--gold-rgb),.2)}
+  .finalcta .figure img{position:static;height:auto;aspect-ratio:5/4;object-position:50% 18%}
+  .finalcta .figure::after{display:none}
+  .finalcta .btn-primary{width:100%;max-width:440px;padding-left:20px;gap:var(--s3)}
+}
+@media(max-width:360px){
+  .finalcta h2{padding-inline:var(--s4);font-size:28px}
+  .final-title-lead{font-size:21px}
+  .finalcta .inner{padding-inline:var(--s4)}
+  .finalcta .figure{margin-inline:var(--s4)}
+  .finalcta .btn-primary{font-size:14px;padding-left:var(--s4)}
+}
+/* Rodape: assinatura da marca, contatos e navegacao com respiro proprio. */
+footer{position:relative;background:radial-gradient(ellipse at 10% 0,rgba(var(--gold-rgb),.045),transparent 60%),var(--navy-900);color:var(--on-dark-4);padding:var(--s8) 0 var(--s5);font-size:var(--text-small)}
+footer::before{content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,rgba(var(--gold-rgb),.45),transparent);pointer-events:none}
+.foot-grid{display:grid;grid-template-columns:1.2fr .65fr 1.15fr;gap:var(--s8)}
+.foot-grid>*{min-width:0}
+footer b,footer strong{color:var(--off)}
+footer a{text-decoration:none;transition:color var(--mo-2) var(--ease),border-color var(--mo-2) var(--ease),background var(--mo-2) var(--ease)}
+.foot-logo{display:inline-block;border-radius:var(--r-sm)}
+.foot-logo img{width:220px;height:auto}
+.foot-brand p{margin:var(--s5) 0 0;line-height:1.85;font-size:13px}
+.foot-brand b{display:block;font-size:var(--text-small);margin-bottom:var(--s1)}
+.foot-contacts{display:grid;gap:var(--s2);margin-top:var(--s5)}
+.foot-contact{display:flex;align-items:center;gap:var(--s3);min-height:48px;width:fit-content;max-width:100%;border-radius:var(--r-sm)}
+.foot-icon{display:grid;place-items:center;flex:none;width:38px;height:38px;border:1px solid rgba(var(--gold-rgb),.25);border-radius:50%;color:var(--gold)}
+.foot-icon svg,.foot-detail>svg{width:18px;height:18px;flex:none}
+.foot-contact-label{display:block;font-size:11px;color:var(--ink-3);line-height:1.5;margin-bottom:2px}
+.foot-contact-value{overflow-wrap:anywhere}
+.foot-col h2{font-family:inherit;font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin:var(--s2) 0 var(--s5);line-height:1.5;text-wrap:wrap}
+.foot-col ul{list-style:none;margin:0;padding:0;display:grid;gap:var(--s1)}
+.foot-col li a{display:flex;align-items:center;min-height:44px;width:fit-content;max-width:100%;gap:var(--s3);border-radius:var(--s1)}
+.foot-col li:last-child a{color:var(--gold)}
+.foot-nav-arrow{width:16px;height:16px}
+.foot-details{display:grid;gap:var(--s5)}
+.foot-detail{display:flex;align-items:flex-start;gap:var(--s3);line-height:1.8}
+.foot-detail>svg{color:var(--gold);margin-top:4px}
+.foot-detail p,.foot-detail address{margin:0;font-style:normal}
+.foot-detail strong{display:block;font-weight:500;margin-bottom:var(--s1)}
+.foot-detail address{font-size:13px;color:var(--on-dark-4)}
+.foot-hours{padding-top:var(--s4);border-top:1px solid rgba(var(--gold-rgb),.18);font-size:12px;color:var(--ink-3)}
+.foot-legal{display:flex;align-items:center;justify-content:space-between;gap:var(--s5);border-top:1px solid rgba(var(--gold-rgb),.2);margin-top:var(--s7);padding-top:var(--s5);font-size:12px;color:var(--ink-3)}
+.foot-legal p{margin:0;line-height:1.8}
+.foot-top{display:inline-flex;align-items:center;gap:var(--s3);flex:none;min-height:44px;border-radius:var(--r-pill);color:var(--on-dark-4)}
+.foot-top .foot-icon{width:36px;height:36px}
+@media(hover:hover){
+  footer a:hover{color:var(--sand)}
+  .foot-contact:hover .foot-icon,.foot-top:hover .foot-icon{border-color:var(--gold);background:rgba(var(--gold-rgb),.08)}
+}
+@media(max-width:960px){
+  .foot-grid{grid-template-columns:1.1fr .65fr 1.1fr;gap:var(--s6)}
+  .foot-logo img{width:200px}
+}
+@media(max-width:768px){
+  .foot-grid{grid-template-columns:1fr 1.2fr;gap:var(--s7) var(--s6)}
+  .foot-brand{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;column-gap:var(--s6)}
+  .foot-logo{grid-column:1;width:fit-content}
+  .foot-brand p{grid-column:1}
+  .foot-contacts{grid-column:2;grid-row:1/3;align-content:center;margin-top:0}
+}
+@media(max-width:540px){
+  footer{padding-top:var(--s7)}
+  .foot-grid{grid-template-columns:1fr;gap:var(--s6)}
+  .foot-brand{display:block;grid-column:auto}
+  .foot-contacts{margin-top:var(--s5)}
+  .foot-col{padding-top:var(--s5);border-top:1px solid rgba(var(--gold-rgb),.18)}
+  .foot-col h2{margin:0 0 var(--s4)}
+  .foot-col ul{grid-template-columns:1fr 1fr;column-gap:var(--s5)}
+  .foot-details{gap:var(--s4)}
+  .foot-legal{align-items:flex-start;flex-direction:column;gap:var(--s4);margin-top:var(--s6)}
+}
+.wa-float{position:fixed;right:var(--s5);bottom:var(--s5);z-index:90;width:56px;height:56px;border-radius:50%;background:var(--whatsapp);color:var(--navy);display:grid;place-items:center;box-shadow:var(--sh-md);transition:transform var(--mo-2) var(--ease),opacity var(--mo-2) var(--ease)}
+.wa-float:hover{transform:translateY(-3px)}
+.js .wa-float{opacity:0;visibility:hidden}
+.js .wa-float.show{opacity:1;visibility:visible}
+/* Entradas discretas sem encadear transformacoes nos cards. */
+.js .reveal{opacity:0;transform:translateY(8px);transition:opacity var(--mo-3) var(--ease),transform var(--mo-3) var(--ease)}
+.js .reveal.in{opacity:1;transform:none}
+@keyframes menuIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media(max-width:960px){
+  :root{--sec-tight:64px;--sec-base:80px;--sec-air:88px}
+  .media-split{grid-template-columns:1fr;gap:var(--s5)}
+  .figure.fill{height:clamp(240px,48vw,380px);min-height:0}
+  .figure.fill img{object-position:50% 72%}
+  main .hero{display:flex;flex-direction:column;padding-top:var(--s7);padding-bottom:0}
+  .hero .wrap{order:1}
+  .hero-copy{max-width:720px}
+  .hero{--text-hero:clamp(38px,6.7vw,58px);--text-hero-detail:clamp(24px,3.6vw,30px)}
+  .hero-title-detail{max-width:580px}
+  .hero::before{display:none}
+  .hero-bg{order:2;position:relative;inset:auto;width:100%;margin-top:var(--s5);height:clamp(280px,65vw,480px)}
+  .hero-bg img{object-position:50% 22%}
+  .hero-bg::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(var(--navy),rgba(var(--navy-rgb),0) 64px)}
+}
+@media(max-width:768px){
+  :root{--gutter:20px;--sec-tight:56px;--sec-base:64px;--sec-air:72px;--text-card:20px}
+  .nav{gap:var(--s2)}
+  .nav-mobile-cta{display:inline-flex;margin-left:auto;font-size:13px;min-height:40px;padding:10px 14px;box-shadow:none}
   .nav-toggle{display:grid;place-items:center}
-  .nav .brand-cta{display:none}
-  .audience{grid-template-columns:1fr}
+  .nav-links{position:absolute;top:100%;left:var(--gutter);right:var(--gutter);flex-direction:column;align-items:stretch;gap:var(--s1);background:var(--navy-900);border:1px solid var(--line);border-radius:0 0 var(--r-md) var(--r-md);padding:var(--s3);display:none;box-shadow:var(--sh-md)}
+  .nav-links.open{display:flex;animation:menuIn var(--mo-3) var(--ease)}
+  .nav-links a{padding:14px var(--s4);font-size:var(--text-body)}
+  .nav-links a.btn-secondary{width:100%;min-height:48px;padding:14px var(--s4);margin:var(--s2) 0 0;text-align:center}
+  .hero .sub,.hero .microcopy{max-width:none}
+  .hero{--text-hero:clamp(32px,9.8vw,52px);--text-hero-detail:clamp(23px,5.9vw,28px)}
+  .hero-title-detail{margin-top:var(--s4);max-width:540px}
+  .hero .sub{font-size:16px;line-height:1.65}
+  .hero .btn-primary{padding:10px 12px 10px 20px;font-size:15px;gap:var(--s3)}
+  .hero .hero-cta{margin-top:var(--s5)}
+  .hero .microcopy{font-size:12px;gap:var(--s2);margin-top:20px}
+  .hero-cta{margin-top:var(--s5)}
+  .btn-lg{width:100%;max-width:440px;padding:var(--s4) var(--s4);font-size:16px}
   .cardgrid.cols-2{grid-template-columns:1fr}
-  .foot-grid{grid-template-columns:1fr}
-  .foot-legal{flex-direction:column}
-  /* Subheadline usa toda a largura disponível no celular */
-  .hero .wrap{padding:0 18px}
-  .hero .sub{max-width:none}
-  .hero .microcopy{max-width:none}
-  /* CTAs grandes no celular: o padding 18px/34px do .btn-lg foi desenhado para
-     desktop e no telefone come 68px dos 339 disponiveis — os quatro botoes
-     quebravam em 2 linhas a 375px. Duas mudancas:
-     1) o botao passa a ocupar a LARGURA TODA da coluna (width:100%), no padrao
-        de CTA mobile que o usuario trouxe por referencia. Antes ele encolhia ate
-        o tamanho do texto — 302px numa coluna de 339 — e era isso que o fazia
-        parecer pequeno. O max-width segura o exagero no tablet, onde 100% de uma
-        coluna de 720px viraria uma faixa.
-     2) o padding horizontal cai de 34 para 12px. Com largura fixa em 100% ele
-        deixa de definir a largura do botao e vira so o recuo minimo do texto —
-        por isso pode encolher, e e isso que financia o corpo maior.
-     3) o corpo passa a ser FLUIDO. Fixo nao resolve: a largura que o texto pede
-        cresce com a tela, entao qualquer numero que caiba a 360px fica pequeno
-        demais a 430px. A 4.45vw o botao acompanha o aparelho e chega aos 18px
-        cheios a partir de ~405px.
-     Os numeros sao TETO MEDIDO, nao chute: varridos paddings x corpos x larguras,
-     este e o maior corpo que mantem folga sadia na largura critica, que e 360px.
-     O piso de 14px so entra em telas muito estreitas, onde nem assim cabe — ali
-     volta a quebrar, e e o comportamento aceito (aparelho de 320px e residual).
-     A altura nao muda: com 16px de padding vertical quem manda e o min-height:56px.
-     ⚠️ Quem dita esses numeros e o botao do "Como funciona" ("Quero dar o primeiro
-     passo agora"), o texto mais longo dos tres. Ao mexer em qualquer label de CTA,
-     remedir por ele.
-     ⚠️ O botao do CTA FINAL nao entra nesta conta: ele vive dentro do .finalcta .box,
-     que a 375px deixa so 259px uteis. Nem a 14px ele cabe numa linha — ver PROJETO.md. */
-  .btn-lg{width:100%;max-width:420px;padding:16px 12px;font-size:clamp(14px,4.45vw,18px)}
-  .figure.fill{min-height:260px}
-  .panel{grid-template-columns:1fr}
-  .panel li{min-height:0;padding:16px 18px}
+  .card{padding:var(--s5)}
+  .ic{margin-bottom:var(--s4);width:44px;height:44px}
+  .media-split{margin-top:var(--s5)}
+  .figure.fill{height:clamp(240px,64vw,340px)}
+  .wa-float{display:none}
+}
+@media(max-width:360px){
+  :root{--gutter:16px}
+  .nav-mobile-cta{padding:10px 12px;font-size:12px}
 }
 @media(prefers-reduced-motion:reduce){
-  *{transition:none!important;scroll-behavior:auto!important;animation:none!important}
-  .reveal{opacity:1;transform:none}
-  .js .reveal :is(.cardgrid,.steps,.includes,.audience,.quotes,.panel)>*{transform:none}
-  /* Marquee estático e centralizado, sem movimento */
-  .marquee{width:auto;flex-wrap:wrap;justify-content:center}
+  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+  .js .reveal{opacity:1;transform:none}
+  .marquee{width:auto;justify-content:center}
   .marquee-track{flex-wrap:wrap;justify-content:center}
-  .marquee-track[aria-hidden="true"]{display:none}
-  .marquee-track li{padding:4px 22px}
+  .marquee-track li{white-space:normal;padding:var(--s2) var(--s4);gap:var(--s3);max-width:100%}
+  .marquee-track[aria-hidden="true"],.proof::before,.proof::after{display:none}
 }
-/* Menos transparência: chrome sólido (skill §14) */
 @media(prefers-reduced-transparency:reduce){
-  .site-header{background:var(--gold);backdrop-filter:none;-webkit-backdrop-filter:none;
-    border-bottom:1px solid var(--gold-600)}
-  .site-header::after{display:none}
+  .site-header,.site-header.scrolled{background:var(--navy-900);backdrop-filter:none}
 }
-/* Mais contraste: bordas definidas (skill §14) */
 @media(prefers-contrast:more){
-  .card,.includes li,.aud-no,blockquote.quote,.figure{border-color:var(--ink-3)}
-  .nav-links a:hover{outline:1px solid var(--navy)}
+  .card,.step,.faq details,.audience,.figure{border-color:var(--ink-3)}
 }
-
-/* ================= AJUSTES DA VERSAO ESCURA =================
-   O resto da pagina ficou escuro so trocando o :root. As regras abaixo existem
-   porque assumiam explicitamente um fundo claro.
-
-   O chao vem de --bg, e nao de --off: --off e usado como COR DE TEXTO em 18
-   lugares do CSS e como fundo em apenas 1. Reaproveita-lo aqui apagaria os 18. */
-body{background:var(--bg)}
-
-/* A sombra e azul sobre claro; sobre escuro ela desaparece. Quem separa as
-   superficies passa a ser a borda. */
-.card,.includes li,blockquote.quote,.faq details{box-shadow:none}
-.finalcta .box{box-shadow:none}
-
-/* ---- O CARTAO ESCURO GANHOU MATERIAL (06/09/2026) ----
-   Vem de aurumclinic.org, e conserta um buraco que a regra logo acima abria:
-   na versao clara o cartao se separa do chao por SOMBRA (--sh-sm); sobre escuro
-   sombra azul nao existe, entao ela era zerada e sobrava um fio de 1px chapado.
-   O cartao ficava sem material — e era ele que ia receber o chip de icone.
-   🔑 SOBRE FUNDO ESCURO NAO SE USA SOMBRA POR BAIXO, SE USA LUZ POR CIMA.
-   Sao tres camadas, todas medidas no DOM da referencia:
-   1) `--ring` — a borda vira um DEGRADE vertical: 22% na aresta de cima, 5% ja
-      aos 6% da altura, 3% no miolo e 8% na de baixo. E a quina superior pegando
-      luz. Um fio de opacidade constante nao faz isso: ele desenha o contorno
-      inteiro e le como caixa, nao como superficie iluminada.
-   2) o fio interno de 1px no topo (`inset`), que e o reflexo na propria quina.
-   3) a sombra de contato preta embaixo — preta, e nao azul: ela e ausencia de
-      luz, e sobre um chao ja azul a sombra azul nao escurece nada.
-   ⚠️ O TRUQUE E DE DUAS CAIXAS DE FUNDO: `padding-box` pinta a superficie e
-   `border-box` pinta a faixa da borda. Para isso a borda precisa existir com
-   largura e ser TRANSPARENTE — `border-color:transparent`, nunca `border:none`.
-   Sem largura declarada nao ha faixa de border-box para o degrade ocupar.
-   ⚠️ E POR ISSO QUE CADA FAMILIA DE CARTAO APARECE SEPARADA ABAIXO: o primeiro
-   plano de `background` tem de ser a cor daquele cartao (--white nos claros de
-   origem, --navy-700 nos que ja nasceram escuros). Nao da para unificar numa
-   regra so sem achatar os dois degraus de superficie que a pagina tem. */
-:root{--ring:linear-gradient(180deg,rgba(var(--white-rgb),.22) 0%,rgba(var(--white-rgb),.05) 6%,rgba(var(--white-rgb),.03) 94%,rgba(var(--white-rgb),.08) 100%);
-  --card-lift:inset 0 1px 0 rgba(var(--white-rgb),.07),0 10px 30px rgba(0,0,0,.26)}
-/* ⚠️ A SUPERFICIE VAI COMO GRADIENTE, NAO COMO COR — e nao e estilo, e sintaxe.
-   No atalho `background` com varias camadas, a COR so pode aparecer na ULTIMA.
-   Escrito como `var(--white) padding-box,var(--ring) border-box` o navegador
-   descarta o plano de cor inteiro: medido, o cartao voltou `background-color:
-   rgba(0,0,0,0)` e sumiu contra o chao. `linear-gradient(cor,cor)` e a mesma
-   cor chapada expressa como IMAGEM, que pode ocupar a primeira camada. */
-.card{border-color:transparent;
-  background:linear-gradient(var(--white),var(--white)) padding-box,var(--ring) border-box;
-  box-shadow:var(--card-lift)}
-.step{border-color:transparent;
-  background:linear-gradient(var(--navy-700),var(--navy-700)) padding-box,var(--ring) border-box;
-  box-shadow:var(--card-lift)}
-/* No hover a luz sobe junto com o cartao, em vez de sumir. O ouro entra so no
-   fio — o mesmo gesto do chip la dentro, que tambem acende a borda e nao o
-   fundo. ⚠️ `border-color` opaco cobre o degrade de border-box: e o que faz o
-   contorno virar ouro inteiro no hover, e e o efeito desejado. */
-.card:hover{border-color:rgba(var(--gold-rgb),.55);
-  box-shadow:inset 0 1px 0 rgba(var(--white-rgb),.10),0 16px 40px rgba(0,0,0,.34)}
-
-/* Borda de 2px em azul sobre cartao azul e invisivel: passa a ouro. */
-.aud-yes{border-color:var(--gold)}
-
-/* O botao secundario era azul sobre claro; sobre escuro sumia no fundo.
-   Vira contorno em ouro — o gesto discreto que a marca pede. Dentro da navbar
-   (que e dourada) ele continua solido em azul, senao ouro sobre ouro sumiria. */
-.btn-secondary{background:transparent;color:var(--gold);box-shadow:inset 0 0 0 1.5px var(--gold)}
-.btn-secondary:hover{background:var(--gold);color:var(--navy)}
-.nav-links a.btn-secondary{background:var(--navy);color:var(--off);box-shadow:none}
-.nav-links a.btn-secondary:hover{background:var(--navy-900);color:var(--off)}
-
-/* Texto em azul que assumia fundo claro. Sobre escuro cai para ~1.1:1.
-   Sao os unicos casos em que color:var(--navy) NAO fica sobre ouro ou bege. */
-.turn{color:var(--on-dark)}
-.faq summary{color:var(--on-dark)}
-blockquote.quote cite{color:var(--gold)}
-.btn-outline{color:var(--gold);box-shadow:inset 0 0 0 2px var(--gold)}
-.btn-outline:hover{background:var(--gold);color:var(--navy)}
-
-/* O chevron do FAQ em ouro escuro ficava apagado sobre o cartao. */
-.faq summary .chev{color:var(--gold)}
-
-/* O retrato era um degrade claro->escuro; sobre escuro precisa de degraus
-   proprios para nao virar um buraco. */
-.portrait{background:linear-gradient(160deg,var(--navy-700),var(--navy-900))}
-
-/* 🚨 O ANEL DE FOCO ERA INVISIVEL NA PAGINA INTEIRA (corrigido em 05/09/2026).
-   `--focus` vale `var(--navy)` no arquivo-fonte, e la esta certo: azul sobre papel
-   claro. Aqui o azul e FUNDO, entao o anel desenhava a mesma cor por baixo dele:
-   1,00:1 sobre a faixa navy (identico), 1,10 sobre surface, 1,14 sobre cartao,
-   1,22 sobre o chao. O minimo do WCAG para indicador de foco e 3,0:1 — ou seja,
-   quem navega por teclado nao via onde estava em NENHUM botao, link ou pergunta
-   do FAQ. So o cabecalho escapava, porque ja tinha um override proprio em ouro.
-   Em ouro o anel da 6,62:1 sobre o chao.
-   ⚠️ E o QUINTO caso da divida "color:var(--navy) assumindo fundo claro" que o
-   PROJETO.md registra. Os outros quatro (.turn, .faq summary, cite, .btn-outline)
-   foram corrigidos; este passou porque a auditoria do script mede TEXTO, e anel de
-   foco nao e texto. Ao acrescentar tokens de cor aqui, perguntar sempre: este
-   valor assume papel claro? */
-:root{--focus:var(--gold)}
 </style>
 </head>
 <body>
 
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
 
-<!-- ======================= HEADER ======================= -->
 <header class="site-header">
   <nav class="nav" aria-label="Navegação principal">
     <a class="brand" href="#inicio" aria-label="Dr. Rafael Gallassini · Início">
       <img src="assets/Logos/rg_hrz_light.png" alt="Dr. Rafael Gallassini"
            width="747" height="285" decoding="async">
     </a>
+    <a class="nav-mobile-cta btn btn-primary" href="https://wa.me/5548999709753?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" target="_blank" rel="noopener" aria-label="Agendar avaliação pelo WhatsApp">Agendar</a>
     <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menu de navegação">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
@@ -1098,30 +658,18 @@ blockquote.quote cite{color:var(--gold)}
       <li><a href="#sobre">Sobre</a></li>
       <li><a href="#como-funciona">Como funciona</a></li>
       <li><a href="#duvidas">Dúvidas</a></li>
-      <li class="brand-cta"><a href="https://wa.me/5548999709753?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" class="btn btn-secondary" style="min-height:40px;padding:10px 22px;font-size:15px" target="_blank" rel="noopener">Agendar</a></li>
+      <li class="brand-cta"><a href="https://wa.me/5548999709753?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" class="btn btn-secondary" target="_blank" rel="noopener">Agendar</a></li>
     </ul>
   </nav>
 </header>
 
 <main id="conteudo">
 
-<!-- ======================= 1 · HERO ======================= -->
 <section class="hero" id="inicio" aria-labelledby="hero-title">
-  <!-- ================= FOTO DE FUNDO DA HERO =================
-       Ensaio de 10/2024, arquivo "Rede Social - Cor - 09". HORIZONTAL de proposito:
-       aqui a foto cobre a secao inteira, e as verticais do ensaio tem o medico
-       centralizado — em tela cheia o rosto cairia atras do H1.
-       ⚠️ O ARQUIVO JA VEM RECORTADO (1406x762 de um original 2048x1365) para por o
-       rosto a 83% da largura — fora dos 640px da coluna de texto E fora do painel
-       de cor, para o corpo dele aparecer inteiro. Nao trocar por
-       outro arquivo sem refazer esse recorte — ver a nota no CSS do .hero-bg.
-       ⚠️ NAO e nenhum dos 7 slots numerados; a hero nao tinha slot, este e um oitavo.
-       alt="" + aria-hidden: e imagem de ambiente atras do texto, nao conteudo — quem
-       identifica o medico e o H1 e a barra de prova. -->
+  
   <figure class="hero-bg" aria-hidden="true">
     <picture>
-      <!-- Ate 960px vale o recorte 1:1, centrado no medico. As <source> com media
-           vem PRIMEIRO: o navegador usa a primeira que casar. -->
+      
       <source media="(max-width:960px)" type="image/avif" srcset="assets/Fotos/dr-rafael-hero-mob-640.avif 640w, assets/Fotos/dr-rafael-hero-mob-900.avif 900w" sizes="100vw">
       <source media="(max-width:960px)" type="image/webp" srcset="assets/Fotos/dr-rafael-hero-mob-640.webp 640w, assets/Fotos/dr-rafael-hero-mob-900.webp 900w" sizes="100vw">
       <source media="(max-width:960px)" srcset="assets/Fotos/dr-rafael-hero-mob-640.jpg 640w, assets/Fotos/dr-rafael-hero-mob-900.jpg 900w" sizes="100vw">
@@ -1133,20 +681,24 @@ blockquote.quote cite{color:var(--gold)}
   </figure>
   <div class="wrap">
     <div class="hero-copy">
-      <h1 id="hero-title">Emagrecimento e <em>saúde metabólica</em> com acompanhamento médico individualizado em Florianópolis</h1>
-      <p class="sub">Um plano feito sob medida para o seu corpo. Investigamos o que trava o seu metabolismo, para você emagrecer com saúde e, dessa vez, manter o resultado.</p>
+      <h1 id="hero-title"><span class="hero-title-main">Emagrecimento e <em>saúde metabólica</em></span> <span class="hero-title-detail">com acompanhamento médico individualizado em Florianópolis</span></h1>
+      <p class="sub">Entenda seu metabolismo e tenha um plano feito para você, com foco em emagrecer com saúde e manter o resultado.</p>
       <div class="hero-cta">
         <a class="btn btn-primary btn-lg" href="https://wa.me/5548999709753?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" target="_blank" rel="noopener">
-          Quero agendar minha avaliação
+          <span class="hero-cta-label">Agendar minha avaliação</span>
+          <span class="hero-cta-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></span>
         </a>
       </div>
-      <p class="microcopy">Atendimento presencial em Florianópolis e online para todo o Brasil · Resposta pela nossa equipe em horário comercial</p>
+      <p class="microcopy">
+        <span class="hero-meta-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Atendimento presencial em Florianópolis e online para todo o Brasil</span></span>
+        <span class="hero-meta-separator" aria-hidden="true"> · </span>
+        <span class="hero-meta-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Resposta pela nossa equipe em horário comercial</span></span>
+      </p>
     </div>
 
   </div>
 </section>
 
-<!-- ======================= 2 · BARRA DE PROVA (marquee) ======================= -->
 <aside class="proof" aria-label="Credenciais do Dr. Rafael Gallassini">
   <div class="marquee">
     <ul class="marquee-track">
@@ -1170,352 +722,288 @@ blockquote.quote cite{color:var(--gold)}
   </div>
 </aside>
 
-<!-- ======================= 3 · VOCÊ SE RECONHECE ======================= -->
 <section id="reconhece" aria-labelledby="reconhece-title" class="reveal">
   <div class="wrap">
-    <h2 class="h-sec" id="reconhece-title">Se você se identifica com pelo menos uma dessas situações, esta página é para você.</h2>
-    <p class="intro">Antes de falar de solução, vamos ser honestos sobre o que provavelmente já aconteceu com você:</p>
+    <div class="recognition-heading">
+    <h2 class="h-sec" id="reconhece-title">Você se reconhece <span>nessas situações?</span></h2>
+    <p class="intro">O peso volta, a disposição cai e recomeçar fica cada vez mais difícil.</p>
+    </div>
 
     <div class="media-split">
-      <!-- ================= SLOT 1 · PREENCHIDO 05/09/2026 =================
-           Imagem GERADA (Higgsfield), escolhida pelo usuario. Fonte: assets/Fotos/v2.png.
-           🚨 ESTE SLOT NAO E 3:4 NEM 4:5 — E 0,619. Medido: a `.figure.fill` tem
-           `height:100%` e estica para acompanhar a coluna de cartoes ao lado, entao ela
-           renderiza ~425x686. O comentario antigo aqui dizia "3:4 ou 4:5" e ESTAVA ERRADO;
-           a tabela dos 7 slots do PROJETO.md tambem. Ao trocar a foto, gerar em 2:3 (0,667)
-           e recortar para 0,619 — nao em 4:5, que perderia 23% da largura.
-           ⚠️ O ARQUIVO JA VEM RECORTADO: a fonte e 1856x2304 (0,806) e o derivado e
-           1427x2304. Os 430px sairam TODOS DA ESQUERDA, de proposito — e daquele lado que
-           estao as maos com a caneta, que na geracao sairam com a CANETA DUPLICADA e os
-           dedos fundidos. O corte empurra o defeito para a borda; no tamanho de exibicao
-           (425px de largura) aquele trecho fica com ~45px, desfocado, e nao se le.
-           ⚠️ Se um dia esta foto for reaproveitada MAIOR, o defeito volta a aparecer.
-           Derivados: dr-rafael-reconhece-{600,900}.{avif,webp} + -900.jpg -->
-      <figure class="figure fill">
+      
+      <figure class="figure recognition-photo">
         <picture>
-          <source type="image/avif" srcset="assets/Fotos/dr-rafael-reconhece-600.avif 600w, assets/Fotos/dr-rafael-reconhece-900.avif 900w" sizes="(max-width:960px) 100vw, 425px">
-          <source type="image/webp" srcset="assets/Fotos/dr-rafael-reconhece-600.webp 600w, assets/Fotos/dr-rafael-reconhece-900.webp 900w" sizes="(max-width:960px) 100vw, 425px">
-          <img src="assets/Fotos/dr-rafael-reconhece-900.jpg" alt="Mãos de uma paciente apoiadas na mesa do consultório durante uma conversa"
-               width="900" height="1453" loading="lazy" decoding="async">
+          <source type="image/webp"
+                  srcset="assets/Fotos/reconhece-reflexao-600.webp 600w, assets/Fotos/reconhece-reflexao-900.webp 900w"
+                  sizes="(max-width:360px) calc(100vw - 32px), (max-width:768px) calc(100vw - 40px), (max-width:1100px) 38vw, 450px">
+          <img src="assets/Fotos/reconhece-reflexao-900.jpg"
+             alt="Imagem ilustrativa: mulher em um momento de reflexão, sentada junto à janela"
+             width="900" height="1125" loading="lazy" decoding="async">
         </picture>
       </figure>
 
-      <div class="cardgrid cols-2">
+      <div class="cardgrid recognition-cards">
       <article class="card">
         <div class="ic" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/></svg>
         </div>
-        <h3>O efeito sanfona que não acaba</h3>
-        <p>Você perde peso, comemora e, alguns meses depois, está tudo de volta. Às vezes com alguns quilos a mais. Já perdeu a conta de quantas vezes recomeçou do zero.</p>
+        <h3>O peso que sempre volta</h3>
+        <p>Você emagrece, mas meses depois o peso volta. Às vezes, com quilos a mais e a sensação de recomeçar do zero.</p>
       </article>
       <article class="card">
         <div class="ic" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>
         </div>
         <h3>A disposição que sumiu</h3>
-        <p>Cansaço o dia inteiro, aquela sensação de "corpo pesado", vontade de comer o tempo todo e a impressão de que seu corpo trabalha contra você.</p>
+        <p>Cansaço constante, corpo pesado e vontade de comer o tempo todo. Parece que seu corpo trabalha contra você.</p>
       </article>
       <article class="card">
         <div class="ic" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h6"/></svg>
         </div>
-        <h3>As dietas genéricas que nunca duram</h3>
-        <p>Você já seguiu a dieta da vizinha, o protocolo da internet, o cardápio que funcionou para todo mundo, menos para você. E ficou com a sensação de que o problema era falta de disciplina.</p>
+        <h3>Dietas que não duram</h3>
+        <p>A dieta da internet funciona para os outros, mas não para você. E sobra a sensação de que faltou disciplina.</p>
       </article>
       <article class="card">
         <div class="ic" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.35-9.5-8.5A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6.5C19 16.65 12 21 12 21Z"/><path d="m9.5 12 1.8 1.8L15 10"/></svg>
         </div>
-        <h3>A frustração de "já tentei de tudo"</h3>
-        <p>Nutricionista, academia, remédio por conta própria, jejum, low carb. Você tentou. E cada tentativa que não durou machucou um pouco mais a sua confiança.</p>
+        <h3>“Já tentei de tudo”</h3>
+        <p>Dietas, academia, jejum. Você tentou vários caminhos, e cada resultado que não durou abalou um pouco mais a sua confiança.</p>
       </article>
       </div>
     </div>
 
-    <p class="turn serif">Você não falhou em todas essas vezes. <strong class="serif">Você foi tratado como uma média.</strong> E o seu corpo não é uma média.</p>
+    <p class="turn serif">Seu corpo não é uma média. <strong class="serif">Seu cuidado também não deveria ser.</strong></p>
   </div>
 </section>
 
-<!-- ======================= 4 · A VIRADA / MECANISMO =======================
-     Tratamento "E", escolhido pelo usuário em 03/09/2026.
-     ⚠️ A faixa full-bleed 21:9 que existia aqui FOI REMOVIDA. O Slot 2 passou a ser
-     uma foto VERTICAL 3:4 ao lado do texto. Isso muda o sistema de imagem da página
-     inteira — ver PROJETO.md antes de mexer. -->
 <section class="sec-dark" id="mecanismo" aria-labelledby="mecanismo-title">
   <div class="wrap reveal">
+    <div class="mech-heading">
+      <h2 class="h-sec" id="mecanismo-title"><span class="mech-title-lead">Emagrecer vai além de comer menos.</span> Começa por <em>entender o seu corpo.</em></h2>
+        <p class="intro">O peso na balança não conta toda a história. É preciso investigar o que está por trás dele.</p>
+    </div>
     <div class="mech">
-      <div>
-        <h2 class="h-sec" id="mecanismo-title" style="color:var(--off)">Emagrecer não é sobre comer menos. É sobre entender por que o seu corpo não está deixando você emagrecer.</h2>
-        <p class="mech-intro">A maior parte das tentativas fracassa porque ataca só o sintoma, o peso na balança, e ignora a causa.</p>
+      <div class="mech-content">
 
-        <!-- Os fatores já eram uma lista dentro da frase da copy ("Alterações hormonais,
-             resistência à insulina, tireoide, …"). Aqui ela é apenas TIPOGRAFADA como
-             lista, e a última célula é o predicado da mesma frase.
-             ⚠️ Eram 7; hoje são 6. O usuário autorizou em 03/09/2026 cortar o "Tireoide" —
-             era o único item da lista inteiramente contido em outro ("Alterações hormonais"),
-             já que a tireoide é uma glândula endócrina. É a TERCEIRA exceção à regra 1 do
-             PROJETO.md, e está registrada no COPY.md. Fora isso, nenhuma palavra nova e
-             nenhuma removida além do "e" que a grade substitui. -->
-        <ul class="panel">
-          <li><span class="idx">01</span><span class="nm">Alterações hormonais</span></li>
-          <li><span class="idx">02</span><span class="nm">Resistência à insulina</span></li>
-          <li><span class="idx">03</span><span class="nm">Qualidade do sono</span></li>
-          <li><span class="idx">04</span><span class="nm">Uso de medicações</span></li>
-          <li><span class="idx">05</span><span class="nm">Histórico de dietas restritivas</span></li>
-          <li><span class="idx">06</span><span class="nm">Até o seu nível de estresse</span></li>
-          <li class="close"><span class="nm">Influenciam diretamente o quanto o seu corpo guarda ou queima de gordura.</span></li>
+        <ul class="mech-factors">
+          <li><svg class="factor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9Z"/><circle cx="12" cy="12" r="3"/><path d="M12 3v3M20 16.5l-2.6-1.5M4 16.5l2.6-1.5"/></svg><span class="nm">Alterações hormonais</span></li>
+          <li><svg class="factor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3s-7 7.5-7 12a7 7 0 0 0 14 0c0-4.5-7-12-7-12Z"/><path d="M9 15h6M12 12v6"/></svg><span class="nm">Resistência à insulina</span></li>
+          <li><svg class="factor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.5A8.5 8.5 0 0 1 10.5 3a8.5 8.5 0 1 0 10 10.5Z"/><path d="M17 3v4M15 5h4"/></svg><span class="nm">Qualidade do sono</span></li>
+          <li><svg class="factor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 4-10 10a4.25 4.25 0 0 0 6 6L20 10a4.25 4.25 0 0 0-6-6Z"/><path d="m8 10 6 6m0-9 3-3"/></svg><span class="nm">Uso de medicações</span></li>
+          <li><svg class="factor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="12" r="7"/><path d="M2 3v5a2 2 0 0 0 4 0V3M4 3v18M14 8a4 4 0 0 1 4 4"/></svg><span class="nm">Histórico de dietas restritivas</span></li>
+          <li><svg class="factor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-6 4 12 3-6h4"/><path d="M4 6a10 10 0 0 1 16 0M4 18a10 10 0 0 0 16 0"/></svg><span class="nm">Até o seu nível de estresse</span></li>
         </ul>
+        <p class="mech-summary">Influenciam diretamente o quanto o seu corpo guarda ou queima de gordura.</p>
 
-        <p class="mech-body">Como médico com pós-graduação em Nutrologia, o Dr. Rafael investiga esse conjunto <strong>antes</strong> de propor qualquer plano.</p>
-        <p class="mech-body">É construído um caminho individual, com ajuste do que for necessário e acompanhamento de perto para que o resultado <strong>se sustente</strong>, em vez de virar mais um ciclo de perder e recuperar.</p>
+        <p class="mech-body">O Dr. Rafael investiga esses fatores <strong>antes de propor o plano</strong>, considerando sua história e seus exames.</p>
+        <p class="mech-body">O acompanhamento permite ajustar o caminho à sua rotina, com foco em um resultado que <strong>se sustente</strong>.</p>
       </div>
 
-      <!-- ================= SLOT 2 · PREENCHIDO 05/09/2026 =================
-           Foto 23 do ensaio de 10/2024 ("Rede Social - Cor"), escolhida pelo usuario.
-           ⚠️ O ARQUIVO JA VEM RECORTADO em 3:4 — a fonte e 2:3 (1365x2048) e a moldura
-           e `aspect-ratio:3/4`, entao 228px de altura foram cortados na geracao, NAO
-           pelo CSS. O corte e assimetrico (60px do teto, 168px do rodape): para no
-           limite dos sapatos, que terminam por volta de y=1853 do original. Se trocar a
-           foto, refazer o recorte com a mesma logica — nao adianta mexer no CSS.
-           Mantida a cena inteira (poltrona, quadro, arandela) de proposito: e o
-           ambiente que casa com a paleta da marca, e aqui a imagem e clima, nao retrato.
-           Derivados: dr-rafael-mecanismo-{600,900}.{avif,webp,jpg} -->
       <figure class="mech-figura">
         <picture>
-          <source type="image/avif" srcset="assets/Fotos/dr-rafael-mecanismo-600.avif 600w, assets/Fotos/dr-rafael-mecanismo-900.avif 900w" sizes="(max-width:960px) 100vw, 448px">
-          <source type="image/webp" srcset="assets/Fotos/dr-rafael-mecanismo-600.webp 600w, assets/Fotos/dr-rafael-mecanismo-900.webp 900w" sizes="(max-width:960px) 100vw, 448px">
+          <source type="image/avif" srcset="assets/Fotos/dr-rafael-mecanismo-600.avif 600w, assets/Fotos/dr-rafael-mecanismo-900.avif 900w" sizes="(max-width:360px) calc(100vw - 32px), (max-width:768px) calc(100vw - 40px), (max-width:1100px) 40vw, 448px">
+          <source type="image/webp" srcset="assets/Fotos/dr-rafael-mecanismo-600.webp 600w, assets/Fotos/dr-rafael-mecanismo-900.webp 900w" sizes="(max-width:360px) calc(100vw - 32px), (max-width:768px) calc(100vw - 40px), (max-width:1100px) 40vw, 448px">
           <img src="assets/Fotos/dr-rafael-mecanismo-900.jpg" alt="Dr. Rafael Gallassini sentado no consultório"
                width="900" height="1200" loading="lazy" decoding="async">
         </picture>
       </figure>
     </div>
 
-    <!-- A frase vive DENTRO do .wrap.reveal, junto com o .mech: é o rodapé do bloco,
-         não um parágrafo avulso. Antes ficava num segundo .wrap sem .reveal, então
-         aparecia de imediato enquanto o bloco acima ainda estava entrando. -->
-    <p class="reinforce serif">Sem cardápio de gaveta. Sem promessa mágica. Um plano que faz sentido para a sua rotina, o seu corpo e a sua história.</p>
+    <p class="reinforce serif">Sem fórmulas prontas. <strong>Um plano que faz sentido</strong> para o seu corpo e a sua rotina.</p>
   </div>
 </section>
 
-<!-- ======================= 5 · SOBRE ======================= -->
 <section id="sobre" aria-labelledby="sobre-title" class="reveal">
   <div class="wrap">
     <div class="about">
-      <div class="about-body">
-        <h2 class="h-sec" id="sobre-title">Dr. Rafael Gallassini</h2>
-        <p class="lead">Emagrecimento e saúde metabólica: investigação, ciência e acompanhamento próximo.</p>
-        <p>Médico (CRM/SC 21664) com pós-graduação em Nutrologia e formação internacional, com mais de 10 anos de experiência e participação em 5 congressos internacionais. Atua com foco em emagrecimento, saúde metabólica, prevenção e longevidade.</p>
-        <p>Atende em consultório em Florianópolis e por teleconsulta para todo o Brasil, com <strong>mais de 30 mil pacientes acompanhados</strong>. Sua prática tem uma regra: investigar antes de prescrever. O plano nasce dos exames, da história e da rotina de cada paciente, e é ajustado nos retornos.</p>
-        <div class="hero-cta" style="margin-top:8px">
-          <a class="btn btn-secondary btn-lg" href="https://wa.me/5548999709753?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" target="_blank" rel="noopener">Quero começar minha avaliação</a>
-        </div>
-      </div>
-
-      <!-- ================= SLOT 3 · PREENCHIDO 05/09/2026 =================
-           Foto 12 do ensaio de 10/2024 ("Rede Social - Cor"), escolhida pelo usuario.
-           Ela SUBSTITUIU a foto 28, que ocupou este slot mais cedo no mesmo dia.
-           O monograma "RG" que era o placeholder saiu, e com ele a regra morta
-           `.portrait .mono` (mesmo criterio dos eyebrows).
-           ⚠️ A ORIGINAL DA 12 E HORIZONTAL (2048x1365) — a 28 ja vinha vertical. Por
-           isso o recorte aqui JOGA FORA LARGURA, e nao altura: 1092x1365 a partir de
-           x=481, altura cheia, centrado no medico (centro dele em x~1027). Refazer com
-           esses numeros se precisar regerar; nao recortar "no olho" de novo.
-           ⚠️ RECORTADA EM 4:5, e nao em 2:3 de proposito. O .portrait renderiza
-           ~420x520 (0,81) e estica com o texto; com a fonte 2:3 o `cover` cortaria 110px
-           de altura e sobrariam SEIS PIXELS acima da cabeca. A 4:5 a moldura e a foto
-           quase coincidem e o corte deixa de ser uma aposta.
-           ⚠️ Se o texto do "Sobre" encurtar, a linha do grid encolhe e o corte volta a
-           apertar em cima — remedir a folga sobre a cabeca, nao so olhar o desktop.
-           Derivados: dr-rafael-sobre-{600,840}.{avif,webp,jpg} — mesmos nomes da 28, para
-           nao mexer no srcset. ⚠️ Aparelho que ja abriu a pagina pode servir a 28 do
-           cache: recarga forte na hora de conferir. -->
+      <header class="about-heading">
+        <h2 class="h-sec" id="sobre-title">Dr. Rafael <span>Gallassini</span></h2>
+        <p class="lead"><strong>Ciência e cuidado próximo</strong> em emagrecimento e saúde metabólica.</p>
+      </header>
       <figure class="portrait">
         <picture>
-          <source type="image/avif" srcset="assets/Fotos/dr-rafael-sobre-600.avif 600w, assets/Fotos/dr-rafael-sobre-840.avif 840w" sizes="(max-width:960px) 100vw, 420px">
-          <source type="image/webp" srcset="assets/Fotos/dr-rafael-sobre-600.webp 600w, assets/Fotos/dr-rafael-sobre-840.webp 840w" sizes="(max-width:960px) 100vw, 420px">
+          <source type="image/avif" srcset="assets/Fotos/dr-rafael-sobre-600.avif 600w, assets/Fotos/dr-rafael-sobre-840.avif 840w" sizes="(max-width:360px) calc(100vw - 32px), (max-width:768px) calc(100vw - 40px), (max-width:1100px) 43vw, 483px">
+          <source type="image/webp" srcset="assets/Fotos/dr-rafael-sobre-600.webp 600w, assets/Fotos/dr-rafael-sobre-840.webp 840w" sizes="(max-width:360px) calc(100vw - 32px), (max-width:768px) calc(100vw - 40px), (max-width:1100px) 43vw, 483px">
           <img src="assets/Fotos/dr-rafael-sobre-840.jpg" alt="Dr. Rafael Gallassini"
                width="840" height="1050" loading="lazy" decoding="async">
         </picture>
       </figure>
+      <div class="about-body">
+        <p>Médico (CRM/SC 21664), com pós-graduação em Nutrologia e formação internacional. São <strong>mais de 10 anos de experiência</strong> e participação em <strong>5 congressos internacionais</strong>, com foco também em prevenção e longevidade.</p>
+        <p>Com <strong>mais de 30 mil pacientes acompanhados</strong>, atende em Florianópolis e por teleconsulta em todo o Brasil. Sua prática parte da história, dos exames e da rotina de cada paciente.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary btn-lg" href="https://wa.me/5548999709753?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" target="_blank" rel="noopener"><span>Agendar minha avaliação</span>
+            <span class="hero-cta-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></span>
+          </a>
+        </div>
+      </div>
+
+
     </div>
   </div>
 </section>
 
-<!-- ======================= 6 · DIFERENCIAIS ======================= -->
 <section class="sec-surface reveal" id="diferenciais" aria-labelledby="dif-title">
   <div class="wrap">
-    <h2 class="h-sec" id="dif-title">O que torna esse acompanhamento diferente do que você já tentou</h2>
+    <h2 class="h-sec" id="dif-title">O que faz esse cuidado <span>ser diferente</span></h2>
 
-    <div class="cardgrid cols-2">
-      <article class="card">
-        <div class="ic" aria-hidden="true">
+    <div class="difference-grid">
+      <article class="difference">
+        <div class="difference-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.9-3.9"/></svg>
         </div>
         <h3>Investigação antes do plano</h3>
-        <p>Nada de cardápio pronto no primeiro dia. Primeiro entendemos o que está travando o seu metabolismo, usando história, exames e composição corporal.</p>
+        <p><strong>História, exames e composição corporal</strong> orientam as decisões, antes de definir o tratamento.</p>
       </article>
-      <article class="card">
-        <div class="ic" aria-hidden="true">
+      <article class="difference">
+        <div class="difference-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="8" cy="18" r="2"/></svg>
         </div>
         <h3>Plano 100% individualizado</h3>
-        <p>Seu corpo, sua rotina, suas preferências e suas limitações. O plano é feito para você conseguir seguir, e não para caber num modelo padrão.</p>
+        <p>Seu corpo, suas preferências e seus limites orientam um plano <strong>possível de seguir na sua rotina</strong>.</p>
       </article>
-      <article class="card">
-        <div class="ic" aria-hidden="true">
+      <article class="difference">
+        <div class="difference-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-6 4 3 4-6"/><path d="M16 8h4v4"/><path d="M16 19h5"/></svg>
         </div>
-        <h3>Foco em manter o resultado</h3>
-        <p>O objetivo não é a próxima balança boa. É você não precisar recomeçar nunca mais, com acompanhamento próximo e ajustes ao longo do caminho.</p>
+        <h3>Manutenção do resultado</h3>
+        <p><strong>Acompanhamento próximo</strong> e ajustes ao longo do caminho, com foco em manter a evolução.</p>
       </article>
-      <article class="card">
-        <div class="ic" aria-hidden="true">
+      <article class="difference">
+        <div class="difference-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v6.2L4.6 18A2 2 0 0 0 6.3 21h11.4a2 2 0 0 0 1.7-3L14 9.2V3"/><path d="M9 3h6"/><path d="M7.5 15h9"/></svg>
         </div>
         <h3>Ciência, sem modismo</h3>
-        <p>Condutas baseadas em evidência, com uso responsável de medicações quando há indicação clínica, e sem promessas milagrosas.</p>
+        <p>Condutas <strong>baseadas em evidência</strong> e medicação quando indicada, sem promessas milagrosas.</p>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ======================= 7 · O QUE INCLUI ======================= -->
 <section id="inclui" aria-labelledby="inclui-title" class="reveal">
-  <div class="wrap">
-    <h2 class="h-sec" id="inclui-title">O que está incluído no seu acompanhamento</h2>
-    <p class="intro">Um cuidado completo, do diagnóstico ao dia a dia:</p>
+  <div class="wrap includes-layout">
+    <div class="includes-heading">
+    <h2 class="h-sec" id="inclui-title">Seu <span>acompanhamento</span> inclui</h2>
+    <p class="intro serif">Do diagnóstico ao cuidado no dia a dia.</p>
+    </div>
 
     <ul class="includes">
-      <li><span class="tick" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Avaliação médica completa:</b><span class="txt"> história clínica, hábitos e fatores que influenciam seu peso e sua energia.</span></span></li>
-      <li><span class="tick" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Solicitação e interpretação de exames:</b><span class="txt"> para investigar hormônios, metabolismo e possíveis causas ocultas.</span></span></li>
-      <li><span class="tick" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Avaliação da composição corporal:</b><span class="txt"> para acompanhar gordura, massa magra e evolução real, além da balança.</span></span></li>
-      <li><span class="tick" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Tratamento medicamentoso quando indicado:</b><span class="txt"> de forma segura, responsável e com acompanhamento médico.</span></span></li>
-      <li><span class="tick" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Ajuste de estilo de vida:</b><span class="txt"> sono, disposição, comportamento alimentar e relação com a comida.</span></span></li>
-      <li><span class="tick" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Suporte da equipe:</b><span class="txt"> canal direto para dúvidas entre as consultas.</span></span></li>
+      <li>
+        <span class="include-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2h6v2M9 10h6m-6 4h6m-6 4h3"/></svg></span>
+        <h3>Avaliação médica</h3>
+        <p>História clínica e hábitos que influenciam seu peso e sua energia.</p>
+      </li>
+      <li>
+        <span class="include-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M13 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h10l4 4v4M14 3v5h5M6 12l2-2 2 4 2-3"/><circle cx="17" cy="17" r="4"/><path d="m20 20 2 2"/></svg></span>
+        <h3>Exames</h3>
+        <p>Solicitação e interpretação para investigar hormônios e metabolismo.</p>
+      </li>
+      <li>
+        <span class="include-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="6" r="3"/><path d="M8 21v-5H5l2-5h10l2 5h-3v5M10 16v5m4-5v5M3 5v4m18-4v4"/></svg></span>
+        <h3>Composição corporal</h3>
+        <p>Avaliação de gordura e massa magra para acompanhar sua evolução.</p>
+      </li>
+      <li>
+        <span class="include-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 6v5c0 5 4 9 9 11 5-2 9-6 9-11V6l-9-4Z"/><path d="M12 8v8m-4-4h8"/></svg></span>
+        <h3>Medicação, quando indicada</h3>
+        <p>Uso responsável, sempre com acompanhamento médico.</p>
+      </li>
+      <li>
+        <span class="include-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 13.5A8.5 8.5 0 0 1 10.5 3 8.5 8.5 0 1 0 20.5 13.5Z"/><path d="M17 2v6m-3-3h6m1 4v4m-2-2h4"/></svg></span>
+        <h3>Estilo de vida</h3>
+        <p>Ajustes no sono, na disposição e na relação com a comida.</p>
+      </li>
+      <li>
+        <span class="include-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 15H6l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v5M8 19h9l5 3V12a2 2 0 0 0-2-2h-3M6 7h8m-8 4h4"/></svg></span>
+        <h3>Suporte da equipe</h3>
+        <p>Canal direto para dúvidas entre as consultas.</p>
+      </li>
     </ul>
   </div>
 </section>
 
-<!-- ======================= 8 · COMO FUNCIONA ======================= -->
 <section class="sec-dark reveal" id="como-funciona" aria-labelledby="cf-title">
   <div class="wrap">
-    <h2 class="h-sec" id="cf-title" style="color:var(--off)">Começar é simples</h2>
+    <h2 class="h-sec" id="cf-title">Começar é <span>simples</span></h2>
 
-    <div class="steps">
-      <article class="step">
-        <!-- ================= SLOT 4 · PREENCHIDO 05/09/2026 =================
-             Imagem GERADA (Higgsfield / nano_banana_pro), nao foto do ensaio: o ensaio
-             de 10/2024 nao tem nenhuma imagem clinica, entao os passos 1, 2 e 3 nao
-             tinham material. As tres foram geradas na MESMA direcao para lerem como
-             uma sequencia: painel azul-petroleo, nogueira, latao e luz quente de
-             tungstenio — o mundo do ensaio, que e o que casa com a paleta da marca.
-             ⚠️ SEM ROSTO EM NENHUMA DAS TRES, e isso nao e estetica. A pagina nomeia o
-             Dr. Rafael com CRM; uma pessoa gerada com rosto em cena de consulta leria
-             como sendo ele, e seria imagem fabricada de um profissional real. O modelo
-             insistiu em deixar queixo e boca mesmo com o corte pedido no prompt — o
-             corte final foi feito NO ARQUIVO e reenquadrado em 3:2 exato.
-             ⚠️ O jaleco branco dos passos 2 e 3 e o mesmo de proposito: sao o mesmo
-             medico em cards vizinhos. Ao regerar um, conferir a roupa do outro.
-             Derivados: dr-rafael-passo-1-{600,900}.{avif,webp} + -900.jpg -->
-        <figure class="figure r-32 step-media">
+    <ol class="steps" role="list">
+      <li class="step">
+        <span class="step-marker" aria-hidden="true">01</span>
+        
+        <figure class="figure step-media">
           <picture>
-            <source type="image/avif" srcset="assets/Fotos/dr-rafael-passo-1-600.avif 600w, assets/Fotos/dr-rafael-passo-1-900.avif 900w" sizes="(max-width:768px) 100vw, 350px">
-            <source type="image/webp" srcset="assets/Fotos/dr-rafael-passo-1-600.webp 600w, assets/Fotos/dr-rafael-passo-1-900.webp 900w" sizes="(max-width:768px) 100vw, 350px">
-            <img src="assets/Fotos/dr-rafael-passo-1-900.jpg" alt="Mulher sentada em uma poltrona de couro, escrevendo uma mensagem no celular"
+            <source type="image/avif" srcset="assets/Fotos/dr-rafael-passo-1-600.avif 600w, assets/Fotos/dr-rafael-passo-1-900.avif 900w" sizes="(max-width:360px) calc(100vw - 72px), (max-width:600px) calc(100vw - 92px), (max-width:960px) 40vw, 339px">
+            <source type="image/webp" srcset="assets/Fotos/dr-rafael-passo-1-600.webp 600w, assets/Fotos/dr-rafael-passo-1-900.webp 900w" sizes="(max-width:360px) calc(100vw - 72px), (max-width:600px) calc(100vw - 92px), (max-width:960px) 40vw, 339px">
+            <img src="assets/Fotos/dr-rafael-passo-1-900.jpg" alt="Imagem ilustrativa: mulher sentada em uma poltrona de couro, escrevendo uma mensagem no celular"
                  width="900" height="600" loading="lazy" decoding="async">
           </picture>
         </figure>
-        <h3>Você fala com a equipe pelo WhatsApp</h3>
-        <p>Clique no botão, conte rapidamente o seu caso e a nossa equipe te ajuda a agendar a avaliação, presencial em Florianópolis ou online.</p>
-      </article>
-      <article class="step">
-        <!-- ================= SLOT 5 · PREENCHIDO 05/09/2026 =================
-             Imagem gerada — ver a nota completa no Slot 4, logo acima.
-             ⚠️ NAO HA ESTETOSCOPIO NA CENA, e a ausencia e deliberada: o usuario
-             apontou que ele nao e instrumento desta consulta. O que faz a cena ler
-             como medica e o JALECO; a primeira rodada parecia reuniao de banco porque
-             ele estava de TERNO, nao por falta de estetoscopio. Os objetos da mesa
-             (caderno, caneta, oculos) sao o material de uma anamnese, que e o que o
-             passo 2 de fato e.
-             ⚠️ Tambem fora: balanca, bioimpedancia e fita metrica. Sao instrumentos
-             reais de avaliacao de composicao corporal, mas peso e corpo em pagina de
-             emagrecimento caem na mesma vedacao do antes-e-depois — e esta pagina e
-             destino de anuncio no Google Ads. Ver PROJETO.md, Regras invioláveis §2.
-             Derivados: dr-rafael-passo-2-{600,900}.{avif,webp} + -900.jpg -->
-        <figure class="figure r-32 step-media">
+        <h3>Converse pelo WhatsApp</h3>
+        <p>Conte seu caso à equipe e agende a avaliação, presencial em Florianópolis ou online.</p>
+      </li>
+      <li class="step">
+        <span class="step-marker" aria-hidden="true">02</span>
+        
+        <figure class="figure step-media">
           <picture>
-            <source type="image/avif" srcset="assets/Fotos/dr-rafael-passo-2-600.avif 600w, assets/Fotos/dr-rafael-passo-2-900.avif 900w" sizes="(max-width:768px) 100vw, 350px">
-            <source type="image/webp" srcset="assets/Fotos/dr-rafael-passo-2-600.webp 600w, assets/Fotos/dr-rafael-passo-2-900.webp 900w" sizes="(max-width:768px) 100vw, 350px">
-            <img src="assets/Fotos/dr-rafael-passo-2-900.jpg" alt="Médico de jaleco branco conversando com uma paciente à mesa do consultório"
+            <source type="image/webp" srcset="assets/Fotos/dr-rafael-consulta-600.webp 600w, assets/Fotos/dr-rafael-consulta-900.webp 900w" sizes="(max-width:360px) calc(100vw - 72px), (max-width:600px) calc(100vw - 92px), (max-width:960px) 40vw, 339px">
+            <img src="assets/Fotos/dr-rafael-consulta-900.jpg" alt="Retrato do Dr. Rafael Gallassini, de camisa branca e colete azul"
                  width="900" height="600" loading="lazy" decoding="async">
           </picture>
         </figure>
-        <h3>Avaliação individualizada com o Dr. Rafael</h3>
-        <p>Uma consulta sem pressa, para entender a sua história, pedir os exames necessários e montar um plano feito para o seu corpo.</p>
-      </article>
-      <article class="step">
-        <!-- ================= SLOT 6 · PREENCHIDO 05/09/2026 =================
-             Imagem gerada — ver a nota completa no Slot 4.
-             ⚠️ O PAPEL SOBRE A MESA SO TEM TRACADO, sem nada legivel, e isso e
-             requisito: o modelo escreve texto em INGLES mesmo com "no lettering" no
-             prompt (ja aconteceu nas candidatas do Slot 1) e a pagina e em portugues.
-             Ao regerar, conferir a olho se apareceu palavra no papel.
-             ⚠️ UM braco dele apontando e o outro apoiado. Na primeira versao saiam
-             DOIS bracos pela esquerda e ficava anatomicamente estranho.
-             ⚠️ Este e o unico dos tres em que a paciente aparece so pelas maos — e o
-             fechado do trio, contra o plano com ar do passo 1. Ao trocar um dos tres,
-             conferir se o ritmo fechado → aberto → fechado sobrevive.
-             Derivados: dr-rafael-passo-3-{600,900}.{avif,webp} + -900.jpg -->
-        <figure class="figure r-32 step-media">
+        <h3>Avaliação com o Dr. Rafael</h3>
+        <p>Uma consulta para entender sua história, solicitar os exames necessários e definir seu plano.</p>
+      </li>
+      <li class="step">
+        <span class="step-marker" aria-hidden="true">03</span>
+        
+        <figure class="figure step-media">
           <picture>
-            <source type="image/avif" srcset="assets/Fotos/dr-rafael-passo-3-600.avif 600w, assets/Fotos/dr-rafael-passo-3-900.avif 900w" sizes="(max-width:768px) 100vw, 350px">
-            <source type="image/webp" srcset="assets/Fotos/dr-rafael-passo-3-600.webp 600w, assets/Fotos/dr-rafael-passo-3-900.webp 900w" sizes="(max-width:768px) 100vw, 350px">
-            <img src="assets/Fotos/dr-rafael-passo-3-900.jpg" alt="Médico apontando um exame impresso sobre a mesa, ao lado das mãos da paciente"
+            <source type="image/avif" srcset="assets/Fotos/dr-rafael-passo-3-600.avif 600w, assets/Fotos/dr-rafael-passo-3-900.avif 900w" sizes="(max-width:360px) calc(100vw - 72px), (max-width:600px) calc(100vw - 92px), (max-width:960px) 40vw, 339px">
+            <source type="image/webp" srcset="assets/Fotos/dr-rafael-passo-3-600.webp 600w, assets/Fotos/dr-rafael-passo-3-900.webp 900w" sizes="(max-width:360px) calc(100vw - 72px), (max-width:600px) calc(100vw - 92px), (max-width:960px) 40vw, 339px">
+            <img src="assets/Fotos/dr-rafael-passo-3-900.jpg" alt="Imagem ilustrativa: médico apontando um exame impresso sobre a mesa, ao lado das mãos da paciente"
                  width="900" height="600" loading="lazy" decoding="async">
           </picture>
         </figure>
-        <h3>Acompanhamento até o resultado se sustentar</h3>
-        <p>Você segue com um plano claro e com acompanhamento próximo, ajustando o caminho até emagrecer <strong style="color:var(--off)">e manter</strong>.</p>
-      </article>
-    </div>
+        <h3>Acompanhamento próximo</h3>
+        <p>Retornos e ajustes no plano para apoiar o emagrecimento <strong>e a manutenção do resultado</strong>.</p>
+      </li>
+    </ol>
 
-    <div class="hero-cta" style="margin-top:36px">
+    <div class="hero-cta">
       <a class="btn btn-primary btn-lg" href="https://wa.me/5548999709753?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" target="_blank" rel="noopener">
-        Quero dar o primeiro passo agora
+        <span>Dar o primeiro passo</span>
+        <span class="hero-cta-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></span>
       </a>
     </div>
   </div>
 </section>
 
-<!-- ======================= 9 · PARA QUEM É ======================= -->
 <section class="sec-surface reveal" id="para-quem" aria-labelledby="pq-title">
   <div class="wrap">
-    <h2 class="h-sec" id="pq-title">Esse acompanhamento é para você se…</h2>
-
     <div class="audience">
-      <div class="aud-card aud-yes">
-        <h3>É para você se:</h3>
-        <ul>
-          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Você já tentou emagrecer outras vezes e o peso sempre volta.</span></li>
-          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Você sente que dietas genéricas não funcionam para o seu corpo.</span></li>
-          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Você quer entender a <strong>causa</strong> do problema, e não só enxugar a balança.</span></li>
-          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Você busca um acompanhamento médico sério, próximo e individualizado.</span></li>
-          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Você quer emagrecer com saúde e manter o resultado a longo prazo.</span></li>
+      <h2 class="h-sec" id="pq-title">Esse cuidado <span>é para você se…</span></h2>
+      <ul class="audience-list" role="list">
+          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Já tentou emagrecer, mas <strong>o peso sempre volta</strong>.</span></li>
+          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Sente que <strong>dietas genéricas não funcionam</strong> para você.</span></li>
+          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Quer entender o que <strong>dificulta seu emagrecimento</strong>.</span></li>
+          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Busca um cuidado <strong>médico, próximo e individualizado</strong>.</span></li>
+          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Quer emagrecer com saúde e <strong>manter o resultado</strong>.</span></li>
         </ul>
-      </div>
-      <div class="aud-card aud-no">
-        <h3>Talvez não seja para você se:</h3>
-        <ul>
-          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Você procura uma solução milagrosa, sem acompanhamento e da noite para o dia.</span></li>
-          <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Você quer apenas uma receita de remédio, sem investigação e sem plano.</span></li>
-        </ul>
-      </div>
+      <div class="aud-action">
+          <a class="btn btn-primary" href="https://wa.me/5548999709753?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" target="_blank" rel="noopener">
+            <span>Agendar minha avaliação</span>
+            <span class="hero-cta-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></span>
+          </a>
+        </div>
     </div>
   </div>
 </section>
 
-<!-- ======================= 10 · DEPOIMENTOS ======================= -->
-<section id="depoimentos" aria-labelledby="dep-title" class="reveal">
+<!-- Pendente: inserir depoimentos reais antes de remover hidden. -->
+<section hidden id="depoimentos" aria-labelledby="dep-title" class="reveal">
   <div class="wrap">
     <h2 class="h-sec" id="dep-title">Quem já vive essa mudança</h2>
 
@@ -1534,93 +1022,76 @@ blockquote.quote cite{color:var(--gold)}
       </blockquote>
     </div>
 
-    <!-- ⚠️ O aviso de compliance que ficava aqui foi REMOVIDO da página a pedido do
-         usuário (03/09/2026). A obrigação continua valendo e está registrada no
-         PROJETO.md: os três depoimentos acima ainda são PLACEHOLDERS e não podem ir
-         ao ar como estão; depoimento de paciente é restrito pelo CFM e precisa de
-         autorização de uso de imagem. -->
   </div>
 </section>
 
-<!-- ======================= 11 · FAQ ======================= -->
 <section class="sec-surface reveal" id="duvidas" aria-labelledby="faq-title">
-  <div class="wrap">
-    <h2 class="h-sec" id="faq-title">Dúvidas frequentes</h2>
+  <div class="wrap faq-wrap">
+    <h2 class="h-sec" id="faq-title"><span>Dúvidas <em>frequentes</em></span></h2>
 
     <div class="faq">
       <details>
-        <summary>Qual a diferença entre esse acompanhamento médico e o de um nutricionista?<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
-        <div class="answer">O Dr. Rafael é médico, o que permite investigar causas clínicas do ganho de peso, solicitar e interpretar exames e prescrever medicação quando há indicação. Em muitos casos, o ideal é que médico e nutricionista trabalhem de forma complementar. Aqui, a avaliação parte de um olhar médico completo sobre o seu metabolismo.</div>
+        <summary><span class="faq-question">Qual a diferença para o acompanhamento nutricional?</span><span class="faq-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14"/><path class="faq-plus" d="M12 5v14"/></svg></span></summary>
+        <div class="answer">O Dr. Rafael investiga causas clínicas do ganho de peso, solicita e interpreta exames e pode prescrever medicação quando indicada. Médico e nutricionista podem atuar de forma complementar, unindo o cuidado clínico e o nutricional.</div>
       </details>
       <details>
-        <summary>Eu já tentei de tudo e nada durou. Por que agora seria diferente?<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
-        <div class="answer">Porque o ponto de partida é diferente. Em vez de te entregar mais uma dieta pronta, primeiro investigamos o que está travando o seu corpo e montamos um plano individualizado, com acompanhamento próximo para que o resultado se mantenha, em vez de virar mais um ciclo de perder e recuperar.</div>
+        <summary><span class="faq-question">Já tentei de tudo. O que muda agora?</span><span class="faq-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14"/><path class="faq-plus" d="M12 5v14"/></svg></span></summary>
+        <div class="answer">O ponto de partida é investigar seu caso. A partir dessa avaliação, o plano é individualizado e ajustado no acompanhamento, com foco em manter o resultado.</div>
       </details>
       <details>
-        <summary>O tratamento usa medicação para emagrecer?<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
-        <div class="answer">Medicação é uma ferramenta, não a regra. Quando há indicação clínica, ela pode ser usada de forma segura e responsável, sempre com acompanhamento médico e dentro de um plano maior. Nada de automedicação nem "fórmula milagrosa".</div>
+        <summary><span class="faq-question">O tratamento usa medicação para emagrecer?</span><span class="faq-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14"/><path class="faq-plus" d="M12 5v14"/></svg></span></summary>
+        <div class="answer">A medicação pode fazer parte do plano quando há indicação clínica, sempre com acompanhamento médico. Não é obrigatória e não substitui os demais cuidados. Nada de automedicação ou fórmulas milagrosas.</div>
       </details>
       <details>
-        <summary>Atende online ou só presencial?<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
-        <div class="answer">Os dois. O atendimento é presencial em Florianópolis e também online por teleconsulta, para pacientes de qualquer lugar do Brasil.</div>
+        <summary><span class="faq-question">Atende online ou só presencial?</span><span class="faq-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14"/><path class="faq-plus" d="M12 5v14"/></svg></span></summary>
+        <div class="answer">Os dois: presencial em Florianópolis e por teleconsulta para todo o Brasil.</div>
       </details>
       <details>
-        <summary>Em quanto tempo vou ver resultado?<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
-        <div class="answer">Cada corpo responde de um jeito, e é por isso que o acompanhamento é individualizado. O foco não é o resultado mais rápido, e sim o resultado que <strong>se sustenta</strong>. Na avaliação, o Dr. Rafael conversa com você sobre expectativas realistas para o seu caso.</div>
+        <summary><span class="faq-question">Em quanto tempo vou ver resultado?</span><span class="faq-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14"/><path class="faq-plus" d="M12 5v14"/></svg></span></summary>
+        <div class="answer">O tempo varia de pessoa para pessoa. Na avaliação, o Dr. Rafael alinha expectativas realistas para o seu caso, com foco em resultados que <strong>se sustentem</strong>.</div>
       </details>
-      <details>
-        <summary>Atende convênio?<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <!-- Pendente: confirmar convenios/reembolso antes de remover hidden. -->
+      <details hidden>
+        <summary><span class="faq-question">Atende convênio?</span><span class="faq-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14"/><path class="faq-plus" d="M12 5v14"/></svg></span></summary>
         <div class="answer">[Informar: atendimento particular / convênios aceitos / reembolso. Preencher conforme a realidade do consultório.]</div>
       </details>
       <details>
-        <summary>Como faço para agendar?<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
-        <div class="answer">É só clicar em um dos botões da página. Você fala com a nossa equipe pelo WhatsApp, tira suas dúvidas e agenda a sua avaliação.</div>
+        <summary><span class="faq-question">Como faço para agendar?</span><span class="faq-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14"/><path class="faq-plus" d="M12 5v14"/></svg></span></summary>
+        <div class="answer">Clique em um botão de agendamento para falar com a equipe pelo WhatsApp, tirar dúvidas e marcar sua avaliação.</div>
       </details>
       <details>
-        <summary>Onde fica o consultório?<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
-        <!-- Preenchido em 05/09/2026 com o endereco que o usuario passou.
-             ⚠️ O link e a URL OFICIAL DE BUSCA DO MAPS montada a partir do endereco, e
-             NAO o `share.google/...` que ele mandou: link curto de compartilhamento
-             expira e o token costuma estar preso a sessao de quem gerou. Este e
-             estavel, legivel e funciona para qualquer visitante.
-             ⚠️ O endereco aparece em DOIS lugares — aqui e no rodape. Mexeu num, mexa
-             no outro, e remonte a query do link. -->
-        <div class="answer">O consultório fica na Av. Mauro Ramos, 1213 — Centro, Florianópolis/SC, CEP 88020-303. <a href="https://www.google.com/maps/search/?api=1&amp;query=Av.%20Mauro%20Ramos%2C%201213%20-%20Centro%2C%20Florian%C3%B3polis%20-%20SC%2C%2088020-303" target="_blank" rel="noopener">Ver no Google Maps</a>. O atendimento também é feito por teleconsulta, para pacientes de qualquer lugar do Brasil.</div>
+        <summary><span class="faq-question">Onde fica o consultório?</span><span class="faq-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14"/><path class="faq-plus" d="M12 5v14"/></svg></span></summary>
+        
+        <div class="answer">Av. Mauro Ramos, 1213 — Centro, Florianópolis/SC, CEP 88020-303. <a href="https://www.google.com/maps/search/?api=1&amp;query=Av.%20Mauro%20Ramos%2C%201213%20-%20Centro%2C%20Florian%C3%B3polis%20-%20SC%2C%2088020-303" target="_blank" rel="noopener">Ver no Google Maps</a>.</div>
       </details>
     </div>
   </div>
 </section>
 
-<!-- ======================= 12 · CTA FINAL ======================= -->
 <section class="finalcta reveal" id="agendar" aria-labelledby="final-title">
   <div class="wrap">
     <div class="box">
       <div class="grid">
+      <h2 id="final-title"><span class="final-title-lead">Você não precisa recomeçar sozinho.</span> Dê o próximo passo com um cuidado para o <strong>seu caso.</strong></h2>
+      <figure class="figure">
+        <picture>
+          <source type="image/webp" srcset="assets/Fotos/dr-rafael-final-600.webp 600w, assets/Fotos/dr-rafael-final-900.webp 900w" sizes="(max-width:360px) calc(100vw - 68px), (max-width:768px) calc(100vw - 92px), (max-width:1100px) 38vw, 445px">
+          <img src="assets/Fotos/dr-rafael-final-900.jpg" alt="Retrato do Dr. Rafael Gallassini sentado, usando terno azul-claro" width="900" height="1350" loading="lazy" decoding="async">
+        </picture>
+      </figure>
       <div class="inner">
-        <h2 id="final-title">Você já tentou sozinho vezes o bastante. Que tal tentar com quem vai olhar para o <strong>seu</strong> caso?</h2>
-        <p>O próximo recomeço não precisa ser mais um da lista. Com uma investigação real do seu metabolismo e um plano feito para você, dá para emagrecer com saúde e, principalmente, manter. Dê o primeiro passo hoje: fale com a nossa equipe e agende a sua avaliação com o Dr. Rafael.</p>
+        
+        <p>Conheça um caminho pensado para o seu corpo e sua rotina. Fale com a equipe e agende sua avaliação com o Dr. Rafael.</p>
         <a class="btn btn-primary btn-lg" href="https://wa.me/5548999709753?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" target="_blank" rel="noopener">
-          Quero agendar minha avaliação agora
+          <span>Agendar minha avaliação</span>
+          <span class="hero-cta-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></span>
         </a>
-        <p class="microcopy">Presencial em Florianópolis · Online para todo o Brasil · Atendimento pela equipe em horário comercial</p>
+        <p class="microcopy">
+          <span class="final-service"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Presencial em Florianópolis · Online para todo o Brasil</span></span><span class="final-separator" aria-hidden="true"> · </span><span class="final-service"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Atendimento pela equipe em horário comercial</span></span>
+        </p>
       </div>
 
-      <!-- ================= SLOT 7 · vertical (3:4) =================
-           Fecha a página em espelho com a hero. Cena sugerida: ambiente do consultório,
-           detalhe do atendimento, o médico em contexto. Troque a <div class="ph"> por:
-           <picture>
-             <source srcset="imagens/cta-final.avif" type="image/avif">
-             <source srcset="imagens/cta-final.webp" type="image/webp">
-             <img src="imagens/cta-final.jpg" alt="[descreva a cena]"
-                  width="900" height="1200" loading="lazy" decoding="async">
-           </picture> -->
-      <figure class="figure r-34 on-dark">
-        <div class="ph on-dark" aria-hidden="true">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-          <span>Slot 7 — imagem vertical</span>
-          <small>3:4 · ~900×1200</small>
-        </div>
-      </figure>
+
       </div>
     </div>
   </div>
@@ -1628,116 +1099,121 @@ blockquote.quote cite{color:var(--gold)}
 
 </main>
 
-<!-- ======================= 13 · RODAPÉ ======================= -->
 <footer>
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <img class="mark" src="assets/Logos/rg_ico_light.png" alt="" aria-hidden="true"
-             width="317" height="557" decoding="async">
-        <p><b>Dr. Rafael Gallassini · Médico</b><br>CRM/SC 21664 · Pós-graduação em Nutrologia</p>
-        <!-- Dados reais preenchidos pelo usuario em 05/09/2026.
-             ⚠️ A linha do E-MAIL foi REMOVIDA a pedido dele, nao esquecida — o contato
-             passa a ser WhatsApp e Instagram. Se voltar, entra aqui entre os dois.
-             ⚠️ O numero aqui e TEXTO; nos 7 links `wa.me` da pagina (nav, hero, Sobre,
-             Como funciona, CTA final, rodape e botao flutuante) ele vive SEM simbolo e
-             SEM espaco: `wa.me/5548999709753`. Ao trocar o numero, trocar NOS OITO
-             lugares — o texto daqui e os sete links. -->
-        <p style="margin-top:16px">Endereço: Av. Mauro Ramos, 1213 - Centro, Florianópolis - SC, 88020-303<br>
-        WhatsApp: +55 48 99970-9753<br>
-        Instagram: <a href="https://www.instagram.com/dr.rafaelgalassini" target="_blank" rel="noopener">@dr.rafaelgalassini</a></p>
+        <a class="foot-logo" href="#inicio" aria-label="Dr. Rafael Gallassini · Início">
+          <img src="assets/Logos/rg_hrz_light.png" alt="Dr. Rafael Gallassini" width="747" height="285" decoding="async">
+        </a>
+        <p><b>Dr. Rafael Gallassini · Médico</b>CRM/SC 21664 · Pós-graduação em Nutrologia</p>
+        <div class="foot-contacts">
+          <a class="foot-contact" href="https://wa.me/5548999709753?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" target="_blank" rel="noopener">
+            <span class="foot-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a9 9 0 0 1-13 8L3 21l1.5-5A9 9 0 1 1 21 11.5Z"/><path d="M8 7.5c0 4.5 4 8.5 8.5 8.5l1-2.5-3-1-1 1c-1.5-.7-2.8-2-3.5-3.5l1-1-1-2.5Z"/></svg></span>
+            <span><span class="foot-contact-label">WhatsApp</span><span class="foot-contact-value">+55 48 99970-9753</span></span>
+          </a>
+          <a class="foot-contact" href="https://www.instagram.com/dr.rafaelgalassini" target="_blank" rel="noopener">
+            <span class="foot-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg></span>
+            <span><span class="foot-contact-label">Instagram</span><span class="foot-contact-value">@dr.rafaelgalassini</span></span>
+          </a>
+        </div>
       </div>
       <nav class="foot-col" aria-label="Links do rodapé">
-        <h4>Links</h4>
+        <h2>Navegação</h2>
         <ul>
           <li><a href="#inicio">Início</a></li>
           <li><a href="#sobre">Sobre</a></li>
           <li><a href="#como-funciona">Como funciona</a></li>
           <li><a href="#duvidas">Dúvidas</a></li>
-          <li><a href="https://wa.me/5548999709753?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" target="_blank" rel="noopener">Agendar</a></li>
+          <li><a href="https://wa.me/5548999709753?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" target="_blank" rel="noopener">Agendar <svg class="foot-nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a></li>
         </ul>
       </nav>
       <div class="foot-col">
-        <h4>Atendimento</h4>
-        <p style="margin:0;line-height:1.7">Presencial em Florianópolis<br>Online para todo o Brasil<br>Resposta pela equipe em horário comercial</p>
+        <h2>Atendimento</h2>
+        <div class="foot-details">
+          <div class="foot-detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <div><p><strong>Presencial em Florianópolis</strong></p><address>Av. Mauro Ramos, 1213 - Centro,<br>Florianópolis - SC, 88020-303</address></div>
+          </div>
+          <div class="foot-detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+            <p><strong>Online para todo o Brasil</strong></p>
+          </div>
+          <div class="foot-detail foot-hours">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            <p>Resposta pela equipe em horário comercial</p>
+          </div>
+        </div>
       </div>
     </div>
     <div class="foot-legal">
-      <!-- ⚠️ O "Aviso legal" que ficava aqui foi REMOVIDO a pedido do usuário (04/09/2026).
-           Ele dizia que o conteúdo é informativo, não substitui consulta médica e que
-           "resultados variam de pessoa para pessoa". Essa última frase era a ressalva que
-           equilibrava as afirmações de resultado numa página de emagrecimento. A página
-           não tem mais NENHUM texto nesse sentido — ver PROJETO.md, Regras invioláveis §2. -->
-      <!-- ⚠️ O link de POLÍTICA DE PRIVACIDADE foi REMOVIDO a pedido do usuário
-           (05/09/2026), junto com o separador "·". É a TERCEIRA salvaguarda visível a
-           sair do rodapé — as outras duas foram o aviso dos depoimentos (03/09) e o
-           "Aviso legal" (04/09). ⚠️ Esta tem peso próprio: a página é destino de Google
-           Ads e vai receber GA4 + tag de conversão, e política de privacidade é
-           requisito tanto da LGPD quanto das políticas do Google para quem anuncia com
-           rastreamento. Ver PROJETO.md, Regras invioláveis §2. -->
+
       <p>© 2026 Dr. Rafael Gallassini. Todos os direitos reservados.</p>
+      <a class="foot-top" href="#inicio">Voltar ao topo <span class="foot-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5m-5 5 5-5 5 5"/></svg></span></a>
     </div>
   </div>
 </footer>
 
-<!-- Botão flutuante WhatsApp (desktop) -->
 <a class="wa-float" href="https://wa.me/5548999709753?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20com%20o%20Dr.%20Rafael" target="_blank" rel="noopener" aria-label="Falar no WhatsApp com a equipe do Dr. Rafael">
   <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.5-.1l.7-.8c.2-.2.3-.2.6-.1l1.8.9c.3.1.5.2.5.4.1.2.1.8-.1 1.4Z"/></svg>
 </a>
 
 <script>
 (function(){
-  // Marca que há JS: só então os blocos .reveal começam ocultos para animar.
-  document.documentElement.classList.add('js');
-
-  // Header: material mais denso + borda-fade só quando há conteúdo por baixo (skill §12).
-  // O mesmo listener cuida do botão flutuante do WhatsApp, que fica fora da primeira dobra:
-  // entra quando a hero termina de sair, ou seja, da seção 2 em diante. Sem IntersectionObserver
-  // de propósito — a altura da hero é lida a cada evento, então continua certo depois de resize.
+  var root=document.documentElement;
   var header=document.querySelector('.site-header');
-  var wa=document.querySelector('.wa-float');
   var hero=document.querySelector('.hero');
-  if(header||(wa&&hero)){
-    var onScroll=function(){
-      if(header){ header.classList.toggle('scrolled', window.scrollY>4); }
-      if(wa&&hero){ wa.classList.toggle('show', window.scrollY>=hero.offsetHeight); }
-    };
-    onScroll();
-    window.addEventListener('scroll',onScroll,{passive:true});
-  }
-  // Se a hero não existir, o botão não pode ficar oculto para sempre.
-  if(wa&&!hero){ wa.classList.add('show'); }
-
-  // Menu mobile
+  var final=document.querySelector('#agendar');
+  var wa=document.querySelector('.wa-float');
   var toggle=document.getElementById('navToggle');
   var links=document.getElementById('navLinks');
+  var mobile=window.matchMedia('(max-width:768px)');
+  function closeMenu(returnFocus){
+    if(!toggle||!links)return;
+    links.classList.remove('open');
+    toggle.setAttribute('aria-expanded','false');
+    toggle.setAttribute('aria-label','Abrir menu de navegação');
+    if(returnFocus)toggle.focus();
+  }
   if(toggle&&links){
     toggle.addEventListener('click',function(){
       var open=links.classList.toggle('open');
-      toggle.setAttribute('aria-expanded',open?'true':'false');
+      toggle.setAttribute('aria-expanded',String(open));
       toggle.setAttribute('aria-label',open?'Fechar menu de navegação':'Abrir menu de navegação');
     });
-    links.addEventListener('click',function(e){
-      if(e.target.closest('a')){
-        links.classList.remove('open');
-        toggle.setAttribute('aria-expanded','false');
-      }
-    });
+    links.addEventListener('click',function(e){if(e.target.closest('a'))closeMenu(false);});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&links.classList.contains('open'))closeMenu(true);});
+    document.addEventListener('click',function(e){if(header&&!header.contains(e.target))closeMenu(false);});
+    document.addEventListener('focusin',function(e){if(header&&!header.contains(e.target))closeMenu(false);});
+    mobile.addEventListener('change',function(){closeMenu(false);});
   }
-
-  // Animações sutis ao rolar (respeitando reduced-motion)
-  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var reveals=document.querySelectorAll('.reveal');
-  if(reduce||!('IntersectionObserver'in window)){
-    reveals.forEach(function(el){el.classList.add('in');});
-  }else{
-    var io=new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
-        if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
-      });
-    },{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
-    reveals.forEach(function(el){io.observe(el);});
+  var ticking=false;
+  function updateScroll(){
+    ticking=false;
+    if(header){header.classList.toggle('scrolled',window.scrollY>4);root.style.setProperty('--header-height',header.offsetHeight+'px');}
+    if(wa&&hero){
+      var passed=hero.getBoundingClientRect().bottom<=(header?header.offsetHeight:0);
+      var finalVisible=final&&final.getBoundingClientRect().top<window.innerHeight;
+      wa.classList.toggle('show',passed&&!finalVisible&&!mobile.matches);
+    }
   }
+  function requestScroll(){if(!ticking){ticking=true;requestAnimationFrame(updateScroll);}}
+  window.addEventListener('scroll',requestScroll,{passive:true});
+  window.addEventListener('resize',requestScroll,{passive:true});
+  updateScroll();
+  var motion=window.matchMedia('(prefers-reduced-motion:reduce)');
+  var reveals=document.querySelectorAll('.reveal:not([hidden])');
+  var observer;
+  function showAll(){reveals.forEach(function(el){el.classList.add('in');});if(observer)observer.disconnect();}
+  if(motion.matches||!('IntersectionObserver' in window)){showAll();}
+  else{
+    observer=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');observer.unobserve(en.target);}});
+    },{threshold:0,rootMargin:'0px 0px -32px 0px'});
+    reveals.forEach(function(el){observer.observe(el);});
+  }
+  motion.addEventListener('change',function(e){if(e.matches)showAll();});
+  root.classList.add('js');
 })();
 </script>
 </body>
