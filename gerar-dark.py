@@ -68,6 +68,23 @@ T = {
     'ph-dark-a': '#1A2440', 'ph-dark-b': '#232F52', 'ph-light-b': '#1A2440',
     'navy-rgb': '11,17,31', 'navy-900-rgb': '5,8,16',
     'gold-rgb': '189,152,83', 'white-rgb': '255,255,255',
+    # ---- O CHIP DE ICONE (06/09/2026) ----
+    # Mesma forma, mesma medida, mesmo traco de icone da versao clara — muda so
+    # DE QUE LADO DA ESCALA VEM A TINTA. No claro o chip e uma tinta do azul
+    # sobre o cartao branco; aqui e uma tinta do creme sobre o cartao azul.
+    # E por isso que os quatro valores sao rgba() e nao hex: o chip precisa
+    # deixar a superficie do cartao aparecer por baixo, senao vira selo — que e
+    # exatamente o defeito do chip de ouro solido que saiu em 05/09.
+    # ⚠️ Aqui o brilho e FORTE (a referencia usa .95) porque ele pinta em
+    # `screen` e sobre o azul ha o que clarear. No arquivo-fonte claro ele fica
+    # em .30 de proposito — ver a nota no :root de la.
+    'chip-bg': ('linear-gradient(155deg,rgba(var(--white-rgb),.16) 0%,'
+                'rgba(var(--white-rgb),.04) 45%,rgba(var(--white-rgb),.09) 100%)'),
+    'chip-border': 'rgba(var(--white-rgb),.26)',
+    'chip-ink': 'var(--off)',
+    'chip-inset': 'inset 0 1px 0 rgba(var(--white-rgb),.20)',
+    'chip-sheen': ('linear-gradient(115deg,rgba(var(--white-rgb),.95) 0%,'
+                   'rgba(var(--white-rgb),.35) 20%,rgba(var(--white-rgb),0) 46%)'),
 }
 
 PARES = [
@@ -129,8 +146,50 @@ body{background:var(--bg)}
 /* A sombra e azul sobre claro; sobre escuro ela desaparece. Quem separa as
    superficies passa a ser a borda. */
 .card,.includes li,blockquote.quote,.faq details{box-shadow:none}
-.card:hover{box-shadow:none;border-color:var(--gold)}
 .finalcta .box{box-shadow:none}
+
+/* ---- O CARTAO ESCURO GANHOU MATERIAL (06/09/2026) ----
+   Vem de aurumclinic.org, e conserta um buraco que a regra logo acima abria:
+   na versao clara o cartao se separa do chao por SOMBRA (--sh-sm); sobre escuro
+   sombra azul nao existe, entao ela era zerada e sobrava um fio de 1px chapado.
+   O cartao ficava sem material — e era ele que ia receber o chip de icone.
+   🔑 SOBRE FUNDO ESCURO NAO SE USA SOMBRA POR BAIXO, SE USA LUZ POR CIMA.
+   Sao tres camadas, todas medidas no DOM da referencia:
+   1) `--ring` — a borda vira um DEGRADE vertical: 22% na aresta de cima, 5% ja
+      aos 6% da altura, 3% no miolo e 8% na de baixo. E a quina superior pegando
+      luz. Um fio de opacidade constante nao faz isso: ele desenha o contorno
+      inteiro e le como caixa, nao como superficie iluminada.
+   2) o fio interno de 1px no topo (`inset`), que e o reflexo na propria quina.
+   3) a sombra de contato preta embaixo — preta, e nao azul: ela e ausencia de
+      luz, e sobre um chao ja azul a sombra azul nao escurece nada.
+   ⚠️ O TRUQUE E DE DUAS CAIXAS DE FUNDO: `padding-box` pinta a superficie e
+   `border-box` pinta a faixa da borda. Para isso a borda precisa existir com
+   largura e ser TRANSPARENTE — `border-color:transparent`, nunca `border:none`.
+   Sem largura declarada nao ha faixa de border-box para o degrade ocupar.
+   ⚠️ E POR ISSO QUE CADA FAMILIA DE CARTAO APARECE SEPARADA ABAIXO: o primeiro
+   plano de `background` tem de ser a cor daquele cartao (--white nos claros de
+   origem, --navy-700 nos que ja nasceram escuros). Nao da para unificar numa
+   regra so sem achatar os dois degraus de superficie que a pagina tem. */
+:root{--ring:linear-gradient(180deg,rgba(var(--white-rgb),.22) 0%,rgba(var(--white-rgb),.05) 6%,rgba(var(--white-rgb),.03) 94%,rgba(var(--white-rgb),.08) 100%);
+  --card-lift:inset 0 1px 0 rgba(var(--white-rgb),.07),0 10px 30px rgba(0,0,0,.26)}
+/* ⚠️ A SUPERFICIE VAI COMO GRADIENTE, NAO COMO COR — e nao e estilo, e sintaxe.
+   No atalho `background` com varias camadas, a COR so pode aparecer na ULTIMA.
+   Escrito como `var(--white) padding-box,var(--ring) border-box` o navegador
+   descarta o plano de cor inteiro: medido, o cartao voltou `background-color:
+   rgba(0,0,0,0)` e sumiu contra o chao. `linear-gradient(cor,cor)` e a mesma
+   cor chapada expressa como IMAGEM, que pode ocupar a primeira camada. */
+.card{border-color:transparent;
+  background:linear-gradient(var(--white),var(--white)) padding-box,var(--ring) border-box;
+  box-shadow:var(--card-lift)}
+.step{border-color:transparent;
+  background:linear-gradient(var(--navy-700),var(--navy-700)) padding-box,var(--ring) border-box;
+  box-shadow:var(--card-lift)}
+/* No hover a luz sobe junto com o cartao, em vez de sumir. O ouro entra so no
+   fio — o mesmo gesto do chip la dentro, que tambem acende a borda e nao o
+   fundo. ⚠️ `border-color` opaco cobre o degrade de border-box: e o que faz o
+   contorno virar ouro inteiro no hover, e e o efeito desejado. */
+.card:hover{border-color:rgba(var(--gold-rgb),.55);
+  box-shadow:inset 0 1px 0 rgba(var(--white-rgb),.10),0 16px 40px rgba(0,0,0,.34)}
 
 /* Borda de 2px em azul sobre cartao azul e invisivel: passa a ouro. */
 .aud-yes{border-color:var(--gold)}

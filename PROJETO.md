@@ -50,7 +50,7 @@ Os comparativos temporários (`_variacoes-*.html`, `comparacao.html`, `secao7.ht
 
 1. **CAIXA ALTA DOS TÍTULOS.** O arquivo da Goldoni não tem caixa baixa, então **todos os títulos da página renderizam em maiúsculas**. Isso contraria uma decisão registrada aqui ("título em caixa alta — testado e descartado"). Três saídas foram oferecidas e nenhuma escolhida. Ver "Tipografia" abaixo.
 2. **Depoimentos** — três placeholders no ar e **sem nenhum aviso na tela**. Bloqueia a publicação.
-3. **As fotos** — ✅ slots 2, 3, 4, 5 e 6 preenchidos em 05/09. **Faltam o 1 e o 7.**
+3. **As fotos** — ✅ slots 1, 2, 3, 4, 5 e 6 preenchidos em 05/09. **Falta só o 7** (CTA final). ⚠️ Corrigido em 06/09: este item dizia que o Slot 1 faltava, e ele já estava no ar desde o commit cef30c8.
 4. **Ritmo de imagem** — seções 4 e 5 estruturalmente idênticas (vertical à direita nas duas). Correção sugerida abaixo, não aplicada.
 5. **Seção 7** — duas perguntas abertas para o Dr. Rafael: o plano alimentar volta? Os retornos precisam aparecer?
 6. **CTA final** — sugestão nº1 levantada e **não aplicada**: remover `max-width:44ch` do `.inner`. Ver "Seção 12" abaixo.
@@ -792,6 +792,227 @@ porque mexem em seções que o usuário não pediu:
   candidatas do Slot 1 e reconfirmado aqui. O papel do card 3 tem só traçado. **Ao regerar,
   conferir a olho se apareceu palavra.**
 
+### 🔆 Sessão de 06/09/2026 — os ícones voltaram, como VIDRO
+
+O usuário reabriu a remoção de 05/09: *"não precisava tirar os ícones dos cards, eu só
+gostaria de colocar de uma melhor forma"* — e mandou **`aurumclinic.org/blefaroplastia/`**
+de referência, pedindo a análise dela inteira, não só o chip.
+
+🔑 **A referência é quase um espelho deste projeto, e isso é o que a torna útil:** médico,
+Florianópolis, página escura, **Montserrat no corpo** (a mesma daqui) e uma paleta que quase
+coincide com a da marca — ouro `#B89C6A` contra o nosso `#BD9853`, creme `#F4F3EE` contra
+`#F3F4F0`, chão `#0A1626` contra o nosso `#0F1729`. Ou seja: dá para comparar decisão por
+decisão sem descontar diferença de linguagem.
+
+#### 🔑 O DIAGNÓSTICO: O DEFEITO NÃO ERA O ÍCONE, ERA O SELO
+
+O chip antigo era um **quadrado de ouro sólido de 46px** com o ícone vazado em azul. Medido
+contra a referência, ele errava em duas frentes ao mesmo tempo:
+
+1. **Competia com os CTAs.** Ouro cheio é a assinatura dos botões — a única outra coisa
+   sólida e dourada da página. Oito selos daquele tamanho numa grade diluíam o gesto.
+2. **Gastava o ouro que a regra 3 manda usar com moderação.** Era o mesmo incômodo que já
+   tinha derrubado os checks da barra de prova (03/09) e os discos numerados dos passos (05/09).
+
+**A referência resolve invertendo o material: o chip vira VIDRO.** Medido no DOM dela —
+
+| | chip antigo daqui | `.icon-chip` da referência | aplicado |
+|---|---|---|---|
+| tamanho | 46px | **52px** | 52px |
+| fundo | **ouro sólido** | degradê da cor CLARA, 5–20% de alfa | idem, tokenizado |
+| borda | nenhuma | 1px da cor clara a 28% | 26% |
+| ícone | azul sobre ouro | **branco, traço 1.6** | creme, traço 1.6 |
+| raio | 16px | 10px | **8px** (`--r-sm`) |
+
+⚠️ **O RAIO É 8px E NÃO OS 10px DA REFERÊNCIA, de propósito.** A escala de raio da página é
+8/16/24/32 e o sistema de imagem manda **não inventar raio novo**. A 52px a diferença entre 8
+e 10 não se lê; um quinto valor na escala, sim. (Pela regra de raio concêntrico o certo aqui
+seria ainda menor: raio externo 24 menos padding 26 dá zero.)
+
+⚠️ **O TRAÇO DE 1.6 NÃO É DETALHE.** Os ícones antigos vinham em **2.2** e, dentro de um
+quadrado de acento, precisavam mesmo desse peso para não sumir. Sobre vidro o 2.2 vira borrão:
+o ícone passa a ser a única coisa desenhada no chip. Os checks de "Para quem é" **seguem em 3**
+— lá o símbolo é marca de lista, não ilustração.
+
+🔑 **E o ouro não se perdeu: ele voltou a ser acento.** Some dos 8 selos e reaparece só onde
+decide alguma coisa — no `<em>` do H1, nos CTAs, no painel de fatores, no tick do "O que
+inclui" e agora na **borda do chip no hover**.
+
+#### ✅ AS TINTAS SÃO RELATIVAS, E É ISSO QUE FAZ O CHIP SOBREVIVER À INVERSÃO
+
+O chip existe nas duas versões com **a mesma forma, a mesma medida e o mesmo traço** — muda só
+**de que lado da escala vem a tinta**. São 5 tokens novos no `:root` do `index-white.html`,
+trocados pelo `gerar-dark.py`:
+
+| token | claro (tinta do AZUL sobre cartão branco) | escuro (tinta do CREME sobre cartão azul) |
+|---|---|---|
+| `--chip-bg` | `rgba(navy,.10 → .03 → .07)` | `rgba(255,255,255,.16 → .04 → .09)` |
+| `--chip-border` | `rgba(navy,.20)` | `rgba(255,255,255,.26)` |
+| `--chip-ink` | `var(--navy)` | `var(--off)` |
+| `--chip-inset` | branco a 55% | branco a 20% |
+| `--chip-sheen` | branco a **.30** | branco a **.95** |
+
+⚠️ **O BRILHO É TOKEN PORQUE ELE INVERTE DE FORÇA.** Ele pinta em `mix-blend-mode:screen`,
+que só **clareia**. Sobre o cartão escuro isso desenha o reflexo e é o que faz o chip parecer
+vidro; sobre o cartão **branco não há o que clarear**, e o valor da referência (.95) apagaria a
+quina superior esquerda do chip. No claro ele fica quase inerte de propósito — lá quem desenha
+o chip é a borda mais a tinta do fundo.
+
+#### ✅ O CARTÃO ESCURO GANHOU MATERIAL — e isso fechou um buraco antigo
+
+Não estava no pedido, mas o chip não se sustentava sem: **o cartão da versão escura estava
+chapado.** O `gerar-dark.py` zera todas as sombras (`box-shadow:none`), com razão — sombra azul
+sobre fundo azul não existe —, e o que sobrava era um fio de 1px e mais nada. Um chip de vidro
+sobre uma superfície sem material fica órfão.
+
+🔑 **SOBRE FUNDO ESCURO NÃO SE USA SOMBRA POR BAIXO, SE USA LUZ POR CIMA.** É o que a
+referência faz, em três camadas medidas no DOM dela:
+
+1. **`--ring`** — a borda vira **degradê vertical**: 22% na aresta de cima, 5% já aos 6% da
+   altura, 3% no miolo, 8% na de baixo. É a quina superior pegando luz. Um fio de opacidade
+   constante não faz isso: desenha o contorno inteiro e lê como caixa, não como superfície.
+2. **fio interno de 1px no topo** (`inset`), o reflexo na própria quina.
+3. **sombra de contato PRETA** embaixo — preta e não azul: ela é ausência de luz, e sobre um
+   chão já azul a sombra azul não escurece nada.
+
+Aplicado em `.card` e `.step`. No hover a luz **sobe junto** com o cartão em vez de sumir, e o
+ouro entra só no fio — o mesmo gesto do chip lá dentro.
+
+🚨 **UM BUG REAL DE SINTAXE, E ELE FALHA CALADO.** A primeira versão saiu como
+`background:var(--white) padding-box,var(--ring) border-box` e **o cartão ficou transparente**.
+No atalho `background` com várias camadas, a **COR só pode aparecer na ÚLTIMA**; numa camada
+anterior o navegador descarta o plano inteiro sem erro de console. Medido:
+`background-color: rgba(0,0,0,0)`. A forma correta é `linear-gradient(cor,cor)` — a mesma cor
+chapada expressa como **imagem**, que pode ocupar a primeira camada. ⚠️ E a borda precisa
+existir com largura e ser `border-color:transparent`, **nunca `border:none`** — sem largura não
+há faixa de `border-box` para o degradê ocupar.
+
+#### ⚠️ OS NÚMEROS 1‑2‑3‑4 DOS DIFERENCIAIS **NÃO** VOLTARAM — decisão minha, reversível
+
+Os 8 chips que saíram em 05/09 eram **4 ícones** (seção 3) e **4 números** (Diferenciais). O
+pedido foi pelos ícones. Os números saíram por um motivo **diferente e mais forte**: numeravam
+quatro diferenciais que **não são uma sequência**, e numerar o que não tem ordem mente sobre a
+hierarquia.
+
+**Então os Diferenciais receberam ÍCONE, como a seção 3** — lupa (investigar), controles
+(individualizar), linha que sobe e se mantém (manter), frasco (ciência). O motivo de não deixar
+a seção sem nada: **é o mesmo componente `.card` nas duas**, e ter chip numa e não na outra
+leria como descuido. Se quiser os números de volta, é troca de markup, não de CSS.
+
+#### ✅ O QUE FOI CONFERIDO
+
+- **Auditoria de contraste do DOM: 152 elementos, 0 reprovados.**
+- **Ícone dentro do chip:** 7,04–11,36:1 no escuro (varia com o degradê) e 12,1–13,9:1 no
+  claro. Muito acima de qualquer limiar.
+- ⚠️ **A borda do chip dá 2,30:1 (escuro) e 1,49:1 (claro) contra o cartão — e está certo.**
+  Ela é decorativa: o chip é `aria-hidden`, não é controle e não carrega informação que não
+  esteja no título logo abaixo. O 3:1 da WCAG 1.4.11 vale para componente que identifica um
+  controle. **É justamente por não informar nada que ele pode ser silencioso.**
+- **Sem estouro horizontal** a 1280 e 375px; **console limpo**; todas as requisições 200.
+- **Zero requisição nova** — os SVG são inline e os 5 tokens não pesam nada.
+- Versão clara conferida junto, para o arquivo-fonte não ficar quebrado.
+
+#### 🚨 O RITMO VERTICAL ESTAVA INERTE EM 5 DAS 11 SEÇÕES NO CELULAR (06/09/2026)
+
+O usuário mandou print do "Sobre" no iPhone: *"no mobile o padding tá maior nessa seção do
+que nas outras"*. Estava — e era **o dobro**.
+
+🔑 **A CAUSA É ESPECIFICIDADE, E MEDIA QUERY NÃO AJUDA NISSO.** O breakpoint de 768px trazia
+`main section{padding:var(--s8) 0}` para achatar tudo em 64px no telefone. Só que ele é
+**(0,0,2)**, e as duas regras do ritmo são **ID, (1,0,0)**:
+
+```
+#sobre,#agendar{padding:var(--sec-air) 0}                 /* 128px */
+#diferenciais,#inclui,#para-quem{padding:var(--sec-tight) 0}  /* 80px */
+```
+
+**Media query não soma especificidade** — ela só liga ou desliga o bloco. As regras de ID
+venciam dentro do breakpoint exatamente como venciam fora dele, e a linha do celular nunca
+encostou nelas. Medido a 375px:
+
+| seções | tinha | devia ter | virou |
+|---|---|---|---|
+| início · reconhece · mecanismo · como-funciona · depoimentos · dúvidas | 64px ✅ | 64 | **64** |
+| diferenciais · inclui · para-quem | **80px** | 64 | **56** |
+| **sobre · agendar** | **128px** | 64 | **80** |
+
+**128px num aparelho de 375px é um terço da largura da tela só de vão** — por isso foi essa
+que o usuário viu, e não as de 80.
+
+✅ **A CORREÇÃO É NOS TOKENS, NÃO NUMA REGRA MAIS FORTE.** Redefinir `--sec-*` dentro do
+breakpoint conserta a **causa**: as três regras de ID continuam valendo e passam a ler os
+valores do celular sozinhas.
+
+```css
+@media(max-width:768px){ :root{--sec-tight:56px;--sec-base:64px;--sec-air:80px} }
+```
+
+⚠️ **Subir a especificidade seria contornar, não consertar.** `main section#sobre` — ou pior,
+`!important` — resolveria estas cinco e deixaria a **próxima seção com id** cair na mesma
+armadilha, sem aviso. A regra `main section{padding:var(--s8) 0}` foi removida: com os tokens
+certos ela virou redundante (`main section` já usa `var(--sec-base)`).
+
+⚠️ **O RITMO SOBREVIVE, COMPRIMIDO — não foi achatado em 64 para todos.** Os três degraus
+existem porque as 11 seções em 96/96 liam como template. O que muda no telefone é a
+**amplitude**: no desktop a razão ar/base é 128/96 = **1,33**; no celular é 80/64 = **1,25**.
+Mais fechada de propósito — no estreito as grades viram uma coluna só e as seções já ficam
+altas, então ar em cima de seção alta vira rolagem morta, não pausa.
+
+✅ **Conferido:** a 375px a página caiu de **16.085 para 15.749px (−336px)**, sem estouro
+horizontal. **Desktop intacto** — a 1280px os valores seguem 80/96/128 e a altura em 10.208px,
+porque a redefinição vive dentro do breakpoint. O "antes" foi medido reproduzindo o estado
+antigo na mesma carga (tokens de desktop + a regra `main section`), e ele devolveu exatamente
+os 64/128/80 registrados na tabela acima — não é conta de guardanapo.
+
+⚠️ **Se um dia quiser todas iguais no celular, o certo continua sendo mexer aqui:** os três
+tokens no mesmo valor. **Não voltar a regra `main section`** — ela vai perder para os ids de novo.
+
+#### 🚨 O GRÃO DA REFERÊNCIA FOI ANALISADO E **NÃO** APLICADO — e o motivo é do ambiente
+
+A referência põe uma textura de ruído sobre os cartões (`feTurbulence` num data-URI de SVG,
+`opacity:.28`, `mix-blend-mode:overlay`). **É o recurso dela que mais combate a "cara de IA"** —
+mata banding e dá superfície de material a campos escuros chapados. Era o candidato mais forte
+depois do chip.
+
+🚨 **MAS `feTurbulence` NÃO PINTA NO PREVIEW EMBUTIDO.** Provado, não suposto: o data-URI
+**carrega** (`new Image()` devolve `200x200`), e ainda assim o elemento renderiza **invisível
+com `opacity:1` e sem blend nenhum**. Quatro faixas comparadas a 1:1 (sem grão · .10 · .18 ·
+.28) saíram **pixel a pixel idênticas**.
+
+**Por isso não foi aplicado:** este projeto decide vendo, e eu não consigo ver. Aplicar um
+efeito que cobre a página inteira sem poder julgá-lo seria entregar no escuro. ⚠️ **Se for
+adiante, tem de ser conferido em navegador real** — e note que `mix-blend-mode` sobre área
+grande tem custo de composição em GPU de celular.
+
+⚠️ **ARMADILHA #4 DO PREVIEW**, para a lista que já tem `IntersectionObserver` que não dispara,
+`currentSrc` que mente e captura antes da pintura: **filtro SVG não renderiza.** Some das
+capturas sem erro no console.
+
+#### ❌ O QUE A REFERÊNCIA TEM E **NÃO** FOI TRAZIDO
+
+- **Os eyebrows.** Ela usa muito (pílula de 12px, caixa alta, tracking .18em, borda dourada).
+  **Estão banidos aqui desde 03/09**, e a regra diz explicitamente "nem como variação (kicker,
+  tag, numeração de seção)". Não reabrir sem o usuário pedir.
+- **Títulos em peso 200/300.** A Goldoni tem **um peso só** — não é transferível.
+- **O brilho que segue o cursor** (`radial-gradient` em `--mx`/`--my` atualizado por
+  `mousemove`). Custa um listener por cartão e é exatamente o tipo de efeito que lê como
+  "template com plugin". O material novo já resolve o hover.
+- **O carrossel de benefícios** e as **setas circulares** — a página não tem conteúdo em
+  carrossel e o FAQ já resolve conteúdo longo.
+
+#### 📌 DÍVIDA DE DOCUMENTAÇÃO ENCONTRADA NESTA SESSÃO
+
+O `PROJETO.md` estava **três commits atrás** do código (`cef30c8`, `9bb038d`, `ad43192` não o
+tocaram). Conferido no arquivo:
+
+- ✅ **O Slot 1 está PREENCHIDO** (`dr-rafael-reconhece-*`, imagem gerada). Falta **só o 7**.
+- ✅ **Os 7 links de WhatsApp estão ligados** (`wa.me/5548999709753`), mais endereço no FAQ e
+  no rodapé e o Instagram.
+- ✅ A tipografia foi **recalibrada para caixa alta** (entrelinha 1.16, tracking 0, H1 com teto
+  de 56px e piso de 28px) e o **anel de foco invisível** foi corrigido.
+- ⚠️ **Continuam bloqueando a publicação:** os 3 depoimentos-placeholder, o `[Informar:
+  convênios…]` visível no FAQ, o Slot 7 e as três salvaguardas removidas do rodapé.
+
 #### ⚠️ DUAS ARMADILHAS NOVAS DO PREVIEW, confirmadas nesta sessão
 
 1. 🚨 **`document.getAnimations().forEach(a=>a.pause())` CONGELA O `.reveal` NO MEIO DO
@@ -1174,7 +1395,7 @@ Os slots 2 e 3 já estão preenchidos; restam **1, 4, 5, 6 e 7**.
 
 | Slot | Seção | Formato | Tamanho sugerido |
 |---|---|---|---|
-| 1 | Você se reconhece? (esquerda) | ⚠️ **0,62, não 3:4** — medido em 425×686; gerar em **2:3** | ~1700×2530 |
+| 1 | ✅ **PREENCHIDO 05/09** — imagem **gerada** (`dr-rafael-reconhece-*`). ⚠️ O slot é **0,62, não 3:4** — medido em 425×686, porque `.figure.fill` estica junto com a coluna de cartões. Ao trocar, gerar em **2:3** e recortar para 0,62 | feito |
 | 2 | ✅ **PREENCHIDO 05/09** — foto 23 do ensaio | 3:4 (recorte 1365×1820) | feito |
 | 3 | ✅ **PREENCHIDO 05/09** — foto **12** (a 28 ocupou o slot mais cedo no mesmo dia e saiu) | **4:5**, recorte **1092×1365 a partir de x=481** — a original é HORIZONTAL, então joga fora largura, não altura | feito |
 | 4·5·6 | ✅ **PREENCHIDOS 05/09** — imagens **geradas** (o ensaio não tem cena clínica) | 3:2 real, sem `.fill` | feito |

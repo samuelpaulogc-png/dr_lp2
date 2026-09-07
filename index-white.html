@@ -59,6 +59,35 @@
   /* Listras dos placeholders */
   --ph-dark-a:#273250; --ph-dark-b:#37415D; --ph-light-b:#EAEAE4;
 
+  /* ---- O CHIP DE ICONE (06/09/2026) — a partir de aurumclinic.org ----
+     O chip antigo era um QUADRADO DE OURO SOLIDO de 46px com o icone em azul
+     vazado. Ele nao foi removido por ser icone: foi removido por ser um SELO —
+     mancha cheia de acento, do tamanho de um botao, repetida 4 ou 8 vezes numa
+     grade. Isso e o que le como template, e e o que a regra 3 chama de "use o
+     ouro com moderacao".
+     A referencia resolve o mesmo problema com o material invertido: o chip vira
+     VIDRO — quase transparente, com um fio de contorno e o icone em TINTA, nao
+     em acento. Medido no DOM dela: 52x52, raio 10px, fundo em degrade da cor
+     CLARA a 5-20% de alfa, borda 1px a 28%, icone de 22px com traco de 1.6.
+     🔑 O ouro sai do chip e nao se perde: ele volta a ser o que a marca pede,
+     um acento pontual, em vez de 8 selos cheios numa pagina so.
+     ⚠️ SAO TINTAS RELATIVAS, NAO CORES FIXAS — e por isso funcionam nas duas
+     versoes. Aqui o chip e uma tinta do AZUL sobre o cartao claro; na versao
+     escura o gerar-dark.py troca os quatro tokens por tintas do CREME. A forma,
+     as medidas e o traco do icone nao mudam; muda so de que lado da escala vem
+     a tinta. */
+  --chip-bg:linear-gradient(155deg,rgba(var(--navy-rgb),.10) 0%,rgba(var(--navy-rgb),.03) 45%,rgba(var(--navy-rgb),.07) 100%);
+  --chip-border:rgba(var(--navy-rgb),.20);
+  --chip-ink:var(--navy);
+  --chip-inset:inset 0 1px 0 rgba(var(--white-rgb),.55);
+  /* ⚠️ O BRILHO E TOKEN PORQUE ELE INVERTE DE FORCA ENTRE AS DUAS VERSOES.
+     Ele pinta em `screen`, que so CLAREIA. Sobre o cartao escuro isso desenha o
+     reflexo e e o que faz o chip parecer vidro. Sobre o cartao BRANCO nao ha o
+     que clarear — no claro ele fica quase inerte de proposito, e quem desenha o
+     chip ali e a borda mais a tinta do fundo. Forcar o mesmo valor nos dois
+     lados apagaria a quina superior esquerda do chip na versao clara. */
+  --chip-sheen:linear-gradient(115deg,rgba(var(--white-rgb),.30) 0%,rgba(var(--white-rgb),.10) 20%,rgba(var(--white-rgb),0) 46%);
+
   /* A MEDIDA. Titulo de secao e o subtitulo dele dividem esta largura — e a
      regra que a referencia ablocacoesdeveiculos.com segue e que dava a maior
      desarmonia aqui (o titulo vinha em 511px e a intro em 675px).
@@ -350,16 +379,48 @@ h1,h2,h3{font-family:"Goldoni","Playfair Display",Georgia,serif;font-weight:600;
   transition:transform var(--mo-2) var(--ease),box-shadow var(--mo-2) var(--ease),border-color var(--mo-2) var(--ease)}
 .card:hover{box-shadow:var(--sh-md);transform:translateY(-4px);border-color:transparent}
 .card:active{transform:translateY(-1px)}
-/* ⚠️ `.card .ic` FOI REMOVIDA (05/09/2026) junto com os 8 chips do HTML: os 4
-   icones de linha do "Voce se reconhece?" e os 4 numeros dos Diferenciais.
-   Os icones eram decorativos — seta circular, raio, documento, coracao — e nao
-   acrescentavam informacao nenhuma ao titulo logo abaixo. Conjunto de icone
-   generico e um dos sinais mais diretos de template, e os checks da barra de prova
-   ja tinham saido por esse mesmo incomodo em 03/09; ficou pela metade ate agora.
-   Os NUMEROS eram pior que decorativos: numeravam 1-4 quatro diferenciais que NAO
-   sao uma sequencia. Numerar o que nao tem ordem e mentir sobre a hierarquia — e
-   era, ainda por cima, o mesmo disco dourado que saiu dos passos hoje de manha.
-   Regra morta sai junto, mesmo criterio dos eyebrows e do .portrait .mono. */
+/* ---- O CHIP DE ICONE VOLTOU, COMO VIDRO (06/09/2026) ----
+   Historico curto, porque ele decide o que NAO fazer aqui: em 05/09 os 8 chips
+   sairam (4 icones no "Voce se reconhece?", 4 numeros nos Diferenciais). O
+   usuario pediu os icones de volta — "nao precisava tirar, eu so queria de uma
+   forma mais bonita" — e mandou aurumclinic.org de referencia.
+   🔑 O DEFEITO NAO ERA O ICONE, ERA O SELO. O chip antigo era ouro SOLIDO em
+   46px: uma mancha cheia de acento, do tamanho de um botao, repetida 8 vezes.
+   Duas coisas erradas de uma vez — competia com os CTAs (a unica outra coisa
+   dourada e cheia da pagina) e gastava o ouro que a regra 3 manda usar com
+   moderacao. A referencia faz o oposto: chip quase transparente, fio de
+   contorno, e o icone em TINTA. Medido no DOM dela — 52x52, icone de 22px,
+   traco 1.6, fundo em degrade da cor clara entre 5% e 20% de alfa.
+   ⚠️ O TRACO DE 1.6 NAO E DETALHE. Os icones antigos vinham em 2.2 e, num
+   quadrado de acento, precisavam mesmo desse peso para nao sumir. Sobre vidro o
+   2.2 vira borrao: o icone passa a ser a unica coisa desenhada no chip, entao
+   ele fica fino e preciso. Os checks de "Para quem e" seguem em 3 de proposito —
+   la o simbolo e marca de lista, nao ilustracao.
+   ⚠️ RAIO EM --r-sm (8px) E NAO OS 10px DA REFERENCIA. A pagina tem uma escala
+   de raio de 8/16/24/32 e o sistema de imagem do PROJETO.md manda nao inventar
+   raio novo. A 52px a diferenca entre 8 e 10 nao se le; um quinto valor na
+   escala, sim.
+   ⚠️ OS NUMEROS 1-2-3-4 DOS DIFERENCIAIS NAO VOLTARAM, e isso e deliberado.
+   Eles sairam por um motivo diferente dos icones: numeravam quatro diferenciais
+   que NAO sao uma sequencia, e numerar o que nao tem ordem mente sobre a
+   hierarquia. Aquela secao recebeu ICONE, como a secao 3 — e o mesmo componente
+   .card nas duas, entao ter chip numa e nada na outra leria como descuido. */
+.ic{width:52px;height:52px;border-radius:var(--r-sm);margin-bottom:var(--s5);
+  display:grid;place-items:center;position:relative;overflow:hidden;
+  background:var(--chip-bg);border:1px solid var(--chip-border);
+  color:var(--chip-ink);box-shadow:var(--chip-inset)}
+/* O BRILHO DIAGONAL. E o que separa "vidro" de "quadrado com borda": uma faixa
+   clara atravessando o canto superior esquerdo, como reflexo. Sem ele o chip
+   fica chapado e o degrade do fundo nao se percebe.
+   `mix-blend-mode:screen` para clarear o que estiver embaixo em vez de pintar
+   por cima — assim a mesma regra serve as duas versoes da pagina. */
+.ic::before{content:"";position:absolute;top:-70%;left:-35%;width:80%;height:220%;
+  transform:rotate(-20deg);pointer-events:none;mix-blend-mode:screen;
+  background:var(--chip-sheen)}
+.ic svg{position:relative;z-index:1;width:22px;height:22px}
+/* O chip acompanha o cartao no hover: o cartao sobe, e o fio do chip acende.
+   Sem isso o cartao se move e o chip parece colado num plano diferente. */
+.card:hover .ic{border-color:rgba(var(--gold-rgb),.55)}
 /* Sem line-height nem letter-spacing proprios: herdam 1.08 / -.02em de h1,h2,h3,
    que e a entrelinha unica de titulo da pagina. O font-weight:800 tambem saiu —
    era inerte, a Goldoni tem um peso so. */
@@ -822,7 +883,33 @@ footer b,footer strong{color:var(--off)}
   .finalcta .figure.r-34{aspect-ratio:9/8;border-radius:0}
 }
 @media(max-width:768px){
-  main section{padding:var(--s8) 0}
+  /* ---- 🚨 O RITMO VERTICAL ESTAVA QUEBRADO NO CELULAR (06/09/2026) ----
+     Aqui havia `main section{padding:var(--s8) 0}`, que pretendia achatar as 11
+     secoes em 64px no telefone. Ele estava INERTE em cinco delas, e ninguem viu
+     ate o usuario mandar print do "Sobre".
+     🔑 A CAUSA E ESPECIFICIDADE, E MEDIA QUERY NAO AJUDA: `main section` e
+     (0,0,2); `#sobre,#agendar` e `#diferenciais,#inclui,#para-quem` sao ID,
+     (1,0,0). Media query NAO soma especificidade — ela so liga ou desliga o
+     bloco. Entao as regras de ID venciam aqui dentro exatamente como venciam no
+     desktop, e o breakpoint nao encostava nelas. Medido a 375px antes do
+     conserto: 64px na maioria, 80px em diferenciais/inclui/para-quem e
+     **128px em sobre e agendar** — o dobro do previsto, num aparelho onde 128px
+     e um terco da largura da tela so de vao.
+     ✅ POR ISSO A CORRECAO E NOS TOKENS, E NAO NUMA REGRA MAIS FORTE. Redefinir
+     `--sec-*` conserta a causa: as tres regras de ID continuam valendo e passam
+     a ler os valores do celular sozinhas. Subir a especificidade (`main
+     section#sobre`, ou pior, `!important`) so contornaria, e deixaria a proxima
+     secao com id cair na mesma armadilha.
+     ⚠️ O RITMO SOBREVIVE, COMPRIMIDO — nao foi achatado em 64 para todos. Os
+     tres degraus existem porque as 11 secoes em 96/96 liam como template (ver a
+     nota no :root). O que muda no telefone e a AMPLITUDE: no desktop a razao
+     ar/base e 128/96 = 1,33; aqui e 80/64 = 1,25. Mais fechada porque no
+     estreito as grades viram uma coluna so e as secoes ja ficam altas — ar em
+     cima de secao alta vira rolagem morta, nao pausa.
+     ⚠️ Multiplos de 4, como toda a escala de espaco da pagina.
+     ⚠️ Se um dia quiser TODAS iguais no celular, o certo continua sendo mexer
+     aqui: os tres tokens no mesmo valor. Nao voltar a regra `main section`. */
+  :root{--sec-tight:56px;--sec-base:64px;--sec-air:80px}
   .nav-links{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;
     gap:2px;background:var(--navy-900);border-bottom:1px solid rgba(var(--gold-rgb),.28);box-shadow:var(--sh-lg);
     padding:12px;display:none}
@@ -1014,18 +1101,30 @@ footer b,footer strong{color:var(--off)}
 
       <div class="cardgrid cols-2">
       <article class="card">
+        <div class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/></svg>
+        </div>
         <h3>O efeito sanfona que não acaba</h3>
         <p>Você perde peso, comemora e, alguns meses depois, está tudo de volta. Às vezes com alguns quilos a mais. Já perdeu a conta de quantas vezes recomeçou do zero.</p>
       </article>
       <article class="card">
+        <div class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>
+        </div>
         <h3>A disposição que sumiu</h3>
         <p>Cansaço o dia inteiro, aquela sensação de "corpo pesado", vontade de comer o tempo todo e a impressão de que seu corpo trabalha contra você.</p>
       </article>
       <article class="card">
+        <div class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h6"/></svg>
+        </div>
         <h3>As dietas genéricas que nunca duram</h3>
         <p>Você já seguiu a dieta da vizinha, o protocolo da internet, o cardápio que funcionou para todo mundo, menos para você. E ficou com a sensação de que o problema era falta de disciplina.</p>
       </article>
       <article class="card">
+        <div class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.35-9.5-8.5A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6.5C19 16.65 12 21 12 21Z"/><path d="m9.5 12 1.8 1.8L15 10"/></svg>
+        </div>
         <h3>A frustração de "já tentei de tudo"</h3>
         <p>Nutricionista, academia, remédio por conta própria, jejum, low carb. Você tentou. E cada tentativa que não durou machucou um pouco mais a sua confiança.</p>
       </article>
@@ -1148,18 +1247,30 @@ footer b,footer strong{color:var(--off)}
 
     <div class="cardgrid cols-2">
       <article class="card">
+        <div class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.9-3.9"/></svg>
+        </div>
         <h3>Investigação antes do plano</h3>
         <p>Nada de cardápio pronto no primeiro dia. Primeiro entendemos o que está travando o seu metabolismo, usando história, exames e composição corporal.</p>
       </article>
       <article class="card">
+        <div class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="8" cy="18" r="2"/></svg>
+        </div>
         <h3>Plano 100% individualizado</h3>
         <p>Seu corpo, sua rotina, suas preferências e suas limitações. O plano é feito para você conseguir seguir, e não para caber num modelo padrão.</p>
       </article>
       <article class="card">
+        <div class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-6 4 3 4-6"/><path d="M16 8h4v4"/><path d="M16 19h5"/></svg>
+        </div>
         <h3>Foco em manter o resultado</h3>
         <p>O objetivo não é a próxima balança boa. É você não precisar recomeçar nunca mais, com acompanhamento próximo e ajustes ao longo do caminho.</p>
       </article>
       <article class="card">
+        <div class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v6.2L4.6 18A2 2 0 0 0 6.3 21h11.4a2 2 0 0 0 1.7-3L14 9.2V3"/><path d="M9 3h6"/><path d="M7.5 15h9"/></svg>
+        </div>
         <h3>Ciência, sem modismo</h3>
         <p>Condutas baseadas em evidência, com uso responsável de medicações quando há indicação clínica, e sem promessas milagrosas.</p>
       </article>
